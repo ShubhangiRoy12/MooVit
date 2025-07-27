@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>Register - Transport Co.</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: url('transport-bg.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: #0A3D62; /* deep navy blue for trust and reliability */
+      color: #fff;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -22,62 +17,69 @@
     }
 
     .auth-container {
-      background-color: rgba(255, 255, 255, 0.9);
+      width: 360px;
       padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      width: 350px;
-      text-align: center;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.1); /* subtle translucent overlay */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
     .auth-container h2 {
-      margin-bottom: 20px;
-      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 24px;
+      color: #ECF0F1;
     }
 
     .auth-container label {
       display: block;
-      margin-bottom: 15px;
-      color: #34495e;
-      font-weight: bold;
-      text-align: left;
+      margin-bottom: 16px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #D0D7DE;
     }
 
-    .auth-container input[type="text"],
-    .auth-container input[type="email"],
-    .auth-container input[type="password"] {
+    .auth-container input {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #bdc3c7;
-      border-radius: 5px;
-      margin-top: 5px;
-      font-size: 14px;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      margin-top: 6px;
+      font-size: 15px;
+      background: #1E4E8C;
+      color: #fff;
+    }
+
+    .auth-container input::placeholder {
+      color: rgba(255,255,255,0.7);
     }
 
     .auth-container button {
       width: 100%;
-      padding: 10px;
-      background-color: #e77e23;
+      padding: 14px;
+      margin-top: 20px;
       border: none;
-      border-radius: 5px;
-      color: white;
+      border-radius: 4px;
+      background: #3498DB;
+      color: #fff;
       font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-top: 10px;
     }
 
     .auth-container button:hover {
-      background-color: #d35400;
+      background: #2980B9;
     }
 
     .auth-container p {
-      margin-top: 15px;
+      margin-top: 18px;
+      text-align: center;
       font-size: 14px;
     }
 
     .auth-container a {
-      color: #e67e22;
+      color: #76C7F0;
       text-decoration: none;
     }
 
@@ -86,22 +88,21 @@
     }
   </style>
 </head>
-
 <body>
   <div class="auth-container">
     <form id="register-form">
-      <h2>Sign Up at MooVit.</h2>
+      <h2>Sign Up at Transport Co.</h2>
       <label>Name
-        <input type="text" name="name" required>
+        <input type="text" name="name" placeholder="Your full name" required>
       </label>
       <label>Email
-        <input type="email" name="email" required>
+        <input type="email" name="email" placeholder="you@example.com" required>
       </label>
       <label>Password
-        <input id="pwd" type="password" required>
+        <input id="pwd" type="password" placeholder="Create password" required>
       </label>
       <label>Confirm Password
-        <input id="cpwd" type="password" required>
+        <input id="cpwd" type="password" placeholder="Confirm password" required>
       </label>
       <button type="submit">Register</button>
       <p>Already have an account? <a href="login.html">Login</a></p>
@@ -111,15 +112,14 @@
     document.getElementById('register-form').onsubmit = e => {
       e.preventDefault();
       const p = document.getElementById('pwd'),
-        cp = document.getElementById('cpwd');
+            cp = document.getElementById('cpwd');
       if (p.value !== cp.value) {
         alert('Passwords do not match');
         return;
       }
       alert('Registered!');
-      // redirect or further actions here
+      // further actions...
     };
   </script>
 </body>
-
 </html>
