@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Register - Transport Co.</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #0A3D62; /* deep navy blue for trust and reliability */
+      background: #0A3D62;
+      /* deep navy blue for trust and reliability */
       color: #fff;
       height: 100vh;
       display: flex;
@@ -20,8 +26,9 @@
       width: 360px;
       padding: 40px;
       border-radius: 8px;
-      background: rgba(255,255,255,0.1); /* subtle translucent overlay */
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      background: rgba(255, 255, 255, 0.1);
+      /* subtle translucent overlay */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
     .auth-container h2 {
@@ -51,7 +58,7 @@
     }
 
     .auth-container input::placeholder {
-      color: rgba(255,255,255,0.7);
+      color: rgba(255, 255, 255, 0.7);
     }
 
     .auth-container button {
@@ -88,6 +95,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="auth-container">
     <form id="register-form">
@@ -112,7 +120,7 @@
     document.getElementById('register-form').onsubmit = e => {
       e.preventDefault();
       const p = document.getElementById('pwd'),
-            cp = document.getElementById('cpwd');
+        cp = document.getElementById('cpwd');
       if (p.value !== cp.value) {
         alert('Passwords do not match');
         return;
@@ -120,6 +128,11 @@
       alert('Registered!');
       // further actions...
     };
+    document.getElementById('register-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      window.location.href = 'login.html';
+    });
   </script>
 </body>
+
 </html>
