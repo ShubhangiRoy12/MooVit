@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Register - Transport Co.</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="auth-container">
+    <form id="register-form">
+      <h2>Sign Up</h2>
+      <label>Name<input type="text" name="name" required></label>
+      <label>Email<input type="email" name="email" required></label>
+      <label>Password<input id="pwd" type="password" required></label>
+      <label>Confirm<input id="cpwd" type="password" required></label>
+      <button type="submit">Register</button>
+      <p>Already have an account? <a href="login.html">Login</a></p>
+    </form>
+  </div>
+  <script>
+    document.getElementById('register-form').onsubmit = e => {
+      e.preventDefault();
+      const p = document.getElementById('pwd'), cp = document.getElementById('cpwd');
+      if (p.value !== cp.value) { alert('Passwords do not match'); return; }
+      alert('Registered!');
+    };
+  </script>
+</body>
+
+</html>

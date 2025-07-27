@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Transport Co.</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="auth-container">
+    <form id="login-form">
+      <h2>Login</h2>
+      <label>Email<input type="email" name="email" required></label>
+      <label>Password<input type="password" name="password" required></label>
+      <button type="submit">Login</button>
+      <p>New? <a href="register.html">Register here</a></p>
+    </form>
+  </div>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      window.location.href = 'main.html';
+    });
+  </script>
+
+</body>
+
+</html>
