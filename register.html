@@ -4,17 +4,105 @@
 <head>
   <meta charset="UTF-8">
   <title>Register - Transport Co.</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: url('transport-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .auth-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    .auth-container h2 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .auth-container label {
+      display: block;
+      margin-bottom: 15px;
+      color: #34495e;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .auth-container input[type="text"],
+    .auth-container input[type="email"],
+    .auth-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #bdc3c7;
+      border-radius: 5px;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+    .auth-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #e77e23;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .auth-container button:hover {
+      background-color: #d35400;
+    }
+
+    .auth-container p {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .auth-container a {
+      color: #e67e22;
+      text-decoration: none;
+    }
+
+    .auth-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body>
   <div class="auth-container">
     <form id="register-form">
-      <h2>Sign Up</h2>
-      <label>Name<input type="text" name="name" required></label>
-      <label>Email<input type="email" name="email" required></label>
-      <label>Password<input id="pwd" type="password" required></label>
-      <label>Confirm<input id="cpwd" type="password" required></label>
+      <h2>Sign Up at MooVit.</h2>
+      <label>Name
+        <input type="text" name="name" required>
+      </label>
+      <label>Email
+        <input type="email" name="email" required>
+      </label>
+      <label>Password
+        <input id="pwd" type="password" required>
+      </label>
+      <label>Confirm Password
+        <input id="cpwd" type="password" required>
+      </label>
       <button type="submit">Register</button>
       <p>Already have an account? <a href="login.html">Login</a></p>
     </form>
@@ -22,9 +110,14 @@
   <script>
     document.getElementById('register-form').onsubmit = e => {
       e.preventDefault();
-      const p = document.getElementById('pwd'), cp = document.getElementById('cpwd');
-      if (p.value !== cp.value) { alert('Passwords do not match'); return; }
+      const p = document.getElementById('pwd'),
+        cp = document.getElementById('cpwd');
+      if (p.value !== cp.value) {
+        alert('Passwords do not match');
+        return;
+      }
       alert('Registered!');
+      // redirect or further actions here
     };
   </script>
 </body>
