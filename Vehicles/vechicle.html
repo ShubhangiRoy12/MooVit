@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>🚛 Vehicles – MooVit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vechicle.css">
+</head>
+
+<body>
+  <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
+    <h1>🚛 Vehicles</h1>
+    <a href="index.html" class="btn btn-light">← Home</a>
+  </header>
+  <main class="container my-4">
+    <div class="row g-3 mb-4">
+      <div class="col-md-3 stat-card">
+        <h5>Total Vehicles</h5>
+        <p>32</p>
+      </div>
+      <div class="col-md-3 stat-card">
+        <h5>In Transit</h5>
+        <p>18</p>
+      </div>
+      <div class="col-md-3 stat-card">
+        <h5>Under Maintenance</h5>
+        <p>4</p>
+      </div>
+      <div class="col-md-3 stat-card">
+        <h5>Available</h5>
+        <p>10</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2>Vehicle List</h2>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Vehicle ID</th>
+                <th>Model</th>
+                <th>Status</th>
+                <th>Last Location</th>
+                <th>Next Stop</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>VEH-001</td>
+                <td>Volvo FH16</td>
+                <td>In Transit</td>
+                <td>Indore</td>
+                <td>Bhopal</td>
+              </tr>
+              <tr>
+                <td>VEH-002</td>
+                <td>Mercedes Actros</td>
+                <td>Under Maintenance</td>
+                <td>Depot</td>
+                <td>---</td>
+              </tr>
+              <tr>
+                <td>VEH-003</td>
+                <td>Tata Prima</td>
+                <td>Available</td>
+                <td>Ujjain</td>
+                <td>---</td>
+              </tr>
+              <!-- more rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Vehicle Utilization Trend</h2>
+        </div>
+        <div class="card-body">
+          <canvas id="vehicleChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Optional: map showing vehicle locations -->
+    <section class="mt-4">
+      <div class="card">
+        <div class="card-header">
+          <h2>Live Vehicle Map</h2>
+        </div>
+        <div class="card-body p-0">
+          <div id="map-vehicles" style="height: 300px;"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="bg-light text-center py-2">&copy; 2025 Transport Co.</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js"></script>
+  <script src="vechicle.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.css" />
+</body>
+
+</html>

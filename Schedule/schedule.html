@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>📅 Schedule – MooVit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="schedule.css">
+</head>
+
+<body>
+  <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
+    <h1>📅 Schedule</h1>
+    <a href="index.html" class="btn btn-light">← Home</a>
+  </header>
+  <main class="container my-4">
+    <div class="row g-3 mb-4">
+      <div class="col-md-3 stat-card">
+        <h5>Scheduled Trips Today</h5>
+        <p>25</p>
+      </div>
+      <div class="col-md-3 stat-card">
+        <h5>Completed Trips</h5>
+        <p>18</p>
+      </div>
+      <div class="col-md-3 stat-card">
+        <h5>Pending Trips</h5>
+        <p>5</p>
+      </div>
+      <div class="col-md-3 stat-card">
+        <h5>Cancelled</h5>
+        <p>2</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2>Today's Schedule</h2>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Trip ID</th>
+                <th>Vehicle</th>
+                <th>Driver</th>
+                <th>Route</th>
+                <th>Departure</th>
+                <th>ETA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TRP-001</td>
+                <td>VEH-001</td>
+                <td>John</td>
+                <td>Indore → Bhopal</td>
+                <td>08:00</td>
+                <td>11:00</td>
+              </tr>
+              <tr>
+                <td>TRP-002</td>
+                <td>VEH-004</td>
+                <td>Priya</td>
+                <td>Indore → Ujjain</td>
+                <td>09:00</td>
+                <td>10:30</td>
+              </tr>
+              <tr>
+                <td>TRP-003</td>
+                <td>VEH-007</td>
+                <td>Rahul</td>
+                <td>Indore → Dewas</td>
+                <td>10:00</td>
+                <td>11:15</td>
+              </tr>
+              <!-- more rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Trip Completion Trend (Last 7 Days)</h2>
+        </div>
+        <div class="card-body">
+          <canvas id="scheduleChart"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="bg-light text-center py-2">&copy; 2025 Transport Co.</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="schedule.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+body { margin:0; font-family: Arial, sans-serif; }
+header, footer { background: #003366; color: white; text-align:center; padding:1em; }
+nav a { color: #f0f0f0; margin: 0 10px; text-decoration: none; }
+.grid-container {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.card {
+  background: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+}
+.card-content {
+  padding: 20px;
+  text-align: center;
+}
+.card .icon {
+  font-size: 3em;
+  display: block;
+  margin-bottom: 10px;
+}
+canvas {
+  margin-top: 10px;
+}
