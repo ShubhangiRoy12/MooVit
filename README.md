@@ -68,23 +68,22 @@ Try it now → https://moo-vit.vercel.app/
 '''bash
 git clone https://github.com/your-username/moovit.git
 cd moovit
-'''
+```
 
-'''
 2. Install backend dependencies:
+```bash
 cd backend
 pip install -r requirements.txt
-'''
-
-'''
+```
 3. Start the backend server:
+```bash
 python app.py
-'''
+```
 
 4. For frontend, deploy the frontend/ folder on Vercel or use a static server locally.
 
 
-📋 Use Cases
+##📋 Use Cases
 
 -Assist visually impaired users with voice-based object alerts
 -Help logistics teams plan safe and efficient routes
@@ -92,7 +91,7 @@ python app.py
 -Provide safety prompts in traffic-heavy or high-risk zones
 -Enable face tracking to follow companions in crowded areas
 
-🚧 Future Plans
+##🚧 Future Plans
 
 -Add multilingual voice support
 -GPS-based live routing for shipment vehicles
@@ -101,7 +100,7 @@ python app.py
 -Public API for integration with logistics and assistive apps
 
 
-🤝 Contributing
+##🤝 Contributing
 
 -We welcome contributions! You can help with:
 -Improving detection accuracy
@@ -115,7 +114,7 @@ Steps:
 3. Commit your changes
 4. Push and open a PR
 
-# Contibutors
+## Contibutors
 @ShubhangiRoy12 - ML Developer
 @omroy07 - Project Admin and Web Developer
 
