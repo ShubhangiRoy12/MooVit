@@ -65,7 +65,7 @@ Try it now → https://moo-vit.vercel.app/
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/shubhangiroy12/moovit.git
+git clone https://github.com/ShubhangiRoy12/moovit.git
 cd moovit
 ```
 
