@@ -30,7 +30,6 @@ Try it now → https://moo-vit.vercel.app/
 - Route safety planner: avoid known hazard zones or restricted areas
 - Traffic awareness: highlights signals, signs, and crossing points
 - Upload images or use live camera feed for detection
-- Modular system with scope for wearable integration
 
 ---
 
