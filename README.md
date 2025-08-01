@@ -23,7 +23,7 @@ Try it now → https://moo-vit.vercel.app/
 
 ## ✨ Features
 
-- Detects vehicles, people, animals, signals, and sharp/dangerous objects
+- Detects vehicles, people, signals, and sharp objects
 - Recognizes known faces to help visually impaired users follow familiar people
 - Real-time voice alerts based on camera/video input
 - Vehicle shipment schedule module: input shipment data, receive route timelines
@@ -38,7 +38,6 @@ Try it now → https://moo-vit.vercel.app/
 ### Computer Vision & AI
 - YOLOv8 / YOLOv11 / YOLOv12 – object detection
 - OpenCV – image and video stream processing
-- DeepFace / FaceNet / Dlib – face recognition
 - TensorFlow / PyTorch – model training and inference
 
 ### Web & Voice Interaction
@@ -46,7 +45,7 @@ Try it now → https://moo-vit.vercel.app/
 - Python + Flask / FastAPI – backend server and APIs
 - Canvas API – draw detection boxes in real-time
 - MediaDevices API – access webcam on web
-- pyttsx3 / gTTS + playsound – text-to-speech alerts
+- json – text-to-speech alerts
 
 ### Logistics & Route Modules
 - Custom scheduling API – for shipment planning (JSON-based input)
