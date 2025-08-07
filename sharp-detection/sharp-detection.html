@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sharp Object Detection - MooVit</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header a {
+      background-color: #ffffff;
+      color: #004080;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    #wrapper {
+      position: relative;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    video,
+    canvas {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      border: 2px solid #004080;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #e0e0e0;
+      margin-top: 3rem;
+    }
+
+    .description {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Sharp Object Detection</h1>
+    <a href="..\main.html" class="btn btn-light">← Home</a>
+  </header>
+
+  <main>
+    <p class="description">
+      Show a sharp object like a knife or scissors in front of the webcam. This tool will identify and announce it
+      aloud.
+    </p>
+    <div id="wrapper">
+      <video id="video" autoplay muted></video>
+      <canvas id="canvas"></canvas>
+    </div>
+    <p><small>Powered by TensorFlow.js and COCO-SSD. Works best in good lighting.</small></p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MooVit.</p>
+  </footer>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let model;
+    let lastSpoken = {};
+    const speakDelay = 4000;
+
+    // Speak detected label
+    function speak(label) {
+      const msg = new SpeechSynthesisUtterance(`This is a ${label}`);
+      msg.lang = 'en-US';
+      msg.rate = 1;
+      window.speechSynthesis.speak(msg);
+    }
+
+    function speakLabels(predictions) {
+      const now = Date.now();
+      predictions.forEach(pred => {
+        const label = pred.class;
+        const last = lastSpoken[label] || 0;
+        if (now - last > speakDelay) {
+          if (['knife', 'scissors', 'fork', 'spoon'].includes(label)) {
+            speak(label);
+            lastSpoken[label] = now;
+          }
+        }
+      });
+    }
+
+    function drawBoxes(predictions) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      predictions.forEach(pred => {
+        ctx.beginPath();
+        ctx.rect(...pred.bbox);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'red';
+        ctx.font = '16px Arial';
+        ctx.fillStyle = 'red';
+        ctx.stroke();
+        ctx.fillText(
+          `${pred.class} (${Math.round(pred.score * 100)}%)`,
+          pred.bbox[0],
+          pred.bbox[1] > 10 ? pred.bbox[1] - 5 : 10
+        );
+      });
+    }
+
+    async function detectFrame() {
+      const predictions = await model.detect(video);
+      drawBoxes(predictions);
+      speakLabels(predictions);
+      requestAnimationFrame(detectFrame);
+    }
+
+    async function init() {
+      model = await cocoSsd.load();
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      video.srcObject = stream;
+
+      video.onloadedmetadata = () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        detectFrame();
+      };
+    }
+
+    init().catch(err => {
+      alert('Error initializing detection: ' + err.message);
+    });
+  </script>
+</body>
+
+</html>
