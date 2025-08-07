@@ -4,112 +4,35 @@
 <head>
   <meta charset="UTF-8">
   <title>Live Object Detection</title>
-  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="live-detection.css">
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
-  <style>
-    #video,
-    #canvas {
-      position: absolute;
-      top: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      max-width: 600px;
-      width: 100%;
-    }
-
-    #wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      margin: auto;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <header>
-    <h1>Live Object Detection</h1>
-    <a href="..\main.html" class="btn btn-light">← Home</a>
+    <h1>Live Object Detection 🔍</h1>
+    <a href="../main.html" class="btn btn-light">← Home</a>
   </header>
 
   <main>
-    <p>This feature helps low-vision users by detecting objects in real time and providing spoken alerts.</p>
+    <p class="description">This feature helps low-vision users by detecting objects in real time and providing spoken
+      alerts.</p>
     <div id="wrapper">
       <video id="video" autoplay muted></video>
       <canvas id="canvas"></canvas>
     </div>
-    <p><small>Powered by TensorFlow.js COCO-SSD model with speech output</small></p>
+    <p class="small-text"><small>Powered by TensorFlow.js COCO-SSD model with speech output</small></p>
   </main>
 
   <footer>
     <p>&copy; 2025 MooVit.</p>
   </footer>
 
-  <script>
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let lastSpoken = {};
-    const speakDelay = 4000; // Delay between speaking the same label (ms)
-
-    async function start() {
-      const model = await cocoSsd.load();
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = stream;
-
-      video.onloadedmetadata = () => {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        detectFrame();
-      };
-
-      async function detectFrame() {
-        const predictions = await model.detect(video);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawBoxes(predictions);
-        speakLabels(predictions);
-        requestAnimationFrame(detectFrame);
-      }
-
-      function drawBoxes(predictions) {
-        predictions.forEach(pred => {
-          ctx.beginPath();
-          ctx.rect(...pred.bbox);
-          ctx.lineWidth = 2;
-          ctx.strokeStyle = 'lime';
-          ctx.fillStyle = 'lime';
-          ctx.stroke();
-          ctx.font = '16px Arial';
-          ctx.fillText(`${pred.class} (${Math.round(pred.score * 100)}%)`, pred.bbox[0], pred.bbox[1] > 10 ? pred.bbox[1] - 5 : 10);
-        });
-      }
-
-      function speakLabels(predictions) {
-        const now = Date.now();
-        predictions.forEach(pred => {
-          const label = pred.class;
-          const lastTime = lastSpoken[label] || 0;
-          if (now - lastTime > speakDelay) {
-            speak(label);
-            lastSpoken[label] = now;
-          }
-        });
-      }
-
-      function speak(text) {
-        const msg = new SpeechSynthesisUtterance();
-        msg.text = `Detected ${text}`;
-        msg.lang = 'en-US';
-        msg.rate = 1;
-        window.speechSynthesis.speak(msg);
-      }
-    }
-
-    start().catch(err => {
-      alert('Webcam or model error: ' + err.message);
-    });
-  </script>
+  <script src="live-detection.js"></script>
 </body>
 
 </html>
