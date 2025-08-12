@@ -121,9 +121,9 @@ Steps:
 ---
 
 ## Contibutors
-@Shubhangi Roy(https://github.com/ShubhangiRoy12) - Project Admin & ML Developer
+@Shubhangi Roy https://github.com/ShubhangiRoy12 - Project Admin & ML Developer
 
-@omroy07(https://github.com/omroy07) - Web Developer & ML Developer
+@omroy07 https://github.com/omroy07 - Web Developer & ML Developer
 
 
 📜 License
