@@ -102,7 +102,7 @@ python app.py
 
 ---
 
-## 🤝 Contributing
+##🤝 Contributing
 
 -We welcome contributions! You can help with:
 -Improving detection accuracy
@@ -118,8 +118,10 @@ Steps:
 3. Commit your changes
 4. Push and open a PR
 
+---
+
 ## Contibutors
-@ShubhangiRoy12 - ML Developer
+@ - ML Developer
 @omroy07 - Project Admin and Web Developer
 
 📜 License
