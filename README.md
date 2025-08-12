@@ -85,9 +85,13 @@ python app.py
 ## 📋 Use Cases
 
 -Assist visually impaired users with voice-based object alerts
+
 -Help logistics teams plan safe and efficient routes
+
 -Offer vehicle drivers route awareness and obstacle warnings
+
 -Provide safety prompts in traffic-heavy or high-risk zones
+
 -Enable face tracking to follow companions in crowded areas
 
 ---
@@ -95,9 +99,13 @@ python app.py
 ## 🚧 Future Plans
 
 -Add multilingual voice support
+
 -GPS-based live routing for shipment vehicles
+
 -Heatmap overlays for high-risk zones
+
 -Admin dashboard to view and edit shipment schedules
+
 -Public API for integration with logistics and assistive apps
 
 ---
@@ -105,9 +113,13 @@ python app.py
 ## 🤝 Contributing
 
 -We welcome contributions! You can help with:
+
 -Improving detection accuracy
+
 -Expanding shipment scheduling logic
+
 -UI/UX design improvements
+
 -Adding more face profiles or localization features
 
 ---
