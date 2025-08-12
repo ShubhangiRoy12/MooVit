@@ -13,21 +13,17 @@ We’re building an **AI-powered real-time object detection** and **voice-assist
 
 ### 1️⃣ Fork & Clone the Repository
 Fork the repository and clone it locally:
-
+```bash
 git clone https://github.com/your-username/moovit.git
 cd moovit
-
-text
-
+```
 ---
 
 ### 2️⃣ Create a New Branch
 Use a clear and descriptive branch name:
-
+```bash
 git checkout -b feature/your-feature-name
-
-text
-
+```
 ---
 
 ### 3️⃣ Make Your Changes
@@ -54,12 +50,11 @@ You can help by:
 
 ### 5️⃣ Commit and Push
 Write clear, descriptive commit messages:
-
+```bash
 git add .
 git commit -m "feat: short description of your change"
 git push origin feature/your-feature-name
-
-text
+```
 
 ---
 
