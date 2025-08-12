@@ -82,7 +82,7 @@ python app.py
 
 ---
  
-##📋 Use Cases
+## 📋 Use Cases
 
 -Assist visually impaired users with voice-based object alerts
 -Help logistics teams plan safe and efficient routes
@@ -92,7 +92,7 @@ python app.py
 
 ---
 
-##🚧 Future Plans
+## 🚧 Future Plans
 
 -Add multilingual voice support
 -GPS-based live routing for shipment vehicles
@@ -100,14 +100,17 @@ python app.py
 -Admin dashboard to view and edit shipment schedules
 -Public API for integration with logistics and assistive apps
 
+---
 
-##🤝 Contributing
+## 🤝 Contributing
 
 -We welcome contributions! You can help with:
 -Improving detection accuracy
 -Expanding shipment scheduling logic
 -UI/UX design improvements
 -Adding more face profiles or localization features
+
+---
 
 Steps:
 1. Fork this repo
