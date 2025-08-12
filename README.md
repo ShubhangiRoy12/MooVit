@@ -102,7 +102,7 @@ python app.py
 
 ---
 
-##🤝 Contributing
+## 🤝 Contributing
 
 -We welcome contributions! You can help with:
 -Improving detection accuracy
@@ -121,8 +121,10 @@ Steps:
 ---
 
 ## Contibutors
-@ - ML Developer
-@omroy07 - Project Admin and Web Developer
+@Shubhangi Roy(https://github.com/ShubhangiRoy12) - Project Admin & ML Developer
+
+@omroy07(https://github.com/omroy07) - Web Developer & ML Developer
+
 
 📜 License
 This project is licensed under the MIT License. See LICENSE file for details.
