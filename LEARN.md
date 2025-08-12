@@ -153,7 +153,7 @@ Explore the `backend/detection/` folder for model scripts and `frontend/scripts/
 ## 💡 Want to Learn More?
 
 Curious about the inner workings — like how **real-time object detection models**, **voice alert systems**, or **route optimization algorithms** tie together?  
-Dive into the code and documentation within the [`backend/detection`](backend/detection) and [`frontend/scripts`](frontend/scripts) folders to explore how **MooVit** makes roads safer and smarter!
+Dive into the code and documentation within the backend and frontend folders to explore how **MooVit** makes roads safer and smarter!
 
 Thank you for being part of MooVit — helping make roads safer and mobility smarter for everyone!
 
