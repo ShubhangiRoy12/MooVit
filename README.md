@@ -80,7 +80,8 @@ python app.py
 
 4. For frontend, deploy the frontend/ folder on Vercel or use a static server locally.
 
-
+---
+ 
 ##📋 Use Cases
 
 -Assist visually impaired users with voice-based object alerts
@@ -88,6 +89,8 @@ python app.py
 -Offer vehicle drivers route awareness and obstacle warnings
 -Provide safety prompts in traffic-heavy or high-risk zones
 -Enable face tracking to follow companions in crowded areas
+
+---
 
 ##🚧 Future Plans
 
