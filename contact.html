@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - MoveIt</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0b1d3a;
+      color: #f0f4f8;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      background: #142850;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      position: sticky;
+      top: 0;
+    }
+
+    header a {
+      text-decoration: none;
+      color: #f0f4f8;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    header a:hover {
+      transform: scale(1.1);
+      color: #00aaff;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #1a2d52;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #00aaff;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    form {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    input, textarea {
+      padding: 0.9rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: #f0f4f8;
+      color: #0b1d3a;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      transform: scale(1.02);
+      box-shadow: 0 0 10px #00aaff;
+    }
+
+    button {
+      padding: 0.9rem;
+      background: #00aaff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background: #0088cc;
+      transform: scale(1.05);
+    }
+
+    .info {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .info h3 {
+      color: #00aaff;
+      margin-bottom: 0.5rem;
+    }
+
+    .info p {
+      margin: 0.3rem 0;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="main.html">⬅ Back</a>
+  </header>
+
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you! Whether you have a question, feedback, or partnership inquiry, the MoveIt team is here to help.</p>
+
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+
+    <div class="info">
+      <h3>Our Contact Info</h3>
+      <p>📍 Hyderabad, India</p>
+      <p>📞 +91 98765 43210</p>
+      <p>✉ contact@moveit.com</p>
+    </div>
+  </div>
+</body>
+</html>
