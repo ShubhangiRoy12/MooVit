@@ -8,6 +8,9 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     header {
@@ -16,21 +19,87 @@
       z-index: 1000;
       background: #0d6efd;
       color: #fff;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .stat-card {
-      background: #f8f9fa;
+      background: #ffffff;
       padding: 1rem;
       border-radius: .5rem;
       text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .table-hover tbody tr:hover .actions {
+      visibility: visible;
     }
 
     .actions {
       visibility: hidden;
     }
 
-    .table-hover tbody tr:hover .actions {
-      visibility: visible;
+    .dark-mode-toggle {
+      background-color: #fff;
+      color: #0d6efd;
+      border: none;
+      padding: 0.3rem 0.7rem;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f8f9fa;
+    }
+
+    body.dark-mode header {
+      background-color: #1a1a1a;
+      color: #f8f9fa;
+    }
+
+    body.dark-mode .stat-card {
+      background-color: #1e1e1e;
+      color: #f8f9fa;
+    }
+
+    body.dark-mode .table {
+      color: #f8f9fa;
+    }
+
+    body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
+      --bs-table-accent-bg: #1a1a1a;
+    }
+
+    body.dark-mode .table-hover tbody tr:hover {
+      background-color: #333333;
+    }
+
+    body.dark-mode .btn-light {
+      background-color: #333333;
+      color: #f8f9fa;
+      border-color: #555;
+    }
+
+    body.dark-mode .btn-primary {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    body.dark-mode .modal-content {
+      background-color: #1e1e1e;
+      color: #f8f9fa;
+    }
+
+    body.dark-mode .modal-header .btn-close {
+      filter: invert(1);
+    }
+
+    body.dark-mode footer {
+      background-color: #1a1a1a;
+      color: #f8f9fa;
     }
   </style>
 </head>
@@ -38,8 +107,12 @@
 <body>
   <header class="d-flex justify-content-between align-items-center p-3">
     <h2 class="h5 mb-0 text-white">🧭 Routes</h2>
-    <a href="..\main.html" class="btn btn-light">← Home</a>
+    <div class="d-flex align-items-center">
+      <button class="dark-mode-toggle me-2" id="toggleMode">🌞</button>
+      <a href="..\main.html" class="btn btn-light">← Home</a>
+    </div>
   </header>
+
   <main class="container my-4">
     <!-- Summary Cards -->
     <div class="row g-3 mb-4">
@@ -92,7 +165,8 @@
       </div>
     </div>
   </main>
-  <footer class="text-center py-2 bg-light">&copy; 2025 Transport Co.</footer>
+
+  <footer class="text-center py-2">&copy; 2025 Transport Co.</footer>
 
   <!-- Modal -->
   <div class="modal fade" id="modal" tabindex="-1">
@@ -127,14 +201,37 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+    // Dark Mode Toggle
+    const toggleBtn = document.getElementById('toggleMode');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+
+    // Modal & Table Logic
     const modal = new bootstrap.Modal(document.getElementById('modal'));
     const tbody = document.querySelector('#routesTable tbody');
     const empty = document.getElementById('emptyState');
     let stats = { active: 0, delayed: 0, completed: 0, totalDist: 0 };
 
+    const addBtn = document.getElementById('addBtn');
+    const distance = document.getElementById('distance');
+    const incDist = document.getElementById('incDist');
+    const decDist = document.getElementById('decDist');
+    const routeId = document.getElementById('routeId');
+    const origin = document.getElementById('origin');
+    const destination = document.getElementById('destination');
+    const status = document.getElementById('status');
+
     addBtn.onclick = () => {
       document.querySelector('.modal-title').textContent = 'Add Route';
-      document.querySelector('form').reset();
+      document.querySelector('#modal form').reset();
       distance.value = 1;
       modal.show();
     };
@@ -158,7 +255,7 @@
         </td>`;
       tbody.append(row);
 
-      compBtn = row.querySelector('.compBtn');
+      const compBtn = row.querySelector('.compBtn');
       compBtn.onclick = () => {
         const badge = row.querySelector('.statusBadge');
         badge.textContent = 'Completed';
@@ -181,15 +278,16 @@
         if (st === 'Completed') stats.completed++;
         else stats.active++;
       });
-      statActive.textContent = stats.active;
-      statDelayed.textContent = stats.delayed;
-      statComp.textContent = stats.completed;
-      statAvg.textContent = rows.length ? Math.round(stats.totalDist / rows.length) : 0;
+      document.getElementById('statActive').textContent = stats.active;
+      document.getElementById('statDelayed').textContent = stats.delayed;
+      document.getElementById('statComp').textContent = stats.completed;
+      document.getElementById('statAvg').textContent = rows.length ? Math.round(stats.totalDist / rows.length) : 0;
       empty.style.display = rows.length ? 'none' : '';
       redrawTrend(rows);
       redrawStatus();
     }
 
+    // Charts
     const trendChart = new Chart(document.getElementById('trendChart'), {
       type: 'bar',
       data: { labels: [], datasets: [{ label: 'Distance (km)', data: [], backgroundColor: '#0d6efd' }] },
@@ -208,8 +306,7 @@
       }).reverse();
       const data = days.map(_ => 0);
       rows.forEach(r => {
-        const eta = new Date();
-        const idx = days.length - 1; // no date info, so just last
+        const idx = days.length - 1; // no date info
         data[idx] += +r.cells[4].textContent;
       });
       trendChart.data.labels = days;
