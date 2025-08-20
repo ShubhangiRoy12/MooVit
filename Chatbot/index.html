@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+   
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
     <div class="flex flex-col w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden h-[85vh]">
@@ -30,6 +31,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                         </svg>
                     </button>
+                    <button id="theme-toggle" title="Toggle Dark Mode">🌙</button>
                 </div>
             </div>
         </div>
@@ -39,7 +41,6 @@
             <div class="flex-1 flex flex-col">
                 <!-- Chat History -->
                 <div id="chat-history" class="flex-1 p-6 overflow-y-auto space-y-4 chat-history">
-                    <!-- Initial bot message -->
                     <div class="flex justify-start message-animation">
                         <div class="bg-gray-100 text-gray-800 p-4 rounded-2xl rounded-bl-md max-w-[80%] shadow-sm">
                             <p class="font-medium text-blue-600 mb-2">👋 Welcome!</p>
@@ -69,18 +70,10 @@
             <!-- Sidebar with Suggested Questions -->
             <div class="w-80 bg-gray-50 border-l border-gray-200 p-6 overflow-y-auto">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">💡 Quick Questions</h3>
-                
-                <!-- Categories -->
-                <div id="categories-container" class="space-y-6">
-                    <!-- Categories will be populated by JavaScript -->
-                </div>
-                
-                <!-- Random Questions -->
+                <div id="categories-container" class="space-y-6"></div>
                 <div class="mt-8">
                     <h4 class="text-lg font-medium text-gray-700 mb-3">🎲 Random Questions</h4>
-                    <div id="random-questions" class="space-y-2">
-                        <!-- Random questions will be populated here -->
-                    </div>
+                    <div id="random-questions" class="space-y-2"></div>
                     <button id="refresh-random" class="mt-3 w-full bg-white hover:bg-gray-100 text-gray-700 py-2 px-4 rounded-lg border border-gray-300 transition-colors duration-200">
                         🔄 Refresh
                     </button>
@@ -90,5 +83,18 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Clear chat
+        document.getElementById('clear-chat').addEventListener('click', () => {
+            document.getElementById('chat-history').innerHTML = '';
+        });
+
+        // Dark mode toggle
+        const toggleBtn = document.getElementById("theme-toggle");
+        toggleBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            toggleBtn.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+        });
+    </script>
 </body>
 </html>

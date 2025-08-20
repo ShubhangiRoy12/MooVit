@@ -93,6 +93,45 @@
     .auth-container a:hover {
       text-decoration: underline;
     }
+     body.dark {
+      background: #121212;
+      color: #f0f0f0;
+    }
+
+    body.dark .auth-container {
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    }
+
+    body.dark .auth-container h2 {
+      color: #fff;
+    }
+
+    body.dark .auth-container label {
+      color: #ccc;
+    }
+
+    body.dark .auth-container input {
+      background: #1e1e1e;
+      color: #f0f0f0;
+    }
+
+    body.dark .auth-container input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    body.dark .auth-container button {
+      background: #3498DB;
+      color: #fff;
+    }
+
+    body.dark .auth-container button:hover {
+      background: #2980B9;
+    }
+
+    body.dark .auth-container a {
+      color: #76C7F0;
+    }
   </style>
 </head>
 
@@ -133,6 +172,7 @@
       window.location.href = 'login.html';
     });
   </script>
+  <script src="theme.js"></script>
 </body>
 
 </html>

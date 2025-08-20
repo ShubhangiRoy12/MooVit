@@ -13,6 +13,7 @@
     <header class="header">
         <h1>Public Transport Planner</h1>
         <p>Discover the best bus and train routes across India</p>
+        <button id="darkModeToggle" class="toggle-btn">🌞</button>
     </header>
 
     <div class="container">
@@ -256,6 +257,37 @@
         </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <script>
+    // Dark Mode Toggle
+    const darkBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    if(localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+    }
+
+    darkBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+
+    // Leaflet Map
+    const map = L.map('routeMap').setView([23.2599, 77.4126], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Charts
+    const safetyChart = new Chart(document.getElementById('safetyChart'), {
+        type: 'doughnut',
+        data: { labels: ['High Safety','Moderate','Low'], datasets:[{ data:[40,35,25], backgroundColor:['#198754','#ffc107','#dc3545'] }]},
+        options: { plugins: { legend: { position: 'bottom' } } }
+    });
+    const selectionsChart = new Chart(document.getElementById('selectionsChart'), {
+        type: 'bar',
+        data: { labels:['Bus','Train'], datasets:[{ label:'Selected Routes', data:[3,2], backgroundColor:['#0d6efd','#6f42c1'] }]},
+        options: { scales: { y:{ beginAtZero:true } } }
+    });
+</script>
 </body>
 </html>

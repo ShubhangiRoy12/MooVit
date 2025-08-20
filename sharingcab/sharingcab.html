@@ -11,30 +11,57 @@
     body {
       background-color: #eaf3fc;
       color: #212529;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .dark-mode {
-      background-color: #212529;
-      color: #f8f9fa;
+    header,
+    footer {
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .dark-mode .card,
-    .dark-mode .form-control,
-    .dark-mode .btn,
-    .dark-mode .bg-light {
-      background-color: #343a40 !important;
-      color: #f8f9fa !important;
+    .card,
+    .form-control,
+    .btn,
+    .bg-light {
+      transition: background-color 0.3s, color 0.3s;
     }
 
     #map {
       height: 400px;
       border-radius: 8px;
       margin-top: 20px;
+      transition: filter 0.3s;
     }
+
+    /* Dark mode */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f8f9fa;
+    }
+
+    body.dark-mode header,
+    body.dark-mode footer {
+      background-color: #1a1a1a !important;
+      color: #f8f9fa !important;
+    }
+
+    body.dark-mode .card,
+    body.dark-mode .form-control,
+    body.dark-mode .btn,
+    body.dark-mode .bg-light {
+      background-color: #343a40 !important;
+      color: #f8f9fa !important;
+    }
+
+    
 
     .card-header.bg-light {
       background-color: #007bff !important;
       color: #fff !important;
+    }
+
+    body.dark-mode .card-header.bg-light {
+      background-color: #0d6efd !important;
     }
   </style>
 </head>
@@ -43,7 +70,7 @@
   <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
     <h1 class="mb-0">🚖 Cab Sharing Planner</h1>
     <div>
-      <button id="toggleMode" class="btn btn-light me-2">🌃 Toggle Mode</button>
+      <button id="toggleMode" class="btn btn-light me-2">🌞</button>
       <a href="..\main.html" class="btn btn-light">← Home</a>
     </div>
   </header>
@@ -98,6 +125,25 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
+    // Dark mode toggle
+    const toggleBtn = document.getElementById('toggleMode');
+    const body = document.body;
+
+    // Load saved preference
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Map setup
     const markersCoord = {
       "Indore": [22.7196, 75.8577],
       "Bhopal": [23.2599, 77.4126],
@@ -114,14 +160,27 @@
       "Ujjain-Bhopal-Indore": 245
     };
 
-    document.getElementById("toggleMode").addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-    });
-
     const map = L.map('map').setView([22.9, 76.2], 7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+
+    // Tile layer depending on dark mode
+    function setTileLayer() {
+      let tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+      let attribution = '&copy; OpenStreetMap contributors';
+      if (body.classList.contains('dark-mode')) {
+        // Use Carto Dark tiles
+        tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+        attribution = '&copy; <a href="https://carto.com/">CARTO</a>';
+      }
+      if (window.currentTile) map.removeLayer(window.currentTile);
+      window.currentTile = L.tileLayer(tileUrl, { attribution }).addTo(map);
+    }
+
+    setTileLayer();
+
+    // Update tiles on dark mode toggle
+    toggleBtn.addEventListener('click', () => {
+      setTileLayer();
+    });
 
     document.getElementById("cabForm").addEventListener("submit", function (e) {
       e.preventDefault();

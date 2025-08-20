@@ -606,3 +606,146 @@ select:hover, input:hover {
         font-size: 13px;
     }
 }
+
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .header {
+    background: linear-gradient(135deg, #1e1e2f, #2a2a3d);
+    color: #ffffff;
+}
+
+body.dark-mode .header p {
+    opacity: 0.85;
+}
+
+body.dark-mode .section,
+body.dark-mode .schedule-card,
+body.dark-mode .info-card,
+body.dark-mode .emergency-card {
+    background: #1e1e2e;
+    border-color: #333;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .section h2,
+body.dark-mode .schedule-card h3,
+body.dark-mode .info-card h3,
+body.dark-mode .emergency-card h3 {
+    color: #f0f0f0;
+}
+
+body.dark-mode .route-item {
+    background: #2a2a3a;
+    border-left-color: #4A90E2;
+    color: #ccc;
+}
+
+body.dark-mode .route-item:hover {
+    background: #33334d;
+    box-shadow: 0 4px 15px rgba(74,144,226,0.5);
+}
+
+body.dark-mode .route-item.selected {
+    background: #3a3a5a;
+    border-left-color: #1976d2;
+    box-shadow: 0 4px 15px rgba(25,118,210,0.4);
+}
+
+body.dark-mode select,
+body.dark-mode input {
+    background: #2a2a3a;
+    color: #e0e0e0;
+    border-color: #444;
+}
+
+body.dark-mode select:focus,
+body.dark-mode input:focus {
+    border-color: #4A90E2;
+    box-shadow: 0 0 0 3px rgba(74,144,226,0.3);
+}
+
+body.dark-mode .btn-primary {
+    background: linear-gradient(135deg, #4A90E2, #357ABD);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(74,144,226,0.6);
+}
+
+body.dark-mode .btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(74,144,226,0.7);
+}
+
+body.dark-mode .transport-toggle .toggle-btn {
+    background: #2a2a3a;
+    color: #e0e0e0;
+    border-color: #444;
+}
+
+body.dark-mode .transport-toggle .toggle-btn.active {
+    background: linear-gradient(135deg, #4A90E2, #357ABD);
+    color: #fff;
+}
+
+body.dark-mode .selected-route {
+    background: #2a2a3a;
+    color: #ccc;
+    border-left-color: #4A90E2;
+}
+
+body.dark-mode .chart-info,
+body.dark-mode .selection-info {
+    background: #1e1e2e;
+    color: #4A90E2;
+}
+
+body.dark-mode .legend-color.high-safety {
+    background-color: #4caf50;
+}
+
+body.dark-mode .legend-color.moderate-safety {
+    background-color: #ff9800;
+}
+
+body.dark-mode .legend-color.low-safety {
+    background-color: #f44336;
+}
+
+body.dark-mode .legend-color.bus-color {
+    background-color: #4A90E2;
+}
+
+body.dark-mode .legend-color.train-color {
+    background-color: #8b5cf6;
+}
+
+body.dark-mode .notification {
+    background: #4caf50;
+    color: #fff;
+}
+
+body.dark-mode .leaflet-popup-content-wrapper {
+    background: #1e1e2e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+}
+
+body.dark-mode .leaflet-popup-content {
+    color: #e0e0e0;
+}
+
+/* Optional: Dark mode for hover states */
+body.dark-mode .route-item:hover {
+    background: #3a3a5a;
+}
+
+body.dark-mode .schedule-card:hover,
+body.dark-mode .section:hover,
+body.dark-mode .info-card:hover,
+body.dark-mode .emergency-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    transform: translateY(-2px);
+}

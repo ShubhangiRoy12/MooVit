@@ -15,3 +15,25 @@ body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
   color: #007BFF;
   font-weight: bold;
 }
+/* Dark mode */
+body.dark {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+/* Stat cards in dark mode */
+body.dark .stat-card {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+}
+
+/* Stat card headings */
+body.dark .stat-card h5 {
+  color: #ccc;
+}
+
+/* Stat card values */
+body.dark .stat-card p {
+  color: #4da6ff; /* lighter blue for contrast in dark mode */
+}

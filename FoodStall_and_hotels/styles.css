@@ -334,3 +334,149 @@ button:disabled {
         padding: 20px 15px;
     }
 }
+
+/* DARK MODE STYLES */
+body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+/* Header */
+body.dark-mode .header {
+    background: linear-gradient(135deg, #1a237e, #0d133e);
+    color: #fff;
+}
+
+/* Food Categories */
+body.dark-mode .food-categories {
+    background: #1c1c1c;
+}
+
+body.dark-mode .food-card {
+    background: #1e1e2e;
+    border: 1px solid #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+body.dark-mode .food-card h3 {
+    color: #e0e0e0;
+}
+
+/* Specialty Section */
+body.dark-mode .specialty-section {
+    background: #1c1c1c;
+}
+
+body.dark-mode .specialty-card {
+    background: #1e1e2e;
+    color: #e0e0e0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+body.dark-mode .specialty-card h4 {
+    color: #fff;
+}
+
+body.dark-mode .specialty-text {
+    color: #ccc;
+}
+
+/* Map Section */
+body.dark-mode .map-section {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+body.dark-mode #map {
+    filter: brightness(0.8);
+}
+
+/* Bottom Controls */
+body.dark-mode .bottom-controls {
+    gap: 20px;
+}
+
+body.dark-mode .controls-left,
+body.dark-mode .controls-right {
+    background: #1e1e2e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .section h3 {
+    color: #fff;
+    border-bottom-color: #4a90e2;
+}
+
+body.dark-mode select {
+    background: #2c2c3c;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-mode select:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
+}
+
+body.dark-mode button.btn-primary {
+    background: linear-gradient(135deg, #4a90e2, #357ABD);
+    color: #fff;
+}
+
+body.dark-mode button.btn-secondary {
+    background: #2c2c3c;
+    color: #ccc;
+    border-color: #555;
+}
+
+body.dark-mode button.btn-secondary:hover:not(:disabled) {
+    background: #3a3a4a;
+    border-color: #777;
+}
+
+/* Place Info */
+body.dark-mode .place-info {
+    background: #2c2c3c;
+    border: 1px solid #444;
+}
+
+body.dark-mode .place-photo {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .place-name {
+    color: #fff;
+}
+
+body.dark-mode .place-details {
+    color: #bbb;
+}
+
+/* Charts */
+body.dark-mode .chart-container {
+    background: #1e1e2e;
+}
+
+body.dark-mode .filter-hint {
+    background: #2c2c3c;
+    border-color: #4a90e2;
+    color: #9ec6ff;
+}
+
+/* Stats Box */
+body.dark-mode .stats {
+    background: linear-gradient(135deg, #4a90e2, #357ABD);
+    color: #fff;
+}
+
+/* Text headings */
+body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+    color: #fff;
+}
+
+/* Custom Marker */
+body.dark-mode .custom-marker {
+    border: 2px solid #4a90e2 !important;
+}

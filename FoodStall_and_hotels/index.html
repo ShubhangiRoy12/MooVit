@@ -20,6 +20,7 @@
     <div class="header">
         <h1>Food & Stay Planner</h1>
         <p>Discover the best food spots and hotels on your route</p>
+        <button id="darkModeToggle" class="btn-toggle">🌙</button>
     </div>
 
     <!-- Food Categories Section -->
@@ -66,7 +67,7 @@
         </div>
     </div>
 
-    <!-- Map Container (Full Width) -->
+    <!-- Map Container -->
     <div class="map-section">
         <div id="map"></div>
     </div>
@@ -131,5 +132,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="script.js"></script>
+
+    <!-- Dark Mode Toggle Script -->
+    <script>
+        const toggleBtn = document.getElementById('darkModeToggle');
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        });
+    </script>
 </body>
 </html>

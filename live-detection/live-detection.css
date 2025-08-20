@@ -103,3 +103,35 @@ footer {
     padding: 1rem;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
+/* Dark Mode Adjustments */
+body.dark-mode header {
+    background: linear-gradient(135deg, #1e1e2f, #2a2a3d);
+}
+
+body.dark-mode header .btn-light {
+    background-color: #444;
+    color: #4A90E2;
+}
+
+body.dark-mode header .btn-light:hover {
+    background-color: #555;
+}
+
+body.dark-mode header .btn-toggle {
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+body.dark-mode #wrapper {
+    background-color: #1e1e2e;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+body.dark-mode .small-text {
+    color: #bbb;
+}
+
+body.dark-mode footer {
+    background-color: #121212;
+    color: #e0e0e0;
+}
