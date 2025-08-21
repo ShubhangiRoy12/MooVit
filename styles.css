@@ -1,5 +1,19 @@
 body { margin:0; font-family: Arial, sans-serif; }
-header, footer { background: #003366; color: white; text-align:center; padding:1em; }
+:root {
+    --primary-blue: #0066cc;
+    --secondary-blue: #004499;
+    --light-blue: #e6f3ff;
+    --accent-blue: #0080ff;
+    --dark-blue: #003366;
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --shadow: 0 4px 20px rgba(0, 102, 204, 0.1);
+    --gradient: linear-gradient(135deg, #0066cc 0%, #0080ff 100%);
+}
+header { 
+background: linear-gradient(135deg,#003366 0%, #1976d2 100%); color: white; text-align:center; padding:1em; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.625);
+}
 nav a { color: #f0f0f0; margin: 0 10px; text-decoration: none; }
 .grid-container {
   display: grid;
@@ -48,4 +62,76 @@ canvas {
   /* Lifts the card and increases the shadow */
   transform: translateY(-8px); 
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+footer{ 
+  background-color:  #003366;
+  color: white; text-align:center; padding:1em; 
+}
+.footer-content{ 
+  margin-top: 20px;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+   flex-wrap: wrap;
+   gap:3rem;
+  justify-content: space-evenly;
+}
+
+.footer-link{ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap:.7rem;
+  
+}
+.link-head{ 
+  /* margin-top: 30px; */
+  font-size: larger;
+  padding:0;
+  margin-top: 15px;
+   font-family: "Poppins", sans-serif;
+}
+.col-in-div{ 
+  background-color:   #184598;
+  height:100%;
+  width:100%;
+  border-radius: 10px;
+  
+}
+.col-in-div:hover{ 
+  background-color: #00509e;
+   box-shadow: 0 8px 25px rgba(38, 39, 39, 0.808);
+   transition:.3s ease-in;
+}
+.footer-link a{ 
+  color:#fff;
+  text-decoration: none;
+}
+.foot-social-link{ 
+  display:flex;
+  justify-content: space-evenly;
+gap:.3rem;
+  align-items: center;
+  text-align: center;
+ margin-top:50px;
+}
+.foot-social-link a{ 
+color:#fff;
+}
+.column{ 
+  display:flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border-radius: 20px;
+ width: 320px;
+ height: 170px;
+ gap:.5rem;
+ background-color: #184598;
+ padding:20px;
+}
+.copyright{ 
+  bottom:10px;
+  margin-top:50px;
+  padding-bottom: 0;
 }

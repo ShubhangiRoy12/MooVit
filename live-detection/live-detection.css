@@ -3,8 +3,9 @@
     --secondary-color: #f0f0f0;
     --text-color: #333;
     --background-color: #ffffff;
-    --header-bg: blue;
-    --footer-bg: blue;
+    --dark-blue: #003366;
+    --header-bg: #003366;
+    --footer-bg:#003366;
     --font-family: 'Poppins', sans-serif;
 }
 
@@ -20,7 +21,7 @@ body {
 }
 
 header {
-    background-color: var(--header-bg);
+   background: linear-gradient(135deg,#003366 0%, #1976d2 100%);
     color: white;
     padding: 1.5rem 2rem;
     display: flex;
