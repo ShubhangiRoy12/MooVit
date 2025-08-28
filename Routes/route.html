@@ -1,47 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>🧭 Routes – MooVit</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
     }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: #0d6efd;
-      color: #fff;
-    }
-
     .stat-card {
       background: #f8f9fa;
       padding: 1rem;
       border-radius: .5rem;
       text-align: center;
     }
-
     .actions {
       visibility: hidden;
     }
-
     .table-hover tbody tr:hover .actions {
       visibility: visible;
     }
   </style>
 </head>
-
 <body>
-  <header class="d-flex justify-content-between align-items-center p-3">
-    <h2 class="h5 mb-0 text-white">🧭 Routes</h2>
-    <a href="..\main.html" class="btn btn-light">← Home</a>
-  </header>
+  <nav class="main-nav">
+    <a href="/main.html" class="logo">MooVit</a>
+    <ul class="nav-links">
+        <li><a href="/main.html">Dashboard</a></li>
+        <li><a href="/Shipments/shipments.html">Shipments</a></li>
+        <li><a href="/Vehicles/vechicle.html">Vehicles</a></li>
+        <li><a href="/Routes/route.html">Routes</a></li>
+        <li><a href="/Profile/profile.html">Profile</a></li>
+        <li><a href="/Schedule/schedule.html">Schedule</a></li>
+        <li><a href="/login.html">Logout</a></li>
+    </ul>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+</nav>
+
   <main class="container my-4">
-    <!-- Summary Cards -->
     <div class="row g-3 mb-4">
       <div class="col-md-3 stat-card">
         <h5>Active Routes</h5>
@@ -61,7 +62,6 @@
       </div>
     </div>
 
-    <!-- Charts -->
     <div class="row mb-4">
       <div class="col-md-6">
         <div class="card p-3"><canvas id="trendChart" height="200"></canvas></div>
@@ -71,7 +71,6 @@
       </div>
     </div>
 
-    <!-- Routes Table -->
     <div class="card mb-4">
       <div class="card-body">
         <table class="table table-striped table-hover align-middle" id="routesTable">
@@ -92,9 +91,9 @@
       </div>
     </div>
   </main>
-  <footer class="text-center py-2 bg-light">&copy; 2025 Transport Co.</footer>
+  
+  <footer class="text-center py-2 bg-light">&copy; 2025 MooVit. All rights reserved.</footer>
 
-  <!-- Modal -->
   <div class="modal fade" id="modal" tabindex="-1">
     <div class="modal-dialog">
       <form class="modal-content">
@@ -221,6 +220,16 @@
       statusChart.update();
     }
   </script>
+  <script>
+    const navSlide = () => {
+      const burger = document.querySelector('.burger');
+      const nav = document.querySelector('.nav-links');
+      burger.addEventListener('click', () => {
+        nav.classList.toggle('nav-active');
+        burger.classList.toggle('toggle');
+      });
+    }
+    navSlide();
+  </script>
 </body>
-
 </html>

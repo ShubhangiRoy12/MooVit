@@ -1,0 +1,69 @@
+/* === Updated Profile Page Styles === */
+body {
+    background-color: #f8f9fa;
+}
+
+.profile-container {
+    max-width: 960px;
+}
+
+.profile-card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border-radius: .75rem;
+}
+
+/* New Styles for Initials Avatar */
+.initials-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#name-display-container, #name-edit-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Helper Class */
+.hidden {
+  display: none !important;
+}
+
+/* Loading Spinner */
+#loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+.spinner {
+  border: 8px solid #e9ecef;
+  border-top: 8px solid #003366;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.list-group-item i {
+    width: 20px;
+    text-align: center;
+    color: #6c757d;
+}
+
+.list-group-item.text-danger i {
+    color: inherit;
+}
