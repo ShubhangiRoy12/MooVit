@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <title>Login - Transport Co.</title>
+  <title>Login - MooVit</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    /* styles.css */
+    /* Styles for the authentication pages */
     body {
       margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #4e63d7, #76bfe9);
       height: 100vh;
@@ -16,28 +16,25 @@
       justify-content: center;
       align-items: center;
     }
-
     .auth-container {
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: white;
       padding: 40px 30px;
       border-radius: 10px;
-      width: 320px;
+      width: 350px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .auth-container h2 {
       text-align: center;
+    }
+    .auth-container h2 {
       margin-bottom: 25px;
       color: #2c3e50;
     }
-
     .auth-container label {
       display: block;
       margin-bottom: 15px;
       color: #34495e;
       font-weight: bold;
+      text-align: left;
     }
-
     .auth-container input {
       width: 100%;
       padding: 10px;
@@ -46,11 +43,9 @@
       border-radius: 5px;
       box-sizing: border-box;
     }
-
-    .auth-container button {
+    .auth-container button[type="submit"] {
       width: 100%;
       padding: 12px;
-      margin-top: 20px;
       background-color: #2980b9;
       color: white;
       border: none;
@@ -59,48 +54,107 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-
-    .auth-container button:hover {
+    .auth-container button[type="submit"]:hover {
       background-color: #1c5980;
     }
-
-    .auth-container p {
+    .auth-separator {
+      display: flex;
+      align-items: center;
       text-align: center;
-      margin-top: 20px;
-      color: #555;
+      color: #aaa;
+      margin: 25px 0;
     }
-
+    .auth-separator::before, .auth-separator::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #ccc;
+    }
+    .auth-separator:not(:empty)::before {
+      margin-right: .25em;
+    }
+    .auth-separator:not(:empty)::after {
+      margin-left: .25em;
+    }
+    .auth-container p {
+        margin-top: 20px;
+        color: #555;
+    }
     .auth-container a {
       color: #2980b9;
       text-decoration: none;
     }
-
-    .auth-container a:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
-
 <body>
   <div class="auth-container">
     <form id="login-form">
-      <h2>Login to MooVit.</h2>
+      <h2>Login to MooVit</h2>
       <label>Email
-        <input type="email" name="email" required>
+        <input type="email" id="email" required>
       </label>
       <label>Password
-        <input type="password" name="password" required>
+        <input type="password" id="password" required>
       </label>
       <button type="submit">Login</button>
-      <p>New? <a href="register.html">Register here</a></p>
     </form>
+    
+    <div class="auth-separator">OR</div>
+
+    <button id="google-signin-btn" class="google-signin-btn">
+      <i class="fab fa-google"></i>
+      <span>Continue with Google</span>
+    </button>
+    
+    <p>New? <a href="register.html">Register here</a></p>
   </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+
   <script>
-    document.getElementById('login-form').addEventListener('submit', function (e) {
+    const firebaseConfig = {
+      apiKey: "",
+      authDomain: "",
+      projectId: "",
+      storageBucket: "",                // Add your Firebase config here
+      messagingSenderId: "",
+      appId: "",
+      measurementId: ""
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    // --- Handle Email/Password Login ---
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      window.location.href = 'main.html';
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          console.log("Successfully signed in with email:", userCredential.user);
+          window.location.href = 'main.html';
+        })
+        .catch((error) => {
+          alert(`Error: ${error.message}`);
+        });
+    });
+
+    // --- Handle Google Sign-In ---
+    const googleSignInBtn = document.getElementById('google-signin-btn');
+    googleSignInBtn.addEventListener('click', () => {
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          console.log("Successfully signed in with Google:", result.user);
+          window.location.href = 'main.html';
+        })
+        .catch((error) => {
+          alert(`Error: ${error.message}`);
+        });
     });
   </script>
 </body>
-
 </html>

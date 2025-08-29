@@ -1,17 +1,92 @@
-body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-.stat-card {
-  background: #fff;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.1);
-  text-align: center;
+/* === Updated Schedule Page Styles === */
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa; /* Lighter background for a cleaner look */
 }
-.stat-card h5 {
-  margin-bottom: 5px;
-  color: #333;
+
+/* Header Styling */
+.bg-primary {
+    background-color: #003366 !important; /* Match the main navbar color */
 }
-.stat-card p {
-  font-size: 1.5rem;
+
+/* Main Container Adjustments */
+main.container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Statistic Cards */
+.stat-card .card {
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.stat-card .card-title {
+  font-size: 1rem;
+  color: #555;
+  font-weight: 600;
+}
+
+.stat-card .card-text {
+  font-size: 2rem;
+  font-weight: 700;
   color: #007BFF;
-  font-weight: bold;
+}
+
+
+/* Table Styling */
+.card .card-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.card .card-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.table {
+    margin-bottom: 0; /* Remove default bottom margin */
+}
+
+.table thead.table-primary th {
+    background-color: #e9ecef;
+    color: #333;
+    border-bottom-width: 2px;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Form Styling for "Add New Trip" */
+#addTripForm .form-control {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#addTripForm .form-control:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+#addTripForm button {
+    font-weight: bold;
+}
+
+/* Chart Container */
+.card .card-body canvas {
+    margin-top: 1rem;
+}
+
+/* Footer Styling */
+footer.bg-light {
+    border-top: 1px solid #dee2e6;
 }

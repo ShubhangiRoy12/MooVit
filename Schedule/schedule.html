@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>📅 Schedule – MooVit</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="schedule.css">
 </head>
-
 <body>
-  <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
-    <h1 class="mb-0">📅 Schedule</h1>
-    <a href="../main.html" class="btn btn-light">← Home</a>
-  </header>
+  <nav class="main-nav">
+    <a href="/main.html" class="logo">MooVit</a>
+    <ul class="nav-links">
+        <li><a href="/main.html">Dashboard</a></li>
+        <li><a href="/Shipments/shipments.html">Shipments</a></li>
+        <li><a href="/Vehicles/vechicle.html">Vehicles</a></li>
+        <li><a href="/Profile/profile.html">Profile</a></li>
+        <li><a href="/Routes/route.html">Routes</a></li>
+        <li><a href="/Schedule/schedule.html">Schedule</a></li>
+        <li><a href="/login.html">Logout</a></li>
+    </ul>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+</nav>
 
   <main class="container my-4">
     <!-- Statistics -->
@@ -112,12 +124,22 @@
     </section>
   </main>
 
-  <footer class="bg-light text-center py-2 mt-4">&copy; 2025 Transport Co.</footer>
+  <footer class="bg-light text-center py-2 mt-4">&copy; 2025 MooVit. All rights reserved.</footer>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="schedule.js"></script>
+  <script>
+    const navSlide = () => {
+      const burger = document.querySelector('.burger');
+      const nav = document.querySelector('.nav-links');
+      burger.addEventListener('click', () => {
+        nav.classList.toggle('nav-active');
+        burger.classList.toggle('toggle');
+      });
+    }
+    navSlide();
+  </script>
 </body>
-
 </html>
