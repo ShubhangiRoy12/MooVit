@@ -213,3 +213,133 @@ textarea:focus-visible {
 @media (prefers-color-scheme: dark) {
     /* Keep light theme as requested */
 }
+
+/* ================= Dark Mode Styles ================= */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* Chat history background */
+body.dark-mode .chat-history {
+    background-color: #1e1e2e;
+}
+
+/* Scrollbar dark mode */
+body.dark-mode .chat-history::-webkit-scrollbar-track {
+    background: #1e1e2e;
+}
+
+body.dark-mode .chat-history::-webkit-scrollbar-thumb {
+    background: #4b5563;
+}
+
+body.dark-mode .chat-history::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+/* Message bubbles */
+body.dark-mode .user-message {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4);
+}
+
+body.dark-mode .bot-message {
+    background: #1e1e2e;
+    color: #d1d5db;
+    border: 1px solid #374151;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Chat input area */
+body.dark-mode #user-input {
+    background-color: #1e1e2e;
+    color: #e0e0e0;
+    border-color: #374151;
+}
+
+body.dark-mode #user-input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    border-color: #3b82f6;
+}
+
+/* Send button */
+body.dark-mode #send-button {
+    background-color: #2563eb;
+}
+
+body.dark-mode #send-button:hover {
+    background-color: #1e40af;
+    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.4);
+}
+
+/* Sidebar and categories */
+body.dark-mode .w-80,
+body.dark-mode .category-section {
+    background-color: #1e1e2e;
+    border-left-color: #2563eb;
+}
+
+body.dark-mode .category-title {
+    color: #93c5fd;
+}
+
+/* Suggested/random question buttons */
+body.dark-mode .suggested-question-btn,
+body.dark-mode .category-btn,
+body.dark-mode #refresh-random {
+    background-color: #2c2c3c;
+    color: #e0e0e0;
+    border: 1px solid #4b5563;
+}
+
+body.dark-mode .suggested-question-btn:hover,
+body.dark-mode .category-btn:hover,
+body.dark-mode #refresh-random:hover {
+    background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+    color: #fff;
+}
+
+/* Status indicator */
+body.dark-mode .status-online::before {
+    border-color: rgba(34, 197, 94, 0.5);
+}
+
+/* Header gradient adjustment for dark mode */
+body.dark-mode .bg-gradient-to-r {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+}
+
+/* Footer / any additional light sections */
+body.dark-mode .bg-white {
+    background-color: #1e1e2e !important;
+}
+
+body.dark-mode .bg-gray-50 {
+    background-color: #1e1e2e !important;
+}
+
+body.dark-mode .bg-gray-100 {
+    background-color: #2c2c3c !important;
+}
+
+body.dark-mode .text-gray-800 {
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .text-gray-700 {
+    color: #d1d5db !important;
+}
+
+body.dark-mode .border-gray-200 {
+    border-color: #374151 !important;
+}
+
+body.dark-mode .border-gray-300 {
+    border-color: #4b5563 !important;
+}
+
+body.dark-mode .hover\:bg-gray-100:hover {
+    background-color: #2c2c3c !important;
+}

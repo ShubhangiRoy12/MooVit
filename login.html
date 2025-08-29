@@ -78,6 +78,54 @@
     .auth-container a:hover {
       text-decoration: underline;
     }
+    /* Dark mode body */
+body.dark {
+  background: linear-gradient(135deg, #1a1a1a, #333333);
+  color: #f0f0f0;
+}
+
+/* Dark mode container */
+body.dark .auth-container {
+  background-color: rgba(30, 30, 30, 0.9);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* Dark mode headings */
+body.dark .auth-container h2 {
+  color: #ffffff;
+}
+
+/* Dark mode labels */
+body.dark .auth-container label {
+  color: #ccc;
+}
+
+/* Dark mode inputs */
+body.dark .auth-container input {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  border: 1px solid #555;
+}
+
+/* Dark mode button */
+body.dark .auth-container button {
+  background-color: #3498db;
+  color: #fff;
+}
+
+body.dark .auth-container button:hover {
+  background-color: #2980b9;
+}
+
+/* Dark mode paragraph and links */
+body.dark .auth-container p {
+  color: #ccc;
+}
+
+body.dark .auth-container a {
+  color: #76c7f0;
+}
+
   </style>
 </head>
 
@@ -101,6 +149,8 @@
       window.location.href = 'main.html';
     });
   </script>
+    <script src="theme.js"></script>
+
 </body>
 
 </html>

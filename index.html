@@ -10,14 +10,23 @@
 <body>
   <header>
     <h1>Transport Co.</h1>
-    <nav><a href="login.html">Login</a> | <a href="register.html">Sign Up</a></nav>
+    <nav>
+      <a href="login.html">Login</a> | <a href="register.html">Sign Up</a>
+      <!-- Dark mode toggle button -->
+      <button id="theme-toggle" style="margin-left: 15px; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 16px;">🌞</button>
+    </nav>
   </header>
+
   <main class="hero">
     <h2>Your Cargo, Our Priority</h2>
     <p>Best logistics and transportation services.</p>
     <a class="btn" href="login.html">Get Started</a>
   </main>
+
   <footer>&copy; 2025 Transport Co.</footer>
+
+  <!-- Include theme.js at the end so the button exists when it runs -->
+  <script src="theme.js"></script>
   <script src="script.js"></script>
 </body>
 

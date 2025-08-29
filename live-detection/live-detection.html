@@ -16,6 +16,7 @@
   <header>
     <h1>Live Object Detection 🔍</h1>
     <a href="../main.html" class="btn btn-light">← Home</a>
+    <button id="darkModeToggle" class="btn-toggle">🌙</button>
   </header>
 
   <main>
@@ -33,6 +34,14 @@
   </footer>
 
   <script src="live-detection.js"></script>
+  <script>
+    // Dark Mode Toggle Logic
+    const toggleBtn = document.getElementById('darkModeToggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+  </script>
 </body>
 
 </html>

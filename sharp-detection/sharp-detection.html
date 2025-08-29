@@ -14,6 +14,8 @@
       margin: 0;
       padding: 0;
       text-align: center;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     header {
@@ -23,6 +25,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     header a {
@@ -32,6 +35,7 @@
       border-radius: 5px;
       text-decoration: none;
       font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     main {
@@ -50,6 +54,7 @@
       max-width: 600px;
       border-radius: 10px;
       border: 2px solid #004080;
+      transition: border-color 0.3s;
     }
 
     canvas {
@@ -63,12 +68,47 @@
       padding: 1rem;
       background-color: #e0e0e0;
       margin-top: 3rem;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .description {
       margin-bottom: 1rem;
       font-size: 1.1rem;
-      color: #333;
+    }
+
+    /* Dark mode */
+    body.dark {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    body.dark header {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+    }
+
+    body.dark header a {
+      background-color: #333;
+      color: #f0f0f0;
+    }
+
+    body.dark video,
+    body.dark canvas {
+      border-color: #f0f0f0;
+    }
+
+    body.dark footer {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+    }
+
+    #theme-toggle {
+      margin-left: 1rem;
+      padding: 0.3rem 0.7rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1rem;
     }
   </style>
 </head>
@@ -76,13 +116,15 @@
 <body>
   <header>
     <h1>Sharp Object Detection</h1>
-    <a href="..\main.html" class="btn btn-light">← Home</a>
+    <div>
+      <a href="..\main.html" class="btn">← Home</a>
+      <button id="theme-toggle">🌞</button>
+    </div>
   </header>
 
   <main>
     <p class="description">
-      Show a sharp object like a knife or scissors in front of the webcam. This tool will identify and announce it
-      aloud.
+      Show a sharp object like a knife or scissors in front of the webcam. This tool will identify and announce it aloud.
     </p>
     <div id="wrapper">
       <video id="video" autoplay muted></video>
@@ -96,6 +138,29 @@
   </footer>
 
   <script>
+    // Dark mode toggle
+    const body = document.body;
+    const toggleBtn = document.getElementById('theme-toggle');
+
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+      toggleBtn.textContent = '🌙';
+    } else {
+      toggleBtn.textContent = '🌞';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      if (body.classList.contains('dark')) {
+        toggleBtn.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌞';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // TensorFlow detection
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -103,7 +168,6 @@
     let lastSpoken = {};
     const speakDelay = 4000;
 
-    // Speak detected label
     function speak(label) {
       const msg = new SpeechSynthesisUtterance(`This is a ${label}`);
       msg.lang = 'en-US';

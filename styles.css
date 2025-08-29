@@ -37,6 +37,21 @@ nav a { color: #f0f0f0; margin: 0 10px; text-decoration: none; }
 canvas {
   margin-top: 10px;
 }
+body.dark {
+  background: #121212;
+  color: #f0f0f0;
+}
+
+body.dark header,
+body.dark footer {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+body.dark a {
+  color: #76C7F0;
+}
+
 
 
 /* Hover and Grid */
@@ -49,6 +64,61 @@ canvas {
   max-width: 1200px; /* Set a maximum width for the grid */
   margin: 1rem auto; /* This centers the container horizontally */
  
+}
+
+.card:hover {
+  /* Lifts the card and increases the shadow */
+  transform: translateY(-8px); 
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+/* Dark mode general body */
+body.dark {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+/* Header */
+body.dark header {
+  background-color: #1E1E1E;
+  color: #fff;
+}
+
+/* Navigation links */
+body.dark header nav a {
+  color: #f0f0f0;
+}
+
+/* Cards container */
+body.dark .grid-container {
+  background-color: #121212;
+}
+
+/* Each card */
+body.dark .card {
+  background-color: #1E1E1E;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  color: #f0f0f0;
+}
+
+/* Card headings */
+body.dark .card h2 {
+  color: #fff;
+}
+
+/* Card descriptions */
+body.dark .card .desc {
+  color: #ccc;
+}
+
+/* Footer */
+body.dark footer {
+  background-color: #1E1E1E;
+  color: #f0f0f0;
+}
+
+/* Footer links */
+body.dark footer a {
+  color: #76C7F0;
 }
 
 
