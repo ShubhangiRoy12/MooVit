@@ -1,5 +1,3 @@
-/* === Updated Index/Landing Page Styles === */
-
 /* Landing Header and Navigation */
 .landing-header {
   background: white;
@@ -44,6 +42,34 @@
 .btn-signup {
   background-color: #007BFF;
   color: white;
+=======
+body {
+   margin:0; font-family: Arial, sans-serif;
+   }
+header, footer { background: #003366; color: white; text-align:center; padding:1em; }
+nav a { color: #f0f0f0; margin: 0 10px; text-decoration: none; }
+
+.card {
+  background-image: url(./bgImg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+  padding:.4rem 1rem;
+  background-color:#F0F8FF;
+}
+.card h2{ 
+   color:rgb(0, 0, 105);
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0  8px 12px rgba(0, 0, 0, 0.3);
+    
+
 }
 
 .btn-signup:hover {
@@ -112,6 +138,7 @@
   height: 4px;
   background-color: #007BFF;
 }
+
 
 .features-grid {
   display: grid;
@@ -380,4 +407,16 @@ footer {
 }
 .toggle .line3 {
     transform: rotate(45deg) translate(-5px, -6px);
+}
+=======
+/* Hover and Grid */
+.grid-container {
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  padding: 20px;
+  max-width: 1200px; /* Set a maximum width for the grid */
+  margin: 1rem auto; /* This centers the container horizontally */
+ 
 }
