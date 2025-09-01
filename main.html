@@ -7,7 +7,57 @@
   <link rel="stylesheet" href="styles.css">
   
 </head>
+<style>
+  /* FOOTER SECTION */
+footer {
+  background: #00234d;
+  color: #fff;
+  padding: 40px 20px 20px 20px;
+  font-size: 0.95em;
+}
 
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+  text-align: left;
+}
+
+.footer-container h3,
+.footer-container h4 {
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #ffd700;
+}
+ 
+ .footer-container ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-container ul li {
+  margin-bottom: 8px;
+}
+
+.footer-container a {
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-container a:hover {
+  color: #ffd700;
+  text-decoration: underline;
+}
+.footer-bottom {
+  text-align: center;
+  margin-top: 25px;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  padding-top: 12px;
+  font-size: 0.9em;
+}
+</style>
 <body>
   <header>
     <h1>Welcome, MooVit</h1>
@@ -135,32 +185,42 @@
       </div>
     </a>
   </main>
-
-  <footer>
-    <div class="footer-content">
-      <div class="column">
-        <h4>Company</h4>
-        <a href="./about.html">About Us</a>
-        <a href="#">Careers</a>
-        <a href="./contact.html">Contact</a>
-      </div>
-      <div class="column">
-        <h4>Support</h4>
-        <a href="#">Help Center</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
-      </div>
-      <div class="column">
-        <h4>Social</h4>
-        <a href="#">LinkedIn</a>
-        <a href="#">Twitter</a>
-        <a href="#">Instagram</a>
-      </div>
+  
+  <!-- FOOTER SECTION -->
+      <footer>
+    <div class="footer-container">
+    <div class="footer-about">
+      <h3>Transport Co.</h3>
+      <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time.</p>
     </div>
-    <p class="copyright">
-      &copy; 2025 MooVit. All rights reserved.
-    </p>
-  </footer>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>Email: <a href="shubhangi.23bai11165@vitbhopal.ac.in"></a></p>
+      <p>Phone: +91 98765 XXXXX</p>
+      <p>Address:  India</p>
+    </div>
+
+    <div class="footer-social">
+      <h4>Follow Us</h4>
+      <a href="https://github.com/ShubhangiRoy12">Github</a> | 
+      <a href="https://leetcode.com/u/Shubhangi12/">leetcode</a> | 
+      <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/">LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Transport Co. | All Rights Reserved.</p>
+  </div>
+</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
