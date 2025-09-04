@@ -102,10 +102,10 @@
     <form id="register-form">
       <h2>Sign Up at Transport Co.</h2>
       <label>Name
-        <input type="text" name="name" placeholder="Your full name" required>
+        <input type="text" name="name" id="name" placeholder="Your full name" required>
       </label>
       <label>Email
-        <input type="email" name="email" placeholder="you@example.com" required>
+        <input type="email" name="email" id="email" placeholder="you@example.com" required>
       </label>
       <label>Password
         <input id="pwd" type="password" placeholder="Create password" required>
@@ -113,24 +113,57 @@
       <label>Confirm Password
         <input id="cpwd" type="password" placeholder="Confirm password" required>
       </label>
+      <div id="error-msg" style="color: #ffb3b3; text-align:center; margin-top:10px;"></div>
       <button type="submit">Register</button>
       <p>Already have an account? <a href="login.html">Login</a></p>
     </form>
   </div>
   <script>
-    document.getElementById('register-form').onsubmit = e => {
-      e.preventDefault();
-      const p = document.getElementById('pwd'),
-        cp = document.getElementById('cpwd');
-      if (p.value !== cp.value) {
-        alert('Passwords do not match');
-        return;
-      }
-      alert('Registered!');
-      // further actions...
-    };
     document.getElementById('register-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('pwd').value;
+      const confirmPassword = document.getElementById('cpwd').value;
+      const errorMsg = document.getElementById('error-msg');
+      errorMsg.textContent = '';
+
+
+      // Check for empty fields
+      if (!name || !email || !password || !confirmPassword) {
+        errorMsg.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      // Name validation (only alphabets and spaces)
+      const namePattern = /^[A-Za-z ]+$/;
+      if (!namePattern.test(name)) {
+        errorMsg.textContent = 'Name should contain only alphabets and spaces.';
+        return;
+      }
+
+      // Email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      // Password strength validation
+      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
+      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!strongPasswordPattern.test(password)) {
+        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+        return;
+      }
+
+      // Confirm password match
+      if (password !== confirmPassword) {
+        errorMsg.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      // If all validations pass, redirect
       window.location.href = 'login.html';
     });
   </script>
