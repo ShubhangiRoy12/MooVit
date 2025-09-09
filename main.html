@@ -1,13 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="favicon.png">
   <title>Dashboard − MooVit</title>
+
+  <style>
+    /* === Global Styles === */
+    body { 
+      margin: 0; 
+      font-family: Arial, sans-serif; 
+      background-color: #f4f7f6;
+    }
+
+    /* === Improved Main Navbar UI === */
+    .main-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #003366;
+      padding: 0 25px;
+      color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      position: sticky; /* Makes the navbar stick to the top */
+      top: 0;
+      z-index: 1000;
+      height: 65px;
+    }
+    .main-nav .logo {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+    .main-nav .logo:hover {
+      transform: scale(1.05);
+    }
+    .main-nav .nav-links {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    .main-nav .nav-links li {
+      margin: 0 15px;
+    }
+    .main-nav .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      padding: 22px 5px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .main-nav .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #76bfe9;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+    .main-nav .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+    .main-nav .nav-links a:hover {
+      color: #f0f0f0;
+    }
+    .burger {
+      display: none;
+      cursor: pointer;
+    }
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+=======
   <link rel="stylesheet" href="styles.css">
   
 </head>
+
+
+
+    /* === Main Content Grid & Cards === */
+    .grid-container {
+      display: grid;
+      gap: 20px;
+      padding: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+    }
+    .card-content {
+      padding: 20px;
+      text-align: center;
+    }
+    .card .icon {
+      font-size: 3em;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .card h2 {
+        margin-top: 0;
+    }
+
+    /* === Footer Styles === */
+    footer {
+        background: #002244;
+        color: #ccc;
+        padding: 40px 20px;
+    }
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        text-align: left;
+    }
+    .footer-content .column h4 {
+        font-size: 1.2em;
+        color: white;
+        margin-bottom: 15px;
+    }
+    .footer-content .column a {
+        display: block;
+        color: #ccc;
+        text-decoration: none;
+        margin-bottom: 10px;
+        transition: color 0.3s ease;
+    }
+    .footer-content .column a:hover {
+        color: #76bfe9;
+    }
+    .copyright {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #444;
+    }
+
+    /* === Responsive Design === */
+    @media screen and (max-width: 768px) {
+      .main-nav .nav-links {
+        position: absolute;
+        right: 0px;
+        top: 65px; /* Matches navbar height */
+        background-color: #004080;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      }
+      .main-nav .nav-links.nav-active {
+        transform: translateX(0%);
+      }
+      .main-nav .nav-links li {
+        width: 100%;
+        text-align: center;
+      }
+      .burger {
+        display: block;
+      }
+    }
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+        opacity: 0;
+    }
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+  </style>
+</head>
+=======
 <style>
   /* FOOTER SECTION */
 footer {
@@ -59,130 +251,115 @@ footer {
   font-size: 0.9em;
 }
 </style>
+
 <body>
-  <header>
-    <h1>Welcome, MooVit</h1>
-    <nav><a href="index.html">Home</a> | <a href="login.html">Logout</a></nav>
-  </header>
+  <nav class="main-nav">
+    <a href="/main.html" class="logo">MooVit</a>
+    <ul class="nav-links">
+        <li><a href="/main.html">Dashboard</a></li>
+        <li><a href="/Shipments/shipments.html">Shipments</a></li>
+        <li><a href="/Vehicles/vechicle.html">Vehicles</a></li>
+        <li><a href="/Profile/profile.html">Profile</a></li>
+        <li><a href="/Routes/route.html">Routes</a></li>
+        <li><a href="/Schedule/schedule.html">Schedule</a></li>
+        <li><a href="/login.html">Logout</a></li>
+    </ul>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+</nav>
 
   <main class="grid-container">
-    <!-- Existing Cards -->
     <a href="Shipments/shipments.html" class="card">
 
+      <div class="card-content">
+
+
       <div class="content">
+
         <span class="icon">📦</span>
         <h2>Shipments</h2>
-        <!-- <p>Today's Orders: <strong>152</strong></p> -->
-        <p class="desc">Monitor status categories—Pending, In Route, Delivered, Delayed—with transit time metrics and
-          volume trends to optimize delivery workflow.</p>
+        <p class="desc">Monitor status categories—Pending, In Route, Delivered, Delayed—with transit time metrics and volume trends to optimize delivery workflow.</p>
       </div>
       
     </a>
-
     <a href="Vehicles/vechicle.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">🚛</span>
         <h2>Vehicles</h2>
-        <!-- <p>Active Fleet: <strong>32</strong></p> -->
-        <p class="desc">Track driver behavior, maintenance, location, fuel usage and utilization for data‑driven fleet
-          control.</p>
+        <p class="desc">Track driver behavior, maintenance, location, fuel usage and utilization for data‑driven fleet control.</p>
       </div>
     </a>
-
     <a href="Safety and awareness/index.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">⚠️</span>
         <h2>Road Safety Awareness</h2>
-        <p class="desc">India sees serious helmet and seatbelt non-compliance. Poor use alone caused ~30% of two-wheeler
-          fatalities in 2019 and up to 14% in car‑related deaths.</p>
+        <p class="desc">India sees serious helmet and seatbelt non-compliance. Poor use alone caused ~30% of two-wheeler fatalities in 2019 and up to 14% in car‑related deaths.</p>
       </div>
     </a>
-
     <a href="Routes/route.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">🧭</span>
         <h2>Routes</h2>
-        <!-- <p>Active Routes: <strong>12</strong></p> -->
-        <p class="desc">Analyze route origins, destinations, distances and performance metrics to optimize travel times
-          and fuel usage.</p>
+        <p class="desc">Analyze route origins, destinations, distances and performance metrics to optimize travel times and fuel usage.</p>
       </div>
     </a>
-
     <a href="Schedule/schedule.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">📅</span>
         <h2>Schedule</h2>
-        <!-- <p>Trips Today: <strong>25</strong></p> -->
-        <p class="desc">Instrument dispatch scheduling data to reduce idle time and ensure timely pickups/deliveries.
-        </p>
+        <p class="desc">Instrument dispatch scheduling data to reduce idle time and ensure timely pickups/deliveries.</p>
       </div>
     </a>
-
-    <!-- New Cards -->
-
     <a href="sharingcab/sharingcab.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">🚕</span>
         <h2>Cab Sharing</h2>
-        <p class="desc">Offer or join rides with others. Save costs, reduce traffic, and share the journey via MooVit's
-          Cab Sharing.</p>
+        <p class="desc">Offer or join rides with others. Save costs, reduce traffic, and share the journey via MooVit's Cab Sharing.</p>
       </div>
     </a>
-
     <a href="Public transportation/index.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">🚍</span>
         <h2>Public Transit</h2>
-        <!-- <p>Upcoming Departures: <strong>23</strong></p> -->
-        <p class="desc">Track real-time bus and train locations, view schedules, and monitor service alerts to plan your
-          travel efficiently.</p>
+        <p class="desc">Track real-time bus and train locations, view schedules, and monitor service alerts to plan your travel efficiently.</p>
       </div>
     </a>
-
     <a href="FoodStall_and_hotels/index.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">🏨🍔</span>
         <h2>Hotel Services</h2>
-        <!-- <p>Rooms Booked: <strong>58</strong></p>
-        <p>Food Orders Today: <strong>214</strong></p> -->
-        <p class="desc">Monitor hotel reservations and food stall sales from a single dashboard to optimize operations
-          and guest experiences.</p>
+        <p class="desc">Monitor hotel reservations and food stall sales from a single dashboard to optimize operations and guest experiences.</p>
       </div>
     </a>
-
     <a href="sharp-detection/sharp-detection.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">🔍</span>
         <h2>Sharp Object Detection</h2>
-        <p class="desc">Real-time alerts for nearby sharp or hazardous objects using AI and camera input — prioritizing
-          vehicle and rider safety.</p>
+        <p class="desc">Real-time alerts for nearby sharp or hazardous objects using AI and camera input — prioritizing vehicle and rider safety.</p>
       </div>
     </a>
-
     <a href="live-detection/live-detection.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">👁️‍🗨️</span>
         <h2>Live Object Detection</h2>
-        <p class="desc">Assistive navigation for visually impaired users by detecting road obstacles, people, and
-          signals in real time.</p>
+        <p class="desc">Assistive navigation for visually impaired users by detecting road obstacles, people, and signals in real time.</p>
       </div>
     </a>
-
     <a href="Chatbot/index.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">💬</span>
         <h2>Chatbot Assistant</h2>
-        <p class="desc">Need help? Our AI-powered assistant is available 24/7 to guide you through the platform or
-          answer common queries.</p>
+        <p class="desc">Need help? Our AI-powered assistant is available 24/7 to guide you through the platform or answer common queries.</p>
       </div>
     </a>
-
     <a href="feedback/feedback.html" class="card">
-      <div class="content">
+      <div class="card-content">
         <span class="icon">📝</span>
         <h2>Feedback</h2>
-        <p class="desc">Share your experience or report any issues. Help us improve MooVit's services and accessibility
-          features.</p>
+        <p class="desc">Share your experience or report any issues. Help us improve MooVit's services and accessibility features.</p>
       </div>
     </a>
   </main>
@@ -225,6 +402,21 @@ footer {
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
-</body>
+  
+  <script>
+    const navSlide = () => {
+      const burger = document.querySelector('.burger');
+      const nav = document.querySelector('.nav-links');
 
+      burger.addEventListener('click', () => {
+        // Toggle Nav
+        nav.classList.toggle('nav-active');
+
+        // Burger Animation
+        burger.classList.toggle('toggle');
+      });
+    }
+    navSlide();
+  </script>
+</body>
 </html>

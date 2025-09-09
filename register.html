@@ -1,124 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
+
+  <title>Register - MooVit</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+=======
   <link rel="icon" href="favicon.png">
   <title>Register - Transport Co.</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
 
+  <style>
+    /* You can move these styles to your main styles.css file */
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #0A3D62;
-      /* deep navy blue for trust and reliability */
-      color: #fff;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0A3D62, #3498DB);
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-
     .auth-container {
-      width: 360px;
-      padding: 40px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      /* subtle translucent overlay */
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .auth-container h2 {
+      background-color: white;
+      padding: 40px 30px;
+      border-radius: 10px;
+      width: 350px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
       text-align: center;
-      margin-bottom: 24px;
-      font-size: 24px;
-      color: #ECF0F1;
+      color: #2c3e50;
     }
-
+    .auth-container h2 {
+      margin-bottom: 25px;
+    }
     .auth-container label {
       display: block;
-      margin-bottom: 16px;
-      font-weight: 600;
-      font-size: 14px;
-      color: #D0D7DE;
+      margin-bottom: 15px;
+      font-weight: bold;
+      text-align: left;
     }
-
     .auth-container input {
       width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 4px;
-      margin-top: 6px;
-      font-size: 15px;
-      background: #1E4E8C;
-      color: #fff;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #bdc3c7;
+      border-radius: 5px;
+      box-sizing: border-box;
     }
-
-    .auth-container input::placeholder {
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    .auth-container button {
+     .auth-container button[type="submit"] {
       width: 100%;
-      padding: 14px;
-      margin-top: 20px;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: #3498DB;
+      color: white;
       border: none;
-      border-radius: 4px;
-      background: #3498DB;
-      color: #fff;
+      border-radius: 5px;
       font-size: 16px;
-      font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-
-    .auth-container button:hover {
-      background: #2980B9;
+    .auth-container button[type="submit"]:hover {
+      background-color: #2980B9;
     }
-
     .auth-container p {
-      margin-top: 18px;
-      text-align: center;
-      font-size: 14px;
+        margin-top: 20px;
     }
-
     .auth-container a {
-      color: #76C7F0;
+      color: #2980b9;
       text-decoration: none;
-    }
-
-    .auth-container a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
-
 <body>
   <div class="auth-container">
     <form id="register-form">
+
+      <h2>Create Your Account</h2>
+      <label>Email
+        <input type="email" id="email" required>
+
       <h2>Sign Up at Transport Co.</h2>
       <label>Name
         <input type="text" name="name" id="name" placeholder="Your full name" required>
       </label>
       <label>Email
         <input type="email" name="email" id="email" placeholder="you@example.com" required>
+
       </label>
       <label>Password
-        <input id="pwd" type="password" placeholder="Create password" required>
-      </label>
-      <label>Confirm Password
-        <input id="cpwd" type="password" placeholder="Confirm password" required>
+        <input type="password" id="password" required>
       </label>
       <div id="error-msg" style="color: #ffb3b3; text-align:center; margin-top:10px;"></div>
       <button type="submit">Register</button>
-      <p>Already have an account? <a href="login.html">Login</a></p>
     </form>
+    <p>Already have an account? <a href="login.html">Login</a></p>
   </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+
   <script>
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    const registerForm = document.getElementById('register-form');
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("Registration successful! Please login.");
+          window.location.href = 'login.html';
+        })
+        .catch((error) => {
+          alert(`Error: ${error.message}`);
+        });
+=======
     document.getElementById('register-form').addEventListener('submit', function (e) {
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
@@ -165,8 +174,8 @@
 
       // If all validations pass, redirect
       window.location.href = 'login.html';
+
     });
   </script>
 </body>
-
 </html>

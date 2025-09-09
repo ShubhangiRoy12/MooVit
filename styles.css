@@ -1,3 +1,48 @@
+/* Landing Header and Navigation */
+.landing-header {
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.landing-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.landing-nav .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #003366;
+}
+
+.nav-auth a {
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-login {
+  color: #003366;
+}
+
+.btn-login:hover {
+  background-color: #f0f0f0;
+}
+
+.btn-signup {
+  background-color: #007BFF;
+  color: white;
+=======
 body {
    margin:0; font-family: Arial, sans-serif;
    }
@@ -24,21 +69,346 @@ nav a { color: #f0f0f0; margin: 0 10px; text-decoration: none; }
   transform: translateY(-4px);
   box-shadow: 0  8px 12px rgba(0, 0, 0, 0.3);
     
+
 }
-.card-content {
-  padding: 20px;
+
+.btn-signup:hover {
+  background-color: #0056b3;
+}
+
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 51, 102, 0.7)), url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070') no-repeat center center/cover;
+  color: white;
   text-align: center;
+  padding: 100px 20px;
 }
-.card .icon {
-  font-size: 3em;
-  display: block;
-  margin-bottom: 10px;
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: 700;
 }
-canvas {
-  margin-top: 10px;
+
+.hero-content p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.btn-hero {
+  background-color: #007BFF;
+  color: white;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-hero:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+/* Features Section */
+.features {
+  padding: 80px 20px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: #003366;
+  margin-bottom: 50px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: #007BFF;
 }
 
 
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: #007BFF;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  color: #003366;
+  margin-bottom: 15px;
+}
+
+.feature-card p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.cta-section {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+/* Landing Footer */
+.landing-footer {
+  background-color: #002244;
+  color: #ccc;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .nav-auth a {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* === Google Sign-In Button Style === */
+
+.google-signin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4285F4;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.google-signin-btn:hover {
+  background-color: #357ae8;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.google-signin-btn .fa-google {
+  margin-right: 12px;
+  font-size: 1.2em;
+}
+
+/* === Improved Main Navbar UI (replace old .main-nav styles) === */
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #003366;
+  padding: 0 25px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  position: sticky; /* Makes the navbar stick to the top */
+  top: 0;
+  z-index: 1000;
+  height: 65px;
+}
+
+.main-nav .logo {
+  font-size: 1.6em;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.main-nav .logo:hover {
+  transform: scale(1.05);
+}
+
+.main-nav .nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav .nav-links li {
+  margin: 0 15px; /* Adds space between links */
+}
+
+.main-nav .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 22px 5px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Underline hover effect */
+.main-nav .nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #76bfe9;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.main-nav .nav-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.main-nav .nav-links a:hover {
+    color: #f0f0f0;
+}
+
+/* Hamburger Menu (no changes, but kept for context) */
+.burger {
+  display: none;
+  cursor: pointer;
+}
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+/* === Footer Styles === */
+footer {
+    background: #002244;
+    color: #ccc;
+    padding: 40px 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    text-align: left;
+}
+
+.footer-content .column h4 {
+    font-size: 1.2em;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.footer-content .column a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-content .column a:hover {
+    color: #76bfe9;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+/* === Responsive Design === */
+@media screen and (max-width: 768px) {
+  .main-nav .nav-links {
+    position: absolute;
+    right: 0px;
+    top: 60px; /* Adjust based on navbar height */
+    background-color: #004080;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+
+  .main-nav .nav-links.nav-active {
+    transform: translateX(0%);
+  }
+  
+  .main-nav .nav-links li {
+      width: 100%;
+      text-align: center;
+  }
+  
+  .burger {
+    display: block;
+  }
+}
+
+/* Animation for burger icon */
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+.toggle .line2 {
+    opacity: 0;
+}
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+=======
 /* Hover and Grid */
 .grid-container {
 
@@ -50,5 +420,3 @@ canvas {
   margin: 1rem auto; /* This centers the container horizontally */
  
 }
-
-
