@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
   <title>Register - MooVit</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+=======
+  <link rel="icon" href="favicon.png">
+  <title>Register - Transport Co.</title>
+
   <style>
     /* You can move these styles to your main styles.css file */
     body {
@@ -69,13 +74,23 @@
 <body>
   <div class="auth-container">
     <form id="register-form">
+
       <h2>Create Your Account</h2>
       <label>Email
         <input type="email" id="email" required>
+
+      <h2>Sign Up at Transport Co.</h2>
+      <label>Name
+        <input type="text" name="name" id="name" placeholder="Your full name" required>
+      </label>
+      <label>Email
+        <input type="email" name="email" id="email" placeholder="you@example.com" required>
+
       </label>
       <label>Password
         <input type="password" id="password" required>
       </label>
+      <div id="error-msg" style="color: #ffb3b3; text-align:center; margin-top:10px;"></div>
       <button type="submit">Register</button>
     </form>
     <p>Already have an account? <a href="login.html">Login</a></p>
@@ -85,6 +100,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
 
   <script>
+
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_AUTH_DOMAIN",
@@ -111,6 +127,54 @@
         .catch((error) => {
           alert(`Error: ${error.message}`);
         });
+=======
+    document.getElementById('register-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('pwd').value;
+      const confirmPassword = document.getElementById('cpwd').value;
+      const errorMsg = document.getElementById('error-msg');
+      errorMsg.textContent = '';
+
+
+      // Check for empty fields
+      if (!name || !email || !password || !confirmPassword) {
+        errorMsg.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      // Name validation (only alphabets and spaces)
+      const namePattern = /^[A-Za-z ]+$/;
+      if (!namePattern.test(name)) {
+        errorMsg.textContent = 'Name should contain only alphabets and spaces.';
+        return;
+      }
+
+      // Email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      // Password strength validation
+      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
+      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!strongPasswordPattern.test(password)) {
+        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+        return;
+      }
+
+      // Confirm password match
+      if (password !== confirmPassword) {
+        errorMsg.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      // If all validations pass, redirect
+      window.location.href = 'login.html';
+
     });
   </script>
 </body>
