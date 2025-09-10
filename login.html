@@ -79,6 +79,40 @@
     .auth-container a:hover {
       text-decoration: underline;
     }
+
+    /* Admin link styling */
+    .admin-link-inline {
+      color: #e74c3c !important;
+      font-weight: 500;
+    }
+
+    .admin-link-inline:hover {
+      color: #c0392b !important;
+      text-decoration: underline !important;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .auth-container {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .auth-container {
+        padding: 30px 25px;
+      }
+
+      .auth-container p {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    }
   </style>
 </head>
 
@@ -93,9 +127,10 @@
         <input type="password" name="password" required>
       </label>
       <button type="submit">Login</button>
-      <p>New? <a href="register.html">Register here</a></p>
+      <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
     </form>
   </div>
+  
   <script>
     document.getElementById('login-form').addEventListener('submit', function (e) {
       e.preventDefault();
