@@ -79,6 +79,7 @@
           <textarea class="form-control" id="message" rows="6" required></textarea>
         </div>
 
+        <div id="error-msg" style="color: #d9534f; text-align:center; margin-bottom:10px;"></div>
         <button type="submit" class="btn btn-primary w-100">Submit Feedback</button>
       </form>
     </div>
@@ -91,6 +92,40 @@
   <script>
     document.getElementById("feedback-form").addEventListener("submit", function (e) {
       e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const errorMsg = document.getElementById('error-msg');
+      errorMsg.textContent = '';
+
+
+      // Check for empty fields
+      if (!name || !email || !message) {
+        errorMsg.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      // Name validation (only alphabets and spaces)
+      const namePattern = /^[A-Za-z ]+$/;
+      if (!namePattern.test(name)) {
+        errorMsg.textContent = 'Name should contain only alphabets and spaces.';
+        return;
+      }
+
+      // Email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      // Feedback message length validation
+      if (message.length <= 10) {
+        errorMsg.textContent = 'Feedback message must be more than 10 characters.';
+        return;
+      }
+
+      // If all validations pass
       alert("Thanks for your feedback!");
       this.reset();
     });

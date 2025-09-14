@@ -121,19 +121,43 @@
     <form id="login-form">
       <h2>Login to MooVit.</h2>
       <label>Email
-        <input type="email" name="email" required>
+        <input type="email" name="email" id="email" required>
       </label>
       <label>Password
-        <input type="password" name="password" required>
+        <input type="password" name="password" id="password" required>
       </label>
+      <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
       <button type="submit">Login</button>
       <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
     </form>
   </div>
   
   <script>
+
     document.getElementById('login-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('error-msg');
+      errorMsg.textContent = '';
+
+      // Email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+
+      // Password strength validation
+      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
+      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!strongPasswordPattern.test(password)) {
+        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+        return;
+      }
+
+      // If all validations pass, redirect
       window.location.href = 'main.html';
     });
   </script>
