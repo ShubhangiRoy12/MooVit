@@ -4,144 +4,610 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png">
-  <title>Contact Us - MoveIt</title>
+  <title>Contact Us - Transport Co.</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+    
+    * {
       margin: 0;
       padding: 0;
-      background: #0b1d3a;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0a1628 0%, #1a365d 35%, #2563eb 100%);
+      background-attachment: fixed;
       color: #f0f4f8;
       overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Animated Background Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
     }
 
     header {
       display: flex;
       align-items: center;
-      background: #142850;
-      padding: 1rem 2rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      justify-content: space-between;
+      background: rgba(26, 54, 93, 0.15);
+      backdrop-filter: blur(25px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       position: sticky;
       top: 0;
+      z-index: 100;
     }
 
-    header a {
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       text-decoration: none;
-      color: #f0f4f8;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: transform 0.3s ease;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 12px 24px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
     }
 
-    header a:hover {
-      transform: scale(1.1);
-      color: #00aaff;
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffd700;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ffffff 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     .container {
       max-width: 1000px;
-      margin: 3rem auto;
-      padding: 2rem;
-      background: #1a2d52;
-      border-radius: 15px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+      margin: 4rem auto;
+      padding: 3rem 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(25px);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
       animation: fadeIn 1.5s ease-in-out;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      text-align: center;
-      margin-bottom: 1rem;
-      color: #00aaff;
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #ffd700, #2563eb, #ffd700, #2563eb);
+      background-size: 400% 400%;
+      border-radius: 32px;
+      z-index: -2;
+      animation: gradientRotate 8s ease infinite;
     }
 
-    p {
+    .container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(25px);
+      border-radius: 30px;
+      z-index: -1;
+    }
+
+    @keyframes gradientRotate {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    h1 {
+      font-size: 3rem;
       text-align: center;
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: white;
+      font-weight: 900;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      animation: slideUp 1s ease-out 0.3s both;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 1.2rem;
       line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: slideUp 1s ease-out 0.5s both;
     }
 
     form {
       display: grid;
-      gap: 1.2rem;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      animation: slideUp 1s ease-out 0.7s both;
+    }
+
+    .form-group {
+      position: relative;
     }
 
     input, textarea {
-      padding: 0.9rem;
-      border-radius: 8px;
+      width: 100%;
+      padding: 1.2rem 1.5rem;
+      border-radius: 15px;
       border: none;
       outline: none;
-      font-size: 1rem;
-      background: #f0f4f8;
-      color: #0b1d3a;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      font-family: 'Inter', sans-serif;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
     }
 
     input:focus, textarea:focus {
-      transform: scale(1.02);
-      box-shadow: 0 0 10px #00aaff;
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 215, 0, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
     }
 
-    button {
-      padding: 0.9rem;
-      background: #00aaff;
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      padding: 1.3rem 3rem;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       color: white;
       border: none;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-weight: bold;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
     }
 
-    button:hover {
-      background: #0088cc;
-      transform: scale(1.05);
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s;
     }
 
-    .info {
-      margin-top: 2rem;
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(37, 99, 235, 0.6);
+    }
+
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+      animation: slideUp 1s ease-out 0.9s both;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 2rem;
       text-align: center;
+      transition: all 0.3s ease;
+      cursor: default;
     }
 
-    .info h3 {
-      color: #00aaff;
-      margin-bottom: 0.5rem;
+    .info-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     }
 
-    .info p {
-      margin: 0.3rem 0;
+    .info-card h3 {
+      color: #ffd700;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .info-card p {
+      margin: 0.5rem 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+    }
+
+    .info-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      filter: drop-shadow(0 4px 15px rgba(255, 215, 0, 0.3));
     }
 
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Success Message */
+    .success-message {
+      background: rgba(34, 197, 94, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+      padding: 1rem 1.5rem;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .container {
+        margin: 2rem 1rem;
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+      }
+
+      .contact-info {
+        grid-template-columns: 1fr;
+      }
+
+      .back-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
+
+    /* Loading states */
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .submit-btn.loading::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    @keyframes spin {
+      to { transform: translateY(-50%) rotate(360deg); }
     }
   </style>
 </head>
 <body>
+  <!-- Animated Background Particles -->
+  <div class="particles" id="particles"></div>
+
   <header>
-    <a href="main.html">⬅ Back</a>
+    <button class="back-btn" onclick="smartGoBack()">
+      ⬅ Back
+    </button>
+    <div class="logo">Transport Co.</div>
   </header>
 
   <div class="container">
     <h1>Contact Us</h1>
-    <p>We’d love to hear from you! Whether you have a question, feedback, or partnership inquiry, the MoveIt team is here to help.</p>
+    <p class="subtitle">We'd love to hear from you! Whether you have a question, feedback, or partnership inquiry, the Transport Co. team is here to help you with all your logistics needs.</p>
 
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
+    <div class="success-message" id="successMessage">
+      ✅ Thank you for your message! We'll get back to you within 24 hours.
+    </div>
+
+    <form id="contactForm">
+      <div class="form-group">
+        <input type="text" id="name" placeholder="Your Full Name" required>
+      </div>
+      
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Your Email Address" required>
+      </div>
+      
+      <div class="form-group">
+        <input type="tel" id="phone" placeholder="Your Phone Number (Optional)">
+      </div>
+      
+      <div class="form-group">
+        <textarea id="message" rows="5" placeholder="Tell us about your logistics needs or ask us anything..." required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn" id="submitBtn">
+        Send Message
+      </button>
     </form>
 
-    <div class="info">
-      <h3>Our Contact Info</h3>
-      <p>📍 Hyderabad, India</p>
-      <p>📞 +91 98765 43210</p>
-      <p>✉ contact@moveit.com</p>
+    <div class="contact-info">
+      <div class="info-card">
+        <div class="icon">📍</div>
+        <h3>Our Location</h3>
+        <p>VIT Bhopal</p>
+        <p>Madhya Pradesh, India</p>
+      </div>
+      
+      <div class="info-card">
+        <div class="icon">📞</div>
+        <h3>Call Us</h3>
+        <p>+91 98765 XXXXX</p>
+        <p>24/7 Customer Support</p>
+      </div>
+      
+      <div class="info-card">
+        <div class="icon">✉️</div>
+        <h3>Email Us</h3>
+        <p>shubhangi.23bai11165@vitbhopal.ac.in</p>
+        <p>Quick Response Guaranteed</p>
+      </div>
     </div>
   </div>
+
+  <script>
+    // Create animated background particles
+    function createParticles() {
+      const particles = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        particles.appendChild(particle);
+      }
+    }
+
+    // Smart back navigation function
+    function smartGoBack() {
+      // Check if there's a previous page in history
+      if (document.referrer && document.referrer !== window.location.href) {
+        // Check if user came from a logged-in page
+        const referrer = document.referrer;
+        const isFromLoggedInArea = referrer.includes('dashboard') || 
+                                   referrer.includes('main.html') || 
+                                   referrer.includes('profile') || 
+                                   referrer.includes('services');
+        
+        if (isFromLoggedInArea) {
+          // Go back to the previous page (likely logged-in area)
+          window.history.back();
+        } else {
+          // User came from public area, go to home page
+          window.location.href = 'index.html';
+        }
+      } else {
+        // No referrer, check if user is logged in
+        const isLoggedIn = localStorage.getItem('userLoggedIn') === 'true' || 
+                          sessionStorage.getItem('userLoggedIn') === 'true' ||
+                          document.cookie.includes('userLoggedIn=true');
+        
+        if (isLoggedIn) {
+          // User is logged in, redirect to main dashboard
+          window.location.href = 'main.html';
+        } else {
+          // User is not logged in, redirect to home
+          window.location.href = 'index.html';
+        }
+      }
+    }
+
+    // Alternative approach: Check URL parameters or session storage
+    function checkUserLoginStatus() {
+      // Check various ways user might be logged in
+      const urlParams = new URLSearchParams(window.location.search);
+      const fromLoggedIn = urlParams.get('from') === 'logged';
+      
+      if (fromLoggedIn) {
+        // Update the back button behavior
+        const backBtn = document.querySelector('.back-btn');
+        backBtn.onclick = function() {
+          window.location.href = 'main.html';
+        };
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Show loading state
+      submitBtn.classList.add('loading');
+      submitBtn.textContent = 'Sending...';
+      
+      // Simulate form submission (replace with actual API call)
+      setTimeout(() => {
+        // Reset form
+        this.reset();
+        
+        // Show success message
+        successMessage.style.display = 'block';
+        
+        // Reset button
+        submitBtn.classList.remove('loading');
+        submitBtn.textContent = 'Send Message';
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          successMessage.style.display = 'none';
+        }, 5000);
+        
+        // Scroll to top to show success message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 2000);
+    });
+
+    // Initialize page
+    window.addEventListener('load', function() {
+      createParticles();
+      checkUserLoginStatus();
+      
+      // Add loading animations
+      const elements = document.querySelectorAll('h1, .subtitle, form, .contact-info');
+      elements.forEach((element, index) => {
+        element.style.animationDelay = `${0.3 + index * 0.2}s`;
+      });
+    });
+
+    // Add floating animation to particles
+    function animateParticles() {
+      const particles = document.querySelectorAll('.particle');
+      particles.forEach(particle => {
+        const randomX = (Math.random() - 0.5) * 50;
+        const randomY = (Math.random() - 0.5) * 50;
+        particle.style.transform = `translate(${randomX}px, ${randomY}px)`;
+      });
+    }
+
+    setInterval(animateParticles, 4000);
+
+    // Enhanced form validation
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+      input.addEventListener('blur', function() {
+        if (this.value.trim() !== '') {
+          this.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+        } else if (this.hasAttribute('required')) {
+          this.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+        }
+      });
+      
+      input.addEventListener('input', function() {
+        if (this.style.borderColor.includes('239, 68, 68')) {
+          this.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+        }
+      });
+    });
+
+    // Keyboard navigation for accessibility
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        // Allow easy back navigation with Escape key
+        smartGoBack();
+      }
+    });
+  </script>
 </body>
 </html>
