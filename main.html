@@ -1,230 +1,785 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" href="favicon.png">
-  <title>Dashboard − MooVit</title>
-  <link rel="stylesheet" href="styles.css">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png">
+    <title>Dashboard − MooVit</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0f172a;
+            --secondary-blue: #1e40af;
+            --accent-orange: #f97316;
+            --accent-green: #059669;
+            --accent-purple: #7c3aed;
+            --light-bg: #f8fafc;
+            --white: #ffffff;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --shadow-light: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-large: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+            color: var(--gray-800);
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--secondary-blue), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .header-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: var(--white);
+            border: 2px solid transparent;
+        }
+
+        .header-nav a:hover {
+            background: var(--accent-orange);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .welcome-section h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-section p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Service Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 24px;
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--gray-200);
+            position: relative;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-blue), var(--accent-orange));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-large);
+        }
+
+        .card-content {
+            padding: 2.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .card-icon {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        /* Icon Colors */
+        .shipments .card-icon { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .vehicles .card-icon { background: linear-gradient(135deg, #059669, #047857); }
+        .safety .card-icon { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+        .routes .card-icon { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+        .schedule .card-icon { background: linear-gradient(135deg, #0891b2, #0e7490); }
+        .sharing .card-icon { background: linear-gradient(135deg, #ea580c, #c2410c); }
+        .transit .card-icon { background: linear-gradient(135deg, #16a34a, #15803d); }
+        .hotel .card-icon { background: linear-gradient(135deg, #c2410c, #9a3412); }
+        .detection .card-icon { background: linear-gradient(135deg, #7c2d12, #a16207); }
+        .live .card-icon { background: linear-gradient(135deg, #be123c, #9f1239); }
+        .chatbot .card-icon { background: linear-gradient(135deg, #4338ca, #3730a3); }
+        .feedback .card-icon { background: linear-gradient(135deg, #059669, #047857); }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 0;
+        }
+
+        .card-description {
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .card-stat {
+            background: var(--gray-100);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--secondary-blue);
+            white-space: nowrap;
+        }
+
+        .card-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .card-link {
+            color: var(--secondary-blue);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .card-link {
+            color: var(--accent-orange);
+            transform: translateX(5px);
+        }
+
+        .card-link i {
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .card-link i {
+            transform: translateX(3px);
+        }
+
+        /* Special Card Styles */
+        .featured-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .featured-card .card-title,
+        .featured-card .card-description {
+            color: white;
+        }
+
+        .featured-card .card-stat {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .featured-card .card-link {
+            color: white;
+        }
+
+        .urgent-card {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            border: none;
+        }
+
+        .urgent-card .card-title,
+        .urgent-card .card-description {
+            color: white;
+        }
+
+        .urgent-card .card-stat {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .urgent-card .card-link {
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-blue);
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-orange);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-orange);
+            transform: translateX(3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-orange);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-section h2 {
+                font-size: 2.5rem;
+            }
+
+            .main-container {
+                padding: 1rem;
+            }
+
+            .card-content {
+                padding: 2rem;
+            }
+
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Loading Animation */
+        .service-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .service-card:nth-child(2) { animation-delay: 0.1s; }
+        .service-card:nth-child(3) { animation-delay: 0.2s; }
+        .service-card:nth-child(4) { animation-delay: 0.3s; }
+        .service-card:nth-child(5) { animation-delay: 0.4s; }
+        .service-card:nth-child(6) { animation-delay: 0.5s; }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
-<style>
-  /* FOOTER SECTION */
-footer {
-  background: #00234d;
-  color: #fff;
-  padding: 40px 20px 20px 20px;
-  font-size: 0.95em;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: auto;
-  text-align: left;
-}
-
-.footer-container h3,
-.footer-container h4 {
-  margin-bottom: 12px;
-  font-weight: 600;
-  color: #ffd700;
-}
- 
- .footer-container ul {
-  list-style: none;
-  padding: 0;
-}
-.footer-container ul li {
-  margin-bottom: 8px;
-}
-
-.footer-container a {
-  color: #f0f0f0;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.footer-container a:hover {
-  color: #ffd700;
-  text-decoration: underline;
-}
-.footer-bottom {
-  text-align: center;
-  margin-top: 25px;
-  border-top: 1px solid rgba(255,255,255,0.3);
-  padding-top: 12px;
-  font-size: 0.9em;
-}
-</style>
 <body>
-  <header>
-    <h1>Welcome, MooVit</h1>
-    <nav><a href="index.html">Home</a> | <a href="login.html">Logout</a></nav>
-  </header>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-truck-moving"></i>
+                <h1>MooVit</h1>
+            </div>
+            <nav class="header-nav">
+                <a href="index.html">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="login.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </nav>
+        </div>
+    </header>
 
-  <main class="grid-container">
-    <!-- Existing Cards -->
-    <a href="Shipments/shipments.html" class="card">
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome to MooVit</h2>
+            <p>Your comprehensive transportation management platform - streamlining logistics, enhancing safety, and connecting communities through innovative mobility solutions.</p>
+        </section>
 
-      <div class="content">
-        <span class="icon">📦</span>
-        <h2>Shipments</h2>
-        <!-- <p>Today's Orders: <strong>152</strong></p> -->
-        <p class="desc">Monitor status categories—Pending, In Route, Delivered, Delayed—with transit time metrics and
-          volume trends to optimize delivery workflow.</p>
-      </div>
-      
-    </a>
+        <!-- Services Grid -->
+        <section class="services-grid">
+            <!-- Core Transport Services -->
+            <a href="Shipments/shipments.html" class="service-card shipments">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <h2 class="card-title">Shipments</h2>
+                    </div>
+                    <p class="card-description">Monitor status categories—Pending, In Route, Delivered, Delayed—with transit time metrics and volume trends to optimize delivery workflow and logistics operations.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">152 Today</span>
+                        <span class="card-stat">94% On Time</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Manage Shipments <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="Vehicles/vechicle.html" class="card">
-      <div class="content">
-        <span class="icon">🚛</span>
-        <h2>Vehicles</h2>
-        <!-- <p>Active Fleet: <strong>32</strong></p> -->
-        <p class="desc">Track driver behavior, maintenance, location, fuel usage and utilization for data‑driven fleet
-          control.</p>
-      </div>
-    </a>
+            <a href="Vehicles/vechicle.html" class="service-card vehicles">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-truck-moving"></i>
+                        </div>
+                        <h2 class="card-title">Fleet Management</h2>
+                    </div>
+                    <p class="card-description">Track driver behavior, maintenance schedules, real-time location, fuel usage and utilization metrics for comprehensive data-driven fleet optimization and control.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">32 Active</span>
+                        <span class="card-stat">87% Utilization</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">View Fleet <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="Safety and awareness/index.html" class="card">
-      <div class="content">
-        <span class="icon">⚠️</span>
-        <h2>Road Safety Awareness</h2>
-        <p class="desc">India sees serious helmet and seatbelt non-compliance. Poor use alone caused ~30% of two-wheeler
-          fatalities in 2019 and up to 14% in car‑related deaths.</p>
-      </div>
-    </a>
+            <a href="Routes/route.html" class="service-card routes">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h2 class="card-title">Route Optimization</h2>
+                    </div>
+                    <p class="card-description">Analyze route origins, destinations, distances and performance metrics to optimize travel times, reduce fuel consumption and operational costs effectively.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">12 Active</span>
+                        <span class="card-stat">15% Fuel Savings</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Optimize Routes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="Routes/route.html" class="card">
-      <div class="content">
-        <span class="icon">🧭</span>
-        <h2>Routes</h2>
-        <!-- <p>Active Routes: <strong>12</strong></p> -->
-        <p class="desc">Analyze route origins, destinations, distances and performance metrics to optimize travel times
-          and fuel usage.</p>
-      </div>
-    </a>
+            <a href="Schedule/schedule.html" class="service-card schedule">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h2 class="card-title">Smart Scheduling</h2>
+                    </div>
+                    <p class="card-description">Intelligent dispatch scheduling system to reduce idle time, ensure timely pickups and deliveries while maximizing operational efficiency and resource utilization.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">25 Trips Today</span>
+                        <span class="card-stat">92% On Time</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">View Schedule <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="Schedule/schedule.html" class="card">
-      <div class="content">
-        <span class="icon">📅</span>
-        <h2>Schedule</h2>
-        <!-- <p>Trips Today: <strong>25</strong></p> -->
-        <p class="desc">Instrument dispatch scheduling data to reduce idle time and ensure timely pickups/deliveries.
-        </p>
-      </div>
-    </a>
+            <!-- Safety & Awareness (Urgent) -->
+            <a href="Safety and awareness/index.html" class="service-card safety urgent-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2 class="card-title">Road Safety Awareness</h2>
+                    </div>
+                    <p class="card-description">Critical safety initiative addressing India's helmet and seatbelt non-compliance. Poor usage alone caused ~30% of two-wheeler fatalities and up to 14% of car-related deaths in 2019.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">High Priority</span>
+                        <span class="card-stat">Lives Matter</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Safety Center <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <!-- New Cards -->
+            <!-- AI Detection (Featured) -->
+            <a href="sharp-detection/sharp-detection.html" class="service-card detection featured-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h2 class="card-title">Sharp Object Detection</h2>
+                    </div>
+                    <p class="card-description">AI-powered real-time alerts for nearby sharp or hazardous objects using advanced camera input technology — prioritizing vehicle and rider safety on roads.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">AI Powered</span>
+                        <span class="card-stat">Real-time Alerts</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Enable Detection <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="sharingcab/sharingcab.html" class="card">
-      <div class="content">
-        <span class="icon">🚕</span>
-        <h2>Cab Sharing</h2>
-        <p class="desc">Offer or join rides with others. Save costs, reduce traffic, and share the journey via MooVit's
-          Cab Sharing.</p>
-      </div>
-    </a>
+            <!-- Public Services -->
+            <a href="Public transportation/index.html" class="service-card transit">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-bus"></i>
+                        </div>
+                        <h2 class="card-title">Public Transit Hub</h2>
+                    </div>
+                    <p class="card-description">Track real-time bus and train locations, view accurate schedules, and monitor service alerts to plan your travel efficiently and stay informed about transit options.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">23 Departures</span>
+                        <span class="card-stat">Live Updates</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Check Transit <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="Public transportation/index.html" class="card">
-      <div class="content">
-        <span class="icon">🚍</span>
-        <h2>Public Transit</h2>
-        <!-- <p>Upcoming Departures: <strong>23</strong></p> -->
-        <p class="desc">Track real-time bus and train locations, view schedules, and monitor service alerts to plan your
-          travel efficiently.</p>
-      </div>
-    </a>
+            <a href="sharingcab/sharingcab.html" class="service-card sharing">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h2 class="card-title">Cab Sharing Network</h2>
+                    </div>
+                    <p class="card-description">Offer or join rides with verified users. Save costs, reduce traffic congestion, and share the journey via MooVit's trusted and secure Cab Sharing platform.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">Save 60%</span>
+                        <span class="card-stat">Eco-Friendly</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Find Rides <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="FoodStall_and_hotels/index.html" class="card">
-      <div class="content">
-        <span class="icon">🏨🍔</span>
-        <h2>Hotel Services</h2>
-        <!-- <p>Rooms Booked: <strong>58</strong></p>
-        <p>Food Orders Today: <strong>214</strong></p> -->
-        <p class="desc">Monitor hotel reservations and food stall sales from a single dashboard to optimize operations
-          and guest experiences.</p>
-      </div>
-    </a>
+            <!-- Hospitality Services -->
+            <a href="FoodStall_and_hotels/index.html" class="service-card hotel">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                        <h2 class="card-title">Hotel & Food Services</h2>
+                    </div>
+                    <p class="card-description">Comprehensive hospitality management - monitor hotel reservations and food service operations from a unified dashboard to optimize guest experiences and service quality.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">58 Rooms Booked</span>
+                        <span class="card-stat">214 Orders Today</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Manage Services <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="sharp-detection/sharp-detection.html" class="card">
-      <div class="content">
-        <span class="icon">🔍</span>
-        <h2>Sharp Object Detection</h2>
-        <p class="desc">Real-time alerts for nearby sharp or hazardous objects using AI and camera input — prioritizing
-          vehicle and rider safety.</p>
-      </div>
-    </a>
+            <!-- Accessibility & Support -->
+            <a href="live-detection/live-detection.html" class="service-card live featured-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h2 class="card-title">Live Object Detection</h2>
+                    </div>
+                    <p class="card-description">Assistive navigation technology for visually impaired users, detecting road obstacles, pedestrians, and traffic signals in real-time for safer and more accessible mobility.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">Accessibility First</span>
+                        <span class="card-stat">Inclusive Design</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Enable Assistant <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="live-detection/live-detection.html" class="card">
-      <div class="content">
-        <span class="icon">👁️‍🗨️</span>
-        <h2>Live Object Detection</h2>
-        <p class="desc">Assistive navigation for visually impaired users by detecting road obstacles, people, and
-          signals in real time.</p>
-      </div>
-    </a>
+            <a href="Chatbot/index.html" class="service-card chatbot">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h2 class="card-title">AI Assistant</h2>
+                    </div>
+                    <p class="card-description">Need help? Our intelligent AI-powered assistant is available 24/7 to guide you through the platform, answer queries and provide comprehensive support.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">24/7 Available</span>
+                        <span class="card-stat">Instant Help</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Chat Now <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
 
-    <a href="Chatbot/index.html" class="card">
-      <div class="content">
-        <span class="icon">💬</span>
-        <h2>Chatbot Assistant</h2>
-        <p class="desc">Need help? Our AI-powered assistant is available 24/7 to guide you through the platform or
-          answer common queries.</p>
-      </div>
-    </a>
+            <a href="feedback/feedback.html" class="service-card feedback">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h2 class="card-title">Feedback & Support</h2>
+                    </div>
+                    <p class="card-description">Share your experience, report issues, or suggest improvements. Help us enhance MooVit's services and accessibility features for all users in our community.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">Your Voice</span>
+                        <span class="card-stat">Matters Most</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Give Feedback <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
+        </section>
+    </main>
 
-    <a href="feedback/feedback.html" class="card">
-      <div class="content">
-        <span class="icon">📝</span>
-        <h2>Feedback</h2>
-        <p class="desc">Share your experience or report any issues. Help us improve MooVit's services and accessibility
-          features.</p>
-      </div>
-    </a>
-  </main>
-  
-  <!-- FOOTER SECTION -->
-      <footer>
-    <div class="footer-container">
-    <div class="footer-about">
-      <h3>Transport Co.</h3>
-      <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time.</p>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3><i class="fas fa-truck-moving"></i> MooVit Transport</h3>
+                    <p>Your trusted logistics and transportation partner — ensuring safe, fast, and reliable mobility solutions for everyone, everywhere. Connecting communities through innovative transport technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
 
-    <div class="footer-links">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-contact">
-      <h4>Contact Us</h4>
-      <p>Email: <a href="shubhangi.23bai11165@vitbhopal.ac.in"></a></p>
-      <p>Phone: +91 98765 XXXXX</p>
-      <p>Address:  India</p>
-    </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <li><a href="safety.html"><i class="fas fa-shield-alt"></i> Safety Center</a></li>
+                    </ul>
+                </div>
 
-    <div class="footer-social">
-      <h4>Follow Us</h4>
-      <a href="https://github.com/ShubhangiRoy12">Github</a> | 
-      <a href="https://leetcode.com/u/Shubhangi12/">leetcode</a> | 
-      <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/">LinkedIn</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2025 Transport Co. | All Rights Reserved.</p>
-  </div>
-</footer>
+                <div class="footer-section">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="#">Fleet Management</a></li>
+                        <li><a href="#">Route Optimization</a></li>
+                        <li><a href="#">Public Transit</a></li>
+                        <li><a href="#">Cab Sharing</a></li>
+                        <li><a href="#">Safety Solutions</a></li>
+                        <li><a href="#">AI Detection</a></li>
+                    </ul>
+                </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> shubhangi.23bai11165@vitbhopal.ac.in</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 XXXXX</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India</p>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="https://github.com/ShubhangiRoy12"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://leetcode.com/u/Shubhangi12/" style="margin: 0.5rem 0;"><i class="fas fa-code"></i> LeetCode</a>
+                        <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 MooVit Transport Solutions | All Rights Reserved | Connecting Communities, Enabling Mobility</p>
+            </div>
+        </div>
+    </footer>
 </body>
-
 </html>
