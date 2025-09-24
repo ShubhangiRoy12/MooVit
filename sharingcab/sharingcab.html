@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Advanced Cab Sharing Platform</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>🚖 Cab Sharing – MooVit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <style>
@@ -407,12 +407,11 @@
 </head>
 
 <body>
-
-  <div class="main-container fade-in">
-    <div class="header">
-      <h1><i class="fas fa-taxi pulse"></i> Advanced Cab Sharing Platform</h1>
-      <p class="mb-0">Smart, Efficient, Eco-Friendly Transportation</p>
-      <small>Share rides, save money, protect the environment</small>
+  <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
+    <h1 class="mb-0">🚖 Cab Sharing Planner</h1>
+    <div>
+      <button id="toggleMode" class="btn btn-light me-2">🌃 Toggle Mode</button>
+      <a href="..\main.html" class="btn btn-light">← Home</a>
     </div>
 
     <div class="content-area">
@@ -735,183 +734,183 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
 
-  <!-- Notification Container -->
-  <div id="notificationContainer"></div>
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // Enhanced city coordinates and data
-    // City coordinates
-    const cityCoords = {
-      "Indore": [22.7196, 75.8577],
-      "Ujjain": [23.1793, 75.7849],
-      "Bhopal": [23.2599, 77.4126],
-      "Dewas": [22.9676, 76.0534],
-      "Ratlam": [23.3315, 75.0367],
-      "Gwalior": [26.2183, 78.1828]
-    };
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      // Enhanced city coordinates and data
+      // City coordinates
+      const cityCoords = {
+        "Indore": [22.7196, 75.8577],
+        "Ujjain": [23.1793, 75.7849],
+        "Bhopal": [23.2599, 77.4126],
+        "Dewas": [22.9676, 76.0534],
+        "Ratlam": [23.3315, 75.0367],
+        "Gwalior": [26.2183, 78.1828]
+      };
 
-    // Distances between cities (in km)
-    const distances = {
-      "Indore-Ujjain": 55, "Ujjain-Indore": 55,
-      "Ujjain-Bhopal": 190, "Bhopal-Ujjain": 190,
-      "Indore-Bhopal": 245, "Bhopal-Indore": 245,
-      "Indore-Dewas": 35, "Dewas-Indore": 35,
-      "Dewas-Ujjain": 45, "Ujjain-Dewas": 45,
-      "Dewas-Bhopal": 145, "Bhopal-Dewas": 145,
-      "Indore-Ratlam": 80, "Ratlam-Indore": 80,
-      "Ujjain-Ratlam": 90, "Ratlam-Ujjain": 90,
-      "Ratlam-Bhopal": 280, "Bhopal-Ratlam": 280,
-      "Bhopal-Gwalior": 330, "Gwalior-Bhopal": 330,
-      "Indore-Gwalior": 475, "Gwalior-Indore": 475,
-      "Ujjain-Gwalior": 395, "Gwalior-Ujjain": 395,
-      "Dewas-Ratlam": 85, "Ratlam-Dewas": 85,
-      "Dewas-Gwalior": 440, "Gwalior-Dewas": 440,
-      "Ratlam-Gwalior": 365, "Gwalior-Ratlam": 365
-    };
+      // Distances between cities (in km)
+      const distances = {
+        "Indore-Ujjain": 55, "Ujjain-Indore": 55,
+        "Ujjain-Bhopal": 190, "Bhopal-Ujjain": 190,
+        "Indore-Bhopal": 245, "Bhopal-Indore": 245,
+        "Indore-Dewas": 35, "Dewas-Indore": 35,
+        "Dewas-Ujjain": 45, "Ujjain-Dewas": 45,
+        "Dewas-Bhopal": 145, "Bhopal-Dewas": 145,
+        "Indore-Ratlam": 80, "Ratlam-Indore": 80,
+        "Ujjain-Ratlam": 90, "Ratlam-Ujjain": 90,
+        "Ratlam-Bhopal": 280, "Bhopal-Ratlam": 280,
+        "Bhopal-Gwalior": 330, "Gwalior-Bhopal": 330,
+        "Indore-Gwalior": 475, "Gwalior-Indore": 475,
+        "Ujjain-Gwalior": 395, "Gwalior-Ujjain": 395,
+        "Dewas-Ratlam": 85, "Ratlam-Dewas": 85,
+        "Dewas-Gwalior": 440, "Gwalior-Dewas": 440,
+        "Ratlam-Gwalior": 365, "Gwalior-Ratlam": 365
+      };
 
-    const vehicleRates = {
-      sedan: { rate: 12, seats: 4, name: "Sedan", number: "MP 09 CD 5678" },
-      suv: { rate: 15, seats: 7, name: "SUV", number: "MP 12 EF 9012" },
-      luxury: { rate: 20, seats: 4, name: "Luxury Car", number: "MP 15 GH 3456" }
-    };
+      const vehicleRates = {
+        sedan: { rate: 12, seats: 4, name: "Sedan", number: "MP 09 CD 5678" },
+        suv: { rate: 15, seats: 7, name: "SUV", number: "MP 12 EF 9012" },
+        luxury: { rate: 20, seats: 4, name: "Luxury Car", number: "MP 15 GH 3456" }
+      };
 
-    let selectedVehicle = 'sedan';
-    let selectedTime = '';
-    let selectedFeatures = [];
-    let currentPassengers = { pax1: 1, pax2: 1 };
+      let selectedVehicle = 'sedan';
+      let selectedTime = '';
+      let selectedFeatures = [];
+      let currentPassengers = { pax1: 1, pax2: 1 };
 
-    // Initialize map
-    const map = L.map('map').setView([23.2599, 77.4126], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-    let routeLayer;
+      // Initialize map
+      const map = L.map('map').setView([23.2599, 77.4126], 6);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      let routeLayer;
 
-    // Swap start & destination
-    function swapLocations() {
-      const start = document.getElementById('start');
-      const destination = document.getElementById('destination');
-      const temp = start.value;
-      start.value = destination.value;
-      destination.value = temp;
-      showNotification('Locations swapped', 'info');
-    }
-
-    // Passenger counter
-    function changePassengers(pax, delta) {
-      currentPassengers[pax] += delta;
-      if (currentPassengers[pax] < 1) currentPassengers[pax] = 1;
-      document.getElementById(pax + 'Display').innerText = currentPassengers[pax];
-      if (pax === 'pax1') document.getElementById('paxStartToIntermediate').value = currentPassengers[pax];
-      if (pax === 'pax2') document.getElementById('paxIntermediateToDestination').value = currentPassengers[pax];
-    }
-
-    // Vehicle selection
-    document.querySelectorAll('.vehicle-card').forEach(card => {
-      card.addEventListener('click', () => {
-        document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        selectedVehicle = card.dataset.vehicle;
-        document.getElementById('selectedVehicleInfo').innerText = vehicleRates[selectedVehicle].name + " - " + vehicleRates[selectedVehicle].number;
-      });
-    });
-
-    // Feature selection
-    document.querySelectorAll('.feature-badge').forEach(badge => {
-      badge.addEventListener('click', () => {
-        badge.classList.toggle('active');
-        const feature = badge.dataset.feature;
-        if (selectedFeatures.includes(feature)) {
-          selectedFeatures = selectedFeatures.filter(f => f !== feature);
-        } else selectedFeatures.push(feature);
-      });
-    });
-
-    // Time slot selection
-    document.querySelectorAll('.time-slot').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.time-slot').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        selectedTime = btn.dataset.time;
-      });
-    });
-
-    // Notification
-    function showNotification(msg, type = 'info') {
-      const container = document.getElementById('notificationContainer');
-      const notif = document.createElement('div');
-      notif.className = `notification ${type} show`;
-      notif.innerText = msg;
-      container.appendChild(notif);
-      setTimeout(() => notif.remove(), 3000);
-    }
-
-    // Form submit
-    function getLegDistance(from, to) {
-      return distances[`${from}-${to}`] || 0;
-    }
-
-    document.getElementById('cabForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const start = document.getElementById('start').value;
-      const dest = document.getElementById('destination').value;
-      const interOptions = Array.from(document.getElementById('intermediate').selectedOptions);
-      const intermediates = interOptions.map(opt => opt.value).filter(v => v && v !== start && v !== dest);
-
-      if (!start || !dest || !selectedTime) {
-        showNotification('Please select start, destination, and time!', 'error');
-        return;
+      // Swap start & destination
+      function swapLocations() {
+        const start = document.getElementById('start');
+        const destination = document.getElementById('destination');
+        const temp = start.value;
+        start.value = destination.value;
+        destination.value = temp;
+        showNotification('Locations swapped', 'info');
       }
 
-      const route = [start, ...intermediates, dest];
-
-      // Build legs
-      const legs = [];
-      for (let i = 0; i < route.length - 1; i++) {
-        const from = route[i];
-        const to = route[i + 1];
-        const distance = getLegDistance(from, to);
-        legs.push({ from, to, distance });
+      // Passenger counter
+      function changePassengers(pax, delta) {
+        currentPassengers[pax] += delta;
+        if (currentPassengers[pax] < 1) currentPassengers[pax] = 1;
+        document.getElementById(pax + 'Display').innerText = currentPassengers[pax];
+        if (pax === 'pax1') document.getElementById('paxStartToIntermediate').value = currentPassengers[pax];
+        if (pax === 'pax2') document.getElementById('paxIntermediateToDestination').value = currentPassengers[pax];
       }
 
-      // Define passengers per leg
-      const legPassengers = [];
-      if (legs.length === 1) {
-        legPassengers.push(currentPassengers.pax1);
-      } else {
-        legPassengers.push(currentPassengers.pax1); // start → first intermediate
-        for (let i = 1; i < legs.length; i++) {
-          legPassengers.push(currentPassengers.pax2); // intermediate → next
+      // Vehicle selection
+      document.querySelectorAll('.vehicle-card').forEach(card => {
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          selectedVehicle = card.dataset.vehicle;
+          document.getElementById('selectedVehicleInfo').innerText = vehicleRates[selectedVehicle].name + " - " + vehicleRates[selectedVehicle].number;
+        });
+      });
+
+      // Feature selection
+      document.querySelectorAll('.feature-badge').forEach(badge => {
+        badge.addEventListener('click', () => {
+          badge.classList.toggle('active');
+          const feature = badge.dataset.feature;
+          if (selectedFeatures.includes(feature)) {
+            selectedFeatures = selectedFeatures.filter(f => f !== feature);
+          } else selectedFeatures.push(feature);
+        });
+      });
+
+      // Time slot selection
+      document.querySelectorAll('.time-slot').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.time-slot').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedTime = btn.dataset.time;
+        });
+      });
+
+      // Notification
+      function showNotification(msg, type = 'info') {
+        const container = document.getElementById('notificationContainer');
+        const notif = document.createElement('div');
+        notif.className = `notification ${type} show`;
+        notif.innerText = msg;
+        container.appendChild(notif);
+        setTimeout(() => notif.remove(), 3000);
+      }
+
+      // Form submit
+      function getLegDistance(from, to) {
+        return distances[`${from}-${to}`] || 0;
+      }
+
+      document.getElementById('cabForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const start = document.getElementById('start').value;
+        const dest = document.getElementById('destination').value;
+        const interOptions = Array.from(document.getElementById('intermediate').selectedOptions);
+        const intermediates = interOptions.map(opt => opt.value).filter(v => v && v !== start && v !== dest);
+
+        if (!start || !dest || !selectedTime) {
+          showNotification('Please select start, destination, and time!', 'error');
+          return;
         }
-      }
 
-      // Fare calculation per leg
-      const legFares = legs.map((leg, idx) => leg.distance * vehicleRates[selectedVehicle].rate);
-      const farePerLegHTML = legFares.map((fare, idx) => {
-        const perPerson = fare / legPassengers[idx];
-        return `<p>${legs[idx].from} → ${legs[idx].to}: ₹${fare} (₹${perPerson.toFixed(2)}/passenger)</p>`;
-      }).join('');
+        const route = [start, ...intermediates, dest];
 
-      // Features cost
-      let featuresCost = 0;
-      selectedFeatures.forEach(f => {
-        const badge = document.querySelector(`.feature-badge[data-feature="${f}"]`);
-        featuresCost += Number(badge.dataset.cost);
-      });
+        // Build legs
+        const legs = [];
+        for (let i = 0; i < route.length - 1; i++) {
+          const from = route[i];
+          const to = route[i + 1];
+          const distance = getLegDistance(from, to);
+          legs.push({ from, to, distance });
+        }
 
-      // Total fare
-      const totalFare = legFares.reduce((a, b) => a + b, 0) + featuresCost;
+        // Define passengers per leg
+        const legPassengers = [];
+        if (legs.length === 1) {
+          legPassengers.push(currentPassengers.pax1);
+        } else {
+          legPassengers.push(currentPassengers.pax1); // start → first intermediate
+          for (let i = 1; i < legs.length; i++) {
+            legPassengers.push(currentPassengers.pax2); // intermediate → next
+          }
+        }
 
-      // Total distance
-      const totalDistance = legs.reduce((a, b) => a + b.distance, 0);
+        // Fare calculation per leg
+        const legFares = legs.map((leg, idx) => leg.distance * vehicleRates[selectedVehicle].rate);
+        const farePerLegHTML = legFares.map((fare, idx) => {
+          const perPerson = fare / legPassengers[idx];
+          return `<p>${legs[idx].from} → ${legs[idx].to}: ₹${fare} (₹${perPerson.toFixed(2)}/passenger)</p>`;
+        }).join('');
 
-      // Display fare
-      document.getElementById('fareCard').style.display = 'block';
-      document.getElementById('fareResult').innerHTML = `
+        // Features cost
+        let featuresCost = 0;
+        selectedFeatures.forEach(f => {
+          const badge = document.querySelector(`.feature-badge[data-feature="${f}"]`);
+          featuresCost += Number(badge.dataset.cost);
+        });
+
+        // Total fare
+        const totalFare = legFares.reduce((a, b) => a + b, 0) + featuresCost;
+
+        // Total distance
+        const totalDistance = legs.reduce((a, b) => a + b.distance, 0);
+
+        // Display fare
+        document.getElementById('fareCard').style.display = 'block';
+        document.getElementById('fareResult').innerHTML = `
     <p>Total Distance: <strong>${totalDistance} km</strong></p>
     <p>Vehicle: <strong>${vehicleRates[selectedVehicle].name}</strong></p>
     <p>Features: ₹${featuresCost}</p>
@@ -919,45 +918,45 @@
     <p><strong>Total Fare: ₹${totalFare}</strong></p>
   `;
 
-      // ETA (50 km/h)
-      const etaHours = totalDistance / 50;
-      const etaMins = Math.round((etaHours - Math.floor(etaHours)) * 60);
-      document.getElementById('etaInfo').style.display = 'block';
-      document.getElementById('etaContent').innerHTML = `<p>Estimated Duration: ${Math.floor(etaHours)}h ${etaMins}min</p>`;
+        // ETA (50 km/h)
+        const etaHours = totalDistance / 50;
+        const etaMins = Math.round((etaHours - Math.floor(etaHours)) * 60);
+        document.getElementById('etaInfo').style.display = 'block';
+        document.getElementById('etaContent').innerHTML = `<p>Estimated Duration: ${Math.floor(etaHours)}h ${etaMins}min</p>`;
 
-      // CO2 saved
-      const co2Saved = legPassengers.reduce((sum, pax, i) => sum + (pax - 1) * legs[i].distance * 0.12, 0);
-      document.getElementById('carbonInfo').style.display = 'block';
-      document.getElementById('carbonContent').innerHTML = `<p>Estimated CO₂ Saved: ${co2Saved.toFixed(2)} kg</p>`;
+        // CO2 saved
+        const co2Saved = legPassengers.reduce((sum, pax, i) => sum + (pax - 1) * legs[i].distance * 0.12, 0);
+        document.getElementById('carbonInfo').style.display = 'block';
+        document.getElementById('carbonContent').innerHTML = `<p>Estimated CO₂ Saved: ${co2Saved.toFixed(2)} kg</p>`;
 
-      // Update map route
-      if (routeLayer) map.removeLayer(routeLayer);
-      const routeCoords = route.map(city => cityCoords[city]);
-      routeLayer = L.polyline(routeCoords, { color: 'blue', weight: 5 }).addTo(map);
-      map.fitBounds(routeLayer.getBounds());
+        // Update map route
+        if (routeLayer) map.removeLayer(routeLayer);
+        const routeCoords = route.map(city => cityCoords[city]);
+        routeLayer = L.polyline(routeCoords, { color: 'blue', weight: 5 }).addTo(map);
+        map.fitBounds(routeLayer.getBounds());
 
-      // Trip summary
-      document.getElementById('tripSummary').innerHTML = `<p>${route.join(' → ')}</p><p>Time: ${selectedTime}</p>`;
-    });
+        // Trip summary
+        document.getElementById('tripSummary').innerHTML = `<p>${route.join(' → ')}</p><p>Time: ${selectedTime}</p>`;
+      });
 
-    // Dummy driver contact
-    function contactDriver(method) {
-      showNotification(`Driver contact via ${method.toUpperCase()} initiated`, 'info');
-    }
-    function bookRide() { showNotification('Ride booked successfully!', 'success'); }
-    function scheduleRide() { showNotification('Ride scheduled successfully!', 'success'); }
-    function shareRide() { showNotification('Trip link copied to clipboard!', 'info'); }
-    function saveTrip() { showNotification('Trip saved successfully!', 'success'); }
+      // Dummy driver contact
+      function contactDriver(method) {
+        showNotification(`Driver contact via ${method.toUpperCase()} initiated`, 'info');
+      }
+      function bookRide() { showNotification('Ride booked successfully!', 'success'); }
+      function scheduleRide() { showNotification('Ride scheduled successfully!', 'success'); }
+      function shareRide() { showNotification('Trip link copied to clipboard!', 'info'); }
+      function saveTrip() { showNotification('Trip saved successfully!', 'success'); }
 
-    // Weather Widget (Dummy data for Bhopal)
-    const weatherInfo = document.getElementById('weatherInfo');
-    setTimeout(() => {
-      weatherInfo.innerHTML = `
+      // Weather Widget (Dummy data for Bhopal)
+      const weatherInfo = document.getElementById('weatherInfo');
+      setTimeout(() => {
+        weatherInfo.innerHTML = `
       <p>☀️ 30°C, Clear Sky</p>
       <p>Humidity: 45% | Wind: 10 km/h</p>
     `;
-    }, 1500);
-  </script>
+      }, 1500);
+    </script>
 </body>
 
 </html>

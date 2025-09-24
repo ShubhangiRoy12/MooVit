@@ -3,44 +3,228 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.png">
   <title>📅 Schedule – MooVit</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="schedule.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
-    <h1>📅 Schedule</h1>
+    <h1 class="mb-0">📅 Schedule</h1>
     <a href="../main.html" class="btn btn-light">← Home</a>
   </header>
+
   <main class="container my-4">
-    <div class="row g-3 mb-4">
-      <div class="col-md-3 stat-card">
-        <h5>Scheduled Trips Today</h5>
-        <p>25</p>
+    <!-- Statistics -->
+    <!-- First Row - 4 Stat Cards -->
+    <div class="row g-4 mb-4">
+      <!-- Scheduled Trips -->
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="tooltip-content">
+            <p><strong>📅 Scheduled Trips</strong></p>
+            <div class="tooltip-divider"></div>
+            <p>• Total scheduled trips for today</p>
+            <p style="margin-bottom: 8px;">• Includes all trip statuses</p>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <div class="stat-icon me-2">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <h5 class="mb-0">Scheduled Trips</h5>
+          </div>
+          <div class="d-flex align-items-center">
+            <p class="stat-value mb-0" id="totalTrips">0</p>
+            <span class="stat-trend up">
+              <i class="fas fa-arrow-up"></i> 12%
+            </span>
+          </div>
+          <div class="stat-progress mt-2">
+            <div class="progress">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3 stat-card">
-        <h5>Completed Trips</h5>
-        <p>18</p>
+      <!-- Completed Trips -->
+      <div class="col-6 col-md-3">
+        <div class="stat-card completed">
+          <div class="tooltip-content">
+            <p><strong>✓ Completed Trips</strong></p>
+            <div class="tooltip-divider"></div>
+            <p>• Successfully completed trips</p>
+            <p style="margin-bottom: 8px;">• On-time and delayed trips</p>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <div class="stat-icon me-2">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h5 class="mb-0">Completed Trips</h5>
+          </div>
+          <div class="d-flex align-items-center">
+            <p class="stat-value mb-0" id="completedTrips">0</p>
+            <span class="stat-trend up">
+              <i class="fas fa-arrow-up"></i> 8%
+            </span>
+          </div>
+          <div class="stat-progress mt-2">
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3 stat-card">
-        <h5>Pending Trips</h5>
-        <p>5</p>
+      <!-- Pending Trips -->
+      <div class="col-6 col-md-3">
+        <div class="stat-card pending">
+          <div class="tooltip-content">
+            <p><strong>⏳ Pending Trips</strong></p>
+            <div class="tooltip-divider"></div>
+            <p>• Upcoming trips for today</p>
+            <p style="margin-bottom: 8px;">• Not yet started</p>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <div class="stat-icon me-2">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h5 class="mb-0">Pending Trips</h5>
+          </div>
+          <div class="d-flex align-items-center">
+            <p class="stat-value mb-0" id="pendingTrips">0</p>
+            <span class="stat-trend down">
+              <i class="fas fa-arrow-down"></i> 5%
+            </span>
+          </div>
+          <div class="stat-progress mt-2">
+            <div class="progress">
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3 stat-card">
-        <h5>Cancelled</h5>
-        <p>2</p>
+      <!-- Cancelled Trips -->
+      <div class="col-6 col-md-3">
+        <div class="stat-card cancelled">
+          <div class="tooltip-content">
+            <p><strong>✗ Cancelled Trips</strong></p>
+            <div class="tooltip-divider"></div>
+            <p>• Trips cancelled today</p>
+            <p style="margin-bottom: 8px;">• Includes all cancellation reasons</p>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <div class="stat-icon me-2">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <h5 class="mb-0">Cancelled Trips</h5>
+          </div>
+          <div class="d-flex align-items-center">
+            <p class="stat-value mb-0" id="cancelledTrips">0</p>
+            <span class="stat-trend down">
+              <i class="fas fa-arrow-down"></i> 3%
+            </span>
+          </div>
+          <div class="stat-progress mt-2">
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Second Row - 2 Rate Cards -->
+    <div class="row g-4 mb-4">
+      <!-- Completion Rate -->
+      <div class="col-md-6">
+        <div class="stat-card rate-card" id="completionRateCard">
+          <div class="tooltip-content">
+            <p><strong>✓ Completion Rate</strong></p>
+            <div class="tooltip-divider"></div>
+            <p>• Completed: <span id="tooltipCompleted">0</span> trips</p>
+            <p>• Total Scheduled: <span id="tooltipTotal">0</span> trips</p>
+            <p>• Rate: <span id="tooltipRate">0%</span></p>
+            <div class="tooltip-divider"></div>
+            <p class="small text-muted">Last updated: <span id="lastUpdated">Just now</span></p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex align-items-center">
+              <div class="stat-icon me-2 bg-success bg-opacity-10">
+                <i class="fas fa-chart-line text-success"></i>
+              </div>
+              <h5 class="mb-0">Completion Rate</h5>
+            </div>
+            <span class="badge bg-success bg-opacity-10 text-success">
+              <i class="fas fa-arrow-up me-1"></i> 12.5%
+            </span>
+          </div>
+          <div class="d-flex align-items-end mb-3">
+            <h2 class="mb-0 me-2" id="completionRate">0%</h2>
+            <p class="text-muted mb-1 small">of trips completed on time</p>
+          </div>
+          <div class="progress" style="height: 10px;">
+            <div id="completionRateBar" class="progress-bar bg-success" role="progressbar" style="width: 0%" 
+                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="d-flex justify-content-between mt-2">
+            <small class="text-muted">0%</small>
+            <small class="text-muted">100%</small>
+          </div>
+        </div>
+      </div>
+      <!-- Cancellation Rate -->
+      <div class="col-md-6">
+        <div class="stat-card rate-card" id="cancellationRateCard">
+          <div class="tooltip-content">
+            <p><strong>✗ Cancellation Rate</strong></p>
+            <div class="tooltip-divider"></div>
+            <p>• Cancelled: <span id="tooltipCancelled">0</span> trips</p>
+            <p>• Total Scheduled: <span id="tooltipTotal2">0</span> trips</p>
+            <p>• Rate: <span id="tooltipCancelRate">0%</span></p>
+            <div class="tooltip-divider"></div>
+            <p class="small text-muted">Last updated: <span id="lastUpdatedCancel">Just now</span></p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex align-items-center">
+              <div class="stat-icon me-2 bg-danger bg-opacity-10">
+                <i class="fas fa-exclamation-triangle text-danger"></i>
+              </div>
+              <h5 class="mb-0">Cancellation Rate</h5>
+            </div>
+            <span class="badge bg-danger bg-opacity-10 text-danger">
+              <i class="fas fa-arrow-down me-1"></i> 2.3%
+            </span>
+          </div>
+          <div class="d-flex align-items-end mb-3">
+            <h2 class="mb-0 me-2" id="cancellationRate">0%</h2>
+            <p class="text-muted mb-1 small">of trips were cancelled</p>
+          </div>
+          <div class="progress" style="height: 10px;">
+            <div id="cancellationRateBar" class="progress-bar bg-danger" role="progressbar" style="width: 0%" 
+                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="d-flex justify-content-between mt-2">
+            <small class="text-muted">0%</small>
+            <small class="text-muted">100%</small>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Schedule Table -->
     <section>
-      <div class="card mb-4">
-        <div class="card-header">
-          <h2>Today's Schedule</h2>
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light">
+          <h2 class="mb-0">Today's Schedule</h2>
         </div>
-        <div class="card-body">
-          <table class="table table-striped">
-            <thead>
+        <div class="card-body table-responsive">
+          <table class="table table-striped align-middle">
+            <thead class="table-primary">
               <tr>
                 <th>Trip ID</th>
                 <th>Vehicle</th>
@@ -48,42 +232,43 @@
                 <th>Route</th>
                 <th>Departure</th>
                 <th>ETA</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>TRP-001</td>
-                <td>VEH-001</td>
-                <td>John</td>
-                <td>Indore → Bhopal</td>
-                <td>08:00</td>
-                <td>11:00</td>
-              </tr>
-              <tr>
-                <td>TRP-002</td>
-                <td>VEH-004</td>
-                <td>Priya</td>
-                <td>Indore → Ujjain</td>
-                <td>09:00</td>
-                <td>10:30</td>
-              </tr>
-              <tr>
-                <td>TRP-003</td>
-                <td>VEH-007</td>
-                <td>Rahul</td>
-                <td>Indore → Dewas</td>
-                <td>10:00</td>
-                <td>11:15</td>
-              </tr>
-              <!-- more rows -->
+              <!-- JS will render rows -->
             </tbody>
           </table>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h2>Trip Completion Trend (Last 7 Days)</h2>
+      <!-- Add New Trip -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light">
+          <h2 class="mb-0">Add New Trip</h2>
+        </div>
+        <div class="card-body">
+          <form id="addTripForm" onsubmit="addSchedule(event)" class="row g-3">
+            <div class="col-md-2"><input type="text" class="form-control" id="newId" placeholder="Trip ID" required>
+            </div>
+            <div class="col-md-2"><input type="text" class="form-control" id="newVehicle" placeholder="Vehicle ID"
+                required></div>
+            <div class="col-md-2"><input type="text" class="form-control" id="newDriver" placeholder="Driver Name"
+                required></div>
+            <div class="col-md-3"><input type="text" class="form-control" id="newRoute" placeholder="Route (e.g. A → B)"
+                required></div>
+            <div class="col-md-1"><input type="time" class="form-control" id="newDep" required></div>
+            <div class="col-md-1"><input type="time" class="form-control" id="newEta" required></div>
+            <div class="col-md-1"><button type="submit" class="btn btn-primary w-100">Add</button></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h2 class="mb-0">Trip Completion Trend (Last 7 Days)</h2>
         </div>
         <div class="card-body">
           <canvas id="scheduleChart"></canvas>
@@ -91,8 +276,11 @@
       </div>
     </section>
   </main>
-  <footer class="bg-light text-center py-2">&copy; 2025 Transport Co.</footer>
 
+
+  <footer class="bg-light text-center py-2 mt-4">&copy; 2025 Transport Co.</footer>
+
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="schedule.js"></script>

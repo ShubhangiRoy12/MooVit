@@ -3,66 +3,269 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Shipments – MooVit</title>
+  <link rel="icon" href="favicon.png">
+  <title>📦 Shipments – MooVit</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="shipments.css" rel="stylesheet">
 </head>
 
 <body>
-  <header class="bg-primary text-white p-3">
-    <h1>📦 Shipments</h1>
-    <nav><a class="text-white" href="../main.html">Home</a> | <a class="text-white" href="login.html">Logout</a></nav>
-  </header>
-  <main class="container my-4">
-    <div class="row g-3 mb-4">
-      <div class="col-md-3 stat-card">
-        <h5>Shipments Today</h5>
-        <p>152</p>
-      </div>
-      <div class="col-md-3 stat-card">
-        <h5>Pending</h5>
-        <p>27</p>
-      </div>
-      <div class="col-md-3 stat-card">
-        <h5>Delayed</h5>
-        <p>12</p>
-      </div>
-      <div class="col-md-3 stat-card">
-        <h5>Cancelled</h5>
-        <p>5</p>
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="..\main.html" class="logo">
+        <i class="fas fa-truck"></i>
+        MooVit
+      </a>
+      <ul class="nav-links">
+        <li><a href="../main.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="shipments.html" class="active"><i class="fas fa-box"></i> Shipments</a></li>
+        <li><a href="../Vehicles/vechicle.html"><i class="fas fa-car"></i> Vehicles</a></li>
+        <li><a href="../Routes/route.html"><i class="fas fa-route"></i> Routes</a></li>
+        <li><a href="../Schedule/schedule.html"><i class="fas fa-calendar"></i> Schedule</a></li>
+        <li><a href="../index.html" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>      
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
       </div>
     </div>
+  </nav>
 
-    <section>
-      <h2>Recent Shipments</h2>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Status</th>
-            <th>Depot</th>
-            <th>ETA</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>SHIP-1001</td>
-            <td>Delivered</td>
-            <td>Indore</td>
-            <td>2025‑07‑25</td>
-          </tr>
-          <tr>
-            <td>SHIP-1002</td>
-            <td>En route</td>
-            <td>Bhopal</td>
-            <td>2025‑07‑28</td>
-          </tr>
-          <!-- more rows -->
-        </tbody>
-      </table>
-    </section>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container-fluid">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h1><i class="fas fa-box text-primary"></i> Shipments Dashboard</h1>
+            <p class="text-muted">Manage and track all your shipments</p>
+          </div>
+          <button id="addBtn" class="btn btn-primary btn-lg">
+            <i class="fas fa-plus"></i> Add Shipment
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+          <div class="stat-card card-hover">
+            <div class="stat-icon total">
+              <i class="fas fa-boxes"></i>
+            </div>
+            <div class="stat-content">
+              <h3 id="statTotal">0</h3>
+              <p>Total Shipments</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="stat-card card-hover">
+            <div class="stat-icon pending">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-content">
+              <h3 id="statPending">0</h3>
+              <p>Pending</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="stat-card card-hover">
+            <div class="stat-icon delayed">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-content">
+              <h3 id="statDelayed">0</h3>
+              <p>Delayed</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="stat-card card-hover">
+            <div class="stat-icon cancelled">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="stat-content">
+              <h3 id="statCancelled">0</h3>
+              <p>Cancelled</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h5><i class="fas fa-chart-line"></i> Shipment Trends</h5>
+              <p class="text-muted">Daily shipment activity over the past week</p>
+            </div>
+            <div class="chart-body">
+              <canvas id="trendChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h5><i class="fas fa-chart-pie"></i> Status Distribution</h5>
+              <p class="text-muted">Breakdown by status</p>
+            </div>
+            <div class="chart-body">
+              <canvas id="statusChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipments Table -->
+      <div class="table-card">
+        <div class="table-header">
+          <h5><i class="fas fa-list"></i> All Shipments</h5>
+          <div class="table-actions">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+              <input type="text" class="form-control" placeholder="Search shipments..." id="searchInput">
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle" id="shipmentsTable">
+            <thead>
+              <tr>
+                <th>
+                  <i class="fas fa-hashtag"></i>
+                  Shipment ID
+                </th>
+                <th>
+                  <i class="fas fa-info-circle"></i>
+                  Status
+                </th>
+                <th>
+                  <i class="fas fa-warehouse"></i>
+                  Depot
+                </th>
+                <th>
+                  <i class="fas fa-calendar-alt"></i>
+                  ETA
+                </th>
+                <th>
+                  <i class="fas fa-cubes"></i>
+                  Quantity
+                </th>
+                <th>
+                  <i class="fas fa-cogs"></i>
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-box-open"></i>
+          </div>
+          <h4>No shipments yet</h4>
+          <p>Get started by adding your first shipment</p>
+          <button class="btn btn-primary" onclick="document.getElementById('addBtn').click()">
+            <i class="fas fa-plus"></i> Add Your First Shipment
+          </button>
+        </div>
+      </div>
+    </div>
   </main>
-  <footer class="bg-light text-center py-2">&copy; 2025 Transport Co.</footer>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <p>&copy; 2025 MooVit Transport Solutions. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <p>Version 1.2.0 | <a href="#" class="text-decoration-none">Support</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Form -->
+  <div class="modal fade" id="modal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fas fa-plus-circle text-primary"></i>
+            Add New Shipment
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Shipment ID</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                <input id="shipId" class="form-control" placeholder="Enter shipment ID" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Status</label>
+              <select id="shipStatus" class="form-select" required>
+                <option value="" disabled selected>Select status</option>
+                <option value="Pending">Pending</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Depot</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
+                <input id="shipDepot" type="text" class="form-control" placeholder="Enter depot location" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Expected Delivery Date</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                <input id="shipEta" type="date" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Quantity</label>
+              <div class="input-group qty-control">
+                <button type="button" id="decQty" class="btn btn-outline-secondary">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <input id="shipQty" type="number" class="form-control text-center" value="1" min="1" readonly>
+                <button type="button" id="incQty" class="btn btn-outline-secondary">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Shipment
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="shipments.js"></script>
 </body>

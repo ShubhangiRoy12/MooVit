@@ -3,109 +3,209 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" href="favicon.png">
   <title>🚛 Vehicles – MooVit</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="vechicle.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .stat-card {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: .5rem;
+      text-align: center;
+    }
+
+    .actions {
+      visibility: hidden;
+    }
+
+    .table-hover tbody tr:hover .actions {
+      visibility: visible;
+    }
+  </style>
 </head>
 
 <body>
-  <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
-    <h1>🚛 Vehicles</h1>
-    <a href="../main.html" class="btn btn-light">← Home</a>
+  <header class="d-flex justify-content-between align-items-center p-3">
+    <h2 class="h5 mb-0 text-white">🚛 Vehicles</h2>
+    <a href="..\main.html" class="btn btn-light">← Home</a>
   </header>
+
   <main class="container my-4">
     <div class="row g-3 mb-4">
       <div class="col-md-3 stat-card">
         <h5>Total Vehicles</h5>
-        <p>32</p>
+        <h3 id="statTotal">0</h3>
       </div>
       <div class="col-md-3 stat-card">
         <h5>In Transit</h5>
-        <p>18</p>
+        <h3 id="statTransit">0</h3>
       </div>
       <div class="col-md-3 stat-card">
-        <h5>Under Maintenance</h5>
-        <p>4</p>
+        <h5>Maintenance</h5>
+        <h3 id="statMaint">0</h3>
       </div>
       <div class="col-md-3 stat-card">
         <h5>Available</h5>
-        <p>10</p>
+        <h3 id="statAvail">0</h3>
       </div>
     </div>
 
-    <section>
-      <div class="card mb-4">
-        <div class="card-header">
-          <h2>Vehicle List</h2>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Vehicle ID</th>
-                <th>Model</th>
-                <th>Status</th>
-                <th>Last Location</th>
-                <th>Next Stop</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>VEH-001</td>
-                <td>Volvo FH16</td>
-                <td>In Transit</td>
-                <td>Indore</td>
-                <td>Bhopal</td>
-              </tr>
-              <tr>
-                <td>VEH-002</td>
-                <td>Mercedes Actros</td>
-                <td>Under Maintenance</td>
-                <td>Depot</td>
-                <td>---</td>
-              </tr>
-              <tr>
-                <td>VEH-003</td>
-                <td>Tata Prima</td>
-                <td>Available</td>
-                <td>Ujjain</td>
-                <td>---</td>
-              </tr>
-              <!-- more rows -->
-            </tbody>
-          </table>
-        </div>
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card p-3"><canvas id="utilChart" height="200"></canvas></div>
       </div>
+      <div class="col-md-6">
+        <div class="card p-3"><canvas id="statusChart" height="200"></canvas></div>
+      </div>
+    </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h2>Vehicle Utilization Trend</h2>
-        </div>
-        <div class="card-body">
-          <canvas id="vehicleChart"></canvas>
-        </div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <table class="table table-striped table-hover align-middle" id="vehicleTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Model</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Next Stop</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="emptyState" class="text-center text-muted py-5">No vehicles yet. Click “+ Add Vehicle”</div>
+        <button id="addBtn" class="btn btn-primary">+ Add Vehicle</button>
       </div>
-    </section>
-
-    <!-- Optional: map showing vehicle locations -->
-    <section class="mt-4">
-      <div class="card">
-        <div class="card-header">
-          <h2>Live Vehicle Map</h2>
-        </div>
-        <div class="card-body p-0">
-          <div id="map-vehicles" style="height: 300px;"></div>
-        </div>
-      </div>
-    </section>
+    </div>
   </main>
-  <footer class="bg-light text-center py-2">&copy; 2025 Transport Co.</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <footer class="text-center py-2 bg-light">&copy; 2025 Transport Co.</footer>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <form class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Vehicle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input id="vehId" class="form-control mb-2" placeholder="Vehicle ID" required>
+          <input id="vehModel" class="form-control mb-2" placeholder="Model" required>
+          <select id="vehStatus" class="form-select mb-2" required>
+            <option value="" disabled selected>Status</option>
+            <option>In Transit</option>
+            <option>Under Maintenance</option>
+            <option>Available</option>
+          </select>
+          <input id="vehLoc" class="form-control mb-2" placeholder="Last Location" required>
+          <input id="vehNext" class="form-control mb-2" placeholder="Next Stop">
+        </div>
+        <div class="modal-footer"><button type="submit" class="btn btn-success">Save</button></div>
+      </form>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js"></script>
-  <script src="vechicle.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const modal = new bootstrap.Modal(document.getElementById('modal'));
+    const tbody = document.querySelector('#vehicleTable tbody');
+    const empty = document.getElementById('emptyState');
+    let stats = { transit: 0, maint: 0, avail: 0 };
+
+    addBtn.onclick = () => {
+      document.querySelector('.modal-title').textContent = 'Add Vehicle';
+      document.querySelector('form').reset();
+      modal.show();
+    };
+
+    document.querySelector('#modal form').onsubmit = e => {
+      e.preventDefault();
+      const status = vehStatus.value;
+      const badgeColor = status === 'In Transit' ? 'info' : status === 'Under Maintenance' ? 'warning' : 'success';
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${vehId.value.trim()}</td>
+        <td>${vehModel.value.trim()}</td>
+        <td><span class="badge bg-${badgeColor} statusBadge">${status}</span></td>
+        <td>${vehLoc.value.trim()}</td>
+        <td>${vehNext.value.trim() || '---'}</td>
+        <td class="actions">
+          <button class="btn btn-sm btn-success moveBtn">Move</button>
+          <button class="btn btn-sm btn-danger delBtn">Delete</button>
+        </td>`;
+      tbody.append(row);
+
+      row.querySelector('.moveBtn').onclick = () => {
+        vehLoc.value = row.cells[3].textContent;
+        vehNext.value = row.cells[4].textContent === '---' ? '' : row.cells[4].textContent;
+        document.querySelector('.modal-title').textContent = 'Update Vehicle';
+        modal.show();
+        document.querySelector('#modal form').onsubmit = innerE => {
+          innerE.preventDefault();
+          row.cells[3].textContent = vehLoc.value.trim();
+          row.cells[4].textContent = vehNext.value.trim() || '---';
+          modal.hide();
+          update();
+        };
+      };
+      row.querySelector('.delBtn').onclick = () => {
+        row.remove(); update();
+      };
+
+      modal.hide();
+      update();
+    };
+
+    function update() {
+      const rows = Array.from(tbody.rows);
+      stats = { transit: 0, maint: 0, avail: 0 };
+      rows.forEach(r => {
+        const st = r.querySelector('.statusBadge').textContent.trim();
+        if (st === 'In Transit') stats.transit++;
+        else if (st === 'Under Maintenance') stats.maint++;
+        else stats.avail++;
+      });
+      statTotal.textContent = rows.length;
+      statTransit.textContent = stats.transit;
+      statMaint.textContent = stats.maint;
+      statAvail.textContent = stats.avail;
+      empty.style.display = rows.length ? 'none' : '';
+      redrawCharts();
+    }
+
+    const utilChart = new Chart(document.getElementById('utilChart'), {
+      type: 'bar',
+      data: { labels: ['In Transit', 'Maintenance', 'Available'], datasets: [{ label: 'Count', data: [0, 0, 0], backgroundColor: ['#0d6efd', '#ffc107', '#198754'] }] },
+      options: { scales: { y: { beginAtZero: true } } }
+    });
+    const statusChart = new Chart(document.getElementById('statusChart'), {
+      type: 'doughnut',
+      data: { labels: ['Transit', 'Maint', 'Available'], datasets: [{ data: [0, 0, 0], backgroundColor: ['#0d6efd', '#ffc107', '#198754'] }] },
+      options: { plugins: { legend: { position: 'bottom' } } }
+    });
+
+    function redrawCharts() {
+      utilChart.data.datasets[0].data = [stats.transit, stats.maint, stats.avail];
+      utilChart.update();
+      statusChart.data.datasets[0].data = [stats.transit, stats.maint, stats.avail];
+      statusChart.update();
+    }
+  </script>
 </body>
 
 </html>

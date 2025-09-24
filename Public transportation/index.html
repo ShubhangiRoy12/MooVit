@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png">
+    <title>Public Transport Planner | Bus & Train Routes</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+    <header class="header">
+        <h1>Public Transport Planner</h1>
+        <p>Discover the best bus and train routes across India</p>
+    </header>
+
+    <div class="container">
+        <!-- Journey Planning Section -->
+        <div class="planning-section">
+            <div class="section">
+                <h2>Plan Your Journey</h2>
+                <div class="route-planner">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select id="fromCity">
+                                <option value="">From City</option>
+                                <option value="bhopal">Bhopal</option>
+                                <option value="indore">Indore</option>
+                                <option value="gwalior">Gwalior</option>
+                                <option value="jabalpur">Jabalpur</option>
+                                <option value="ujjain">Ujjain</option>
+                                <option value="sagar">Sagar</option>
+                                <option value="ratlam">Ratlam</option>
+                                <option value="dewas">Dewas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="toCity">
+                                <option value="">To City</option>
+                                <option value="bhopal">Bhopal</option>
+                                <option value="indore">Indore</option>
+                                <option value="gwalior">Gwalior</option>
+                                <option value="jabalpur">Jabalpur</option>
+                                <option value="ujjain">Ujjain</option>
+                                <option value="sagar">Sagar</option>
+                                <option value="ratlam">Ratlam</option>
+                                <option value="dewas">Dewas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="date" id="travelDate" />
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="passengers" placeholder="Passengers" min="1" max="10" />
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <button id="searchRoutes" class="btn-primary">🔍 Search Routes</button>
+                    </div>
+                </div>
+
+                <div class="transport-mode-section">
+                    <h3>Transport Mode</h3>
+                    <div class="transport-toggle">
+                        <button class="toggle-btn active" data-mode="bus">🚌 Bus Routes</button>
+                        <button class="toggle-btn" data-mode="train">🚂 Train Routes</button>
+                    </div>
+                    <div id="selectedRoute" class="selected-route">
+                        Select cities to see available routes
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <div class="section">
+                <h2>Route Map</h2>
+                <div class="map-container">
+                    <div id="routeMap"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedules and Analysis Section -->
+        <div class="content-grid">
+            <!-- Schedules Section -->
+            <div class="schedules-section">
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <h3>🚌 Bus Schedules</h3>
+                        <div class="route-item" data-price="45">
+                            <div class="route-header">Indore - Dewas Shuttle</div>
+                            <div class="route-details">
+                                Departure: 09:00 AM | Arrival: 10:15 AM<br>
+                                <span class="price">₹45</span> | Duration: 1h 15m
+                            </div>
+                        </div>
+                        <div class="route-item" data-price="85">
+                            <div class="route-header">Ujjain - Bhopal Local</div>
+                            <div class="route-details">
+                                Departure: 07:30 AM | Arrival: 10:00 AM<br>
+                                <span class="price">₹85</span> | Duration: 2h 30m
+                            </div>
+                        </div>
+                        <div class="route-item" data-price="180">
+                            <div class="route-header">Bhopal - Indore Express</div>
+                            <div class="route-details">
+                                Departure: 06:00 AM | Arrival: 10:30 AM<br>
+                                <span class="price">₹180</span> | Duration: 4h 30m
+                            </div>
+                        </div>
+                        <div class="route-item" data-price="320">
+                            <div class="route-header">Gwalior - Jabalpur Deluxe</div>
+                            <div class="route-details">
+                                Departure: 08:15 AM | Arrival: 02:45 PM<br>
+                                <span class="price">₹320</span> | Duration: 6h 30m
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="schedule-card">
+                        <h3>🚂 Train Schedules</h3>
+                        <div class="route-item" data-price="95">
+                            <div class="route-header">Avantika Express (12962)</div>
+                            <div class="route-details">
+                                Ujjain - Bhopal<br>
+                                Departure: 08:35 AM | Arrival: 11:10 AM<br>
+                                <span class="price">₹95 (SL)</span> | Duration: 2h 35m
+                            </div>
+                        </div>
+                        <div class="route-item" data-price="155">
+                            <div class="route-header">Malwa Express (12919)</div>
+                            <div class="route-details">
+                                Indore - Bhopal<br>
+                                Departure: 05:40 AM | Arrival: 10:15 AM<br>
+                                <span class="price">₹155 (SL)</span> | Duration: 4h 35m
+                            </div>
+                        </div>
+                        <div class="route-item" data-price="190">
+                            <div class="route-header">Jabalpur Express (11271)</div>
+                            <div class="route-details">
+                                Bhopal - Jabalpur<br>
+                                Departure: 11:20 PM | Arrival: 05:55 AM<br>
+                                <span class="price">₹190 (SL)</span> | Duration: 6h 35m
+                            </div>
+                        </div>
+                        <div class="route-item" data-price="485">
+                            <div class="route-header">Shatabdi Express (12001)</div>
+                            <div class="route-details">
+                                Bhopal - Gwalior<br>
+                                Departure: 06:05 AM | Arrival: 09:30 AM<br>
+                                <span class="price">₹485 (CC)</span> | Duration: 3h 25m
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Section -->
+            <div class="analysis-section">
+                <div class="section">
+                    <h2>Safety Score of Routes</h2>
+                    <div class="chart-info">Click on chart segments to filter routes</div>
+                    <div class="chart-container">
+                        <canvas id="safetyChart"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-color high-safety"></span>
+                            <span>High Safety</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color moderate-safety"></span>
+                            <span>Moderate Safety</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color low-safety"></span>
+                            <span>Low Safety</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Your Selections</h2>
+                    <div class="selection-info">Track your chosen routes and transport preferences</div>
+                    <div class="chart-container">
+                        <canvas id="selectionsChart"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-color bus-color"></span>
+                            <span>Bus Routes</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color train-color"></span>
+                            <span>Train Routes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>Route Network</h3>
+                <p>Comprehensive bus and train network connecting all major cities with frequent services and affordable fares.</p>
+            </div>
+            <div class="info-card">
+                <h3>Safety Analysis</h3>
+                <p>Real-time safety scores based on passenger reviews, route conditions, and operator reliability to help you choose secure travel options.</p>
+            </div>
+            <div class="info-card">
+                <h3>Smart Planning</h3>
+                <p>Compare prices, timings, and comfort levels across different transport modes to find the perfect journey for your needs.</p>
+            </div>
+        </div>
+
+        <!-- Emergency Contacts Section -->
+        <div class="emergency-section">
+            <h2>Emergency Contacts</h2>
+            <div class="emergency-grid">
+                <div class="emergency-card">
+                    <h3>🚨 Police Emergency</h3>
+                    <p><strong>Dial:</strong> 100 (Toll Free)<br>
+                    <strong>Control Room:</strong> 0755-2770100<br>
+                    <strong>Women Helpline:</strong> 1090<br>
+                    <strong>Tourist Helpline:</strong> 1363</p>
+                </div>
+                <div class="emergency-card">
+                    <h3>🚑 Medical Emergency</h3>
+                    <p><strong>Ambulance:</strong> 108 (Free)<br>
+                    <strong>Medical Helpline:</strong> 104<br>
+                    <strong>Blood Bank:</strong> 1910<br>
+                    <strong>Disaster Response:</strong> 1070</p>
+                </div>
+                <div class="emergency-card">
+                    <h3>🚒 Fire Brigade</h3>
+                    <p><strong>Fire Emergency:</strong> 101<br>
+                    <strong>Bhopal Fire:</strong> 0755-2540101<br>
+                    <strong>Indore Fire:</strong> 0731-2520101<br>
+                    <strong>Gas Leak:</strong> 1906</p>
+                </div>
+                <div class="emergency-card">
+                    <h3>🚌 Transport Emergency</h3>
+                    <p><strong>Highway Patrol:</strong> 1033<br>
+                    <strong>Railway Helpline:</strong> 139<br>
+                    <strong>Road Accident:</strong> 1073<br>
+                    <strong>Travel Helpline:</strong> 1800-111-139</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

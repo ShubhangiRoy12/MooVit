@@ -80,31 +80,49 @@ python app.py
 
 4. For frontend, deploy the frontend/ folder on Vercel or use a static server locally.
 
-
-##📋 Use Cases
+---
+ 
+## 📋 Use Cases
 
 -Assist visually impaired users with voice-based object alerts
+
 -Help logistics teams plan safe and efficient routes
+
 -Offer vehicle drivers route awareness and obstacle warnings
+
 -Provide safety prompts in traffic-heavy or high-risk zones
+
 -Enable face tracking to follow companions in crowded areas
 
-##🚧 Future Plans
+---
+
+## 🚧 Future Plans
 
 -Add multilingual voice support
+
 -GPS-based live routing for shipment vehicles
+
 -Heatmap overlays for high-risk zones
+
 -Admin dashboard to view and edit shipment schedules
+
 -Public API for integration with logistics and assistive apps
 
+---
 
-##🤝 Contributing
+## 🤝 Contributing
 
 -We welcome contributions! You can help with:
+
 -Improving detection accuracy
+
 -Expanding shipment scheduling logic
+
 -UI/UX design improvements
+
 -Adding more face profiles or localization features
+
+---
 
 Steps:
 1. Fork this repo
@@ -112,9 +130,13 @@ Steps:
 3. Commit your changes
 4. Push and open a PR
 
+---
+
 ## Contibutors
-@ShubhangiRoy12 - ML Developer
-@omroy07 - Project Admin and Web Developer
+- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer 
+
+- **[Om Roy](https://github.com/omroy07)** – Web Developer  & Machine Learning Engineer
+
 
 📜 License
 This project is licensed under the MIT License. See LICENSE file for details.
