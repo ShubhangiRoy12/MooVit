@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>📅 Schedule – MooVit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    td.vacant-seats {
+      text-align: center;
+      font-weight: 500;
+    }
+
+    #map {
+      width: 100%;
+      height: 400px;
+      margin-top: 30px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center" role="banner">
+    <h1 class="mb-0" id="pageTitle">📅 Schedule</h1>
+    <a href="../main.html" class="btn btn-light" aria-label="Go back to Home">← Home</a>
+  </header>
+
+  <main class="container my-4" role="main" aria-labelledby="pageTitle">
+    <section class="row g-3 mb-4 text-center" aria-label="Statistics summary">
+      <div class="col-md-3 stat-card">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title h5">Scheduled Trips Today</h2>
+            <p class="card-text fs-4" id="totalTrips" aria-live="polite">0</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 stat-card">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title h5">Completed Trips</h2>
+            <p class="card-text fs-4" id="completedTrips" aria-live="polite">0</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 stat-card">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title h5">Pending Trips</h2>
+            <p class="card-text fs-4" id="pendingTrips" aria-live="polite">0</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 stat-card">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title h5">Cancelled</h2>
+            <p class="card-text fs-4" id="cancelledTrips" aria-live="polite">0</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Today's schedule table">
+      <div class="card mb-4 shadow-sm">
+        <header class="card-header bg-light">
+          <h2 class="mb-0 h4">Today's Schedule</h2>
+        </header>
+        <div class="card-body table-responsive">
+          <table class="table table-striped align-middle" role="grid" aria-describedby="scheduleTableDesc"
+            id="scheduleTable">
+            <caption id="scheduleTableDesc" class="visually-hidden">List of trips scheduled for today</caption>
+            <thead class="table-primary">
+              <tr>
+                <th>Trip ID</th>
+                <th>Vehicle</th>
+                <th>Driver</th>
+                <th>Route</th>
+                <th>Departure</th>
+                <th>ETA</th>
+                <th>Status</th>
+                <th>Vacant Seats</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody><!-- rows inserted dynamically --></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Add new trip form">
+      <div class="card mb-4 shadow-sm">
+        <header class="card-header bg-light">
+          <h2 class="mb-0 h4">Add New Trip</h2>
+        </header>
+        <div class="card-body">
+          <form id="addTripForm" class="row g-3" novalidate>
+            <div class="col-md-2"><input type="text" class="form-control" id="newId" placeholder="Trip ID" required
+                aria-required="true" /></div>
+            <div class="col-md-2"><input type="text" class="form-control" id="newVehicle" placeholder="Vehicle ID"
+                required aria-required="true" /></div>
+            <div class="col-md-2"><input type="text" class="form-control" id="newDriver" placeholder="Driver Name"
+                required aria-required="true" /></div>
+            <div class="col-md-3"><input type="text" class="form-control" id="newRoute"
+                placeholder="Route (e.g. Delhi → Mumbai)" required aria-required="true" /></div>
+            <div class="col-md-1"><input type="time" class="form-control" id="newDep" required aria-required="true" />
+            </div>
+            <div class="col-md-1"><input type="time" class="form-control" id="newEta" required aria-required="true" />
+            </div>
+            <div class="col-md-1"><input type="number" class="form-control" id="newVacantSeats"
+                placeholder="Vacant Seats" required aria-required="true" min="0" /></div>
+            <div class="col-md-1 d-grid"><button type="submit" class="btn btn-primary"
+                aria-label="Add new trip">Add</button></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Trip Bookings Graph" class="mb-5">
+      <h2 class="h4 mb-3">Trip Bookings Overview</h2>
+      <canvas id="bookingsChart" style="width:100%; max-width:700px; height:400px;"></canvas>
+    </section>
+
+    <section aria-label="Location Map">
+      <h2 class="h4 mb-3">Location Map</h2>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37157531.71033134!2d68.08936835210786!3d23.740859503242658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fe6e1521d74ef%3A0x784c4f24087e9cdb!2sIndia!5e0!3m2!1sen!2sin!4v1664092332660!5m2!1sen!2sin"
+        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </section>
+
+  </main>
+
+  <footer class="bg-light text-center py-2 mt-4" role="contentinfo">&copy; 2025 Transport Co.</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const trips = [];
+
+    const tableBody = document.querySelector("#scheduleTable tbody");
+    const totalTripsElem = document.getElementById("totalTrips");
+    const completedTripsElem = document.getElementById("completedTrips");
+    const pendingTripsElem = document.getElementById("pendingTrips");
+    const cancelledTripsElem = document.getElementById("cancelledTrips");
+
+    const statusOptions = ["Pending", "Completed", "Cancelled"];
+
+    function updateStats() {
+      totalTripsElem.textContent = trips.length;
+      completedTripsElem.textContent = trips.filter(t => t.status.toLowerCase() === "completed").length;
+      pendingTripsElem.textContent = trips.filter(t => t.status.toLowerCase() === "pending").length;
+      cancelledTripsElem.textContent = trips.filter(t => t.status.toLowerCase() === "cancelled").length;
+    }
+
+    function createStatusSelect(currentStatus, tripIndex) {
+      const select = document.createElement("select");
+      select.classList.add("form-select", "form-select-sm");
+      select.style.minWidth = "110px";
+      select.setAttribute("aria-label", "Change status");
+
+      statusOptions.forEach((status) => {
+        const option = document.createElement("option");
+        option.value = status;
+        option.textContent = status;
+        if (status === currentStatus) option.selected = true;
+        select.appendChild(option);
+      });
+
+      select.addEventListener("change", (e) => {
+        trips[tripIndex].status = e.target.value;
+        updateStats();
+        updateBookingsChart();
+      });
+
+      return select;
+    }
+
+    function renderTable() {
+      tableBody.innerHTML = "";
+      trips.forEach((trip, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${trip.id}</td>
+          <td>${trip.vehicle}</td>
+          <td>${trip.driver}</td>
+          <td>${trip.route}</td>
+          <td>${trip.departure}</td>
+          <td>${trip.eta}</td>
+          <td></td>
+          <td class="vacant-seats">${trip.vacantSeats}</td>
+          <td><button class="btn btn-sm btn-danger" aria-label="Delete trip ${trip.id}" data-index="${index}">Delete</button></td>
+        `;
+
+        // Insert status dropdown
+        const statusCell = tr.children[6];
+        const statusSelect = createStatusSelect(trip.status, index);
+        statusCell.appendChild(statusSelect);
+
+        tableBody.appendChild(tr);
+      });
+      updateStats();
+      addDeleteEventHandlers();
+      updateBookingsChart();
+    }
+
+    function addDeleteEventHandlers() {
+      tableBody.querySelectorAll("button.btn-danger").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const index = e.target.getAttribute("data-index");
+          trips.splice(index, 1);
+          renderTable();
+        });
+      });
+    }
+
+    document.getElementById("addTripForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const newId = document.getElementById("newId").value.trim();
+      const newVehicle = document.getElementById("newVehicle").value.trim();
+      const newDriver = document.getElementById("newDriver").value.trim();
+      const newRoute = document.getElementById("newRoute").value.trim();
+      const newDep = document.getElementById("newDep").value;
+      const newEta = document.getElementById("newEta").value;
+      const newVacantSeatsStr = document.getElementById("newVacantSeats").value.trim();
+
+      if (!newId || !newVehicle || !newDriver || !newRoute || !newDep || !newEta || !newVacantSeatsStr) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      const newVacantSeats = parseInt(newVacantSeatsStr, 10);
+      if (isNaN(newVacantSeats) || newVacantSeats < 0) {
+        alert("Vacant seats must be a non-negative number.");
+        return;
+      }
+
+      trips.push({
+        id: newId,
+        vehicle: newVehicle,
+        driver: newDriver,
+        route: newRoute,
+        departure: newDep,
+        eta: newEta,
+        status: "Pending",
+        vacantSeats: newVacantSeats,
+      });
+
+      renderTable();
+      this.reset();
+    });
+
+    // Chart.js bookings bar chart instance
+    let bookingsChartInstance;
+
+    function initializeBookingsChart() {
+      const ctx = document.getElementById("bookingsChart").getContext("2d");
+      bookingsChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Completed", "Pending", "Cancelled"],
+          datasets: [{
+            label: 'Number of Trips',
+            data: [0, 0, 0],
+            backgroundColor: [
+              'rgba(54, 162, 235, 0.7)', // Completed - Blue
+              'rgba(255, 206, 86, 0.7)', // Pending - Yellow
+              'rgba(255, 99, 132, 0.7)'  // Cancelled - Red
+            ],
+            borderColor: [
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              stepSize: 1
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            title: {
+              display: true,
+              text: 'Bookings by Trip Status'
+            }
+          }
+        }
+      });
+    }
+
+    function updateBookingsChart() {
+      if (!bookingsChartInstance) return;
+      const counts = {
+        Completed: 0,
+        Pending: 0,
+        Cancelled: 0
+      };
+      trips.forEach(trip => {
+        if (counts[trip.status] !== undefined) counts[trip.status]++;
+      });
+      bookingsChartInstance.data.datasets[0].data = [
+        counts.Completed,
+        counts.Pending,
+        counts.Cancelled
+      ];
+      bookingsChartInstance.update();
+    }
+
+    // Google Maps init
+    let map;
+    function initMap() {
+      const india = { lat: 20.5937, lng: 78.9629 };
+      map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 5,
+        center: india
+      });
+      new google.maps.Marker({
+        position: india,
+        map: map,
+        title: "India"
+      });
+    }
+
+    // Initialize sample trips & UI
+    trips.push(
+      { id: "T1", vehicle: "Cab-001", driver: "Alice", route: "Delhi → Mumbai", departure: "09:00", eta: "18:00", status: "Completed", vacantSeats: 0 },
+      { id: "T2", vehicle: "Cab-002", driver: "Bob", route: "Bangalore → Chennai", departure: "10:00", eta: "15:00", status: "Pending", vacantSeats: 3 }
+    );
+
+    initializeBookingsChart();
+    renderTable();
+    function showRouteOnMap(routeString) {
+      const [start, end] = routeString.split('→').map(s => s.trim());
+      if (!start || !end) return alert('Invalid route');
+      const url = `https://maps.google.com/maps?q=from+${encodeURIComponent(start)}+to+${encodeURIComponent(end)}&output=embed`;
+      document.getElementById('mapFrame').src = url;
+    }
+
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+</body>
+
+</html>
