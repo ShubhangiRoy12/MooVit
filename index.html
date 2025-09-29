@@ -1295,6 +1295,175 @@
       z-index: 9998;
       transition: all 0.3s ease;
     }
+    /* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #0b1224;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Header Styling */
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+}
+
+header nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+header nav a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+header nav a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #1fb2ff;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-radius: 15px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.btn {
+  background: #1fb2ff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #0284c7;
+}
+
+.btn-cta {
+  margin-bottom: 2rem;
+}
+
+.tracking-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tracking-container input {
+  padding: 0.75rem 1rem;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  width: 250px;
+}
+
+.tracking-container .btn-track {
+  padding: 0.75rem 1.5rem;
+}
+
+/* Trusted Brands */
+.trusted-brands {
+  text-align: center;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.brand-logos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.brand-logos span {
+  font-weight: bold;
+  color: #020a0e;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .hero {
+    padding: 2rem;
+  }
+
+  .tracking-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header nav {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+
   </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1366,7 +1535,6 @@
         <p>Same-day and next-day delivery services with live tracking, signature confirmation, and money-back guarantee for time-critical shipments.</p>
       </div>
 
-
     <div class="main-container">
         <header>
             <div class="logo">
@@ -1376,9 +1544,9 @@
                 <span>Transport Co.</span>
             </div>
             <nav>
-                <a href="#">Services</a>
-                <a href="#">About Us</a>
-                <a href="#">Track Shipment</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About Us</a>
+                <a href="./Shipments/shipments.html">Track Shipment</a>
             </nav>
             <div class="auth-buttons">
               <a href="#" onclick="openLoginPopup()" class="btn btn-login">Login</a>
@@ -2215,39 +2383,6 @@
       });
     });
   </script>
-</body>
-    <footer>
-        <div class="footer-container">
-            <div class="footer-about">
-                <h3>Transport Co.</h3>
-                <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <p>Email: <a href="mailto:contact@transportco.com">contact@transportco.com</a></p>
-                <p>Phone: +91 98765 XXXXX</p>
-                <p>Address: Lonavala, Maharashtra, India</p>
-            </div>
-            <div class="footer-social">
-                <h4>Follow Us</h4>
-                <a href="#">GitHub</a> | 
-                <a href="#">LeetCode</a> | 
-                <a href="#">LinkedIn</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Transport Co. | All Rights Reserved.</p>
-        </div>
-    </footer>
 
 </body>
 </html>
