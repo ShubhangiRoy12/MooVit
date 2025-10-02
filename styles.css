@@ -19,7 +19,7 @@ body {
 }
 
 .main-container {
-    width: 100%;
+    width: 177%;
     max-width: 1100px;
     background-color: rgba(21, 38, 63, 0.6);
     border-radius: 16px;
@@ -28,6 +28,11 @@ body {
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     margin: auto 0; /* Helps with vertical centering within the flex space */
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
 }
 
 /* --- Header & Navigation --- */
@@ -63,7 +68,7 @@ nav a:hover, nav a.active {
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 6px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -79,6 +84,7 @@ nav a:hover, nav a.active {
 .btn-signup {
     background-color: #007bff;
     color: #ffffff;
+    margin-right: 10px;
     margin-left: 10px;
 }
 
