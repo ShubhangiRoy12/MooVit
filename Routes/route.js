@@ -196,28 +196,28 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="col-md-3">
           <div class="text-center p-3 bg-white rounded">
             <i class="bi bi-clock-fill text-primary fs-4"></i>
-            <h5 class="mt-2 mb-1">${Math.round(totalTime)} min</h5>
+            <h5 class="mt-2 mb-1 text-black">${Math.round(totalTime)} min</h5>
             <small class="text-muted">Total Time</small>
           </div>
         </div>
         <div class="col-md-3">
           <div class="text-center p-3 bg-white rounded">
             <i class="bi bi-speedometer2 text-info fs-4"></i>
-            <h5 class="mt-2 mb-1">${speed} km/h</h5>
+            <h5 class="mt-2 mb-1 text-black">${speed} km/h</h5>
             <small class="text-muted">Avg Speed</small>
           </div>
         </div>
         <div class="col-md-3">
           <div class="text-center p-3 bg-white rounded">
             <i class="bi bi-fuel-pump-fill text-success fs-4"></i>
-            <h5 class="mt-2 mb-1">₹${Math.round(fuelCost)}</h5>
+            <h5 class="mt-2 mb-1 text-black">₹${Math.round(fuelCost)}</h5>
             <small class="text-muted">Fuel Cost</small>
           </div>
         </div>
         <div class="col-md-3">
           <div class="text-center p-3 bg-white rounded">
             <i class="bi bi-stop-fill text-warning fs-4"></i>
-            <h5 class="mt-2 mb-1">${stops}</h5>
+            <h5 class="mt-2 mb-1 text-black">${stops}</h5>
             <small class="text-muted">Stops</small>
           </div>
         </div>
