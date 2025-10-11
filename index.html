@@ -56,7 +56,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+      transition: width 0.1s ease, height 0.1s ease, background 0.1s ease;
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
       display: none;
       will-change: transform;
@@ -73,7 +73,7 @@
       height: 40px;
       border: 2px solid rgba(255, 215, 0, 0.3);
       border-radius: 50%;
-      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+      transition: width 0.1s ease, height 0.1s ease, border-color 0.1s ease;
     }
 
     @media (min-width: 769px) and (pointer: fine) {
@@ -1822,9 +1822,9 @@ header nav a:hover {
       const dx = mouseX - cursorX;
       const dy = mouseY - cursorY;
       
-      // Smoother easing for fluid movement
-      cursorX += dx * 0.15;
-      cursorY += dy * 0.15;
+      // Faster easing for quicker movement
+      cursorX += dx * 0.35;
+      cursorY += dy * 0.35;
       
       // Use transform for GPU acceleration (60fps smooth)
       cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
@@ -1834,8 +1834,8 @@ header nav a:hover {
         const targetX = mouseX - (index * 5);
         const targetY = mouseY - (index * 5);
         
-        trail.x += (targetX - trail.x) * (0.25 - index * 0.02);
-        trail.y += (targetY - trail.y) * (0.25 - index * 0.02);
+        trail.x += (targetX - trail.x) * (0.4 - index * 0.02);
+        trail.y += (targetY - trail.y) * (0.4 - index * 0.02);
         
         trail.element.style.transform = `translate(${trail.x - 3}px, ${trail.y - 3}px)`;
         trail.element.style.opacity = 1 - (index * 0.15);
