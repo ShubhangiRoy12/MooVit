@@ -35,18 +35,32 @@
       overflow-x: hidden;
     }
 
+    /* High Contrast Utility Classes */
+    .yellow-bg {
+      background: linear-gradient(135deg, #ffd700 0%, #ffb700 100%);
+      color: #0a1628 !important;
+    }
+
+    .yellow-bg * {
+      color: #0a1628;
+    }
+
     /* Enhanced Custom Cursor Styles */
     .cursor {
       position: fixed;
+      top: 0;
+      left: 0;
       width: 20px;
       height: 20px;
       background: linear-gradient(45deg, #ffd700, #ffed4a);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
       display: none;
+      will-change: transform;
+      color: #0a1628;
     }
 
     .cursor::before {
@@ -59,7 +73,7 @@
       height: 40px;
       border: 2px solid rgba(255, 215, 0, 0.3);
       border-radius: 50%;
-      transition: all 0.3s ease;
+      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
     }
 
     @media (min-width: 769px) and (pointer: fine) {
@@ -94,6 +108,7 @@
       height: 20px;
       border-radius: 2px;
       background: linear-gradient(45deg, #ffd700, #ffed4a);
+      color: #0a1628;
     }
 
     .cursor.text::before {
@@ -208,11 +223,56 @@
       box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
     }
 
+    /* Auth Buttons Styles */
+    .auth-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .auth-buttons .btn {
+      padding: 10px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: 2px solid rgba(37, 99, 235, 0.6);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    }
+
+    .btn-signup {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: 2px solid rgba(37, 99, 235, 0.6);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-signup:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    }
+
     /* Hero Section with Advanced Effects */
     .hero {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 4rem auto;
-      padding: 4rem 3rem;
+      padding: 5rem 5rem;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(25px);
       border-radius: 30px;
@@ -267,13 +327,18 @@
 
     .hero p {
       font-size: 1.3rem;
-      color: rgba(255, 255, 255, 0.9);
+      color: #ffffff;
       margin-bottom: 2.5rem;
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
-      font-weight: 400;
+      font-weight: 500;
       animation: slideUp 1s ease-out 0.7s both;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 
+                   0 4px 16px rgba(0, 0, 0, 0.6),
+                   0 0 30px rgba(0, 0, 0, 0.5);
+      line-height: 1.8;
+      letter-spacing: 0.3px;
     }
 
     .hero .btn {
@@ -1287,183 +1352,17 @@
     /* Cursor trail effect */
     .cursor-trail {
       position: fixed;
+      top: 0;
+      left: 0;
       width: 6px;
       height: 6px;
       background: rgba(255, 215, 0, 0.4);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9998;
-      transition: all 0.3s ease;
+      transition: opacity 0.2s ease;
+      will-change: transform;
     }
-    /* Base Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  background: #0b1224;
-  color: #ffffff;
-  line-height: 1.6;
-}
-
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-}
-
-/* Header Styling */
-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-}
-
-header .logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: white;
-}
-
-header nav {
-  display: flex;
-  gap: 1.5rem;
-}
-
-header nav a {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: background 0.3s, color 0.3s;
-}
-
-header nav a:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #1fb2ff;
-}
-
-/* Hero Section */
-.hero {
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-  border-radius: 15px;
-  padding: 3rem;
-  text-align: center;
-  max-width: 600px;
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.hero p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.btn {
-  background: #1fb2ff;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.3s;
-}
-
-.btn:hover {
-  background: #0284c7;
-}
-
-.btn-cta {
-  margin-bottom: 2rem;
-}
-
-.tracking-container {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.tracking-container input {
-  padding: 0.75rem 1rem;
-  border-radius: 50px;
-  border: none;
-  outline: none;
-  width: 250px;
-}
-
-.tracking-container .btn-track {
-  padding: 0.75rem 1.5rem;
-}
-
-/* Trusted Brands */
-.trusted-brands {
-  text-align: center;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.brand-logos {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
-.brand-logos span {
-  font-weight: bold;
-  color: #020a0e;
-}
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-  .hero {
-    padding: 2rem;
-  }
-
-  .tracking-container {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  header nav {
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-}
-
-
   </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1485,8 +1384,8 @@ header nav a:hover {
     <nav>
       <a href="index.html">Home</a>
       <a href="contact.html">Contact</a>
-      <a href="#" onclick="openLoginPopup()">Login</a>
-      <a href="#" onclick="openSignupPopup()">Sign Up</a>
+      <a href="#" onclick="openLoginPopup()" class="nav-btn nav-login">Login</a>
+      <a href="#" onclick="openSignupPopup()" class="nav-btn nav-signup">Sign Up</a>
     </nav>
   </header>
 
@@ -1535,6 +1434,7 @@ header nav a:hover {
         <p>Same-day and next-day delivery services with live tracking, signature confirmation, and money-back guarantee for time-critical shipments.</p>
       </div>
 
+
     <div class="main-container">
         <header>
             <div class="logo">
@@ -1544,13 +1444,13 @@ header nav a:hover {
                 <span>Transport Co.</span>
             </div>
             <nav>
-                <a href="services.html">Services</a>
-                <a href="about.html">About Us</a>
-                <a href="./Shipments/shipments.html">Track Shipment</a>
+                <a href="#">Services</a>
+                <a href="#">About Us</a>
+                <a href="#">Track Shipment</a>
             </nav>
             <div class="auth-buttons">
               <a href="#" onclick="openLoginPopup()" class="btn btn-login">Login</a>
-              <a href="#" onclick="openSignupPopup()" class="btn btn-signup">Sign Up</a>
+              <a href="#" onclick="openSignupPopup()" class="btn btn-signup">Signup</a>
             </div>
         </header>
 
@@ -1586,7 +1486,7 @@ header nav a:hover {
     <p>To access detailed service information, pricing, and exclusive features, please login to your account or create a new one. Join thousands of satisfied customers worldwide!</p>
     <div class="alert-buttons">
       <a href="#" onclick="openLoginPopup(); closeServiceAlert();" class="alert-btn primary">Login Now</a>
-      <a href="#" onclick="openSignupPopup(); closeServiceAlert();" class="alert-btn secondary">Sign Up Free</a>
+      <a href="#" onclick="openSignupPopup(); closeServiceAlert();" class="alert-btn secondary">Signup Free</a>
       <button class="alert-btn close" onclick="closeServiceAlert()">Maybe Later</button>
     </div>
   </div>
@@ -1701,7 +1601,6 @@ header nav a:hover {
           <li><a href="about.html">About Us</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
           <li><a href="careers.html">Careers</a></li>
         </ul>
       </div>
@@ -1756,22 +1655,22 @@ header nav a:hover {
       const dx = mouseX - cursorX;
       const dy = mouseY - cursorY;
       
-      cursorX += dx * 0.2;
-      cursorY += dy * 0.2;
+      // Smoother easing for fluid movement
+      cursorX += dx * 0.15;
+      cursorY += dy * 0.15;
       
-      cursor.style.left = cursorX - 10 + 'px';
-      cursor.style.top = cursorY - 10 + 'px';
+      // Use transform for GPU acceleration (60fps smooth)
+      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
       
-      // Update trails
+      // Update trails with optimized transforms
       trails.forEach((trail, index) => {
         const targetX = mouseX - (index * 5);
         const targetY = mouseY - (index * 5);
         
-        trail.x += (targetX - trail.x) * (0.3 - index * 0.02);
-        trail.y += (targetY - trail.y) * (0.3 - index * 0.02);
+        trail.x += (targetX - trail.x) * (0.25 - index * 0.02);
+        trail.y += (targetY - trail.y) * (0.25 - index * 0.02);
         
-        trail.element.style.left = trail.x - 3 + 'px';
-        trail.element.style.top = trail.y - 3 + 'px';
+        trail.element.style.transform = `translate(${trail.x - 3}px, ${trail.y - 3}px)`;
         trail.element.style.opacity = 1 - (index * 0.15);
       });
       
@@ -2384,6 +2283,39 @@ header nav a:hover {
       });
     });
   </script>
+</body>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>Transport Co.</h3>
+                <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>Email: <a href="mailto:contact@transportco.com">contact@transportco.com</a></p>
+                <p>Phone: +91 98765 XXXXX</p>
+                <p>Address: Lonavala, Maharashtra, India</p>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <a href="#">GitHub</a> | 
+                <a href="#">LeetCode</a> | 
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Transport Co. | All Rights Reserved.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
