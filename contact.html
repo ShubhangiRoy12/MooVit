@@ -8,6 +8,15 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
     
+    :root {
+      --bg-dark-1: #0a1628;
+      --bg-dark-2: #1a365d;
+      --primary: #2563eb; /* blue */
+      --primary-700: #1d4ed8;
+      --accent: #ffd700; /* gold */
+      --muted-white: rgba(255,255,255,0.85);
+      --glass: rgba(255,255,255,0.08);
+    }
     * {
       margin: 0;
       padding: 0;
@@ -18,11 +27,14 @@
       font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #0a1628 0%, #1a365d 35%, #2563eb 100%);
+      font-size: 16px;
+      background: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 35%, var(--primary) 100%);
       background-attachment: fixed;
-      color: #f0f4f8;
+      color: var(--muted-white);
       overflow-x: hidden;
       min-height: 100vh;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
     /* Animated Background Particles */
@@ -89,9 +101,9 @@
     }
 
     .logo {
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ffffff 100%);
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 50%, #ffffff 100%);
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -108,11 +120,11 @@
       max-width: 1000px;
       margin: 4rem auto;
       padding: 3rem 2rem;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.06);
       backdrop-filter: blur(25px);
       border-radius: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
       position: relative;
       overflow: hidden;
       animation: fadeIn 1.5s ease-in-out;
@@ -151,22 +163,23 @@
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 3.2rem;
       text-align: center;
       margin-bottom: 1.5rem;
-      color: white;
+      color: #fff;
       font-weight: 900;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 6px 30px rgba(0, 0, 0, 0.55);
       animation: slideUp 1s ease-out 0.3s both;
+      letter-spacing: -0.5px;
     }
 
     .subtitle {
       text-align: center;
       margin-bottom: 3rem;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 600px;
+      color: rgba(255, 255, 255, 0.92);
+      max-width: 680px;
       margin-left: auto;
       margin-right: auto;
       animation: slideUp 1s ease-out 0.5s both;
@@ -185,17 +198,24 @@
 
     input, textarea {
       width: 100%;
-      padding: 1.2rem 1.5rem;
-      border-radius: 15px;
+      padding: 1.15rem 1.4rem;
+      border-radius: 14px;
       border: none;
       outline: none;
-      font-size: 1.1rem;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      font-size: 1.05rem;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
       color: white;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
       font-family: 'Inter', sans-serif;
+    }
+
+    /* Hover for inputs */
+    input:hover, textarea:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 215, 0, 0.45);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.06), 0 6px 16px rgba(255, 215, 0, 0.04) inset;
     }
 
     input::placeholder, textarea::placeholder {
@@ -215,19 +235,19 @@
     }
 
     .submit-btn {
-      padding: 1.3rem 3rem;
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      padding: 1.2rem 2.4rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-700) 100%);
       color: white;
       border: none;
-      border-radius: 50px;
-      font-size: 1.2rem;
+      border-radius: 999px;
+      font-size: 1.05rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       position: relative;
       overflow: hidden;
       font-family: 'Inter', sans-serif;
-      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35), 0 6px 12px rgba(0,0,0,0.25);
     }
 
     .submit-btn::before {
@@ -246,55 +266,121 @@
     }
 
     .submit-btn:hover {
-      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 20px 40px rgba(37, 99, 235, 0.6);
+      background: linear-gradient(135deg, var(--primary-700) 0%, #1e40af 100%);
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 22px 48px rgba(37, 99, 235, 0.55), 0 6px 18px rgba(255, 215, 0, 0.06) inset;
     }
 
-    .contact-info {
+    /* Contact layout: split left (form) and right (details) */
+    .split {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+      /* left = flexible form, middle = divider, right = constrained and flush-right */
+      grid-template-columns: 1fr 12px minmax(220px, 320px);
+      gap: 1rem;
+      align-items: start;
+      margin-top: 1.25rem;
+      width: 100%;
+    }
+
+    .split .left { min-width: 0; }
+    .split .right { min-width: 0; padding-left: 6px; display: flex; flex-direction: column; align-items: flex-end; }
+
+    .divider {
+      width: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04));
+      border-radius: 999px;
+      box-shadow: inset 0 0 18px rgba(0,0,0,0.45);
+      justify-self: center;
+      align-self: stretch;
+      margin: 6px 0;
+    }
+
+    /* Contact details grid (two sections) */
+    .contact-details-grid {
+      display: grid;
+      /* single column inside right column so each card fills the area */
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+      margin-top: 0.5rem;
       animation: slideUp 1s ease-out 0.9s both;
+      width: 100%;
+      justify-self: end; /* ensure grid sticks to right column */
+    }
+
+    .contact-section h4 {
+      margin: 0 0 0.6rem 0;
+      color: var(--accent);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .contact-section { display: grid; gap: 0.9rem }
+
+    /* New wrappers for clearer separation */
+  .office-details, .support-details { display: grid; gap: 0.9rem; width: 100%; }
+
+    .contact-details-grid .section-title {
+      margin: 0 0 0.8rem 0;
+      color: var(--accent);
+      font-size: 1.05rem;
+      font-weight: 800;
     }
 
     .info-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 2rem;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(12px);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 1rem;
       text-align: center;
-      transition: all 0.3s ease;
+      transition: transform 0.28s cubic-bezier(0.2,0.9,0.2,1), box-shadow 0.28s, background 0.28s;
       cursor: default;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     .info-card:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06));
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 22px 40px rgba(0, 0, 0, 0.45), 0 6px 18px rgba(37,99,235,0.06) inset;
+      border-color: rgba(255, 215, 0, 0.12);
     }
 
     .info-card h3 {
-      color: #ffd700;
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+      font-size: 1.18rem;
       font-weight: 700;
-      text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+      text-shadow: 0 2px 8px rgba(255, 215, 0, 0.22);
     }
 
     .info-card p {
-      margin: 0.5rem 0;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 1rem;
+      margin: 0.4rem 0;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 0.99rem;
     }
 
     .info-card .icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      display: block;
-      filter: drop-shadow(0 4px 15px rgba(255, 215, 0, 0.3));
+      font-size: 2.4rem;
+      margin-bottom: 0.9rem;
+      /* layout for svg icons */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      transition: transform 0.28s ease, filter 0.28s ease;
+    }
+
+    .info-card .icon svg { width: 40px; height: 40px; fill: currentColor; display:block; }
+
+    .info-card:hover .icon {
+      transform: translateY(-6px) rotate(-6deg) scale(1.06);
+      filter: drop-shadow(0 8px 30px rgba(255, 215, 0, 0.28));
     }
 
     @keyframes fadeIn {
@@ -315,18 +401,56 @@
 
     /* Success Message */
     .success-message {
-      background: rgba(34, 197, 94, 0.1);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      color: #22c55e;
-      padding: 1rem 1.5rem;
-      border-radius: 15px;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      font-weight: 600;
+      background: linear-gradient(180deg, rgba(34,197,94,0.12), rgba(16,185,129,0.06));
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(34, 197, 94, 0.22);
+      color: #e6fffa;
+      padding: 0.9rem 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+      text-align: left;
+      font-weight: 700;
       display: none;
-      animation: slideDown 0.5s ease-out;
+      animation: slideDown 0.45s cubic-bezier(.2,.9,.2,1);
     }
+
+    .success-message .close-sm {
+      float: right;
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.05rem;
+      cursor: pointer;
+    }
+
+    /* Success message inner text styling (moved from inline) */
+    .success-message .message-text {
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      margin-top: 4px;
+    }
+
+    /* Input icon helpers */
+    .input-with-icon { position: relative; }
+    .input-with-icon .input-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.05rem;
+      pointer-events: none;
+      opacity: 0.95;
+      transition: transform 0.28s ease, opacity 0.28s ease, color 0.28s ease;
+      color: rgba(255,255,255,0.9);
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .input-with-icon .input-icon svg { width: 18px; height: 18px; display:block; fill: currentColor; }
+
+    .input-with-icon input, .input-with-icon textarea { padding-left: 3rem; }
 
     @keyframes slideDown {
       from {
@@ -370,6 +494,16 @@
       }
     }
 
+    /* Stack contact details on smaller screens for clarity */
+    @media (max-width: 820px) {
+      .contact-details-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .office-details, .support-details { align-items: start; }
+    }
+
     /* Loading states */
     .loading {
       opacity: 0.7;
@@ -407,56 +541,101 @@
   </header>
 
   <div class="container">
+    <svg class="decor-svg" width="120" height="120" viewBox="0 0 120 120" fill="none" style="position:absolute;right:18px;top:18px;opacity:0.12;pointer-events:none;">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1">
+          <stop offset="0" stop-color="#ffd700" />
+          <stop offset="1" stop-color="#2563eb" />
+        </linearGradient>
+      </defs>
+      <circle cx="60" cy="60" r="54" stroke="url(#g1)" stroke-width="2" />
+      <path d="M30 80 C45 40, 75 40, 90 80" stroke="#fff" stroke-opacity="0.06" stroke-width="6" fill="none" stroke-linecap="round" />
+    </svg>
     <h1>Contact Us</h1>
     <p class="subtitle">We'd love to hear from you! Whether you have a question, feedback, or partnership inquiry, the Transport Co. team is here to help you with all your logistics needs.</p>
 
-    <div class="success-message" id="successMessage">
-      ✅ Thank you for your message! We'll get back to you within 24 hours.
+    <div class="success-message" id="successMessage" role="status" aria-live="polite">
+      <button class="close-sm" onclick="document.getElementById('successMessage').style.display='none'">✕</button>
+      <strong>Message sent</strong>
+      <div class="message-text">Thank you! We'll reply within 24 hours.</div>
     </div>
 
-    <form id="contactForm">
-      <div class="form-group">
+    <div class="split">
+      <div class="left">
+        <form id="contactForm">
+      <div class="form-group input-with-icon">
+        <span class="input-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-7 2-7 4v2h14v-2c0-2-3-4-7-4z"/></svg>
+        </span>
         <input type="text" id="name" placeholder="Your Full Name" required>
       </div>
       
-      <div class="form-group">
+      <div class="form-group input-with-icon">
+        <span class="input-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 6v12h20V6l-10 7L2 6z"/></svg>
+        </span>
         <input type="email" id="email" placeholder="Your Email Address" required>
       </div>
       
-      <div class="form-group">
+      <div class="form-group input-with-icon">
+        <span class="input-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.1-2.1a1 1 0 0 1 1-.2c1.1.4 2.3.6 3.5.6a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.1 21 3 13.9 3 4a1 1 0 0 1 1-1h2.5a1 1 0 0 1 1 1c0 1.2.2 2.4.6 3.5a1 1 0 0 1-.2 1l-2.3 2.3z"/></svg>
+        </span>
         <input type="tel" id="phone" placeholder="Your Phone Number (Optional)">
       </div>
       
-      <div class="form-group">
+      <div class="form-group input-with-icon">
+        <span class="input-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 6h-18v9a2 2 0 0 0 2 2h4v3l5-3h7a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z"/></svg>
+        </span>
         <textarea id="message" rows="5" placeholder="Tell us about your logistics needs or ask us anything..." required></textarea>
       </div>
       
       <button type="submit" class="submit-btn" id="submitBtn">
         Send Message
       </button>
-    </form>
+        </form>
+      </div>
 
-    <div class="contact-info">
-      <div class="info-card">
-        <div class="icon">📍</div>
-        <h3>Our Location</h3>
-        <p>VIT Bhopal</p>
-        <p>Madhya Pradesh, India</p>
-      </div>
-      
-      <div class="info-card">
-        <div class="icon">📞</div>
-        <h3>Call Us</h3>
-        <p>+91 98765 XXXXX</p>
-        <p>24/7 Customer Support</p>
-      </div>
-      
-      <div class="info-card">
-        <div class="icon">✉️</div>
-        <h3>Email Us</h3>
-        <p>shubhangi.23bai11165@vitbhopal.ac.in</p>
-        <p>Quick Response Guaranteed</p>
-      </div>
+      <div class="divider" aria-hidden="true"></div>
+
+      <aside class="right" aria-label="Contact details">
+        <!-- Contact Details: split into two distinct divs -->
+        <div class="contact-details-grid" aria-label="Contact information">
+          <div class="office-details">
+            <h1 class="section-title">Our Contact Details :</h1>
+            <div class="info-card">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+              </div>
+              <h3>Our Location</h3>
+              <p>VIT Bhopal</p>
+              <p>Madhya Pradesh, India</p>
+            </div>
+          </div>
+
+          <div class="support-details">
+            <h2 class="section-title">Support</h2>
+            <div class="info-card">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.1-2.1a1 1 0 0 1 1-.2c1.1.4 2.3.6 3.5.6a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.1 21 3 13.9 3 4a1 1 0 0 1 1-1h2.5a1 1 0 0 1 1 1c0 1.2.2 2.4.6 3.5a1 1 0 0 1-.2 1l-2.3 2.3z"/></svg>
+              </div>
+              <h3>Call Us</h3>
+              <p>+91 98765 XXXXX</p>
+              <p>24/7 Customer Support</p>
+            </div>
+
+            <div class="info-card">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 6v12h20V6l-10 7L2 6z"/></svg>
+              </div>
+              <h3>Email Us</h3>
+              <p>shubhangi.23bai11165@vitbhopal.ac.in</p>
+              <p>Quick Response Guaranteed</p>
+            </div>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 

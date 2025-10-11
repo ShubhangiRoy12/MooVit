@@ -3,282 +3,331 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" href="favicon.png">
   <title>🚖 Cab Sharing – MooVit</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #212529;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
       min-height: 100vh;
-      padding: 1rem;
     }
 
-    .main-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    .dark-mode {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #f8f9fa;
+    }
+
+    .dark-mode .card {
+      background-color: #2a2a3e !important;
+      border: 1px solid #3a3a4e;
+    }
+
+    .dark-mode .form-control,
+    .dark-mode .form-select {
+      background-color: #1e1e2e !important;
+      color: #f8f9fa !important;
+      border-color: #3a3a4e !important;
+    }
+
+    .dark-mode .card-header {
+      background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
+    }
+
+    .dark-mode .stat-card {
+      background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      max-width: 100%;
+    }
+
+    .header-title {
+      font-size: 1.5rem;
+      margin: 0;
+      flex-shrink: 1;
+      min-width: 0;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .header-buttons .btn {
+      white-space: nowrap;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .header-buttons .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: none;
+      border-radius: 15px;
       overflow: hidden;
+      transition: transform 0.3s ease;
     }
 
-    .header {
-      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-      color: white;
-      padding: 2rem;
-      text-align: center;
+    .card:hover {
+      transform: translateY(-5px);
     }
 
-    .content-area {
-      padding: 2rem;
+    .card-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      padding: 1rem 1.5rem;
+    }
+
+    .card-header h5 {
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .form-control, .form-select {
+      border-radius: 10px;
+      border: 2px solid #e0e0e0;
+      padding: 0.75rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
     }
 
     #map {
       height: 450px;
       border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       margin-top: 20px;
+      width: 100%;
+      max-width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
-    .fare-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .stat-card {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
       color: white;
       border-radius: 15px;
       padding: 1.5rem;
-      margin-top: 1rem;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .vehicle-card {
-      border: 2px solid #e9ecef;
-      border-radius: 10px;
-      padding: 1rem;
-      margin: 0.5rem 0;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .vehicle-card:hover {
-      border-color: #007bff;
-      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
-      transform: translateY(-2px);
-    }
-
-    .vehicle-card.selected {
-      border-color: #007bff;
-      background-color: rgba(0, 123, 255, 0.1);
-      transform: translateY(-2px);
-    }
-
-    .feature-badge {
-      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-      color: white;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      margin: 0.2rem;
-      display: inline-block;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      user-select: none;
-    }
-
-    .feature-badge:hover {
-      transform: scale(1.05);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .feature-badge.active {
-      background: linear-gradient(45deg, #28a745, #20c997);
-      transform: scale(1.05);
-    }
-
-    .weather-widget {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1rem;
       text-align: center;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .time-slot {
-      padding: 0.5rem 1rem;
-      margin: 0.2rem;
-      border: 2px solid #e9ecef;
-      border-radius: 25px;
-      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
-      background: white;
     }
 
-    .time-slot:hover {
-      border-color: #007bff;
-      background-color: #f8f9fa;
-      transform: translateY(-2px);
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
-    .time-slot.selected {
-      border-color: #007bff;
-      background-color: #007bff;
-      color: white;
-      transform: translateY(-2px);
+    .stat-card h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
     }
 
-    .passenger-counter {
+    .stat-card p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+
+    .fare-breakdown {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .dark-mode .fare-breakdown {
+      background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    }
+
+    .fare-item {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
-    .counter-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: none;
-      background: #007bff;
-      color: white;
+    .fare-item:last-child {
+      border-bottom: none;
+      font-weight: 700;
       font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding-top: 1rem;
     }
 
-    .counter-btn:hover {
-      background: #0056b3;
+    .feature-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .badge-custom {
+      background: rgba(102, 126, 234, 0.2);
+      color: #667eea;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .dark-mode .badge-custom {
+      background: rgba(102, 126, 234, 0.3);
+      color: #a0aec0;
+    }
+
+    .time-date-picker {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    .icon-btn:hover {
       transform: scale(1.1);
     }
 
-    .counter-btn:active {
-      transform: scale(0.95);
+    footer {
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      margin-top: 3rem;
     }
 
-    .split-fare-item {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 1rem;
-      margin: 0.5rem 0;
-      backdrop-filter: blur(5px);
-    }
-
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 1rem 1.5rem;
-      border-radius: 10px;
-      color: white;
-      z-index: 1000;
-      transform: translateX(400px);
-      transition: transform 0.3s ease;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      max-width: 300px;
-    }
-
-    .notification.show {
-      transform: translateX(0);
-    }
-
-    .notification.success {
-      background: linear-gradient(45deg, #28a745, #20c997);
-    }
-
-    .notification.error {
-      background: linear-gradient(45deg, #dc3545, #fd7e14);
-    }
-
-    .notification.info {
-      background: linear-gradient(45deg, #17a2b8, #6f42c1);
-    }
-
-    .form-floating>label {
-      color: #6c757d;
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
-    }
-
-    .btn-gradient {
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      border: none;
-      color: white;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-    }
-
-    .btn-gradient:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 25px rgba(102, 126, 234, 0.4);
-      color: white;
-    }
-
-    .btn-gradient:active {
-      transform: translateY(-1px);
-    }
-
-    .loading-spinner {
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #667eea;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
+    @media (max-width: 768px) {
+      .header-title {
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.5rem;
       }
 
-      100% {
-        transform: rotate(360deg);
+      .header-content {
+        justify-content: center;
+      }
+
+      .header-buttons {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .header-buttons .btn {
+        flex: 1;
+        max-width: 150px;
+      }
+
+      #map {
+        height: 350px;
+      }
+
+      .card-body {
+        padding: 1rem;
+      }
+
+      #cabForm .col-md-3,
+      #cabForm .col-md-2,
+      #cabForm .col-md-4,
+      #cabForm .col-md-1 {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-card h3 {
+        font-size: 1.5rem;
+      }
+
+      .time-date-picker {
+        flex-direction: column;
       }
     }
 
-    .eta-info {
-      background: rgba(40, 167, 69, 0.1);
-      border-left: 4px solid #28a745;
-      padding: 1rem;
-      border-radius: 5px;
-      margin: 1rem 0;
-      backdrop-filter: blur(5px);
-    }
-
-    .carbon-info {
-      background: rgba(40, 167, 69, 0.1);
-      border-left: 4px solid #28a745;
-      padding: 1rem;
-      border-radius: 5px;
-      margin: 1rem 0;
-      text-align: center;
-      backdrop-filter: blur(5px);
-    }
-
-    .fade-in {
-      animation: fadeIn 0.5s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
+    @media (max-width: 576px) {
+      header {
+        padding: 0.75rem;
       }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      .header-title {
+        font-size: 1.1rem;
       }
+
+      .header-buttons .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4 {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
     }
 
     .pulse {
@@ -286,677 +335,260 @@
     }
 
     @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
-
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    .booking-section {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin-top: 1rem;
-      backdrop-filter: blur(5px);
-    }
-
-    .stats-card {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 1rem;
-      text-align: center;
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-    }
-
-    .stats-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .driver-info {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 1rem;
-      margin-top: 1rem;
-      backdrop-filter: blur(5px);
-    }
-
-    .rating-stars {
-      color: #ffc107;
-      font-size: 1.2rem;
-    }
-
-    .btn-action {
-      transition: all 0.3s ease;
-      margin: 0.2rem;
-    }
-
-    .btn-action:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .swap-btn {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .swap-btn:hover {
-      background: #0056b3;
-      transform: translateY(-50%) rotate(180deg);
-    }
-
-    .form-section {
-      position: relative;
-    }
-
-    @media (max-width: 768px) {
-      .main-container {
-        margin: 0;
-        border-radius: 0;
-      }
-
-      .header {
-        padding: 1rem;
-      }
-
-      .content-area {
-        padding: 1rem;
-      }
-
-      #map {
-        height: 300px;
-      }
-
-      .time-slot {
-        font-size: 0.8rem;
-        padding: 0.3rem 0.8rem;
-      }
-
-      .notification {
-        right: 10px;
-        left: 10px;
-        transform: translateY(-100px);
-        max-width: none;
-      }
-
-      .notification.show {
-        transform: translateY(0);
-      }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
   </style>
 </head>
 
 <body>
-  <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
-    <h1 class="mb-0">🚖 Cab Sharing Planner</h1>
-    <div>
-      <button id="toggleMode" class="btn btn-light me-2">🌃 Toggle Mode</button>
-      <a href="..\main.html" class="btn btn-light">← Home</a>
+  <header class="text-white">
+    <div class="header-content">
+      <h1 class="header-title">🚖 Cab Sharing Planner</h1>
+      <div class="header-buttons">
+        <button id="toggleMode" class="btn btn-light">🌃 Dark Mode</button>
+        <a href="..\main.html" class="btn btn-light">← Home</a>
+      </div>
     </div>
+  </header>
 
-    <div class="content-area">
-      <!-- Weather Widget -->
-      <div class="weather-widget fade-in">
-        <h6><i class="fas fa-cloud-sun"></i> Current Weather in Bhopal</h6>
-        <div id="weatherInfo">
-          <div class="loading-spinner"></div>
-        </div>
+  <main class="container my-4">
+    <div class="card shadow-lg mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">🗺️ Plan Your Journey</h5>
       </div>
-
-      <!-- Main Form -->
-      <form id="cabForm" class="row g-3">
-        <!-- Location Selection -->
-        <div class="col-lg-4 form-section">
-          <div class="form-floating">
-            <select class="form-select" id="start" required>
-              <option value="">Choose start location</option>
+      <div class="card-body">
+        <form id="cabForm" class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label">From</label>
+            <select class="form-select" id="from" required>
+              <option value="">Select City</option>
               <option value="Indore">Indore</option>
               <option value="Ujjain">Ujjain</option>
               <option value="Bhopal">Bhopal</option>
-              <option value="Dewas">Dewas</option>
-              <option value="Ratlam">Ratlam</option>
-              <option value="Gwalior">Gwalior</option>
             </select>
-            <label for="start"><i class="fas fa-map-marker-alt"></i> Start Location</label>
           </div>
-        </div>
-
-        <div class="col-lg-4 form-section">
-          <div class="form-floating">
-            <select class="form-select" id="intermediate" multiple>
+          <div class="col-md-3">
+            <label class="form-label">To</label>
+            <select class="form-select" id="to" required>
+              <option value="">Select City</option>
               <option value="Indore">Indore</option>
               <option value="Ujjain">Ujjain</option>
               <option value="Bhopal">Bhopal</option>
-              <option value="Dewas">Dewas</option>
-              <option value="Ratlam">Ratlam</option>
-              <option value="Gwalior">Gwalior</option>
             </select>
-            <label for="intermediate"><i class="fas fa-route"></i> Intermediate Stops (Ctrl+Click to select
-              multiple)</label>
           </div>
-        </div>
-
-
-        <div class="col-lg-4 form-section">
-          <div class="form-floating">
-            <select class="form-select" id="destination" required>
-              <option value="">Choose destination</option>
+          <div class="col-md-2">
+            <label class="form-label">Via (Optional)</label>
+            <select class="form-select" id="via">
+              <option value="">No Stop</option>
               <option value="Indore">Indore</option>
               <option value="Ujjain">Ujjain</option>
               <option value="Bhopal">Bhopal</option>
-              <option value="Dewas">Dewas</option>
-              <option value="Ratlam">Ratlam</option>
-              <option value="Gwalior">Gwalior</option>
             </select>
-            <label for="destination"><i class="fas fa-flag-checkered"></i> Destination</label>
           </div>
-          <button type="button" class="swap-btn" onclick="swapLocations()" title="Swap start and destination">
-            <i class="fas fa-exchange-alt"></i>
-          </button>
-        </div>
-
-        <!-- Date and Time Selection -->
-        <div class="col-md-6">
-          <div class="form-floating">
-            <input type="date" class="form-control" id="travelDate" required />
-            <label for="travelDate"><i class="fas fa-calendar"></i> Travel Date</label>
+          <div class="col-md-2">
+            <label class="form-label">Passengers</label>
+            <input type="number" class="form-control" id="passengers" min="1" max="6" value="2">
           </div>
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label"><i class="fas fa-clock"></i> Preferred Time</label>
-          <div class="d-flex flex-wrap">
-            <button type="button" class="time-slot" data-time="06:00">6:00 AM</button>
-            <button type="button" class="time-slot" data-time="09:00">9:00 AM</button>
-            <button type="button" class="time-slot" data-time="12:00">12:00 PM</button>
-            <button type="button" class="time-slot" data-time="15:00">3:00 PM</button>
-            <button type="button" class="time-slot" data-time="18:00">6:00 PM</button>
-            <button type="button" class="time-slot" data-time="21:00">9:00 PM</button>
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary w-100">🚀 Calculate</button>
           </div>
-        </div>
+        </form>
 
-        <!-- Passenger Counters -->
-        <div class="col-md-6">
-          <label class="form-label"><i class="fas fa-users"></i> Passengers (Start → Intermediate/Destination)</label>
-          <div class="passenger-counter">
-            <button type="button" class="counter-btn" onclick="changePassengers('pax1', -1)">
-              <i class="fas fa-minus"></i>
-            </button>
-            <span id="pax1Display" class="h5 mx-3">1</span>
-            <button type="button" class="counter-btn" onclick="changePassengers('pax1', 1)">
-              <i class="fas fa-plus"></i>
-            </button>
+        <div class="row mt-3">
+          <div class="col-md-4">
+            <label class="form-label">📅 Date</label>
+            <input type="date" class="form-control" id="travelDate">
           </div>
-          <input type="hidden" id="paxStartToIntermediate" value="1" />
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label"><i class="fas fa-users"></i> Passengers (Intermediate → Destination)</label>
-          <div class="passenger-counter">
-            <button type="button" class="counter-btn" onclick="changePassengers('pax2', -1)">
-              <i class="fas fa-minus"></i>
-            </button>
-            <span id="pax2Display" class="h5 mx-3">1</span>
-            <button type="button" class="counter-btn" onclick="changePassengers('pax2', 1)">
-              <i class="fas fa-plus"></i>
-            </button>
+          <div class="col-md-4">
+            <label class="form-label">🕐 Time</label>
+            <input type="time" class="form-control" id="travelTime">
           </div>
-          <input type="hidden" id="paxIntermediateToDestination" value="1" />
-        </div>
-
-        <!-- Vehicle Selection -->
-        <div class="col-12">
-          <label class="form-label"><i class="fas fa-car"></i> Select Vehicle Type</label>
-          <div class="row">
-            <div class="col-lg-4 col-md-6">
-              <div class="vehicle-card" data-vehicle="sedan">
-                <div class="d-flex align-items-center">
-                  <i class="fas fa-car fa-3x text-primary me-3"></i>
-                  <div class="flex-grow-1">
-                    <h6 class="mb-1">Sedan</h6>
-                    <small class="text-muted">4 seats • ₹12/km • AC</small>
-                    <div class="mt-1">
-                      <span class="badge bg-primary">Comfortable</span>
-                      <span class="badge bg-success">Fuel Efficient</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-              <div class="vehicle-card" data-vehicle="suv">
-                <div class="d-flex align-items-center">
-                  <i class="fas fa-truck fa-3x text-success me-3"></i>
-                  <div class="flex-grow-1">
-                    <h6 class="mb-1">SUV</h6>
-                    <small class="text-muted">7 seats • ₹15/km • AC + Space</small>
-                    <div class="mt-1">
-                      <span class="badge bg-success">Spacious</span>
-                      <span class="badge bg-info">Family Friendly</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mx-auto">
-              <div class="vehicle-card" data-vehicle="luxury">
-                <div class="d-flex align-items-center">
-                  <i class="fas fa-gem fa-3x text-warning me-3"></i>
-                  <div class="flex-grow-1">
-                    <h6 class="mb-1">Luxury</h6>
-                    <small class="text-muted">4 seats • ₹20/km • Premium</small>
-                    <div class="mt-1">
-                      <span class="badge bg-warning">Premium</span>
-                      <span class="badge bg-dark">VIP Service</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="col-md-4">
+            <label class="form-label">🚗 Vehicle Type</label>
+            <select class="form-select" id="vehicleType">
+              <option value="sedan">Sedan (₹12/km)</option>
+              <option value="suv">SUV (₹18/km)</option>
+              <option value="mini">Mini (₹10/km)</option>
+            </select>
           </div>
         </div>
 
-        <!-- Additional Features -->
-        <div class="col-12">
-          <label class="form-label"><i class="fas fa-plus-circle"></i> Additional Features</label>
-          <div class="d-flex flex-wrap">
-            <div class="feature-badge" data-feature="wifi" data-cost="50">
-              <i class="fas fa-wifi"></i> WiFi (+₹50)
-            </div>
-            <div class="feature-badge" data-feature="music" data-cost="30">
-              <i class="fas fa-music"></i> Premium Music (+₹30)
-            </div>
-            <div class="feature-badge" data-feature="refreshment" data-cost="100">
-              <i class="fas fa-coffee"></i> Refreshments (+₹100)
-            </div>
-            <div class="feature-badge" data-feature="priority" data-cost="200">
-              <i class="fas fa-star"></i> Priority Booking (+₹200)
-            </div>
-            <div class="feature-badge" data-feature="insurance" data-cost="75">
-              <i class="fas fa-shield-alt"></i> Travel Insurance (+₹75)
-            </div>
-          </div>
+        <div class="feature-badges">
+          <span class="badge-custom">✅ AC Vehicle</span>
+          <span class="badge-custom">💺 Comfortable Seats</span>
+          <span class="badge-custom">📱 Live Tracking</span>
+          <span class="badge-custom">🔒 Safe & Secure</span>
         </div>
 
-        <div class="col-12 text-center mt-4">
-          <button type="submit" class="btn btn-gradient btn-lg px-5 py-3">
-            <i class="fas fa-calculator me-2"></i> Calculate Fare & Show Route
-          </button>
-          <div class="mt-2">
-            <small class="text-muted">Press Ctrl+Enter for quick calculation</small>
+        <div id="fareBreakdown" class="fare-breakdown">
+          <h6 style="margin-bottom: 1rem; font-weight: 700;">💰 Fare Breakdown</h6>
+          <div class="fare-item">
+            <span>Base Distance:</span>
+            <span id="distanceDisplay">-</span>
           </div>
-        </div>
-      </form>
-
-      <!-- Map Container -->
-      <div id="map"></div>
-
-      <!-- ETA Information -->
-      <div id="etaInfo" class="eta-info fade-in" style="display: none;">
-        <h6><i class="fas fa-clock text-success"></i> Estimated Journey Information</h6>
-        <div id="etaContent"></div>
-      </div>
-
-      <!-- Carbon Footprint -->
-      <div id="carbonInfo" class="carbon-info fade-in" style="display: none;">
-        <h6><i class="fas fa-leaf text-success"></i> Environmental Impact</h6>
-        <div id="carbonContent"></div>
-      </div>
-
-      <!-- Fare Results -->
-      <div id="fareCard" class="fare-card fade-in" style="display: none;">
-        <h4><i class="fas fa-money-bill-wave"></i> Fare Breakdown & Split</h4>
-        <div id="fareResult"></div>
-        <div id="splitFareResult"></div>
-
-        <!-- Driver Information -->
-        <div class="driver-info">
-          <h6><i class="fas fa-id-card"></i> Driver Information</h6>
-          <div class="row align-items-center">
-            <div class="col-md-3 text-center">
-              <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center"
-                style="width: 60px; height: 60px;">
-                <i class="fas fa-user fa-2x text-primary"></i>
-              </div>
-            </div>
-            <div class="col-md-9">
-              <h6 class="mb-1">Rajesh Kumar</h6>
-              <div class="rating-stars mb-1">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <small class="text-light ms-1">(4.8/5) • 500+ trips</small>
-              </div>
-              <p class="mb-1"><i class="fas fa-phone me-2"></i>+91 98765 43210</p>
-              <p class="mb-1"><i class="fas fa-car me-2"></i><span id="selectedVehicleInfo">Sedan - MP 09 CD 5678</span>
-              </p>
-              <p class="mb-0"><i class="fas fa-certificate me-2"></i>Verified • 5 years experience</p>
-            </div>
+          <div class="fare-item">
+            <span>Rate per km:</span>
+            <span id="rateDisplay">-</span>
           </div>
-
-          <div class="mt-3 text-center">
-            <button class="btn btn-light btn-action me-2" onclick="contactDriver('call')">
-              <i class="fas fa-phone me-1"></i> Call Driver
-            </button>
-            <button class="btn btn-light btn-action me-2" onclick="contactDriver('sms')">
-              <i class="fas fa-sms me-1"></i> Send SMS
-            </button>
-            <button class="btn btn-light btn-action" onclick="contactDriver('whatsapp')">
-              <i class="fab fa-whatsapp me-1"></i> WhatsApp
-            </button>
+          <div class="fare-item">
+            <span>Total Passengers:</span>
+            <span id="paxDisplay">-</span>
           </div>
-        </div>
-
-        <!-- Booking Section -->
-        <div class="booking-section">
-          <h6><i class="fas fa-check-circle"></i> Ready to Book Your Ride?</h6>
-          <div class="row mt-3">
-            <div class="col-md-6 mb-2">
-              <button class="btn btn-success w-100 btn-action" onclick="bookRide()">
-                <i class="fas fa-credit-card me-1"></i> Book Now
-              </button>
-            </div>
-            <div class="col-md-6 mb-2">
-              <button class="btn btn-outline-light w-100 btn-action" onclick="scheduleRide()">
-                <i class="fas fa-calendar-plus me-1"></i> Schedule Later
-              </button>
-            </div>
-            <div class="col-md-6 mb-2">
-              <button class="btn btn-outline-light w-100 btn-action" onclick="shareRide()">
-                <i class="fas fa-share me-1"></i> Share with Friends
-              </button>
-            </div>
-            <div class="col-md-6 mb-2">
-              <button class="btn btn-outline-light w-100 btn-action" onclick="saveTrip()">
-                <i class="fas fa-bookmark me-1"></i> Save Trip
-              </button>
-            </div>
+          <div class="fare-item">
+            <span>Total Fare:</span>
+            <span id="totalFareDisplay">-</span>
           </div>
-
-          <div class="mt-3 p-3 bg-dark bg-opacity-25 rounded">
-            <h6 class="mb-2"><i class="fas fa-info-circle"></i> Trip Summary</h6>
-            <div id="tripSummary"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Stats -->
-      <div class="row mt-4" id="quickStats" style="display: none;">
-        <div class="col-md-3 mb-3">
-          <div class="stats-card">
-            <i class="fas fa-users fa-2x text-primary mb-2"></i>
-            <h6>Total Riders</h6>
-            <h4 id="totalRiders">0</h4>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="stats-card">
-            <i class="fas fa-route fa-2x text-success mb-2"></i>
-            <h6>Distance</h6>
-            <h4 id="totalDistance">0 km</h4>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="stats-card">
-            <i class="fas fa-rupee-sign fa-2x text-warning mb-2"></i>
-            <h6>Per Person</h6>
-            <h4 id="costPerPerson">₹0</h4>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="stats-card">
-            <i class="fas fa-leaf fa-2x text-info mb-2"></i>
-            <h6>CO₂ Saved</h6>
-            <h4 id="co2Saved">0 kg</h4>
+          <div class="fare-item">
+            <span>Per Person:</span>
+            <span id="perPersonDisplay">-</span>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="row mb-4" id="statsRow" style="display: none;">
+      <div class="col-md-4 mb-3">
+        <div class="stat-card">
+          <p>💵 Total Fare</p>
+          <h3 id="statTotal">₹0</h3>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+          <p>👤 Per Person</p>
+          <h3 id="statPer">₹0</h3>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+          <p>🛣️ Distance</p>
+          <h3 id="statDist">0 km</h3>
+        </div>
+      </div>
     </div>
 
-    <!-- Notification Container -->
-    <div id="notificationContainer"></div>
+    <div id="map"></div>
+  </main>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-      // Enhanced city coordinates and data
-      // City coordinates
-      const cityCoords = {
-        "Indore": [22.7196, 75.8577],
-        "Ujjain": [23.1793, 75.7849],
-        "Bhopal": [23.2599, 77.4126],
-        "Dewas": [22.9676, 76.0534],
-        "Ratlam": [23.3315, 75.0367],
-        "Gwalior": [26.2183, 78.1828]
-      };
+  <footer class="text-center py-3 text-white">
+    <p class="mb-0">&copy; 2025 MooVit | Travel Smart, Share & Save 💚</p>
+  </footer>
 
-      // Distances between cities (in km)
-      const distances = {
-        "Indore-Ujjain": 55, "Ujjain-Indore": 55,
-        "Ujjain-Bhopal": 190, "Bhopal-Ujjain": 190,
-        "Indore-Bhopal": 245, "Bhopal-Indore": 245,
-        "Indore-Dewas": 35, "Dewas-Indore": 35,
-        "Dewas-Ujjain": 45, "Ujjain-Dewas": 45,
-        "Dewas-Bhopal": 145, "Bhopal-Dewas": 145,
-        "Indore-Ratlam": 80, "Ratlam-Indore": 80,
-        "Ujjain-Ratlam": 90, "Ratlam-Ujjain": 90,
-        "Ratlam-Bhopal": 280, "Bhopal-Ratlam": 280,
-        "Bhopal-Gwalior": 330, "Gwalior-Bhopal": 330,
-        "Indore-Gwalior": 475, "Gwalior-Indore": 475,
-        "Ujjain-Gwalior": 395, "Gwalior-Ujjain": 395,
-        "Dewas-Ratlam": 85, "Ratlam-Dewas": 85,
-        "Dewas-Gwalior": 440, "Gwalior-Dewas": 440,
-        "Ratlam-Gwalior": 365, "Gwalior-Ratlam": 365
-      };
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const markersCoord = {
+      "Indore": [22.7196, 75.8577],
+      "Bhopal": [23.2599, 77.4126],
+      "Ujjain": [23.1793, 75.7849]
+    };
 
-      const vehicleRates = {
-        sedan: { rate: 12, seats: 4, name: "Sedan", number: "MP 09 CD 5678" },
-        suv: { rate: 15, seats: 7, name: "SUV", number: "MP 12 EF 9012" },
-        luxury: { rate: 20, seats: 4, name: "Luxury Car", number: "MP 15 GH 3456" }
-      };
+    const distances = {
+      "Indore-Bhopal": 190,
+      "Indore-Ujjain": 55,
+      "Bhopal-Ujjain": 190,
+      "Bhopal-Indore": 190,
+      "Ujjain-Indore": 55,
+      "Ujjain-Bhopal": 190,
+      "Indore-Ujjain-Bhopal": 245,
+      "Bhopal-Ujjain-Indore": 245,
+      "Ujjain-Indore-Bhopal": 245,
+      "Ujjain-Bhopal-Indore": 245
+    };
 
-      let selectedVehicle = 'sedan';
-      let selectedTime = '';
-      let selectedFeatures = [];
-      let currentPassengers = { pax1: 1, pax2: 1 };
+    const vehicleRates = {
+      "sedan": 12,
+      "suv": 18,
+      "mini": 10
+    };
 
-      // Initialize map
-      const map = L.map('map').setView([23.2599, 77.4126], 6);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-      let routeLayer;
+    let isDarkMode = false;
 
-      // Swap start & destination
-      function swapLocations() {
-        const start = document.getElementById('start');
-        const destination = document.getElementById('destination');
-        const temp = start.value;
-        start.value = destination.value;
-        destination.value = temp;
-        showNotification('Locations swapped', 'info');
-      }
+    document.getElementById("toggleMode").addEventListener("click", () => {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle("dark-mode");
+      document.getElementById("toggleMode").textContent = isDarkMode ? "☀️ Light Mode" : "🌃 Dark Mode";
+    });
 
-      // Passenger counter
-      function changePassengers(pax, delta) {
-        currentPassengers[pax] += delta;
-        if (currentPassengers[pax] < 1) currentPassengers[pax] = 1;
-        document.getElementById(pax + 'Display').innerText = currentPassengers[pax];
-        if (pax === 'pax1') document.getElementById('paxStartToIntermediate').value = currentPassengers[pax];
-        if (pax === 'pax2') document.getElementById('paxIntermediateToDestination').value = currentPassengers[pax];
-      }
+    const map = L.map('map').setView([22.9, 76.2], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-      // Vehicle selection
-      document.querySelectorAll('.vehicle-card').forEach(card => {
-        card.addEventListener('click', () => {
-          document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('selected'));
-          card.classList.add('selected');
-          selectedVehicle = card.dataset.vehicle;
-          document.getElementById('selectedVehicleInfo').innerText = vehicleRates[selectedVehicle].name + " - " + vehicleRates[selectedVehicle].number;
-        });
-      });
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 100);
 
-      // Feature selection
-      document.querySelectorAll('.feature-badge').forEach(badge => {
-        badge.addEventListener('click', () => {
-          badge.classList.toggle('active');
-          const feature = badge.dataset.feature;
-          if (selectedFeatures.includes(feature)) {
-            selectedFeatures = selectedFeatures.filter(f => f !== feature);
-          } else selectedFeatures.push(feature);
-        });
-      });
+    // Set default date and time
+    const today = new Date();
+    document.getElementById("travelDate").valueAsDate = today;
+    document.getElementById("travelTime").value = "09:00";
 
-      // Time slot selection
-      document.querySelectorAll('.time-slot').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.time-slot').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          selectedTime = btn.dataset.time;
-        });
-      });
+    document.getElementById("cabForm").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-      // Notification
-      function showNotification(msg, type = 'info') {
-        const container = document.getElementById('notificationContainer');
-        const notif = document.createElement('div');
-        notif.className = `notification ${type} show`;
-        notif.innerText = msg;
-        container.appendChild(notif);
-        setTimeout(() => notif.remove(), 3000);
-      }
-
-      // Form submit
-      function getLegDistance(from, to) {
-        return distances[`${from}-${to}`] || 0;
-      }
-
-      document.getElementById('cabForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const start = document.getElementById('start').value;
-        const dest = document.getElementById('destination').value;
-        const interOptions = Array.from(document.getElementById('intermediate').selectedOptions);
-        const intermediates = interOptions.map(opt => opt.value).filter(v => v && v !== start && v !== dest);
-
-        if (!start || !dest || !selectedTime) {
-          showNotification('Please select start, destination, and time!', 'error');
-          return;
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker || layer instanceof L.Polyline) {
+          map.removeLayer(layer);
         }
-
-        const route = [start, ...intermediates, dest];
-
-        // Build legs
-        const legs = [];
-        for (let i = 0; i < route.length - 1; i++) {
-          const from = route[i];
-          const to = route[i + 1];
-          const distance = getLegDistance(from, to);
-          legs.push({ from, to, distance });
-        }
-
-        // Define passengers per leg
-        const legPassengers = [];
-        if (legs.length === 1) {
-          legPassengers.push(currentPassengers.pax1);
-        } else {
-          legPassengers.push(currentPassengers.pax1); // start → first intermediate
-          for (let i = 1; i < legs.length; i++) {
-            legPassengers.push(currentPassengers.pax2); // intermediate → next
-          }
-        }
-
-        // Fare calculation per leg
-        const legFares = legs.map((leg, idx) => leg.distance * vehicleRates[selectedVehicle].rate);
-        const farePerLegHTML = legFares.map((fare, idx) => {
-          const perPerson = fare / legPassengers[idx];
-          return `<p>${legs[idx].from} → ${legs[idx].to}: ₹${fare} (₹${perPerson.toFixed(2)}/passenger)</p>`;
-        }).join('');
-
-        // Features cost
-        let featuresCost = 0;
-        selectedFeatures.forEach(f => {
-          const badge = document.querySelector(`.feature-badge[data-feature="${f}"]`);
-          featuresCost += Number(badge.dataset.cost);
-        });
-
-        // Total fare
-        const totalFare = legFares.reduce((a, b) => a + b, 0) + featuresCost;
-
-        // Total distance
-        const totalDistance = legs.reduce((a, b) => a + b.distance, 0);
-
-        // Display fare
-        document.getElementById('fareCard').style.display = 'block';
-        document.getElementById('fareResult').innerHTML = `
-    <p>Total Distance: <strong>${totalDistance} km</strong></p>
-    <p>Vehicle: <strong>${vehicleRates[selectedVehicle].name}</strong></p>
-    <p>Features: ₹${featuresCost}</p>
-    ${farePerLegHTML}
-    <p><strong>Total Fare: ₹${totalFare}</strong></p>
-  `;
-
-        // ETA (50 km/h)
-        const etaHours = totalDistance / 50;
-        const etaMins = Math.round((etaHours - Math.floor(etaHours)) * 60);
-        document.getElementById('etaInfo').style.display = 'block';
-        document.getElementById('etaContent').innerHTML = `<p>Estimated Duration: ${Math.floor(etaHours)}h ${etaMins}min</p>`;
-
-        // CO2 saved
-        const co2Saved = legPassengers.reduce((sum, pax, i) => sum + (pax - 1) * legs[i].distance * 0.12, 0);
-        document.getElementById('carbonInfo').style.display = 'block';
-        document.getElementById('carbonContent').innerHTML = `<p>Estimated CO₂ Saved: ${co2Saved.toFixed(2)} kg</p>`;
-
-        // Update map route
-        if (routeLayer) map.removeLayer(routeLayer);
-        const routeCoords = route.map(city => cityCoords[city]);
-        routeLayer = L.polyline(routeCoords, { color: 'blue', weight: 5 }).addTo(map);
-        map.fitBounds(routeLayer.getBounds());
-
-        // Trip summary
-        document.getElementById('tripSummary').innerHTML = `<p>${route.join(' → ')}</p><p>Time: ${selectedTime}</p>`;
       });
 
-      // Dummy driver contact
-      function contactDriver(method) {
-        showNotification(`Driver contact via ${method.toUpperCase()} initiated`, 'info');
-      }
-      function bookRide() { showNotification('Ride booked successfully!', 'success'); }
-      function scheduleRide() { showNotification('Ride scheduled successfully!', 'success'); }
-      function shareRide() { showNotification('Trip link copied to clipboard!', 'info'); }
-      function saveTrip() { showNotification('Trip saved successfully!', 'success'); }
+      const from = document.getElementById("from").value;
+      const to = document.getElementById("to").value;
+      const via = document.getElementById("via").value;
+      const pax = parseInt(document.getElementById("passengers").value);
+      const vehicleType = document.getElementById("vehicleType").value;
 
-      // Weather Widget (Dummy data for Bhopal)
-      const weatherInfo = document.getElementById('weatherInfo');
-      setTimeout(() => {
-        weatherInfo.innerHTML = `
-      <p>☀️ 30°C, Clear Sky</p>
-      <p>Humidity: 45% | Wind: 10 km/h</p>
-    `;
-      }, 1500);
-    </script>
+      if (!markersCoord[from] || !markersCoord[to] || pax < 1) {
+        alert("Please fill valid values");
+        return;
+      }
+
+      if (from === to) {
+        alert("From and To cities cannot be the same!");
+        return;
+      }
+
+      let route = [from];
+      if (via && via !== from && via !== to) route.push(via);
+      route.push(to);
+
+      const fullRouteName = route.join("-");
+      const totalDistance = distances[fullRouteName] || 200;
+      const farePerKm = vehicleRates[vehicleType];
+      const totalFare = totalDistance * farePerKm;
+      const farePerPerson = Math.ceil(totalFare / pax);
+
+      // Update fare breakdown
+      document.getElementById("distanceDisplay").textContent = totalDistance + " km";
+      document.getElementById("rateDisplay").textContent = "₹" + farePerKm + "/km";
+      document.getElementById("paxDisplay").textContent = pax;
+      document.getElementById("totalFareDisplay").textContent = "₹" + totalFare;
+      document.getElementById("perPersonDisplay").textContent = "₹" + farePerPerson;
+      document.getElementById("fareBreakdown").style.display = "block";
+
+      // Update stat cards
+      document.getElementById("statTotal").textContent = "₹" + totalFare;
+      document.getElementById("statPer").textContent = "₹" + farePerPerson;
+      document.getElementById("statDist").textContent = totalDistance + " km";
+      document.getElementById("statsRow").style.display = "flex";
+
+      const coords = route.map(city => markersCoord[city]);
+      coords.forEach((coord, i) => {
+        const label = i === 0 ? "🟢 Start" : (i === coords.length - 1 ? "🔴 End" : "🟡 Via");
+        L.marker(coord).addTo(map).bindPopup(`<b>${label}</b><br>${route[i]}`).openPopup();
+      });
+
+      const line = L.polyline(coords, { color: '#667eea', weight: 4 }).addTo(map);
+      map.fitBounds(line.getBounds(), { padding: [50, 50] });
+    });
+
+    window.addEventListener('resize', () => {
+      map.invalidateSize();
+    });
+  </script>
 </body>
 
 </html>
