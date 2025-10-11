@@ -1356,6 +1356,32 @@ header nav a:hover {
   background: rgba(255, 255, 255, 0.15);
   color: #1fb2ff;
 }
+/* hamburger  */
+.hamburger{
+  display: none;
+  cursor: pointer;
+}
+header .hamburgerList{
+    background-color:rgba(23,33,48,0.7);
+    width: 21%; 
+    position: absolute;
+    z-index: 6;
+    top: 83%;
+    right: 9px;
+    border-radius: 6px;
+    display: none;
+}
+header .hamburgerList ul li{
+  list-style: none;
+
+}
+.hamburgerList ul li a{
+    text-decoration: none;
+    color:white;
+    font-size: 1.875rem;
+    padding:24px 14px 14px 16px;
+    
+}
 
 /* Hero Section */
 .hero {
@@ -1441,6 +1467,18 @@ header nav a:hover {
 }
 
 /* Responsive */
+
+
+@media screen and (max-width:652px){
+  header .hamburgerList{
+    width:30%;
+  }
+}
+@media screen and (max-width:456px){
+   header .hamburgerList{
+    width:40%;
+  }
+}
 @media screen and (max-width: 768px) {
   .hero {
     padding: 2rem;
@@ -1452,15 +1490,29 @@ header nav a:hover {
   }
 
   header {
-    flex-direction: column;
+    
     align-items: flex-start;
   }
 
   header nav {
-    flex-direction: column;
-    gap: 1rem;
+    
     margin-top: 1rem;
   }
+  .hamburger{
+      width: 14px;
+      height: 23px;
+  }
+}
+
+@media screen and (max-width:937px){
+  .hamburger{
+    display: block;
+    width: 36px;
+  }
+  header nav{
+    display: none;
+  }
+
 }
 
 
@@ -1488,6 +1540,15 @@ header nav a:hover {
       <a href="#" onclick="openLoginPopup()">Login</a>
       <a href="#" onclick="openSignupPopup()">Sign Up</a>
     </nav>
+    <img id="Hamburger" class="hamburger" src="hamburger.svg" alt="hamburger">
+    <div class="hamburgerList">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#" onclick="openLoginPopup()">Login</a></li>
+        <li><a href="#" onclick="openSignupPopup()">Sign Up</a></li>
+      </ul>
+    </div>
   </header>
 
   <main class="hero loading">
@@ -2145,6 +2206,19 @@ header nav a:hover {
       lastScrollTop = scrollTop;
     });
 
+    //hamburger interactivity
+     document.querySelector(".hamburger").addEventListener("click",()=>{
+        
+        if(document.querySelector(".hamburger").getAttribute("src")=="hamburger.svg"){
+            document.querySelector(".hamburger").setAttribute("src",'close.svg')
+            document.querySelector(".hamburgerList").style.display="block"
+        }
+        else{
+            document.querySelector(".hamburger").setAttribute("src","hamburger.svg");
+            document.querySelector(".hamburgerList").style.display="none"
+        }
+    })
+
     // Enhanced ripple effect for interactive elements
     function createRipple(event, element) {
       const ripple = document.createElement('span');
@@ -2382,6 +2456,7 @@ header nav a:hover {
       element.addEventListener('mouseleave', function() {
         cursor.style.transform = 'translate(0, 0)';
       });
+
     });
   </script>
 
