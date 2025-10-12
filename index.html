@@ -37,17 +37,24 @@
 
     /* Enhanced Custom Cursor Styles */
     .cursor {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background: linear-gradient(45deg, #ffd700, #ffed4a);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-      display: none;
-    }
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at center, #ffd700 0%, #ffed4a 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    background 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.25s ease;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  display: none;
+  mix-blend-mode: difference; /* optional: gives a softer effect on dark bg */
+}
+
 
     .cursor::before {
       content: '';
@@ -73,21 +80,23 @@
     }
 
     .cursor.hover {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(45deg, #2563eb, #1d4ed8);
-      box-shadow: 0 0 30px rgba(37, 99, 235, 0.8);
-    }
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(45deg, #2563eb, #1d4ed8);
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+}
 
-    .cursor.hover::before {
-      width: 70px;
-      height: 70px;
-      border-color: rgba(37, 99, 235, 0.5);
-    }
+.cursor.hover::before {
+  width: 50px;
+  height: 50px;
+  border-color: rgba(37, 99, 235, 0.4);
+}
 
-    .cursor.click {
-      transform: scale(0.5);
-    }
+.cursor.click {
+  transform: scale(0.85);
+  transition: transform 0.1s ease;
+}
+
 
     .cursor.text {
       width: 2px;
@@ -230,7 +239,7 @@
       left: -2px;
       right: -2px;
       bottom: -2px;
-      background: linear-gradient(45deg, #ffd700, #2563eb, #ffd700, #2563eb);
+      background: linear-gradient(45deg, #E6BE00, #2563eb, #E6BE00, #2563eb);
       background-size: 400% 400%;
       border-radius: 32px;
       z-index: -2;
