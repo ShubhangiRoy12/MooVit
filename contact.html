@@ -14,8 +14,13 @@
       --primary: #2563eb; /* blue */
       --primary-700: #1d4ed8;
       --accent: #ffd700; /* gold */
-      --muted-white: rgba(255,255,255,0.85);
+      --accent-dark: #b8860b; /* darker gold for better contrast */
+      --muted-white: rgba(255,255,255,0.92);
+      --muted-white-soft: rgba(255,255,255,0.72);
       --glass: rgba(255,255,255,0.08);
+      --icon-color: #2563eb; /* consistent icon color */
+      --error: #ef4444;
+      --success: #16a34a;
     }
     * {
       margin: 0;
@@ -205,11 +210,32 @@
       font-size: 1.05rem;
       background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(8px);
-      color: white;
+      color: var(--muted-white);
       border: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
       font-family: 'Inter', sans-serif;
     }
+
+    /* Labels and validation messages */
+    .field-label {
+      display: block;
+      margin-bottom: 0.45rem;
+      font-size: 0.95rem;
+      color: var(--muted-white-soft);
+      font-weight: 600;
+      letter-spacing: 0.1px;
+    }
+
+    .validation {
+      margin-top: 0.45rem;
+      font-size: 0.9rem;
+      min-height: 1.1rem;
+      color: var(--error);
+      display: block;
+      visibility: hidden;
+    }
+
+    .validation.visible { visibility: visible; }
 
     /* Hover for inputs */
     input:hover, textarea:hover {
@@ -269,21 +295,29 @@
       background: linear-gradient(135deg, var(--primary-700) 0%, #1e40af 100%);
       transform: translateY(-4px) scale(1.03);
       box-shadow: 0 22px 48px rgba(37, 99, 235, 0.55), 0 6px 18px rgba(255, 215, 0, 0.06) inset;
+      /* subtle pulse animation on hover */
+      animation: btnPulse 1s ease 0s 1;
+    }
+
+    @keyframes btnPulse {
+      0% { box-shadow: 0 22px 48px rgba(37, 99, 235, 0.45); }
+      50% { box-shadow: 0 28px 62px rgba(37, 99, 235, 0.6); }
+      100% { box-shadow: 0 22px 48px rgba(37, 99, 235, 0.45); }
     }
 
     /* Contact layout: split left (form) and right (details) */
     .split {
       display: grid;
       /* left = flexible form, middle = divider, right = constrained and flush-right */
-      grid-template-columns: 1fr 12px minmax(220px, 320px);
-      gap: 1rem;
+      grid-template-columns: 1fr 12px minmax(240px, 360px);
+      gap: 1.25rem;
       align-items: start;
       margin-top: 1.25rem;
       width: 100%;
     }
 
     .split .left { min-width: 0; }
-    .split .right { min-width: 0; padding-left: 6px; display: flex; flex-direction: column; align-items: flex-end; }
+  .split .right { min-width: 0; padding-left: 6px; display: flex; flex-direction: column; align-items: flex-end; }
 
     .divider {
       width: 12px;
@@ -298,13 +332,13 @@
     /* Contact details grid (two sections) */
     .contact-details-grid {
       display: grid;
-      /* single column inside right column so each card fills the area */
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 0.9rem;
       margin-top: 0.5rem;
       animation: slideUp 1s ease-out 0.9s both;
       width: 100%;
       justify-self: end; /* ensure grid sticks to right column */
+      align-items: start;
     }
 
     .contact-section h4 {
@@ -341,7 +375,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .info-card:hover {
@@ -352,11 +386,11 @@
     }
 
     .info-card h3 {
-      color: var(--accent);
-      margin-bottom: 0.9rem;
-      font-size: 1.18rem;
+      color: var(--accent-dark);
+      margin-bottom: 0.6rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      text-shadow: 0 2px 8px rgba(255, 215, 0, 0.22);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
     .info-card p {
@@ -365,18 +399,19 @@
       font-size: 0.99rem;
     }
 
+
     .info-card .icon {
-      font-size: 2.4rem;
-      margin-bottom: 0.9rem;
-      /* layout for svg icons */
+      font-size: 2rem;
+      margin-bottom: 0.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6));
-      transition: transform 0.28s ease, filter 0.28s ease;
+      color: var(--icon-color);
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.6));
+      transition: transform 0.28s ease, filter 0.28s ease, color 0.28s ease;
     }
 
-    .info-card .icon svg { width: 40px; height: 40px; fill: currentColor; display:block; }
+    .info-card .icon svg { width: 36px; height: 36px; fill: currentColor; display:block; }
 
     .info-card:hover .icon {
       transform: translateY(-6px) rotate(-6deg) scale(1.06);
@@ -488,6 +523,12 @@
         grid-template-columns: 1fr;
       }
 
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .split .right { align-items: stretch; }
+
       .back-btn {
         font-size: 1rem;
         padding: 10px 20px;
@@ -502,6 +543,88 @@
       }
 
       .office-details, .support-details { align-items: start; }
+    }
+
+    /* Additional responsive tweaks for tablets and phones */
+    @media (max-width: 1024px) {
+      .container { padding: 2.25rem 1.5rem; }
+      .split { grid-template-columns: 1fr 12px minmax(220px, 320px); }
+      .subtitle { font-size: 1.05rem; }
+    }
+
+    @media (max-width: 900px) {
+      .divider { display: none; }
+      .split { grid-template-columns: 1fr; gap: 1rem; }
+      .split .right { align-items: stretch; }
+      .contact-details-grid { justify-self: stretch; }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.9rem; }
+      .logo { font-size: 1.4rem; }
+      .container { margin: 1.5rem 0.75rem; padding: 1.25rem; border-radius: 18px; }
+      .submit-btn { width: 100%; padding: 0.95rem 1rem; font-size: 0.98rem; }
+      .social-links { gap: 0.45rem; }
+      .info-card .icon { font-size: 1.25rem; }
+      .info-card .icon svg { width: 28px; height: 28px; }
+      .input-with-icon input, .input-with-icon textarea { padding-left: 2.6rem; }
+      .map-embed iframe { height: 240px !important; }
+      .map-preview .map-snapshot { height: 160px !important; }
+      .follow-label { font-size: 0.92rem; }
+      .particles { display: none; }
+    }
+
+    /* Ensure iframe sizing is responsive by default */
+    .map-embed iframe { width: 100%; height: 320px; border: 0; display: block; }
+
+    /* Social links */
+    .social-links { display: flex; gap: 0.6rem; align-items: center; justify-content: center; margin-top: 0.5rem; }
+    .social-links a { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background: rgba(255,255,255,0.03); color:var(--muted-white); transition: transform .18s ease, background .18s ease; border:1px solid rgba(255,255,255,0.04); }
+    .social-links a:hover { transform: translateY(-4px); background: rgba(255,255,255,0.06); color:var(--primary); }
+
+    .map-embed { width:100%; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.06); }
+
+  /* Follow label and wrapper for social links in the find-us section */
+  .find-us .follow-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; margin-top: 0.6rem; }
+  .find-us .follow-label { color: var(--muted-white-soft); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.2px; }
+
+    /* Make Find Us card share the same animated gradient border and overlay as .container */
+    .find-us .info-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      z-index: 0;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .find-us .info-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #ffd700, #2563eb, #ffd700, #2563eb);
+      background-size: 400% 400%;
+      border-radius: 16px;
+      z-index: -2;
+      animation: gradientRotate 8s ease infinite;
+      pointer-events: none;
+    }
+
+    .find-us .info-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+      border-radius: 14px;
+      z-index: -1;
+      pointer-events: none;
     }
 
     /* Loading states */
@@ -562,36 +685,51 @@
 
     <div class="split">
       <div class="left">
-        <form id="contactForm">
+        <!--
+          To wire this form to a backend, set the `data-endpoint` attribute on the form
+          e.g. <form id="contactForm" novalidate data-endpoint="/api/contact" data-method="POST">
+          Supported response formats (handled):
+            - JSON success: { success: true, message: '...' }
+            - JSON validation errors: { success: false, errors: { email: 'Invalid', name: 'Required' } }
+        -->
+        <form id="contactForm" novalidate data-endpoint="" data-method="POST">
       <div class="form-group input-with-icon">
+        <label for="name" class="field-label">Full name</label>
         <span class="input-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-7 2-7 4v2h14v-2c0-2-3-4-7-4z"/></svg>
         </span>
-        <input type="text" id="name" placeholder="Your Full Name" required>
+        <input type="text" id="name" name="name" placeholder="Your full name" required aria-required="true" aria-describedby="nameValidation">
+        <span class="validation" id="nameValidation">Please enter your name.</span>
       </div>
       
       <div class="form-group input-with-icon">
+        <label for="email" class="field-label">Email address</label>
         <span class="input-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 6v12h20V6l-10 7L2 6z"/></svg>
         </span>
-        <input type="email" id="email" placeholder="Your Email Address" required>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required aria-required="true" aria-describedby="emailValidation">
+        <span class="validation" id="emailValidation">Please provide a valid email address.</span>
       </div>
       
       <div class="form-group input-with-icon">
+        <label for="phone" class="field-label">Phone (optional)</label>
         <span class="input-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.1-2.1a1 1 0 0 1 1-.2c1.1.4 2.3.6 3.5.6a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.1 21 3 13.9 3 4a1 1 0 0 1 1-1h2.5a1 1 0 0 1 1 1c0 1.2.2 2.4.6 3.5a1 1 0 0 1-.2 1l-2.3 2.3z"/></svg>
         </span>
-        <input type="tel" id="phone" placeholder="Your Phone Number (Optional)">
+        <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" aria-describedby="phoneValidation">
+        <span class="validation" id="phoneValidation">If provided, enter a valid phone number.</span>
       </div>
       
       <div class="form-group input-with-icon">
+        <label for="message" class="field-label">Message</label>
         <span class="input-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 6h-18v9a2 2 0 0 0 2 2h4v3l5-3h7a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z"/></svg>
         </span>
-        <textarea id="message" rows="5" placeholder="Tell us about your logistics needs or ask us anything..." required></textarea>
+        <textarea id="message" name="message" rows="5" placeholder="Tell us about your logistics needs or ask us anything..." required aria-required="true" aria-describedby="messageValidation"></textarea>
+        <span class="validation" id="messageValidation">Please enter a message so we know how to help.</span>
       </div>
       
-      <button type="submit" class="submit-btn" id="submitBtn">
+      <button type="submit" class="submit-btn" id="submitBtn" aria-live="polite">
         Send Message
       </button>
         </form>
@@ -634,10 +772,42 @@
               <p>Quick Response Guaranteed</p>
             </div>
           </div>
+          
+          <!-- removed inline Find us card; it will be added as a full-width section below the container -->
         </div>
       </aside>
     </div>
   </div>
+
+  <!-- Full-width Find us section placed below the contact container -->
+  <section class="find-us" style="max-width:1000px;margin:1.5rem auto 4rem;padding:0 1rem;">
+    <div class="info-card" style="padding:1rem 1.25rem;">
+      <h2 style="margin:0 0 0.6rem 0;color:var(--muted-white);">Find us</h2>
+      <div class="map-embed" aria-hidden="false" style="margin-bottom:0.8rem;">
+        <!-- Lightweight preview. Click the button to load the interactive map (iframe).
+             The iframe src is stored in data-iframe on the preview container below. -->
+        <div class="map-preview" data-iframe="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.5356488718035!2d76.84874337509355!3d23.07747957913534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397ce9ceaaaaaaab%3A0xa224b6b82b421f83!2sVIT%20Bhopal%20University!5e0!3m2!1sen!2sin!4v1760885737044!5m2!1sen!2sin">
+          <div class="map-snapshot" role="img" aria-label="Map preview for VIT Bhopal" style="width:100%;height:220px;background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15));display:flex;align-items:center;justify-content:center;color:var(--muted-white-soft);font-weight:700;border-radius:10px;">
+            <div style="text-align:center;max-width:86%;">
+              <div style="font-size:0.95rem;margin-bottom:0.5rem;">Interactive map preview</div>
+              <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);">Click to load the live Google Map (may load external resources).</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:center;margin-top:0.6rem;">
+            <button class="map-load-btn" type="button" aria-label="Load map" title="Load interactive map">Load map</button>
+          </div>
+        </div>
+      </div>
+        <div class="follow-wrap" aria-hidden="false">
+        <div class="follow-label">Follow us on</div>
+        <div class="social-links" role="navigation" aria-label="Social media links">
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.2v-2.9h2.2V9.4c0-2.2 1.3-3.4 3.2-3.4.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2v1.5h2.2l-.4 2.9h-1.8v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 5.9c-.6.3-1.2.5-1.9.6.7-.4 1.2-1 1.5-1.7-.7.4-1.5.7-2.3.9-.7-.7-1.7-1.1-2.8-1.1-2.1 0-3.8 1.7-3.8 3.8 0 .3 0 .5.1.8-3.2-.2-6-1.7-7.9-4-.3.6-.4 1.2-.4 1.9 0 1.3.7 2.5 1.7 3.2-.6 0-1.2-.2-1.7-.5v.1c0 1.9 1.4 3.4 3.2 3.7-.3.1-.6.2-.9.2-.2 0-.4 0-.6-.1.4 1.2 1.6 2.1 3.1 2.2-1.1.9-2.6 1.4-4.1 1.4h-.8c1.5 1 3.4 1.6 5.3 1.6 6.3 0 9.8-5.2 9.8-9.8v-.4c.7-.5 1.2-1.1 1.6-1.8-.6.2-1.2.3-1.8.3z"/></svg></a>
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0H12v2.2h.1c.6-1.1 2-2.2 4.2-2.2C21.7 8 24 10.2 24 14.4V24h-5v-8.9c0-2.1 0-4.8-3-4.8-3 0-3.4 2.3-3.4 4.6V24h-5V8z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <script>
     // Create animated background particles
@@ -706,36 +876,115 @@
     }
 
     // Handle form submission
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      
+      const form = this;
       const submitBtn = document.getElementById('submitBtn');
       const successMessage = document.getElementById('successMessage');
-      
+
+      // client-side validation
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const phone = document.getElementById('phone');
+      const message = document.getElementById('message');
+
+      // reset validation states & aria-invalid
+      document.querySelectorAll('.validation').forEach(v => v.classList.remove('visible'));
+      [name, email, phone, message].forEach(i => i.removeAttribute('aria-invalid'));
+
+      let hasError = false;
+
+      if (!name.value.trim()) { document.getElementById('nameValidation').classList.add('visible'); name.setAttribute('aria-invalid', 'true'); hasError = true; }
+
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRe.test(email.value.trim())) { document.getElementById('emailValidation').classList.add('visible'); email.setAttribute('aria-invalid', 'true'); hasError = true; }
+
+      const phoneRe = /^[0-9+\-()\s]{7,20}$/;
+      if (phone.value.trim() && !phoneRe.test(phone.value.trim())) { document.getElementById('phoneValidation').classList.add('visible'); phone.setAttribute('aria-invalid', 'true'); hasError = true; }
+
+      if (!message.value.trim()) { document.getElementById('messageValidation').classList.add('visible'); message.setAttribute('aria-invalid', 'true'); hasError = true; }
+
+      if (hasError) {
+        // focus first invalid input
+        const firstInvalidInput = document.querySelector('[aria-invalid="true"]');
+        if (firstInvalidInput) firstInvalidInput.focus();
+        return;
+      }
+
       // Show loading state
       submitBtn.classList.add('loading');
       submitBtn.textContent = 'Sending...';
-      
-      // Simulate form submission (replace with actual API call)
-      setTimeout(() => {
-        // Reset form
-        this.reset();
-        
-        // Show success message
-        successMessage.style.display = 'block';
-        
+
+      // Prepare payload
+      const payload = { name: name.value.trim(), email: email.value.trim(), phone: phone.value.trim(), message: message.value.trim() };
+
+      // Read configured endpoint/method
+      const endpoint = form.getAttribute('data-endpoint') || '';
+      const method = (form.getAttribute('data-method') || 'POST').toUpperCase();
+
+      try {
+        if (endpoint) {
+          // Send to real backend
+          const res = await fetch(endpoint, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await res.json().catch(() => null);
+
+          if (!res.ok) {
+            // Server returned an error
+            const errMsg = (data && data.message) ? data.message : 'Server error';
+            // Show server message in successMessage area styled as error
+            successMessage.style.display = 'block';
+            successMessage.querySelector('.message-text').textContent = errMsg;
+            successMessage.style.background = 'linear-gradient(180deg, rgba(239,68,68,0.12), rgba(239,68,68,0.06))';
+            successMessage.style.borderColor = 'rgba(239,68,68,0.22)';
+            successMessage.focus();
+            throw new Error(errMsg);
+          }
+
+          // If backend returns validation errors: { success: false, errors: { field: 'msg' }}
+          if (data && data.success === false && data.errors) {
+            Object.keys(data.errors).forEach(field => {
+              const v = document.getElementById(field + 'Validation');
+              const input = document.getElementById(field);
+              if (v) { v.textContent = data.errors[field]; v.classList.add('visible'); }
+              if (input) { input.setAttribute('aria-invalid', 'true'); }
+            });
+            const firstInvalidInput = document.querySelector('[aria-invalid="true"]');
+            if (firstInvalidInput) firstInvalidInput.focus();
+            throw new Error('Validation failed');
+          }
+
+          // Success path
+          form.reset();
+          successMessage.style.display = 'block';
+          successMessage.style.background = 'linear-gradient(180deg, rgba(34,197,94,0.12), rgba(16,185,129,0.06))';
+          successMessage.style.borderColor = 'rgba(34,197,94,0.22)';
+          successMessage.querySelector('.message-text').textContent = (data && data.message) ? data.message : 'Thank you! We\'ll reply within 24 hours.';
+          successMessage.focus();
+
+        } else {
+          // No endpoint configured — fallback to simulated submit (existing behavior)
+          await new Promise(r => setTimeout(r, 900));
+          form.reset();
+          successMessage.style.display = 'block';
+          successMessage.querySelector('.message-text').textContent = "Thank you! We'll reply within 24 hours.";
+          successMessage.focus();
+        }
+      } catch (err) {
+        console.warn('Form submission error:', err.message || err);
+      } finally {
         // Reset button
         submitBtn.classList.remove('loading');
         submitBtn.textContent = 'Send Message';
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          successMessage.style.display = 'none';
-        }, 5000);
-        
-        // Scroll to top to show success message
+        // Auto-hide success message after 6s
+        setTimeout(() => { successMessage.style.display = 'none'; }, 6000);
+        // Scroll to top to show message
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 2000);
+      }
     });
 
     // Initialize page
@@ -777,7 +1026,36 @@
         if (this.style.borderColor.includes('239, 68, 68')) {
           this.style.borderColor = 'rgba(255, 255, 255, 0.2)';
         }
+        // Remove aria-invalid on user input
+        if (this.hasAttribute('aria-invalid')) this.removeAttribute('aria-invalid');
       });
+    });
+
+    // Map preview: click-to-load the iframe
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('.map-load-btn');
+      if (!btn) return;
+      const preview = btn.closest('.map-preview');
+      if (!preview) return;
+      const iframeSrc = preview.getAttribute('data-iframe');
+      if (!iframeSrc) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.title = 'company location';
+      iframe.src = iframeSrc;
+      iframe.style.border = '0';
+      iframe.style.width = '100%';
+      iframe.style.height = '320px';
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.setAttribute('allowfullscreen','');
+
+      // Replace preview with iframe
+      const container = preview.parentElement; // .map-embed
+      container.innerHTML = '';
+      container.appendChild(iframe);
+      // smooth scroll to map
+      iframe.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
     // Keyboard navigation for accessibility
