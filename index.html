@@ -35,26 +35,18 @@
       overflow-x: hidden;
     }
 
-    /* Enhanced Custom Cursor Styles */
-    .cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle at center, #ffd700 0%, #ffed4a 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition:
-    width 0.25s ease,
-    height 0.25s ease,
-    background 0.4s ease,
-    box-shadow 0.4s ease,
-    transform 0.25s ease;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-  display: none;
-  mix-blend-mode: difference; /* optional: gives a softer effect on dark bg */
-}
+    /* High Contrast Utility Classes */
+    .yellow-bg {
+      background: linear-gradient(135deg, #ffd700 0%, #ffb700 100%);
+      color: #0a1628 !important;
+    }
 
+    .yellow-bg * {
+      color: #0a1628;
+    }
+
+    /* Enhanced Custom Cursor Styles */
+   
 
     .cursor::before {
       content: '';
@@ -66,7 +58,7 @@
       height: 40px;
       border: 2px solid rgba(255, 215, 0, 0.3);
       border-radius: 50%;
-      transition: all 0.3s ease;
+      transition: width 0.1s ease, height 0.1s ease, border-color 0.1s ease;
     }
 
     @media (min-width: 769px) and (pointer: fine) {
@@ -103,6 +95,7 @@
       height: 20px;
       border-radius: 2px;
       background: linear-gradient(45deg, #ffd700, #ffed4a);
+      color: #0a1628;
     }
 
     .cursor.text::before {
@@ -217,11 +210,56 @@
       box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
     }
 
+    /* Auth Buttons Styles */
+    .auth-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .auth-buttons .btn {
+      padding: 10px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: 2px solid rgba(37, 99, 235, 0.6);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    }
+
+    .btn-signup {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: 2px solid rgba(37, 99, 235, 0.6);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-signup:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    }
+
     /* Hero Section with Advanced Effects */
     .hero {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 4rem auto;
-      padding: 4rem 3rem;
+      padding: 5rem 5rem;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(25px);
       border-radius: 30px;
@@ -276,13 +314,18 @@
 
     .hero p {
       font-size: 1.3rem;
-      color: rgba(255, 255, 255, 0.9);
+      color: #ffffff;
       margin-bottom: 2.5rem;
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
-      font-weight: 400;
+      font-weight: 500;
       animation: slideUp 1s ease-out 0.7s both;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 
+                   0 4px 16px rgba(0, 0, 0, 0.6),
+                   0 0 30px rgba(0, 0, 0, 0.5);
+      line-height: 1.8;
+      letter-spacing: 0.3px;
     }
 
     .hero .btn {
@@ -1322,73 +1365,6 @@
         font-size: 0.8rem;
         padding: 0.8rem;
       }
-
-      /* Checkbox Mobile Responsive */
-      .checkbox-label {
-        font-size: 0.85rem !important;
-        line-height: 1.3 !important;
-      }
-
-      .checkmark {
-        height: 18px;
-        width: 18px;
-        margin-right: 10px;
-      }
-
-      .checkbox-label .checkmark:after {
-        left: 5px;
-        top: 1px;
-        width: 5px;
-        height: 9px;
-      }
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 12px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #2563eb, #ffd700);
-      border-radius: 6px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, #1d4ed8, #ffed4a);
-    }
-
-    /* Ripple Effect */
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.6);
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-      pointer-events: none;
-    }
-
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-
-    /* Cursor trail effect */
-    .cursor-trail {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: rgba(255, 215, 0, 0.4);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transition: all 0.3s ease;
-    }
     /* Base Reset */
 * {
   margin: 0;
@@ -1609,7 +1585,75 @@ header .hamburgerList ul li{
 
 }
 
+      /* Checkbox Mobile Responsive */
+      .checkbox-label {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+      }
 
+      .checkmark {
+        height: 18px;
+        width: 18px;
+        margin-right: 10px;
+      }
+
+      .checkbox-label .checkmark:after {
+        left: 5px;
+        top: 1px;
+        width: 5px;
+        height: 9px;
+      }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #2563eb, #ffd700);
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #1d4ed8, #ffed4a);
+    }
+
+    /* Ripple Effect */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* Cursor trail effect */
+    .cursor-trail {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 215, 0, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: opacity 0.2s ease;
+      will-change: transform;
+    }
   </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1631,8 +1675,8 @@ header .hamburgerList ul li{
     <nav>
       <a href="index.html">Home</a>
       <a href="contact.html">Contact</a>
-      <a href="#" onclick="openLoginPopup()">Login</a>
-      <a href="#" onclick="openSignupPopup()">Sign Up</a>
+      <a href="#" onclick="openLoginPopup()" class="nav-btn nav-login">Login</a>
+      <a href="#" onclick="openSignupPopup()" class="nav-btn nav-signup">Sign Up</a>
     </nav>
     <img id="Hamburger" class="hamburger" src="hamburger.svg" alt="hamburger">
     <div class="hamburgerList">
@@ -1690,6 +1734,7 @@ header .hamburgerList ul li{
         <p>Same-day and next-day delivery services with live tracking, signature confirmation, and money-back guarantee for time-critical shipments.</p>
       </div>
 
+
     <div class="main-container">
         <header>
             <div class="logo">
@@ -1699,13 +1744,13 @@ header .hamburgerList ul li{
                 <span>Transport Co.</span>
             </div>
             <nav>
-                <a href="services.html">Services</a>
-                <a href="about.html">About Us</a>
-                <a href="./Shipments/shipments.html">Track Shipment</a>
+                <a href="#">Services</a>
+                <a href="#">About Us</a>
+                <a href="#">Track Shipment</a>
             </nav>
             <div class="auth-buttons">
               <a href="#" onclick="openLoginPopup()" class="btn btn-login">Login</a>
-              <a href="#" onclick="openSignupPopup()" class="btn btn-signup">Sign Up</a>
+              <a href="#" onclick="openSignupPopup()" class="btn btn-signup">Signup</a>
             </div>
         </header>
 
@@ -1741,7 +1786,7 @@ header .hamburgerList ul li{
     <p>To access detailed service information, pricing, and exclusive features, please login to your account or create a new one. Join thousands of satisfied customers worldwide!</p>
     <div class="alert-buttons">
       <a href="#" onclick="openLoginPopup(); closeServiceAlert();" class="alert-btn primary">Login Now</a>
-      <a href="#" onclick="openSignupPopup(); closeServiceAlert();" class="alert-btn secondary">Sign Up Free</a>
+      <a href="#" onclick="openSignupPopup(); closeServiceAlert();" class="alert-btn secondary">Signup Free</a>
       <button class="alert-btn close" onclick="closeServiceAlert()">Maybe Later</button>
     </div>
   </div>
@@ -1856,7 +1901,6 @@ header .hamburgerList ul li{
           <li><a href="about.html">About Us</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
           <li><a href="careers.html">Careers</a></li>
         </ul>
       </div>
@@ -1924,22 +1968,22 @@ header .hamburgerList ul li{
       const dx = mouseX - cursorX;
       const dy = mouseY - cursorY;
       
-      cursorX += dx * 0.2;
-      cursorY += dy * 0.2;
+      // Faster easing for quicker movement
+      cursorX += dx * 0.35;
+      cursorY += dy * 0.35;
       
-      cursor.style.left = cursorX - 10 + 'px';
-      cursor.style.top = cursorY - 10 + 'px';
+      // Use transform for GPU acceleration (60fps smooth)
+      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
       
-      // Update trails
+      // Update trails with optimized transforms
       trails.forEach((trail, index) => {
         const targetX = mouseX - (index * 5);
         const targetY = mouseY - (index * 5);
         
-        trail.x += (targetX - trail.x) * (0.3 - index * 0.02);
-        trail.y += (targetY - trail.y) * (0.3 - index * 0.02);
+        trail.x += (targetX - trail.x) * (0.4 - index * 0.02);
+        trail.y += (targetY - trail.y) * (0.4 - index * 0.02);
         
-        trail.element.style.left = trail.x - 3 + 'px';
-        trail.element.style.top = trail.y - 3 + 'px';
+        trail.element.style.transform = `translate(${trail.x - 3}px, ${trail.y - 3}px)`;
         trail.element.style.opacity = 1 - (index * 0.15);
       });
       
@@ -2566,6 +2610,39 @@ header .hamburgerList ul li{
 
     });
   </script>
+</body>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>Transport Co.</h3>
+                <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>Email: <a href="mailto:contact@transportco.com">contact@transportco.com</a></p>
+                <p>Phone: +91 98765 XXXXX</p>
+                <p>Address: Lonavala, Maharashtra, India</p>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <a href="#">GitHub</a> | 
+                <a href="#">LeetCode</a> | 
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Transport Co. | All Rights Reserved.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
