@@ -18,103 +18,52 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-        body {
-            background: var(--dark);
-            color: white;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+        body { background: var(--dark); color: white; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* --- Custom Navigation --- */
+        /* --- Header & Navigation --- */
         header {
-            position: fixed;
-            top: 0; width: 100%; padding: 1.2rem 5%;
+            position: fixed; top: 0; width: 100%; padding: 1.2rem 5%;
             display: flex; justify-content: space-between; align-items: center;
             z-index: 1000; transition: 0.4s;
-            background: rgba(10, 22, 40, 0.2);
-            backdrop-filter: blur(15px);
+            background: rgba(10, 22, 40, 0.2); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
         }
 
-        header.scrolled {
-            background: rgba(10, 22, 40, 0.95);
-            padding: 0.8rem 5%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        header.scrolled { background: rgba(10, 22, 40, 0.95); padding: 0.8rem 5%; }
 
-        .logo {
-            font-size: 1.8rem; font-weight: 800; color: var(--secondary);
-            text-decoration: none; display: flex; align-items: center; gap: 10px;
-        }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 10px; }
 
-        nav { display: flex; gap: 2rem; align-items: center; }
-        nav a { 
-            color: white; text-decoration: none; font-weight: 500; 
-            transition: 0.3s; font-size: 0.95rem; position: relative;
-        }
-        nav a::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -5px; left: 0; background: var(--secondary); transition: 0.3s;
-        }
+        /* Navigation Links */
+        nav { display: flex; gap: 2rem; align-items: center; transition: 0.4s; }
+        nav a { color: white; text-decoration: none; font-weight: 500; font-size: 0.95rem; position: relative; }
+        nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--secondary); transition: 0.3s; }
         nav a:hover::after { width: 100%; }
         nav a:hover { color: var(--secondary); }
 
-        .nav-btn {
-            background: var(--primary); color: white; padding: 10px 25px;
-            border-radius: 50px; text-decoration: none; font-weight: 600;
-            transition: 0.3s; border: 1px solid transparent;
-        }
+        .nav-btn { background: var(--primary); color: white; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: 0.3s; border: 1px solid transparent; }
         .nav-btn:hover { background: transparent; border-color: var(--secondary); color: var(--secondary); }
+
+        /* Mobile Hamburger Icon */
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1100; }
+        .hamburger span { width: 25px; height: 3px; background: white; border-radius: 2px; transition: 0.3s; }
 
         /* --- Hero Section --- */
         .hero {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            padding: 0 10%;
-            background: linear-gradient(rgba(10, 22, 40, 0.75), rgba(10, 22, 40, 0.75)), 
-                        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2000');
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 10%;
+            background: linear-gradient(rgba(10, 22, 40, 0.75), rgba(10, 22, 40, 0.75)), url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2000');
             background-size: cover; background-position: center;
         }
 
-        .hero h1 { font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; color: white;}
+        .hero h1 { font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; color: white; }
         .hero h1 span { color: var(--secondary); }
         .hero p { font-size: 1.2rem; max-width: 800px; color: rgba(255,255,255,0.8); margin-bottom: 3rem; line-height: 1.6; }
 
-        .btn-get-started {
-            background: var(--primary);
-            color: white;
-            padding: 15px 45px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-            transition: 0.3s;
-            margin-bottom: 2rem;
-            display: inline-block;
-        }
+        .btn-get-started { background: var(--primary); color: white; padding: 15px 45px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3); transition: 0.3s; margin-bottom: 2rem; display: inline-block; }
+        .btn-get-started:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.5); background: #1d4ed8; }
 
-        .btn-get-started:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.5);
-            background: #1d4ed8;
-        }
-
-        .tracking-box {
-            background: var(--glass); padding: 8px; border-radius: 50px;
-            display: flex; backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
-            width: 100%; max-width: 550px; transition: 0.3s;
-        }
-        .tracking-box:focus-within { border-color: var(--secondary); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
-        .tracking-box input {
-            flex: 1; background: transparent; border: none; padding: 12px 25px;
-            color: white; outline: none; font-size: 1rem;
-        }
-        .tracking-box button {
-            background: var(--primary); color: white; border: none;
-            padding: 12px 35px; border-radius: 50px; font-weight: 700;
-            cursor: pointer; transition: 0.3s;
-        }
+        .tracking-box { background: var(--glass); padding: 8px; border-radius: 50px; display: flex; backdrop-filter: blur(10px); border: 1px solid var(--glass-border); width: 100%; max-width: 550px; transition: 0.3s; }
+        .tracking-box input { flex: 1; background: transparent; border: none; padding: 12px 25px; color: white; outline: none; font-size: 1rem; }
+        .tracking-box button { background: var(--primary); color: white; border: none; padding: 12px 35px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s; }
 
         /* --- Premium Services Section --- */
         .services-section { padding: 100px 8%; background: var(--dark); }
@@ -123,28 +72,10 @@
         .section-header h2 span { color: var(--secondary); }
         .section-header p { color: #8892b0; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-        .grid-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;
-        }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
 
-        .card {
-            background: rgba(255, 255, 255, 0.03); 
-            border: 1px solid var(--glass-border);
-            padding: 40px 30px; 
-            border-radius: 24px; 
-            text-align: center;
-            transition: 0.4s;
-            text-decoration: none; 
-            color: white;
-            display: block;
-            overflow: hidden; /* Cleans up overlapping lines */
-        }
-        .card:hover {
-            transform: translateY(-15px); 
-            background: rgba(255,255,255,0.08);
-            border-color: var(--secondary); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
+        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); padding: 40px 30px; border-radius: 24px; text-align: center; transition: 0.4s; text-decoration: none; color: white; display: block; overflow: hidden; }
+        .card:hover { transform: translateY(-15px); background: rgba(255,255,255,0.08); border-color: var(--secondary); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .card i { font-size: 3rem; color: var(--secondary); margin-bottom: 1.5rem; display: block; }
         .card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
         .card p { color: #a8b2d1; line-height: 1.6; font-size: 0.95rem; }
@@ -162,27 +93,43 @@
         .footer-links a:hover { color: var(--secondary); padding-left: 8px; }
         
         .social-icons { display: flex; gap: 15px; }
-        .social-icons a { 
-            width: 45px; height: 45px; background: var(--glass); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
-            transition: 0.3s; border: 1px solid var(--glass-border);
-            color: white;
-        }
+        .social-icons a { width: 45px; height: 45px; background: var(--glass); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: 0.3s; border: 1px solid var(--glass-border); color: white; }
         .social-icons a:hover { background: var(--secondary); color: var(--dark); transform: rotate(360deg); }
 
-        .footer-bottom { 
-            text-align: center; margin-top: 50px; padding-top: 30px; 
-            border-top: 1px solid rgba(255,255,255,0.05); color: #4f5b79; font-size: 0.9rem;
+        .footer-bottom { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); color: #4f5b79; font-size: 0.9rem; }
+
+        /* --- Media Queries --- */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            nav {
+                position: fixed; top: 0; right: -100%; height: 100vh; width: 70%;
+                background: rgba(10, 22, 40, 0.95); flex-direction: column; justify-content: center;
+                transition: 0.4s ease; backdrop-filter: blur(20px);
+            }
+            nav.active { right: 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .tracking-box { flex-direction: column; border-radius: 20px; padding: 15px; }
+            .tracking-box input { padding: 10px; text-align: center; width: 100%; }
+            .tracking-box button { width: 100%; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .social-icons { justify-content: center; }
+            .footer-links h4::after { left: 50%; transform: translateX(-50%); }
         }
     </style>
 </head>
 <body>
 
     <header id="mainHeader">
-        <a href="index.html" class="logo">
-            <i class="fas fa-truck-fast"></i> MooVit
-        </a>
-        <nav>
+        <a href="index.html" class="logo"><i class="fas fa-truck-fast"></i> MooVit</a>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+        <nav id="nav">
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
             <a href="about.html">About Us</a>
@@ -194,60 +141,52 @@
     <section class="hero">
         <h1>Your Cargo, <span>Our Priority</span></h1>
         <p>Experience world-class logistics and transportation services with cutting-edge technology, unmatched reliability, and a commitment to excellence that sets us apart in the global marketplace.</p>
-        
         <a href="login.html" class="btn-get-started">Get Started Today</a>
-        
         <div class="tracking-box">
             <input type="text" placeholder="Enter Tracking ID (e.g. MV-98765)">
             <button>Track Now</button>
         </div>
     </section>
 
-    <section class="services-section" id="services">
-    <div class="section-header">
-        <h2>Our Premium <span>Services</span></h2>
-        <p>We provide high-end logistics solutions tailored to your business needs, ensuring safe and timely deliveries worldwide.</p>
-    </div>
+    <section class="services-section">
+        <div class="section-header">
+            <h2>Our Premium <span>Services</span></h2>
+        </div>
+        <div class="grid-container">
+            <a href="services.html#ground" class="card">
+                <i class="fa-solid fa-truck-moving"></i>
+                <h3>Ground Transport</h3>
+                <p>Nationwide trucking with real-time GPS tracking, temperature control, and 24/7 monitoring.</p>
+            </a>
+            <a href="services.html#air" class="card">
+                <i class="fas fa-plane-up"></i>
+                <h3>Air Freight</h3>
+                <p>Lightning-fast international shipping with priority handling and expedited customs clearance.</p>
+            </a>
+            <a href="services.html#ocean" class="card">
+                <i class="fas fa-ship"></i>
+                <h3>Ocean Freight</h3>
+                <p>Cost-effective sea transport for large global shipments with comprehensive insurance.</p>
+            </a>
+            <a href="services.html#warehouse" class="card">
+                <i class="fas fa-warehouse"></i>
+                <h3>Warehousing</h3>
+                <p>State-of-the-art storage facilities with advanced inventory management and automated systems.</p>
+            </a>
+        </div>
+    </section>
 
-    <div class="grid-container">
-        <a href="services.html#ground" class="card">
-            <i class="fa-solid fa-truck-moving"></i>
-            <h3>Ground Transport</h3>
-            <p>Nationwide trucking with real-time GPS tracking, temperature control, and 24/7 monitoring.</p>
-        </a>
-
-        <a href="services.html#air" class="card">
-            <i class="fas fa-plane-up"></i>
-            <h3>Air Freight</h3>
-            <p>Lightning-fast international shipping with priority handling and expedited customs clearance.</p>
-        </a>
-
-        <a href="services.html#ocean" class="card">
-            <i class="fas fa-ship"></i>
-            <h3>Ocean Freight</h3>
-            <p>Cost-effective sea transport for large global shipments with comprehensive insurance.</p>
-        </a>
-
-        <a href="services.html#warehouse" class="card">
-            <i class="fas fa-warehouse"></i>
-            <h3>Warehousing</h3>
-            <p>State-of-the-art storage facilities with advanced inventory management and automated systems.</p>
-        </a>
-    </div>
-</section>
     <footer>
         <div class="footer-grid">
             <div class="footer-about">
                 <h3>MooVit</h3>
-                <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery across the globe. We use AI-driven tracking to keep your cargo secure.</p>
+                <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery across the globe.</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#"><i class="fab fa-github"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <ul>
@@ -257,37 +196,42 @@
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
-
             <div class="footer-links">
                 <h4>Support</h4>
                 <ul>
                     <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Track Shipment</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms & Conditions</a></li>
                 </ul>
             </div>
-
             <div class="footer-links">
                 <h4>Contact Info</h4>
                 <p style="color: #8892b0; margin-bottom: 10px;"><i class="fas fa-envelope" style="color: var(--secondary);"></i> contact@moovit.com</p>
                 <p style="color: #8892b0; margin-bottom: 10px;"><i class="fas fa-phone" style="color: var(--secondary);"></i> +91 98765 XXXXX</p>
-                <p style="color: #8892b0;"><i class="fas fa-map-marker-alt" style="color: var(--secondary);"></i> Madhya Pradesh, India</p>
             </div>
         </div>
-
-        <div class="footer-bottom">
-            &copy; 2026 MooVit Transport Co. | Designed for Excellence
-        </div>
+        <div class="footer-bottom">&copy; 2026 MooVit Transport Co. | Designed for Excellence</div>
     </footer>
 
     <script>
+        // Header Scroll
         window.addEventListener('scroll', function() {
             const header = document.getElementById('mainHeader');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Close menu on click outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !nav.contains(e.target)) {
+                nav.classList.remove('active');
             }
         });
     </script>
