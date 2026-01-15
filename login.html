@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.png">
+  <title>Login - Transport Co.</title>
+  <style>
+    /* styles.css */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #4e63d7, #76bfe9);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .auth-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 40px 30px;
+      border-radius: 10px;
+      width: 320px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .auth-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    .auth-container label {
+      display: block;
+      margin-bottom: 15px;
+      color: #34495e;
+      font-weight: bold;
+    }
+
+    .auth-container input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #bdc3c7;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .auth-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .auth-container button:hover {
+      background-color: #1c5980;
+    }
+
+    .auth-container p {
+      text-align: center;
+      margin-top: 20px;
+      color: #555;
+    }
+
+    .auth-container a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    .auth-container a:hover {
+      text-decoration: underline;
+    }
+
+    /* Admin link styling */
+    .admin-link-inline {
+      color: #e74c3c !important;
+      font-weight: 500;
+    }
+
+    .admin-link-inline:hover {
+      color: #c0392b !important;
+      text-decoration: underline !important;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .auth-container {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .auth-container {
+        padding: 30px 25px;
+      }
+
+      .auth-container p {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="auth-container">
+    <form id="login-form">
+      <h2>Login to MooVit.</h2>
+      <label>Email
+        <input type="email" name="email" id="email" required>
+      </label>
+      <label>Password
+        <input type="password" name="password" id="password" required>
+      </label>
+      <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
+      <button type="submit">Login</button>
+      <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
+    </form>
+  </div>
+  
+  <script>
+
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('error-msg');
+      errorMsg.textContent = '';
+
+      // Email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+
+      // Password strength validation
+      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
+      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!strongPasswordPattern.test(password)) {
+        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+        return;
+      }
+
+      // If all validations pass, redirect
+      window.location.href = 'main.html';
+    });
+  </script>
+</body>
+
+</html>

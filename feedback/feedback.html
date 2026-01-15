@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.png">
+  <title>Feedback - MooVit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #212529;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .home-btn {
+      background: white;
+      color: #667eea;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .home-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      color: #764ba2;
+    }
+
+    main {
+      flex: 1;
+      max-width: 700px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .feedback-container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .feedback-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .feedback-header h2 {
+      color: #667eea;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .feedback-header p {
+      color: #6c757d;
+      font-size: 1.05rem;
+    }
+
+    .form-floating {
+      margin-bottom: 20px;
+    }
+
+    .form-control, .form-select {
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-floating > label {
+      padding: 1rem 16px;
+      color: #6c757d;
+    }
+
+    textarea.form-control {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .rating-container {
+      margin-bottom: 25px;
+    }
+
+    .rating-label {
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .stars {
+      display: flex;
+      gap: 8px;
+      font-size: 2rem;
+    }
+
+    .star {
+      cursor: pointer;
+      color: #dee2e6;
+      transition: all 0.2s ease;
+    }
+
+    .star:hover,
+    .star.active {
+      color: #ffc107;
+      transform: scale(1.1);
+    }
+
+    .error-msg {
+      background: #ffe0e0;
+      color: #d9534f;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: none;
+      animation: shake 0.5s ease;
+    }
+
+    .error-msg.show {
+      display: block;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .success-msg {
+      background: #d4edda;
+      color: #155724;
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: none;
+      animation: slideDown 0.5s ease;
+    }
+
+    .success-msg.show {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: white;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      width: 100%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    footer {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .char-counter {
+      text-align: right;
+      font-size: 0.875rem;
+      color: #6c757d;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      header h1 {
+        font-size: 1.4rem;
+      }
+
+      .feedback-container {
+        padding: 30px 20px;
+      }
+
+      .feedback-header h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>💬 Feedback</h1>
+    <a href="../main.html" class="home-btn">← Home</a>
+  </header>
+
+  <main>
+    <div class="feedback-container">
+      <div class="feedback-header">
+        <h2>We Value Your Opinion</h2>
+        <p>Help us improve MooVit by sharing your thoughts and suggestions</p>
+      </div>
+
+      <div id="success-msg" class="success-msg">
+        <strong>✓ Thank you!</strong> Your feedback has been submitted successfully.
+      </div>
+
+      <form id="feedback-form">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="name" placeholder="Your Name">
+          <label for="name">Your Name</label>
+        </div>
+
+        <div class="form-floating">
+          <input type="email" class="form-control" id="email" placeholder="Email">
+          <label for="email">Email Address</label>
+        </div>
+
+        <div class="form-floating">
+          <select class="form-select" id="category">
+            <option value="" selected>Select feedback type...</option>
+            <option value="bug">Bug Report</option>
+            <option value="feature">Feature Request</option>
+            <option value="improvement">Improvement Suggestion</option>
+            <option value="general">General Feedback</option>
+            <option value="other">Other</option>
+          </select>
+          <label for="category">Feedback Category</label>
+        </div>
+
+        <div class="rating-container">
+          <label class="rating-label">Rate Your Experience</label>
+          <div class="stars" id="rating">
+            <span class="star" data-rating="1">★</span>
+            <span class="star" data-rating="2">★</span>
+            <span class="star" data-rating="3">★</span>
+            <span class="star" data-rating="4">★</span>
+            <span class="star" data-rating="5">★</span>
+          </div>
+        </div>
+
+        <div class="form-floating">
+          <textarea class="form-control" id="message" placeholder="Your Feedback" maxlength="1000"></textarea>
+          <label for="message">Your Feedback</label>
+        </div>
+        <div class="char-counter">
+          <span id="char-count">0</span> / 1000 characters
+        </div>
+
+        <div id="error-msg" class="error-msg"></div>
+
+        <button type="submit" class="submit-btn">Submit Feedback</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MooVit. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let selectedRating = 0;
+    const stars = document.querySelectorAll('.star');
+    const messageField = document.getElementById('message');
+    const charCount = document.getElementById('char-count');
+
+    // Star rating functionality
+    stars.forEach(star => {
+      star.addEventListener('click', function() {
+        selectedRating = parseInt(this.dataset.rating);
+        updateStars();
+      });
+
+      star.addEventListener('mouseenter', function() {
+        const rating = parseInt(this.dataset.rating);
+        highlightStars(rating);
+      });
+    });
+
+    document.getElementById('rating').addEventListener('mouseleave', function() {
+      updateStars();
+    });
+
+    function highlightStars(rating) {
+      stars.forEach((star, index) => {
+        if (index < rating) {
+          star.classList.add('active');
+        } else {
+          star.classList.remove('active');
+        }
+      });
+    }
+
+    function updateStars() {
+      highlightStars(selectedRating);
+    }
+
+    // Character counter
+    messageField.addEventListener('input', function() {
+      charCount.textContent = this.value.length;
+    });
+
+    // Form submission
+    document.getElementById('feedback-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const category = document.getElementById('category').value;
+      const message = document.getElementById('message').value.trim();
+      const errorMsg = document.getElementById('error-msg');
+      const successMsg = document.getElementById('success-msg');
+      
+      errorMsg.classList.remove('show');
+      successMsg.classList.remove('show');
+      errorMsg.textContent = '';
+
+      // Validation
+      if (!name || !email || !category || !message) {
+        showError('Please fill in all required fields.');
+        return;
+      }
+
+      const namePattern = /^[A-Za-z ]+$/;
+      if (!namePattern.test(name)) {
+        showError('Name should contain only letters and spaces.');
+        return;
+      }
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        showError('Please enter a valid email address.');
+        return;
+      }
+
+      if (message.length < 10) {
+        showError('Feedback message must be at least 10 characters long.');
+        return;
+      }
+
+      if (selectedRating === 0) {
+        showError('Please rate your experience by selecting stars.');
+        return;
+      }
+
+      // Success
+      successMsg.classList.add('show');
+      this.reset();
+      selectedRating = 0;
+      updateStars();
+      charCount.textContent = '0';
+
+      setTimeout(() => {
+        successMsg.classList.remove('show');
+      }, 5000);
+    });
+
+    function showError(message) {
+      const errorMsg = document.getElementById('error-msg');
+      errorMsg.textContent = message;
+      errorMsg.classList.add('show');
+      errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+
+</html>

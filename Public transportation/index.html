@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../favicon.png">
+    <title>Public Transport Planner | Bus & Train Routes</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #475569;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #1a1f3a 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px var(--shadow);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #a78bfa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section Cards */
+        .section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-4px);
+        }
+
+        .section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h2::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* Planning Section */
+        .planning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Transport Toggle */
+        .transport-toggle {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .toggle-btn:hover:not(.active) {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Map */
+        #routeMap {
+            height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px var(--shadow);
+        }
+
+        /* Schedule Cards */
+        .schedules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .schedule-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .schedule-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .route-item {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .route-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+        }
+
+        .route-header {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .route-details {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .price {
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 1.5rem 0;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+        }
+
+        .high-safety { background: var(--success); }
+        .moderate-safety { background: var(--warning); }
+        .low-safety { background: var(--danger); }
+        .bus-color { background: #3b82f6; }
+        .train-color { background: #8b5cf6; }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.2);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Emergency Section */
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .emergency-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 2px solid var(--danger);
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+        }
+
+        .emergency-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--danger);
+        }
+
+        .emergency-card p {
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+
+        .selected-route {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border: 2px dashed var(--border);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .planning-grid,
+            .schedules-grid,
+            .info-grid,
+            .emergency-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .transport-toggle {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar with Back Button -->
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <button class="back-button" onclick="window.location.href='../main.html'">
+                <span>←</span>
+                <span>Back</span>
+            </button>
+            <div class="nav-title">Public Transport Planner</div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <h1>🚌 Public Transport Planner</h1>
+        <p>Discover the best bus and train routes across India</p>
+    </header>
+
+    <div class="container">
+        <!-- Journey Planning Section -->
+        <div class="section">
+            <h2>Plan Your Journey</h2>
+            <div class="planning-grid">
+                <div class="form-group">
+                    <label>From City</label>
+                    <select id="fromCity">
+                        <option value="">Select departure city</option>
+                        <option value="bhopal">Bhopal</option>
+                        <option value="indore">Indore</option>
+                        <option value="gwalior">Gwalior</option>
+                        <option value="jabalpur">Jabalpur</option>
+                        <option value="ujjain">Ujjain</option>
+                        <option value="sagar">Sagar</option>
+                        <option value="ratlam">Ratlam</option>
+                        <option value="dewas">Dewas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>To City</label>
+                    <select id="toCity">
+                        <option value="">Select destination city</option>
+                        <option value="bhopal">Bhopal</option>
+                        <option value="indore">Indore</option>
+                        <option value="gwalior">Gwalior</option>
+                        <option value="jabalpur">Jabalpur</option>
+                        <option value="ujjain">Ujjain</option>
+                        <option value="sagar">Sagar</option>
+                        <option value="ratlam">Ratlam</option>
+                        <option value="dewas">Dewas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Travel Date</label>
+                    <input type="date" id="travelDate" />
+                </div>
+                <div class="form-group">
+                    <label>Number of Passengers</label>
+                    <input type="number" id="passengers" placeholder="Enter number" min="1" max="10" value="1" />
+                </div>
+            </div>
+            <button id="searchRoutes" class="btn-primary">🔍 Search Available Routes</button>
+
+            <div class="transport-toggle">
+                <button class="toggle-btn active" data-mode="bus">🚌 Bus Routes</button>
+                <button class="toggle-btn" data-mode="train">🚂 Train Routes</button>
+            </div>
+            <div id="selectedRoute" class="selected-route">
+                Select cities above to see available routes
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="section">
+            <h2>Route Map</h2>
+            <div id="routeMap"></div>
+        </div>
+
+        <!-- Schedules Section -->
+        <div class="section">
+            <h2>Available Schedules</h2>
+            <div class="schedules-grid">
+                <div class="schedule-card">
+                    <h3>🚌 Bus Schedules</h3>
+                    <div class="route-item" data-price="45">
+                        <div class="route-header">Indore - Dewas Shuttle</div>
+                        <div class="route-details">
+                            Departure: 09:00 AM | Arrival: 10:15 AM<br>
+                            <span class="price">₹45</span> | Duration: 1h 15m
+                        </div>
+                    </div>
+                    <div class="route-item" data-price="85">
+                        <div class="route-header">Ujjain - Bhopal Local</div>
+                        <div class="route-details">
+                            Departure: 07:30 AM | Arrival: 10:00 AM<br>
+                            <span class="price">₹85</span> | Duration: 2h 30m
+                        </div>
+                    </div>
+                    <div class="route-item" data-price="180">
+                        <div class="route-header">Bhopal - Indore Express</div>
+                        <div class="route-details">
+                            Departure: 06:00 AM | Arrival: 10:30 AM<br>
+                            <span class="price">₹180</span> | Duration: 4h 30m
+                        </div>
+                    </div>
+                    <div class="route-item" data-price="320">
+                        <div class="route-header">Gwalior - Jabalpur Deluxe</div>
+                        <div class="route-details">
+                            Departure: 08:15 AM | Arrival: 02:45 PM<br>
+                            <span class="price">₹320</span> | Duration: 6h 30m
+                        </div>
+                    </div>
+                </div>
+
+                <div class="schedule-card">
+                    <h3>🚂 Train Schedules</h3>
+                    <div class="route-item" data-price="95">
+                        <div class="route-header">Avantika Express (12962)</div>
+                        <div class="route-details">
+                            Ujjain - Bhopal<br>
+                            Departure: 08:35 AM | Arrival: 11:10 AM<br>
+                            <span class="price">₹95 (SL)</span> | Duration: 2h 35m
+                        </div>
+                    </div>
+                    <div class="route-item" data-price="155">
+                        <div class="route-header">Malwa Express (12919)</div>
+                        <div class="route-details">
+                            Indore - Bhopal<br>
+                            Departure: 05:40 AM | Arrival: 10:15 AM<br>
+                            <span class="price">₹155 (SL)</span> | Duration: 4h 35m
+                        </div>
+                    </div>
+                    <div class="route-item" data-price="190">
+                        <div class="route-header">Jabalpur Express (11271)</div>
+                        <div class="route-details">
+                            Bhopal - Jabalpur<br>
+                            Departure: 11:20 PM | Arrival: 05:55 AM<br>
+                            <span class="price">₹190 (SL)</span> | Duration: 6h 35m
+                        </div>
+                    </div>
+                    <div class="route-item" data-price="485">
+                        <div class="route-header">Shatabdi Express (12001)</div>
+                        <div class="route-details">
+                            Bhopal - Gwalior<br>
+                            Departure: 06:05 AM | Arrival: 09:30 AM<br>
+                            <span class="price">₹485 (CC)</span> | Duration: 3h 25m
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Charts -->
+        <div class="section">
+            <h2>Safety Score Analysis</h2>
+            <div class="chart-container">
+                <canvas id="safetyChart"></canvas>
+            </div>
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <span class="legend-color high-safety"></span>
+                    <span>High Safety (80-100%)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color moderate-safety"></span>
+                    <span>Moderate Safety (50-79%)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color low-safety"></span>
+                    <span>Low Safety (Below 50%)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Your Selections Overview</h2>
+            <div class="chart-container">
+                <canvas id="selectionsChart"></canvas>
+            </div>
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <span class="legend-color bus-color"></span>
+                    <span>Bus Routes Selected</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color train-color"></span>
+                    <span>Train Routes Selected</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🗺️ Extensive Route Network</h3>
+                <p>Comprehensive bus and train network connecting all major cities with frequent services and affordable fares. Travel with confidence across India.</p>
+            </div>
+            <div class="info-card">
+                <h3>🛡️ Safety First</h3>
+                <p>Real-time safety scores based on passenger reviews, route conditions, and operator reliability to help you choose secure travel options.</p>
+            </div>
+            <div class="info-card">
+                <h3>💡 Smart Planning</h3>
+                <p>Compare prices, timings, and comfort levels across different transport modes to find the perfect journey for your needs.</p>
+            </div>
+        </div>
+
+        <!-- Emergency Contacts -->
+        <div class="section">
+            <h2>🚨 Emergency Contacts</h2>
+            <div class="emergency-grid">
+                <div class="emergency-card">
+                    <h3>🚨 Police Emergency</h3>
+                    <p>
+                        <strong>Dial:</strong> 100 (Toll Free)<br>
+                        <strong>Control Room:</strong> 0755-2770100<br>
+                        <strong>Women Helpline:</strong> 1090<br>
+                        <strong>Tourist Helpline:</strong> 1363
+                    </p>
+                </div>
+                <div class="emergency-card">
+                    <h3>🚑 Medical Emergency</h3>
+                    <p>
+                        <strong>Ambulance:</strong> 108 (Free)<br>
+                        <strong>Medical Helpline:</strong> 104<br>
+                        <strong>Blood Bank:</strong> 1910<br>
+                        <strong>Disaster Response:</strong> 1070
+                    </p>
+                </div>
+                <div class="emergency-card">
+                    <h3>🚒 Fire Brigade</h3>
+                    <p>
+                        <strong>Fire Emergency:</strong> 101<br>
+                        <strong>Bhopal Fire:</strong> 0755-2540101<br>
+                        <strong>Indore Fire:</strong> 0731-2520101<br>
+                        <strong>Gas Leak:</strong> 1906
+                    </p>
+                </div>
+                <div class="emergency-card">
+                    <h3>🚌 Transport Emergency</h3>
+                    <p>
+                        <strong>Highway Patrol:</strong> 1033<br>
+                        <strong>Railway Helpline:</strong> 139<br>
+                        <strong>Road Accident:</strong> 1073<br>
+                        <strong>Travel Helpline:</strong> 1800-111-139
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Back button functionality with multiple fallback options
+        function goBack() {
+            // Check if there's history to go back to
+            if (window.history.length > 1 && document.referrer) {
+                window.history.back();
+            } else {
+                // Multiple fallback options for better navigation
+                const possiblePaths = [
+                    '/',
+                    '/index.html',
+                    '../index.html',
+                    '../../index.html'
+                ];
+                
+                // Try to navigate to the most likely home page
+                window.location.href = possiblePaths[0];
+            }
+        }
+
+        // Add keyboard shortcut for back navigation (Alt + Left Arrow)
+        document.addEventListener('keydown', (e) => {
+            if (e.altKey && e.key === 'ArrowLeft') {
+                goBack();
+            }
+        });
+
+        // Initialize map
+        let map;
+        function initMap() {
+            map = L.map('routeMap').setView([23.2599, 77.4126], 7);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Add sample markers for cities
+            const cities = {
+                bhopal: [23.2599, 77.4126],
+                indore: [22.7196, 75.8577],
+                gwalior: [26.2183, 78.1828],
+                jabalpur: [23.1815, 79.9864],
+                ujjain: [23.1765, 75.7885]
+            };
+
+            Object.entries(cities).forEach(([name, coords]) => {
+                L.marker(coords).addTo(map)
+                    .bindPopup(name.charAt(0).toUpperCase() + name.slice(1));
+            });
+        }
+
+        // Transport mode toggle
+        const toggleBtns = document.querySelectorAll('.toggle-btn');
+        toggleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                toggleBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Safety Chart
+        const safetyCtx = document.getElementById('safetyChart').getContext('2d');
+        new Chart(safetyCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['High Safety', 'Moderate Safety', 'Low Safety'],
+                datasets: [{
+                    data: [65, 25, 10],
+                    backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Selections Chart
+        const selectionsCtx = document.getElementById('selectionsChart').getContext('2d');
+        new Chart(selectionsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Bus', 'Train'],
+                datasets: [{
+                    label: 'Routes Selected',
+                    data: [12, 8],
+                    backgroundColor: ['#3b82f6', '#8b5cf6'],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#cbd5e1'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#cbd5e1'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Search functionality
+        document.getElementById('searchRoutes').addEventListener('click', () => {
+            const from = document.getElementById('fromCity').value;
+            const to = document.getElementById('toCity').value;
+            const date = document.getElementById('travelDate').value;
+            const passengers = document.getElementById('passengers').value;
+
+            if (from && to && date && passengers) {
+                document.getElementById('selectedRoute').innerHTML = `
+                    <strong>Route:</strong> ${from.charAt(0).toUpperCase() + from.slice(1)} → ${to.charAt(0).toUpperCase() + to.slice(1)}<br>
+                    <strong>Date:</strong> ${date} | <strong>Passengers:</strong> ${passengers}
+                `;
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+
+        // Initialize map when page loads
+        window.addEventListener('load', initMap);
+    </script>
+</body>
+</html>
