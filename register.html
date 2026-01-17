@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.png">
+  <title>Register - Transport Co.</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #0A3D62;
+      /* deep navy blue for trust and reliability */
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .auth-container {
+      width: 360px;
+      padding: 40px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      /* subtle translucent overlay */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .auth-container h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 24px;
+      color: #ECF0F1;
+    }
+
+    .auth-container label {
+      display: block;
+      margin-bottom: 16px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #D0D7DE;
+    }
+
+    .auth-container input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      margin-top: 6px;
+      font-size: 15px;
+      background: #1E4E8C;
+      color: #fff;
+    }
+
+    .auth-container input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .auth-container button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 4px;
+      background: #3498DB;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .auth-container button:hover {
+      background: #2980B9;
+    }
+
+    .auth-container p {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .auth-container a {
+      color: #76C7F0;
+      text-decoration: none;
+    }
+
+    .auth-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="auth-container">
+    <form id="register-form">
+      <h2>Sign Up at Transport Co.</h2>
+      <label>Name
+        <input type="text" name="name" id="name" placeholder="Your full name" required>
+      </label>
+      <label>Email
+        <input type="email" name="email" id="email" placeholder="you@example.com" required>
+      </label>
+      <label>Password
+        <input id="pwd" type="password" placeholder="Create password" required>
+      </label>
+      <label>Confirm Password
+        <input id="cpwd" type="password" placeholder="Confirm password" required>
+      </label>
+      <div id="error-msg" style="color: #ffb3b3; text-align:center; margin-top:10px;"></div>
+      <button type="submit">Register</button>
+      <p>Already have an account? <a href="login.html">Login</a></p>
+    </form>
+  </div>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('pwd').value;
+      const confirmPassword = document.getElementById('cpwd').value;
+      const errorMsg = document.getElementById('error-msg');
+      errorMsg.textContent = '';
+
+
+      // Check for empty fields
+      if (!name || !email || !password || !confirmPassword) {
+        errorMsg.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      // Name validation (only alphabets and spaces)
+      const namePattern = /^[A-Za-z ]+$/;
+      if (!namePattern.test(name)) {
+        errorMsg.textContent = 'Name should contain only alphabets and spaces.';
+        return;
+      }
+
+      // Email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      // Password strength validation
+      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
+      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!strongPasswordPattern.test(password)) {
+        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+        return;
+      }
+
+      // Confirm password match
+      if (password !== confirmPassword) {
+        errorMsg.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      // If all validations pass, redirect
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+
+</html>

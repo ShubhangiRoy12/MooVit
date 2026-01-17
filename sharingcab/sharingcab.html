@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.png">
+  <title>🚖 Cab Sharing – MooVit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #212529;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .dark-mode {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #f8f9fa;
+    }
+
+    .dark-mode .card {
+      background-color: #2a2a3e !important;
+      border: 1px solid #3a3a4e;
+    }
+
+    .dark-mode .form-control,
+    .dark-mode .form-select {
+      background-color: #1e1e2e !important;
+      color: #f8f9fa !important;
+      border-color: #3a3a4e !important;
+    }
+
+    .dark-mode .card-header {
+      background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
+    }
+
+    .dark-mode .stat-card {
+      background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      max-width: 100%;
+    }
+
+    .header-title {
+      font-size: 1.5rem;
+      margin: 0;
+      flex-shrink: 1;
+      min-width: 0;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .header-buttons .btn {
+      white-space: nowrap;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .header-buttons .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      padding: 1rem 1.5rem;
+    }
+
+    .card-header h5 {
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .form-control, .form-select {
+      border-radius: 10px;
+      border: 2px solid #e0e0e0;
+      padding: 0.75rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    #map {
+      height: 450px;
+      border-radius: 15px;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-card h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+    }
+
+    .stat-card p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+
+    .fare-breakdown {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .dark-mode .fare-breakdown {
+      background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    }
+
+    .fare-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .fare-item:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding-top: 1rem;
+    }
+
+    .feature-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .badge-custom {
+      background: rgba(102, 126, 234, 0.2);
+      color: #667eea;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .dark-mode .badge-custom {
+      background: rgba(102, 126, 234, 0.3);
+      color: #a0aec0;
+    }
+
+    .time-date-picker {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    .icon-btn:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .header-title {
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .header-content {
+        justify-content: center;
+      }
+
+      .header-buttons {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .header-buttons .btn {
+        flex: 1;
+        max-width: 150px;
+      }
+
+      #map {
+        height: 350px;
+      }
+
+      .card-body {
+        padding: 1rem;
+      }
+
+      #cabForm .col-md-3,
+      #cabForm .col-md-2,
+      #cabForm .col-md-4,
+      #cabForm .col-md-1 {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-card h3 {
+        font-size: 1.5rem;
+      }
+
+      .time-date-picker {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header {
+        padding: 0.75rem;
+      }
+
+      .header-title {
+        font-size: 1.1rem;
+      }
+
+      .header-buttons .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4 {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="text-white">
+    <div class="header-content">
+      <h1 class="header-title">🚖 Cab Sharing Planner</h1>
+      <div class="header-buttons">
+        <button id="toggleMode" class="btn btn-light">🌃 Dark Mode</button>
+        <a href="..\main.html" class="btn btn-light">← Home</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container my-4">
+    <div class="card shadow-lg mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">🗺️ Plan Your Journey</h5>
+      </div>
+      <div class="card-body">
+        <form id="cabForm" class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label">From</label>
+            <select class="form-select" id="from" required>
+              <option value="">Select City</option>
+              <option value="Indore">Indore</option>
+              <option value="Ujjain">Ujjain</option>
+              <option value="Bhopal">Bhopal</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">To</label>
+            <select class="form-select" id="to" required>
+              <option value="">Select City</option>
+              <option value="Indore">Indore</option>
+              <option value="Ujjain">Ujjain</option>
+              <option value="Bhopal">Bhopal</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Via (Optional)</label>
+            <select class="form-select" id="via">
+              <option value="">No Stop</option>
+              <option value="Indore">Indore</option>
+              <option value="Ujjain">Ujjain</option>
+              <option value="Bhopal">Bhopal</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Passengers</label>
+            <input type="number" class="form-control" id="passengers" min="1" max="6" value="2">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button type="submit" class="btn btn-primary w-100">🚀 Calculate</button>
+          </div>
+        </form>
+
+        <div class="row mt-3">
+          <div class="col-md-4">
+            <label class="form-label">📅 Date</label>
+            <input type="date" class="form-control" id="travelDate">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">🕐 Time</label>
+            <input type="time" class="form-control" id="travelTime">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">🚗 Vehicle Type</label>
+            <select class="form-select" id="vehicleType">
+              <option value="sedan">Sedan (₹12/km)</option>
+              <option value="suv">SUV (₹18/km)</option>
+              <option value="mini">Mini (₹10/km)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="feature-badges">
+          <span class="badge-custom">✅ AC Vehicle</span>
+          <span class="badge-custom">💺 Comfortable Seats</span>
+          <span class="badge-custom">📱 Live Tracking</span>
+          <span class="badge-custom">🔒 Safe & Secure</span>
+        </div>
+
+        <div id="fareBreakdown" class="fare-breakdown">
+          <h6 style="margin-bottom: 1rem; font-weight: 700;">💰 Fare Breakdown</h6>
+          <div class="fare-item">
+            <span>Base Distance:</span>
+            <span id="distanceDisplay">-</span>
+          </div>
+          <div class="fare-item">
+            <span>Rate per km:</span>
+            <span id="rateDisplay">-</span>
+          </div>
+          <div class="fare-item">
+            <span>Total Passengers:</span>
+            <span id="paxDisplay">-</span>
+          </div>
+          <div class="fare-item">
+            <span>Total Fare:</span>
+            <span id="totalFareDisplay">-</span>
+          </div>
+          <div class="fare-item">
+            <span>Per Person:</span>
+            <span id="perPersonDisplay">-</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4" id="statsRow" style="display: none;">
+      <div class="col-md-4 mb-3">
+        <div class="stat-card">
+          <p>💵 Total Fare</p>
+          <h3 id="statTotal">₹0</h3>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+          <p>👤 Per Person</p>
+          <h3 id="statPer">₹0</h3>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+          <p>🛣️ Distance</p>
+          <h3 id="statDist">0 km</h3>
+        </div>
+      </div>
+    </div>
+
+    <div id="map"></div>
+  </main>
+
+  <footer class="text-center py-3 text-white">
+    <p class="mb-0">&copy; 2025 MooVit | Travel Smart, Share & Save 💚</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const markersCoord = {
+      "Indore": [22.7196, 75.8577],
+      "Bhopal": [23.2599, 77.4126],
+      "Ujjain": [23.1793, 75.7849]
+    };
+
+    const distances = {
+      "Indore-Bhopal": 190,
+      "Indore-Ujjain": 55,
+      "Bhopal-Ujjain": 190,
+      "Bhopal-Indore": 190,
+      "Ujjain-Indore": 55,
+      "Ujjain-Bhopal": 190,
+      "Indore-Ujjain-Bhopal": 245,
+      "Bhopal-Ujjain-Indore": 245,
+      "Ujjain-Indore-Bhopal": 245,
+      "Ujjain-Bhopal-Indore": 245
+    };
+
+    const vehicleRates = {
+      "sedan": 12,
+      "suv": 18,
+      "mini": 10
+    };
+
+    let isDarkMode = false;
+
+    document.getElementById("toggleMode").addEventListener("click", () => {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle("dark-mode");
+      document.getElementById("toggleMode").textContent = isDarkMode ? "☀️ Light Mode" : "🌃 Dark Mode";
+    });
+
+    const map = L.map('map').setView([22.9, 76.2], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 100);
+
+    // Set default date and time
+    const today = new Date();
+    document.getElementById("travelDate").valueAsDate = today;
+    document.getElementById("travelTime").value = "09:00";
+
+    document.getElementById("cabForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker || layer instanceof L.Polyline) {
+          map.removeLayer(layer);
+        }
+      });
+
+      const from = document.getElementById("from").value;
+      const to = document.getElementById("to").value;
+      const via = document.getElementById("via").value;
+      const pax = parseInt(document.getElementById("passengers").value);
+      const vehicleType = document.getElementById("vehicleType").value;
+
+      if (!markersCoord[from] || !markersCoord[to] || pax < 1) {
+        alert("Please fill valid values");
+        return;
+      }
+
+      if (from === to) {
+        alert("From and To cities cannot be the same!");
+        return;
+      }
+
+      let route = [from];
+      if (via && via !== from && via !== to) route.push(via);
+      route.push(to);
+
+      const fullRouteName = route.join("-");
+      const totalDistance = distances[fullRouteName] || 200;
+      const farePerKm = vehicleRates[vehicleType];
+      const totalFare = totalDistance * farePerKm;
+      const farePerPerson = Math.ceil(totalFare / pax);
+
+      // Update fare breakdown
+      document.getElementById("distanceDisplay").textContent = totalDistance + " km";
+      document.getElementById("rateDisplay").textContent = "₹" + farePerKm + "/km";
+      document.getElementById("paxDisplay").textContent = pax;
+      document.getElementById("totalFareDisplay").textContent = "₹" + totalFare;
+      document.getElementById("perPersonDisplay").textContent = "₹" + farePerPerson;
+      document.getElementById("fareBreakdown").style.display = "block";
+
+      // Update stat cards
+      document.getElementById("statTotal").textContent = "₹" + totalFare;
+      document.getElementById("statPer").textContent = "₹" + farePerPerson;
+      document.getElementById("statDist").textContent = totalDistance + " km";
+      document.getElementById("statsRow").style.display = "flex";
+
+      const coords = route.map(city => markersCoord[city]);
+      coords.forEach((coord, i) => {
+        const label = i === 0 ? "🟢 Start" : (i === coords.length - 1 ? "🔴 End" : "🟡 Via");
+        L.marker(coord).addTo(map).bindPopup(`<b>${label}</b><br>${route[i]}`).openPopup();
+      });
+
+      const line = L.polyline(coords, { color: '#667eea', weight: 4 }).addTo(map);
+      map.fitBounds(line.getBounds(), { padding: [50, 50] });
+    });
+
+    window.addEventListener('resize', () => {
+      map.invalidateSize();
+    });
+  </script>
+</body>
+
+</html>

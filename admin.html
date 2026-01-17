@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.png">
+  <title>Admin Portal - Transport Co.</title>
+  <style>
+    /* Admin styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .admin-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px 35px;
+      border-radius: 12px;
+      width: 350px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      border-top: 4px solid #e74c3c;
+    }
+
+    .admin-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .admin-badge {
+      display: inline-block;
+      background-color: #e74c3c;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .admin-container h2 {
+      margin: 10px 0 0 0;
+      color: #2c3e50;
+      font-size: 24px;
+    }
+
+    .admin-subtitle {
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .admin-container label {
+      display: block;
+      margin-bottom: 8px;
+      color: #34495e;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .admin-container input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ecf0f1;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    .admin-container input:focus {
+      outline: none;
+      border-color: #e74c3c;
+    }
+
+    .admin-container button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .admin-container button:hover {
+      background: linear-gradient(135deg, #c0392b, #a93226);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+    }
+
+    .security-note {
+      background-color: #fff5f5;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #991b1b;
+    }
+
+    .security-icon {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .back-link a {
+      color: #7f8c8d;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link a:hover {
+      color: #34495e;
+      text-decoration: underline;
+    }
+
+    .version-info {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .error-shake {
+      animation: shake 0.5s ease-in-out;
+    }
+
+    /* Mobile Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        min-height: 100vh;
+        height: auto;
+      }
+
+      .admin-container {
+        width: 100%;
+        max-width: 400px;
+        padding: 30px 25px;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
+
+      .admin-header h2 {
+        font-size: 22px;
+      }
+
+      .admin-subtitle {
+        font-size: 13px;
+      }
+
+      .admin-badge {
+        padding: 4px 12px;
+        font-size: 11px;
+      }
+
+      .admin-container input {
+        padding: 14px 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+
+      .admin-container button {
+        padding: 16px;
+        font-size: 16px;
+        margin-top: 25px;
+      }
+
+      .security-note {
+        padding: 15px;
+        font-size: 13px;
+        margin-top: 25px;
+      }
+
+      .version-info {
+        position: static;
+        text-align: center;
+        margin-top: 30px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 13px;
+      }
+
+      .back-link {
+        margin-top: 30px;
+      }
+
+      .back-link a {
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 15px;
+      }
+
+      .admin-container {
+        padding: 25px 20px;
+        border-radius: 8px;
+      }
+
+      .admin-header h2 {
+        font-size: 20px;
+      }
+
+      .admin-subtitle {
+        font-size: 12px;
+      }
+
+      .admin-container input {
+        padding: 15px 12px;
+      }
+
+      .admin-container button {
+        padding: 18px;
+        font-size: 15px;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      .security-note {
+        padding: 12px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .admin-container {
+        padding: 20px 15px;
+      }
+
+      .admin-header h2 {
+        font-size: 18px;
+      }
+
+      .admin-badge {
+        padding: 3px 10px;
+        font-size: 10px;
+      }
+
+      .admin-container input {
+        padding: 12px 10px;
+        font-size: 15px;
+      }
+
+      .admin-container button {
+        padding: 16px;
+        font-size: 14px;
+      }
+    }
+
+    /* Landscape mobile orientation */
+    @media (max-width: 768px) and (orientation: landscape) {
+      body {
+        padding: 10px;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 20px;
+      }
+
+      .admin-container {
+        margin: 0 auto;
+        max-width: 550px;
+      }
+
+      .version-info {
+        margin-top: 20px;
+      }
+    }
+
+    /* Touch device optimizations */
+    @media (hover: none) and (pointer: coarse) {
+      .admin-container button:hover {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        transform: none;
+        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+      }
+
+      .admin-container input {
+        -webkit-appearance: none;
+        border-radius: 6px;
+      }
+
+      .back-link a:hover {
+        color: #7f8c8d;
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="admin-container">
+    <div class="admin-header">
+      <div class="admin-badge">Admin Access</div>
+      <h2>Control Panel</h2>
+      <div class="admin-subtitle">Transport Management System</div>
+    </div>
+    
+    <form id="admin-login-form">
+      <div class="form-group">
+        <label>Administrator ID</label>
+        <input type="text" name="admin-id" placeholder="Enter admin username" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Admin Password</label>
+        <input type="password" name="admin-password" placeholder="Enter secure password" required>
+      </div>
+      
+      <button type="submit">Access Dashboard</button>
+      
+      <div class="security-note">
+        <span class="security-icon">🔒</span>
+        <strong>Security Notice:</strong> Admin access is logged and monitored. Unauthorized access attempts will be reported.
+      </div>
+    </form>
+    
+    <div class="back-link">
+      <a href="index.html">← Back to User Login</a>
+    </div>
+  </div>
+  
+  <div class="version-info">
+    v2.1.0 | Admin Portal
+  </div>
+  
+  <script>
+    let loginAttempts = 0;
+    const maxAttempts = 3;
+    
+    document.getElementById('admin-login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      
+      const adminId = document.querySelector('input[name="admin-id"]').value;
+      const adminPassword = document.querySelector('input[name="admin-password"]').value;
+      
+      // Simple validation (in real app, this would be server-side)
+      if (adminId === 'admin' && adminPassword === 'transport2024') {
+        // Success - redirect to admin dashboard
+        alert('Login successful! Redirecting to admin dashboard...');
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        loginAttempts++;
+        
+        if (loginAttempts >= maxAttempts) {
+          alert('Maximum login attempts exceeded. Access temporarily blocked.');
+          document.getElementById('admin-login-form').style.pointerEvents = 'none';
+          document.querySelector('button').textContent = 'Access Blocked';
+          document.querySelector('button').style.background = '#95a5a6';
+          return;
+        }
+        
+        // Shake animation for failed login
+        const container = document.querySelector('.admin-container');
+        container.classList.add('error-shake');
+        setTimeout(() => container.classList.remove('error-shake'), 500);
+        
+        alert(`Invalid credentials. Attempt ${loginAttempts}/${maxAttempts}`);
+        
+        // Clear password field
+        document.querySelector('input[name="admin-password"]').value = '';
+      }
+    });
+    
+    // Add some keyboard shortcuts for admin convenience
+    document.addEventListener('keydown', function(e) {
+      // Ctrl + Alt + R to reset attempts (for demo purposes)
+      if (e.ctrlKey && e.altKey && e.key === 'r') {
+        loginAttempts = 0;
+        document.getElementById('admin-login-form').style.pointerEvents = 'auto';
+        document.querySelector('button').textContent = 'Access Dashboard';
+        document.querySelector('button').style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+        console.log('Admin attempts reset');
+      }
+    });
+  </script>
+</body>
+
+</html>

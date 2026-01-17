@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.png" />
+    <title>Privacy Policy | MoveIt</title>
+    <style>
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        background: #171c23; /* dark base */
+        color: #f5f7fa;
+        line-height: 1.6;
+      }
+
+      /* Navbar */
+      .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgb(24, 29, 34);
+        padding: 12px 20px;
+        position: relative;
+        color: white;
+      }
+      .logo {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: white;
+        text-align: center;
+      }
+      .back-btn {
+        position: absolute;
+        left: 20px;
+      }
+      .back-btn a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        transition: 0.3s ease;
+      }
+      .back-btn a:hover {
+        color: #00bfff;
+        transform: translateX(-5px);
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(rgba(3, 7, 13, 0.9), rgba(10, 31, 68, 0.9)),
+          urlab(2.71% 0.51 -5.4 / 0.9) center/cover no-repeat
+            url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3w5dHx8MHx8fGF8fHx8fHwxNjkwNzE3MDI0&auto=format&fit=crop&w=1470&q=80");
+        color: white;
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        animation: fadeIn 2s ease-in;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        animation: slideDown 1s ease-in-out;
+      }
+      .hero p {
+        font-size: 1.2rem;
+        animation: slideUp 1.5s ease-in-out;
+      }
+
+      /* Content Section */
+      .privacy {
+        padding: 60px 10%;
+        max-width: 1000px;
+        margin: auto;
+      }
+      .privacy h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #00bfff;
+        text-align: center;
+      }
+      .privacy p {
+        font-size: 1.05rem;
+        margin-bottom: 20px;
+        color: #dce3f0;
+      }
+      .policy-section {
+        background: #030915;
+        padding: 25px;
+        margin-bottom: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s;
+        animation: zoomIn 1s ease;
+      }
+      .policy-section:hover {
+        transform: translateY(-5px);
+      }
+      .policy-section h3 {
+        margin-bottom: 12px;
+        color: #00bfff;
+      }
+
+      /* Footer */
+      footer {
+        background: #04045b;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideDown {
+        from {
+          transform: translateY(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="back-btn">
+        <a href="./main.html">&#8592; Back</a>
+      </div>
+      <div class="logo">MoveIt</div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Privacy Policy</h1>
+        <p>How MoveIt protects your data and respects your rights.</p>
+      </div>
+    </section>
+
+    <!-- Privacy Content -->
+    <section class="privacy">
+      <h2>Our Commitment to Privacy</h2>
+      <p>
+        At <b>MoveIt</b>, your trust is our priority. We are committed to
+        protecting your personal data while ensuring transparency and safety in
+        how we use it.
+      </p>
+
+      <div class="policy-section">
+        <h3>1. Information We Collect</h3>
+        <p>
+          We collect details such as your name, contact information, address,
+          and payment details when you use our services.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h3>2. How We Use Your Information</h3>
+        <p>
+          Your information helps us deliver moving services, process payments,
+          improve our logistics, and provide timely updates.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h3>3. Data Security</h3>
+        <p>
+          We follow strict security practices to safeguard your data. While no
+          system is 100% secure, we constantly improve our safeguards to protect
+          you.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h3>4. Sharing of Information</h3>
+        <p>
+          We never sell your data. We only share it with trusted partners such
+          as payment processors and logistics teams when necessary.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h3>5. Your Rights</h3>
+        <p>
+          You have the right to access, update, or request deletion of your
+          personal data at any time. Contact us for any privacy-related
+          concerns.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h3>6. Policy Updates</h3>
+        <p>
+          Our Privacy Policy may be updated periodically. Updates will be posted
+          here with the effective date.
+        </p>
+      </div>
+
+      <p><b>Last updated:</b> September 24, 2025</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 MoveIt. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
