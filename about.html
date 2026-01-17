@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.png">
+  <title>About Us | MoveIt</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      background: #f5f7fa;
+      color: #222;
+      line-height: 1.6;
+    }
+/*navbar styles */
+    .navbar {
+    display: flex;
+    justify-content: center;   /* centers everything first */
+    align-items: center;
+    background: rgb(4, 4, 91);
+    padding: 12px 20px;
+    position: relative;        /* allows absolute positioning for back button */
+    color: white;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+}
+
+.back-btn {
+    position: absolute;
+    left: 20px;   /* sticks it to the far left */
+}
+
+.back-btn a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.back-btn a:hover {
+    color: #00bfff;
+    transform: translateX(-5px);
+}
+
+.nav-links {
+    display: none; /* hide for now since not used */
+}
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(10, 31, 68, 0.8), rgba(10, 31, 68, 0.8)),
+                  url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      color: white;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: fadeIn 2s ease-in;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      animation: slideDown 1s ease-in-out;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      animation: slideUp 1.5s ease-in-out;
+    }
+
+    /* Mission */
+    .mission {
+      padding: 80px 10%;
+      text-align: center;
+    }
+    .mission h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #0a1f44;
+    }
+    .mission p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: auto;
+      animation: fadeIn 2s ease;
+    }
+
+    /* Features */
+    .features {
+      padding: 60px 10%;
+      background: #eaf0fb;
+      text-align: center;
+    }
+    .features h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #0a1f44;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    .feature {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      animation: zoomIn 1s ease;
+    }
+    .feature:hover {
+      transform: translateY(-10px);
+    }
+    .feature h3 {
+      margin-bottom: 10px;
+      color: #0a1f44;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a1f44;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes slideDown {
+      from {transform: translateY(-50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+    @keyframes slideUp {
+      from {transform: translateY(50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+    @keyframes slideRight {
+      from {transform: translateX(-50px); opacity: 0;}
+      to {transform: translateX(0); opacity: 1;}
+    }
+    @keyframes zoomIn {
+      from {transform: scale(0.9); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="back-btn">
+        <a href="./main.html">&#8592; Back</a>
+    </div>
+    <div class="logo">MoveIt</div>
+    
+    <ul class="nav-links">
+    
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>About MoveIt</h1>
+      <p>Your trusted partner for hassle-free moving and logistics.</p>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="mission">
+    <h2>Our Mission</h2>
+    <p>
+      At <b>MoveIt</b>, our mission is simple: to redefine moving by making it 
+      stress-free, affordable, and efficient. We are committed to providing 
+      safe, reliable, and customer-focused relocation solutions for both 
+      individuals and businesses.
+    </p>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="features">
+    <h2>Why Choose MoveIt?</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>🚚 Fast & Reliable</h3>
+        <p>We ensure timely deliveries with real-time tracking and dedicated teams.</p>
+      </div>
+      <div class="feature">
+        <h3>💰 Affordable Pricing</h3>
+        <p>Transparent and competitive pricing with no hidden costs.</p>
+      </div>
+      <div class="feature">
+        <h3>🛡️ Safe Handling</h3>
+        <p>Your belongings are handled with care and delivered securely.</p>
+      </div>
+      <div class="feature">
+        <h3>🌍 Nationwide Reach</h3>
+        <p>Wherever you move, MoveIt is always there to support your journey.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 MoveIt. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
