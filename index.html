@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="../favicon.png">
   <title>Transport Co. - Your Cargo, Our Priority</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-    
+
     * {
       margin: 0;
       padding: 0;
@@ -35,7 +40,6 @@
       overflow-x: hidden;
     }
 
-    /* High Contrast Utility Classes */
     .yellow-bg {
       background: linear-gradient(135deg, #ffd700 0%, #ffb700 100%);
       color: #0a1628 !important;
@@ -44,9 +48,6 @@
     .yellow-bg * {
       color: #0a1628;
     }
-
-    /* Enhanced Custom Cursor Styles */
-   
 
     .cursor::before {
       content: '';
@@ -65,30 +66,34 @@
       .cursor {
         display: block;
       }
-      
-      body, a, button, .card, input, textarea {
+
+      body,
+      a,
+      button,
+      .card,
+      input,
+      textarea {
         cursor: none !important;
       }
     }
 
     .cursor.hover {
-  width: 35px;
-  height: 35px;
-  background: linear-gradient(45deg, #2563eb, #1d4ed8);
-  box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
-}
+      width: 35px;
+      height: 35px;
+      background: linear-gradient(45deg, #2563eb, #1d4ed8);
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+    }
 
-.cursor.hover::before {
-  width: 50px;
-  height: 50px;
-  border-color: rgba(37, 99, 235, 0.4);
-}
+    .cursor.hover::before {
+      width: 50px;
+      height: 50px;
+      border-color: rgba(37, 99, 235, 0.4);
+    }
 
-.cursor.click {
-  transform: scale(0.85);
-  transition: transform 0.1s ease;
-}
-
+    .cursor.click {
+      transform: scale(0.85);
+      transition: transform 0.1s ease;
+    }
 
     .cursor.text {
       width: 2px;
@@ -102,7 +107,6 @@
       display: none;
     }
 
-    /* Animated Background Particles */
     .particles {
       position: fixed;
       top: 0;
@@ -123,142 +127,297 @@
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
-      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 1;
+      }
     }
 
-    /* Header with Glassmorphism */
-    header {
-      background: rgba(26, 54, 93, 0.15);
-      backdrop-filter: blur(25px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      text-align: center;
-      padding: 1.5rem 0;
-      position: sticky;
+    .modern-header {
+      position: fixed;
       top: 0;
-      z-index: 100;
-      transition: all 0.3s ease;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.2rem 2rem;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      background: rgba(10, 22, 40, 0);
     }
 
-    header.scrolled {
-      background: rgba(26, 54, 93, 0.25);
-      backdrop-filter: blur(35px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    .modern-header.scrolled {
+      padding: 0.8rem 2rem;
+      background: rgba(10, 22, 40, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
 
-    header h1 {
-      font-size: 2.8em;
-      font-weight: 900;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ffffff 100%);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 4s ease-in-out infinite;
-      text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-    }
-
-    @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    nav {
-      margin-top: 1rem;
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
       display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    nav a {
-      color: rgba(255, 255, 255, 0.9);
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
-      font-size: 1.1em;
-      font-weight: 500;
-      padding: 12px 24px;
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
-      overflow: hidden;
+      color: white;
+      z-index: 1002;
     }
 
-    nav a::before {
+    .logo-icon {
+      color: #ffd700;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text .highlight {
+      color: #ffd700;
+    }
+
+    .desktop-nav .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #ffd700;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px #ffd700;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: white;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
       width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
     }
 
-    nav a:hover::before {
-      left: 100%;
-    }
-
-    nav a:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: #ffd700;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-    }
-
-    /* Auth Buttons Styles */
-    .auth-buttons {
+    .header-actions {
       display: flex;
-      gap: 1rem;
-      justify-content: center;
       align-items: center;
-      margin-top: 1rem;
+      gap: 1.2rem;
+      z-index: 1002;
     }
 
-    .auth-buttons .btn {
-      padding: 10px 28px;
-      font-size: 1rem;
+    .search-bar-mini {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 4px 8px;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar-mini:focus-within {
+      border-color: #ffd700;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    }
+
+    .search-bar-mini input {
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 4px 8px;
+      width: 100px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: width 0.3s ease;
+    }
+
+    .search-bar-mini input:focus {
+      width: 160px;
+    }
+
+    .search-bar-mini button {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar-mini button:hover {
+      color: #ffd700;
+    }
+
+    .auth-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-text {
+      color: white;
+      text-decoration: none;
       font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    .btn-text:hover {
+      color: #ffd700;
+    }
+
+    .btn-header-cta {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      padding: 8px 20px;
       border-radius: 50px;
       text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
       transition: all 0.3s ease;
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .btn-login {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      color: #ffffff;
-      border: 2px solid rgba(37, 99, 235, 0.6);
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-    }
-
-    .btn-login:hover {
+    .btn-header-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.6);
       background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
     }
 
-    .btn-signup {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      color: #ffffff;
-      border: 2px solid rgba(37, 99, 235, 0.6);
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
     }
 
-    .btn-signup:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
-      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    .mobile-toggle .bar {
+      width: 24px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
     }
 
-    /* Hero Section with Advanced Effects */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: rgba(10, 22, 40, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 1001;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      opacity: 0;
+    }
+
+    .mobile-menu.active {
+      height: 100vh;
+      opacity: 1;
+    }
+
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu.active a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-auth {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .mobile-auth .highlight-btn {
+      color: #ffd700;
+    }
+
+    .mobile-toggle.active .bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .mobile-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-toggle.active .bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 992px) {
+
+      .desktop-nav,
+      .search-bar-mini,
+      .auth-divider,
+      .btn-text,
+      .btn-header-cta {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+    }
+
     .hero {
       max-width: 1400px;
-      margin: 4rem auto;
+      margin: 8rem auto;
+      margin-bottom: 2rem;
       padding: 5rem 5rem;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(25px);
@@ -298,8 +457,15 @@
     }
 
     @keyframes gradientRotate {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
     }
 
     .hero h2 {
@@ -321,9 +487,7 @@
       margin-right: auto;
       font-weight: 500;
       animation: slideUp 1s ease-out 0.7s both;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 
-                   0 4px 16px rgba(0, 0, 0, 0.6),
-                   0 0 30px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 0, 0, 0.5);
       line-height: 1.8;
       letter-spacing: 0.3px;
     }
@@ -357,13 +521,13 @@
         opacity: 0;
         transform: translateY(50px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    /* Enhanced Services Grid */
     .services-section {
       max-width: 1400px;
       margin: 6rem auto;
@@ -461,7 +625,6 @@
       font-weight: 400;
     }
 
-    /* Enhanced Modal */
     .service-alert {
       position: fixed;
       top: 50%;
@@ -561,7 +724,6 @@
       visibility: visible;
     }
 
-    /* Login Popup Modal Styles */
     .login-modal {
       position: fixed;
       top: 0;
@@ -741,7 +903,6 @@
       text-shadow: 0 2px 10px rgba(255, 107, 107, 0.3) !important;
     }
 
-    /* Sign Up Popup Modal Styles */
     .signup-modal {
       position: fixed;
       top: 0;
@@ -843,7 +1004,6 @@
       text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
     }
 
-    /* Custom Checkbox Styles */
     .checkbox-group {
       margin: 1.5rem 0;
     }
@@ -880,12 +1040,12 @@
       position: relative;
     }
 
-    .checkbox-label:hover input ~ .checkmark {
+    .checkbox-label:hover input~.checkmark {
       background: rgba(255, 255, 255, 0.15);
       border-color: #ffd700;
     }
 
-    .checkbox-label input:checked ~ .checkmark {
+    .checkbox-label input:checked~.checkmark {
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
       border-color: #059669;
     }
@@ -896,7 +1056,7 @@
       display: none;
     }
 
-    .checkbox-label input:checked ~ .checkmark:after {
+    .checkbox-label input:checked~.checkmark:after {
       display: block;
     }
 
@@ -922,7 +1082,6 @@
       text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
     }
 
-    /* Admin Popup Modal Styles */
     .admin-modal {
       position: fixed;
       top: 0;
@@ -1066,34 +1225,33 @@
       text-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
     }
 
-    /* Enhanced Footer Styling */
     footer {
       background: rgba(10, 22, 40, 0.8);
       backdrop-filter: blur(20px);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       color: white;
-      padding: 5rem 2rem 2rem; /* Increased top padding */
+      padding: 5rem 2rem 2rem;
       margin-top: 6rem;
     }
 
     .footer-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 3.5rem; /* Increased spacing */
+      gap: 3.5rem;
       max-width: 1400px;
       margin: auto;
     }
 
     .footer-container h3,
     .footer-container h4 {
-      margin-bottom: 1.5rem; /* Increased spacing */
+      margin-bottom: 1.5rem;
       font-weight: 700;
       color: #ffd700;
-      font-size: 1.4rem; /* Slightly larger font */
+      font-size: 1.4rem;
       text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
       display: flex;
       align-items: center;
-      gap: 0.75rem; /* Space for icon */
+      gap: 0.75rem;
     }
 
     .footer-container ul {
@@ -1102,7 +1260,7 @@
     }
 
     .footer-container ul li {
-      margin-bottom: 1rem; /* Increased spacing */
+      margin-bottom: 1rem;
     }
 
     .footer-container a {
@@ -1110,13 +1268,13 @@
       text-decoration: none;
       transition: all 0.3s ease;
       font-weight: 400;
-      display: inline-block; /* For transform */
+      display: inline-block;
     }
 
     .footer-container a:hover {
       color: #ffd700;
-      text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); /* Glow effect */
-      transform: translateX(5px) scale(1.03); /* Scale and move effect */
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+      transform: translateX(5px) scale(1.03);
     }
 
     .footer-social .social-icons {
@@ -1131,22 +1289,20 @@
     }
 
     .footer-social .social-icons a:hover {
-      transform: translateY(-5px) scale(1.1); /* Enhanced hover effect */
+      transform: translateY(-5px) scale(1.1);
     }
 
-    /* Newsletter Section Layout */
     .footer-newsletter {
-      grid-column: span 2; /* Make it span 2 columns */
+      grid-column: span 2;
     }
 
-    /* Newsletter Section */
     .newsletter-form {
       display: flex;
       margin-top: 1rem;
       border-radius: 15px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
     }
 
@@ -1168,7 +1324,7 @@
     .newsletter-form input:focus {
       outline: none;
       background: rgba(255, 255, 255, 0.15);
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .newsletter-form button {
@@ -1188,11 +1344,20 @@
       background: #1d4ed8;
     }
 
-    /* Shake animation for failed admin login */
     @keyframes shake {
-      0%, 100% { transform: translateX(0) scale(1); }
-      25% { transform: translateX(-5px) scale(1); }
-      75% { transform: translateX(5px) scale(1); }
+
+      0%,
+      100% {
+        transform: translateX(0) scale(1);
+      }
+
+      25% {
+        transform: translateX(-5px) scale(1);
+      }
+
+      75% {
+        transform: translateX(5px) scale(1);
+      }
     }
 
     .footer-bottom {
@@ -1204,7 +1369,6 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
-    /* Loading Animations */
     .loading {
       opacity: 0;
       transform: translateY(30px);
@@ -1216,11 +1380,11 @@
       transform: translateY(0);
     }
 
-    /* Responsive Design */
     @media (max-width: 1200px) {
       .grid-container {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       }
+
       .footer-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       }
@@ -1230,8 +1394,9 @@
       .footer-container {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       }
+
       .footer-newsletter {
-        grid-column: auto; /* Revert to single column on smaller screens */
+        grid-column: auto;
       }
     }
 
@@ -1252,6 +1417,7 @@
       .hero {
         margin: 2rem 1rem;
         padding: 3rem 2rem;
+        margin-top: 8rem;
       }
 
       .hero h2 {
@@ -1288,7 +1454,6 @@
         display: none !important;
       }
 
-      /* Login Modal Mobile Responsive */
       .login-modal {
         padding: 1rem;
       }
@@ -1317,7 +1482,6 @@
         font-size: 1rem;
       }
 
-      /* Sign Up Modal Mobile Responsive */
       .signup-modal {
         padding: 1rem;
       }
@@ -1337,7 +1501,6 @@
         font-size: 1rem;
       }
 
-      /* Admin Modal Mobile Responsive */
       .admin-modal {
         padding: 1rem;
       }
@@ -1365,227 +1528,222 @@
         font-size: 0.8rem;
         padding: 0.8rem;
       }
-    /* Base Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
 
-body {
-  background: #0b1224;
-  color: #ffffff;
-  line-height: 1.6;
-}
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+      }
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-}
+      body {
+        background: #0b1224;
+        color: #ffffff;
+        line-height: 1.6;
+      }
 
-/* Header Styling */
-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-}
+      .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 2rem;
+      }
 
-header .logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: white;
-}
+      header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+      }
 
-header nav {
-  display: flex;
-  gap: 1.5rem;
-}
+      header .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: white;
+      }
 
-header nav a {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: background 0.3s, color 0.3s;
-}
+      header nav {
+        display: flex;
+        gap: 1.5rem;
+      }
 
-header nav a:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #1fb2ff;
-}
-/* hamburger  */
-.hamburger{
-  display: none;
-  cursor: pointer;
-}
-header .hamburgerList{
-    background-color:rgba(23,33,48,0.7);
-    width: 21%; 
-    position: absolute;
-    z-index: 6;
-    top: 83%;
-    right: 9px;
-    border-radius: 6px;
-    display: none;
-}
-header .hamburgerList ul li{
-  list-style: none;
+      header nav a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: background 0.3s, color 0.3s;
+      }
 
-}
-.hamburgerList ul li a{
-    text-decoration: none;
-    color:white;
-    font-size: 1.875rem;
-    padding:24px 14px 14px 16px;
-    
-}
+      header nav a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #1fb2ff;
+      }
 
-/* Hero Section */
-.hero {
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-  border-radius: 15px;
-  padding: 3rem;
-  text-align: center;
-  max-width: 600px;
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
+      .hamburger {
+        display: none;
+        cursor: pointer;
+      }
 
-.hero h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
+      header .hamburgerList {
+        background-color: rgba(23, 33, 48, 0.7);
+        width: 21%;
+        position: absolute;
+        z-index: 6;
+        top: 83%;
+        right: 9px;
+        border-radius: 6px;
+        display: none;
+      }
 
-.hero p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  color: rgba(255, 255, 255, 0.85);
-}
+      header .hamburgerList ul li {
+        list-style: none;
+      }
 
-.btn {
-  background: #1fb2ff;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.3s;
-}
+      .hamburgerList ul li a {
+        text-decoration: none;
+        color: white;
+        font-size: 1.875rem;
+        padding: 24px 14px 14px 16px;
+      }
 
-.btn:hover {
-  background: #0284c7;
-}
+      .hero {
+        background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+        border-radius: 15px;
+        padding: 3rem;
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
 
-.btn-cta {
-  margin-bottom: 2rem;
-}
+      .hero h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
 
-.tracking-container {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
+      .hero p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        color: rgba(255, 255, 255, 0.85);
+      }
 
-.tracking-container input {
-  padding: 0.75rem 1rem;
-  border-radius: 50px;
-  border: none;
-  outline: none;
-  width: 250px;
-}
+      .btn {
+        background: #1fb2ff;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.3s;
+      }
 
-.tracking-container .btn-track {
-  padding: 0.75rem 1.5rem;
-}
+      .btn:hover {
+        background: #0284c7;
+      }
 
-/* Trusted Brands */
-.trusted-brands {
-  text-align: center;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-}
+      .btn-cta {
+        margin-bottom: 2rem;
+      }
 
-.brand-logos {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
+      .tracking-container {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
 
-.brand-logos span {
-  font-weight: bold;
-  color: #020a0e;
-}
+      .tracking-container input {
+        padding: 0.75rem 1rem;
+        border-radius: 50px;
+        border: none;
+        outline: none;
+        width: 250px;
+      }
 
-/* Responsive */
+      .tracking-container .btn-track {
+        padding: 0.75rem 1.5rem;
+      }
 
+      .trusted-brands {
+        text-align: center;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
 
-@media screen and (max-width:652px){
-  header .hamburgerList{
-    width:30%;
-  }
-}
-@media screen and (max-width:456px){
-   header .hamburgerList{
-    width:40%;
-  }
-}
-@media screen and (max-width: 768px) {
-  .hero {
-    padding: 2rem;
-  }
+      .brand-logos {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
 
-  .tracking-container {
-    flex-direction: column;
-    gap: 1rem;
-  }
+      .brand-logos span {
+        font-weight: bold;
+        color: #020a0e;
+      }
 
-  header {
-    
-    align-items: flex-start;
-  }
+      @media screen and (max-width:652px) {
+        header .hamburgerList {
+          width: 30%;
+        }
+      }
 
-  header nav {
-    
-    margin-top: 1rem;
-  }
-  .hamburger{
-      width: 14px;
-      height: 23px;
-  }
-}
+      @media screen and (max-width:456px) {
+        header .hamburgerList {
+          width: 40%;
+        }
+      }
 
-@media screen and (max-width:937px){
-  .hamburger{
-    display: block;
-    width: 36px;
-  }
-  header nav{
-    display: none;
-  }
+      @media screen and (max-width: 768px) {
+        .hero {
+          padding: 2rem;
+        }
 
-}
+        .tracking-container {
+          flex-direction: column;
+          gap: 1rem;
+        }
 
-      /* Checkbox Mobile Responsive */
+        header {
+          align-items: flex-start;
+        }
+
+        header nav {
+          margin-top: 1rem;
+        }
+
+        .hamburger {
+          width: 14px;
+          height: 23px;
+        }
+      }
+
+      @media screen and (max-width:937px) {
+        .hamburger {
+          display: block;
+          width: 36px;
+        }
+
+        header nav {
+          display: none;
+        }
+      }
+
       .checkbox-label {
         font-size: 0.85rem !important;
         line-height: 1.3 !important;
@@ -1605,7 +1763,6 @@ header .hamburgerList ul li{
       }
     }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 12px;
     }
@@ -1623,7 +1780,6 @@ header .hamburgerList ul li{
       background: linear-gradient(135deg, #1d4ed8, #ffed4a);
     }
 
-    /* Ripple Effect */
     .ripple {
       position: absolute;
       border-radius: 50%;
@@ -1640,7 +1796,6 @@ header .hamburgerList ul li{
       }
     }
 
-    /* Cursor trail effect */
     .cursor-trail {
       position: fixed;
       top: 0;
@@ -1655,43 +1810,74 @@ header .hamburgerList ul li{
       will-change: transform;
     }
   </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transport Co.</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <!-- Enhanced Custom Cursor -->
-  <div class="cursor" id="cursor"></div>
 
-  <!-- Animated Background Particles -->
+<body>
+  <div class="cursor" id="cursor"></div>
   <div class="particles" id="particles"></div>
 
-  <header id="header">
-    <h1>Transport Co.</h1>
-    <nav>
+  <header id="main-header" class="modern-header">
+    <div class="header-content">
+      <a href="#" class="brand-logo">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4v-4z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <span class="logo-text">Transport<span class="highlight">Co.</span></span>
+      </a>
+
+      <nav class="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-bar-mini">
+          <input type="text" placeholder="Track ID...">
+          <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg></button>
+        </div>
+
+        <div class="auth-divider"></div>
+
+        <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
+        <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
+
+        <button class="mobile-toggle" aria-label="Toggle Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu">
       <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About Us</a>
       <a href="contact.html">Contact</a>
-      <a href="#" onclick="openLoginPopup()" class="nav-btn nav-login">Login</a>
-      <a href="#" onclick="openSignupPopup()" class="nav-btn nav-signup">Sign Up</a>
-    </nav>
-    <img id="Hamburger" class="hamburger" src="hamburger.svg" alt="hamburger">
-    <div class="hamburgerList">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="#" onclick="openLoginPopup()">Login</a></li>
-        <li><a href="#" onclick="openSignupPopup()">Sign Up</a></li>
-      </ul>
+      <div class="mobile-auth">
+        <a href="#" onclick="openLoginPopup()">Login</a>
+        <a href="#" onclick="openSignupPopup()" class="highlight-btn">Sign Up</a>
+      </div>
     </div>
   </header>
 
   <main class="hero loading">
     <h2>Your Cargo, Our Priority</h2>
-    <p>Experience world-class logistics and transportation services with cutting-edge technology, unmatched reliability, and a commitment to excellence that sets us apart in the global marketplace.</p>
+    <p>Experience world-class logistics and transportation services with cutting-edge technology, unmatched reliability,
+      and a commitment to excellence that sets us apart in the global marketplace.</p>
     <a class="btn" href="#" onclick="openLoginPopup()">Get Started Today</a>
   </main>
 
@@ -1701,89 +1887,53 @@ header .hamburgerList ul li{
       <div class="card" onclick="handleServiceClick()">
         <div class="icon">🚛</div>
         <h2>Ground Transport</h2>
-        <p>Reliable trucking services with real-time GPS tracking, temperature-controlled options, and 24/7 monitoring for sensitive cargo deliveries nationwide.</p>
+        <p>Reliable trucking services with real-time GPS tracking, temperature-controlled options, and 24/7 monitoring
+          for sensitive cargo deliveries nationwide.</p>
       </div>
-      
+
       <div class="card" onclick="handleServiceClick()">
         <div class="icon">✈️</div>
         <h2>Air Freight</h2>
-        <p>Lightning-fast international shipping with priority handling, expedited customs clearance, and door-to-door service for urgent deliveries worldwide.</p>
+        <p>Lightning-fast international shipping with priority handling, expedited customs clearance, and door-to-door
+          service for urgent deliveries worldwide.</p>
       </div>
-      
+
       <div class="card" onclick="handleServiceClick()">
         <div class="icon">🚢</div>
         <h2>Ocean Freight</h2>
-        <p>Cost-effective sea transport for large shipments with comprehensive insurance, documentation assistance, and port-to-port excellence globally.</p>
+        <p>Cost-effective sea transport for large shipments with comprehensive insurance, documentation assistance, and
+          port-to-port excellence globally.</p>
       </div>
-      
+
       <div class="card" onclick="handleServiceClick()">
         <div class="icon">📦</div>
         <h2>Warehousing</h2>
-        <p>State-of-the-art storage facilities with advanced inventory management, automated distribution systems, and climate-controlled environments.</p>
+        <p>State-of-the-art storage facilities with advanced inventory management, automated distribution systems, and
+          climate-controlled environments.</p>
       </div>
-      
+
       <div class="card" onclick="handleServiceClick()">
         <div class="icon">🛡️</div>
         <h2>Secure Logistics</h2>
-        <p>High-security transport for valuable goods with GPS monitoring, armed escorts, and specialized handling protocols for maximum protection.</p>
+        <p>High-security transport for valuable goods with GPS monitoring, armed escorts, and specialized handling
+          protocols for maximum protection.</p>
       </div>
-      
+
       <div class="card" onclick="handleServiceClick()">
         <div class="icon">⚡</div>
         <h2>Express Delivery</h2>
-        <p>Same-day and next-day delivery services with live tracking, signature confirmation, and money-back guarantee for time-critical shipments.</p>
+        <p>Same-day and next-day delivery services with live tracking, signature confirmation, and money-back guarantee
+          for time-critical shipments.</p>
       </div>
-
-
-    <div class="main-container">
-        <header>
-            <div class="logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4v-4z" fill="white"/>
-                </svg>
-                <span>Transport Co.</span>
-            </div>
-            <nav>
-                <a href="#">Services</a>
-                <a href="#">About Us</a>
-                <a href="#">Track Shipment</a>
-            </nav>
-            <div class="auth-buttons">
-              <a href="#" onclick="openLoginPopup()" class="btn btn-login">Login</a>
-              <a href="#" onclick="openSignupPopup()" class="btn btn-signup">Signup</a>
-            </div>
-        </header>
-
-        <main class="hero">
-            <h1>Your Cargo, Our Priority</h1>
-            <p>Seamless and reliable global shipping solutions, tailored for your business.</p>
-            <a href="#" class="btn btn-cta">Get a Free Quote &rarr;</a>
-            
-            <div class="tracking-container">
-                <input type="text" placeholder="Enter Tracking ID...">
-                <button class="btn btn-track">Track Parcel</button>
-            </div>
-
-            <div class="trusted-brands">
-                <p>Trusted by leading brands:</p>
-                <div class="brand-logos">
-                    <span><b>Global</b>Corp</span>
-                    <span>❖ TransNet</span>
-                    <span><b>Apex</b> Logistics</span>
-                    <span><b>Horizon</b> Freight</span>
-                </div>
-            </div>
-        </main>
     </div>
   </section>
 
-  <!-- Overlay for modal -->
   <div class="overlay" id="overlay" onclick="closeServiceAlert()"></div>
 
-  <!-- Service Alert Modal -->
   <div class="service-alert" id="serviceAlert">
     <h3>🔒 Premium Services Access</h3>
-    <p>To access detailed service information, pricing, and exclusive features, please login to your account or create a new one. Join thousands of satisfied customers worldwide!</p>
+    <p>To access detailed service information, pricing, and exclusive features, please login to your account or create a
+      new one. Join thousands of satisfied customers worldwide!</p>
     <div class="alert-buttons">
       <a href="#" onclick="openLoginPopup(); closeServiceAlert();" class="alert-btn primary">Login Now</a>
       <a href="#" onclick="openSignupPopup(); closeServiceAlert();" class="alert-btn secondary">Signup Free</a>
@@ -1791,7 +1941,6 @@ header .hamburgerList ul li{
     </div>
   </div>
 
-  <!-- Login Popup Modal -->
   <div class="login-modal" id="loginModal">
     <div class="login-container">
       <div class="login-header">
@@ -1817,7 +1966,6 @@ header .hamburgerList ul li{
     </div>
   </div>
 
-  <!-- Sign Up Popup Modal -->
   <div class="signup-modal" id="signupModal">
     <div class="signup-container">
       <div class="signup-header">
@@ -1839,13 +1987,15 @@ header .hamburgerList ul li{
         </div>
         <div class="form-group">
           <label for="signup-confirm-password">Confirm Password</label>
-          <input type="password" id="signup-confirm-password" name="confirmPassword" placeholder="Confirm password" required>
+          <input type="password" id="signup-confirm-password" name="confirmPassword" placeholder="Confirm password"
+            required>
         </div>
         <div class="form-group checkbox-group">
           <label class="checkbox-label">
             <input type="checkbox" id="terms-checkbox" name="agreeTerms" required>
             <span class="checkmark"></span>
-            I agree to the <a href="#" onclick="openTermsModal()">Terms and Conditions</a> and <a href="#" onclick="openPrivacyModal()">Privacy Policy</a>
+            I agree to the <a href="#" onclick="openTermsModal()">Terms and Conditions</a> and <a href="#"
+              onclick="openPrivacyModal()">Privacy Policy</a>
           </label>
         </div>
         <div id="signup-error-msg" class="error-message"></div>
@@ -1857,7 +2007,6 @@ header .hamburgerList ul li{
     </div>
   </div>
 
-  <!-- Admin Popup Modal -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-container-popup">
       <div class="admin-header-popup">
@@ -1891,11 +2040,16 @@ header .hamburgerList ul li{
     <div class="footer-container">
       <div class="footer-about">
         <h3>Transport Co.</h3>
-        <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time with innovative solutions and unmatched customer service excellence across the globe.</p>
+        <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time with innovative
+          solutions and unmatched customer service excellence across the globe.</p>
       </div>
 
       <div class="footer-links">
-        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 17-5-5 5-5"/><path d="m6 17-5-5 5-5"/></svg>Quick Links</h4>
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m13 17-5-5 5-5" />
+            <path d="m6 17-5-5 5-5" />
+          </svg>Quick Links</h4>
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
@@ -1906,33 +2060,65 @@ header .hamburgerList ul li{
       </div>
 
       <div class="footer-contact">
-        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact Us</h4>
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>Contact Us</h4>
         <p>Email: <a href="mailto:shubhangi.23bai11165@vitbhopal.ac.in">shubhangi.23bai11165@vitbhopal.ac.in</a></p>
         <p>Phone: +91 98765 XXXXX</p>
         <p>Address: VIT Bhopal, Madhya Pradesh, India</p>
       </div>
 
       <div class="footer-social">
-        <!-- <h4>Follow Us</h4> -->
-        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>Follow Us</h4>
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect width="4" height="12" x="2" y="9" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>Follow Us</h4>
         <div class="social-icons">
-          <!-- <p> -->
-          <a href="https://github.com/ShubhangiRoy12" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/></svg></a>
-          <a href="https://leetcode.com/u/Shubhangi12/" target="_blank" rel="noopener noreferrer" aria-label="LeetCode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1'374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z"/></svg></a>
-          <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
-          <!-- </p> -->
+          <a href="https://github.com/ShubhangiRoy12" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+            </svg></a>
+          <a href="https://leetcode.com/u/Shubhangi12/" target="_blank" rel="noopener noreferrer"
+            aria-label="LeetCode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1.374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/" target="_blank" rel="noopener noreferrer"
+            aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect width="4" height="12" x="2" y="9" />
+              <circle cx="4" cy="4" r="2" />
+            </svg></a>
         </div>
-        <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.7);">Connect with us for updates and exclusive offers!</p>
+        <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.7);">Connect with us for updates and exclusive offers!
+        </p>
       </div>
 
-    
-
       <div class="footer-newsletter">
-        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>Newsletter</h4>
-        <p>Join our mailing list to get exclusive updates, special offers, and insights into the logistics world delivered straight to your inbox. Don't miss out!</p>
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-6l-2 3h-4l-2-3H2" />
+            <path
+              d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+          </svg>Newsletter</h4>
+        <p>Join our mailing list to get exclusive updates, special offers, and insights into the logistics world
+          delivered straight to your inbox. Don't miss out!</p>
         <form class="newsletter-form">
           <input type="email" placeholder="Enter your email" required>
-          <button type="submit">Subscribe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          <button type="submit">Subscribe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg></button>
         </form>
       </div>
     </div>
@@ -1942,13 +2128,13 @@ header .hamburgerList ul li{
   </footer>
 
   <script>
-    // Enhanced Custom Cursor Implementation
     const cursor = document.getElementById('cursor');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
+    let mouseX = 0,
+      mouseY = 0;
+    let cursorX = 0,
+      cursorY = 0;
     let trails = [];
 
-    // Create cursor trails
     function createTrails() {
       for (let i = 0; i < 8; i++) {
         const trail = document.createElement('div');
@@ -1963,74 +2149,64 @@ header .hamburgerList ul li{
       }
     }
 
-    // Update cursor position
     function updateCursor() {
       const dx = mouseX - cursorX;
       const dy = mouseY - cursorY;
-      
-      // Faster easing for quicker movement
+
       cursorX += dx * 0.35;
       cursorY += dy * 0.35;
-      
-      // Use transform for GPU acceleration (60fps smooth)
+
       cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-      
-      // Update trails with optimized transforms
+
       trails.forEach((trail, index) => {
         const targetX = mouseX - (index * 5);
         const targetY = mouseY - (index * 5);
-        
+
         trail.x += (targetX - trail.x) * (0.4 - index * 0.02);
         trail.y += (targetY - trail.y) * (0.4 - index * 0.02);
-        
+
         trail.element.style.transform = `translate(${trail.x - 3}px, ${trail.y - 3}px)`;
         trail.element.style.opacity = 1 - (index * 0.15);
       });
-      
+
       requestAnimationFrame(updateCursor);
     }
 
-    // Mouse move event
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
 
-    // Mouse down event
     document.addEventListener('mousedown', () => {
       cursor.classList.add('click');
     });
 
-    // Mouse up event
     document.addEventListener('mouseup', () => {
       cursor.classList.remove('click');
     });
 
-    // Hover effects for interactive elements
     const hoverElements = document.querySelectorAll('a, button, .card, input, textarea');
     hoverElements.forEach(element => {
       element.addEventListener('mouseenter', () => {
         cursor.classList.add('hover');
       });
-      
+
       element.addEventListener('mouseleave', () => {
         cursor.classList.remove('hover');
       });
     });
 
-    // Text cursor for input fields
     const textElements = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], textarea');
     textElements.forEach(element => {
       element.addEventListener('mouseenter', () => {
         cursor.classList.add('text');
       });
-      
+
       element.addEventListener('mouseleave', () => {
         cursor.classList.remove('text');
       });
     });
 
-    // Initialize cursor system
     function initCursor() {
       if (window.innerWidth > 768 && matchMedia('(pointer: fine)').matches) {
         createTrails();
@@ -2038,11 +2214,10 @@ header .hamburgerList ul li{
       }
     }
 
-    // Create animated background particles
     function createParticles() {
       const particles = document.getElementById('particles');
       const particleCount = 50;
-      
+
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
@@ -2054,36 +2229,32 @@ header .hamburgerList ul li{
       }
     }
 
-    // Handle service card clicks with enhanced animation
     function handleServiceClick() {
       const overlay = document.getElementById('overlay');
       const alert = document.getElementById('serviceAlert');
-      
+
       overlay.classList.add('active');
       alert.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      // document.body.style.overflow = 'hidden';
     }
 
-    // Close service alert with smooth animation
     function closeServiceAlert() {
       const overlay = document.getElementById('overlay');
       const alert = document.getElementById('serviceAlert');
-      
+
       alert.classList.remove('active');
-      
+
       setTimeout(() => {
         overlay.classList.remove('active');
         document.body.style.overflow = 'auto';
       }, 300);
     }
 
-    // Login Popup Functions
     function openLoginPopup() {
       const loginModal = document.getElementById('loginModal');
       loginModal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      
-      // Focus on email input
+
       setTimeout(() => {
         document.getElementById('popup-email').focus();
       }, 300);
@@ -2093,13 +2264,11 @@ header .hamburgerList ul li{
       const loginModal = document.getElementById('loginModal');
       loginModal.classList.remove('active');
       document.body.style.overflow = 'auto';
-      
-      // Clear form
+
       document.getElementById('login-form-popup').reset();
       document.getElementById('popup-error-msg').textContent = '';
     }
 
-    // Login form validation and submission
     document.getElementById('login-form-popup').addEventListener('submit', function (e) {
       e.preventDefault();
       const email = document.getElementById('popup-email').value.trim();
@@ -2107,21 +2276,18 @@ header .hamburgerList ul li{
       const errorMsg = document.getElementById('popup-error-msg');
       errorMsg.textContent = '';
 
-      // Email validation
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
         errorMsg.textContent = 'Please enter a valid email address.';
         return;
       }
 
-      // Password strength validation
       const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
       if (!strongPasswordPattern.test(password)) {
         errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
         return;
       }
 
-      // Success - show loading effect and redirect
       const submitBtn = this.querySelector('.login-submit-btn');
       const originalText = submitBtn.textContent;
       submitBtn.textContent = 'Logging in...';
@@ -2132,20 +2298,17 @@ header .hamburgerList ul li{
       }, 1000);
     });
 
-    // Click outside to close login popup
-    document.getElementById('loginModal').addEventListener('click', function(e) {
+    document.getElementById('loginModal').addEventListener('click', function (e) {
       if (e.target === this) {
         closeLoginPopup();
       }
     });
 
-    // Sign Up Popup Functions
     function openSignupPopup() {
       const signupModal = document.getElementById('signupModal');
       signupModal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      
-      // Focus on name input
+
       setTimeout(() => {
         document.getElementById('signup-name').focus();
       }, 300);
@@ -2155,13 +2318,11 @@ header .hamburgerList ul li{
       const signupModal = document.getElementById('signupModal');
       signupModal.classList.remove('active');
       document.body.style.overflow = 'auto';
-      
-      // Clear form
+
       document.getElementById('signup-form-popup').reset();
       document.getElementById('signup-error-msg').textContent = '';
     }
 
-    // Sign up form validation and submission
     document.getElementById('signup-form-popup').addEventListener('submit', function (e) {
       e.preventDefault();
       const name = document.getElementById('signup-name').value.trim();
@@ -2172,46 +2333,39 @@ header .hamburgerList ul li{
       const errorMsg = document.getElementById('signup-error-msg');
       errorMsg.textContent = '';
 
-      // Check for empty fields
       if (!name || !email || !password || !confirmPassword) {
         errorMsg.textContent = 'Please fill in all fields.';
         return;
       }
 
-      // Check if terms are agreed
       if (!agreeTerms) {
         errorMsg.textContent = 'Please agree to the Terms and Conditions to continue.';
         return;
       }
 
-      // Name validation (only alphabets and spaces)
       const namePattern = /^[A-Za-z ]+$/;
       if (!namePattern.test(name)) {
         errorMsg.textContent = 'Name should contain only alphabets and spaces.';
         return;
       }
 
-      // Email validation
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
         errorMsg.textContent = 'Please enter a valid email address.';
         return;
       }
 
-      // Password strength validation
       const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
       if (!strongPasswordPattern.test(password)) {
         errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
         return;
       }
 
-      // Confirm password match
       if (password !== confirmPassword) {
         errorMsg.textContent = 'Passwords do not match.';
         return;
       }
 
-      // Success - show loading effect and redirect
       const submitBtn = this.querySelector('.signup-submit-btn');
       const originalText = submitBtn.textContent;
       submitBtn.textContent = 'Creating Account...';
@@ -2220,7 +2374,6 @@ header .hamburgerList ul li{
       setTimeout(() => {
         closeSignupPopup();
         openLoginPopup();
-        // Show success message in login form
         setTimeout(() => {
           const loginErrorMsg = document.getElementById('popup-error-msg');
           loginErrorMsg.style.color = '#10b981';
@@ -2229,20 +2382,17 @@ header .hamburgerList ul li{
       }, 1500);
     });
 
-    // Click outside to close signup popup
-    document.getElementById('signupModal').addEventListener('click', function(e) {
+    document.getElementById('signupModal').addEventListener('click', function (e) {
       if (e.target === this) {
         closeSignupPopup();
       }
     });
 
-    // Admin Popup Functions
     function openAdminPopup() {
       const adminModal = document.getElementById('adminModal');
       adminModal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      
-      // Focus on admin ID input
+
       setTimeout(() => {
         document.getElementById('admin-id').focus();
       }, 300);
@@ -2252,19 +2402,16 @@ header .hamburgerList ul li{
       const adminModal = document.getElementById('adminModal');
       adminModal.classList.remove('active');
       document.body.style.overflow = 'auto';
-      
-      // Clear form
+
       document.getElementById('admin-form-popup').reset();
       document.getElementById('admin-error-msg').textContent = '';
-      
-      // Reset any blocked state
+
       const submitBtn = document.querySelector('.admin-submit-btn');
       submitBtn.disabled = false;
       submitBtn.textContent = 'Access Dashboard';
       submitBtn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
     }
 
-    // Admin form validation and submission
     let adminLoginAttempts = 0;
     const maxAdminAttempts = 3;
 
@@ -2275,9 +2422,7 @@ header .hamburgerList ul li{
       const errorMsg = document.getElementById('admin-error-msg');
       errorMsg.textContent = '';
 
-      // Simple validation (in real app, this would be server-side)
       if (adminId === 'admin' && adminPassword === 'transport2024') {
-        // Success - show loading effect and redirect
         const submitBtn = this.querySelector('.admin-submit-btn');
         submitBtn.textContent = 'Accessing Dashboard...';
         submitBtn.disabled = true;
@@ -2288,7 +2433,7 @@ header .hamburgerList ul li{
         }, 1000);
       } else {
         adminLoginAttempts++;
-        
+
         if (adminLoginAttempts >= maxAdminAttempts) {
           errorMsg.textContent = 'Maximum login attempts exceeded. Access temporarily blocked.';
           const submitBtn = this.querySelector('.admin-submit-btn');
@@ -2297,13 +2442,11 @@ header .hamburgerList ul li{
           submitBtn.style.background = '#95a5a6';
           return;
         }
-        
+
         errorMsg.textContent = `Invalid credentials. Attempt ${adminLoginAttempts}/${maxAdminAttempts}`;
-        
-        // Clear password field
+
         document.getElementById('admin-password').value = '';
-        
-        // Add shake animation
+
         const container = document.querySelector('.admin-container-popup');
         container.style.animation = 'shake 0.5s ease-in-out';
         setTimeout(() => {
@@ -2312,14 +2455,12 @@ header .hamburgerList ul li{
       }
     });
 
-    // Click outside to close admin popup
-    document.getElementById('adminModal').addEventListener('click', function(e) {
+    document.getElementById('adminModal').addEventListener('click', function (e) {
       if (e.target === this) {
         closeAdminPopup();
       }
     });
 
-    // Terms and Privacy Policy Functions (placeholder - can be expanded later)
     function openTermsModal() {
       alert('Terms and Conditions\n\nWelcome to MooVit Transport Co. By using our services, you agree to:\n\n1. Use our platform responsibly\n2. Provide accurate information\n3. Respect our service guidelines\n4. Follow applicable laws and regulations\n\nFor full terms, please contact our support team.\n\nThis is a demo implementation.');
     }
@@ -2328,13 +2469,12 @@ header .hamburgerList ul li{
       alert('Privacy Policy\n\nAt MooVit, we value your privacy and are committed to protecting your personal data:\n\n1. We collect only necessary information\n2. Your data is securely stored and encrypted\n3. We never share your information without consent\n4. You have control over your data\n\nFor complete privacy policy details, please contact our support team.\n\nThis is a demo implementation.');
     }
 
-    // Enhanced loading animations with stagger effect
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
       createParticles();
       initCursor();
-      
+
       const loadingElements = document.querySelectorAll('.loading');
-      
+
       loadingElements.forEach((element, index) => {
         setTimeout(() => {
           element.classList.add('loaded');
@@ -2342,51 +2482,22 @@ header .hamburgerList ul li{
       });
     });
 
-    // Header scroll effect with smooth transitions
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', function() {
-      const header = document.getElementById('header');
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
-      if (scrollTop > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-      
-      lastScrollTop = scrollTop;
-    });
-
-    //hamburger interactivity
-     document.querySelector(".hamburger").addEventListener("click",()=>{
-        
-        if(document.querySelector(".hamburger").getAttribute("src")=="hamburger.svg"){
-            document.querySelector(".hamburger").setAttribute("src",'close.svg')
-            document.querySelector(".hamburgerList").style.display="block"
-        }
-        else{
-            document.querySelector(".hamburger").setAttribute("src","hamburger.svg");
-            document.querySelector(".hamburgerList").style.display="none"
-        }
-    })
-
-    // Enhanced ripple effect for interactive elements
     function createRipple(event, element) {
       const ripple = document.createElement('span');
       const rect = element.getBoundingClientRect();
       const size = Math.max(rect.width, rect.height);
       const x = event.clientX - rect.left - size / 2;
       const y = event.clientY - rect.top - size / 2;
-      
+
       ripple.style.width = ripple.style.height = size + 'px';
       ripple.style.left = x + 'px';
       ripple.style.top = y + 'px';
       ripple.classList.add('ripple');
-      
+
       element.style.position = 'relative';
       element.style.overflow = 'hidden';
       element.appendChild(ripple);
-      
+
       setTimeout(() => {
         if (ripple.parentNode) {
           ripple.remove();
@@ -2394,15 +2505,13 @@ header .hamburgerList ul li{
       }, 600);
     }
 
-    // Add ripple effect to buttons and cards
     document.querySelectorAll('.btn, .alert-btn, .card').forEach(element => {
-      element.addEventListener('click', function(e) {
+      element.addEventListener('click', function (e) {
         createRipple(e, this);
       });
     });
 
-    // Keyboard navigation
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape') {
         closeServiceAlert();
         closeLoginPopup();
@@ -2411,7 +2520,6 @@ header .hamburgerList ul li{
       }
     });
 
-    // Smooth scroll for internal links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -2425,9 +2533,8 @@ header .hamburgerList ul li{
       });
     });
 
-    // Enhanced card interactions with 3D effect
     document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mousemove', function(e) {
+      card.addEventListener('mousemove', function (e) {
         const rect = this.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -2435,16 +2542,15 @@ header .hamburgerList ul li{
         const centerY = rect.height / 2;
         const rotateX = (y - centerY) / 10;
         const rotateY = (centerX - x) / 10;
-        
+
         this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.02)`;
       });
-      
-      card.addEventListener('mouseleave', function() {
+
+      card.addEventListener('mouseleave', function () {
         this.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)';
       });
     });
 
-    // Intersection Observer for scroll animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -2462,7 +2568,6 @@ header .hamburgerList ul li{
       observer.observe(card);
     });
 
-    // Add floating animation to particles
     function animateParticles() {
       const particles = document.querySelectorAll('.particle');
       particles.forEach(particle => {
@@ -2474,15 +2579,13 @@ header .hamburgerList ul li{
 
     setInterval(animateParticles, 3000);
 
-    // Enhanced modal animations
     const serviceAlert = document.getElementById('serviceAlert');
-    serviceAlert.addEventListener('transitionend', function(e) {
+    serviceAlert.addEventListener('transitionend', function (e) {
       if (e.propertyName === 'opacity' && this.classList.contains('active')) {
         this.style.animation = 'modalBounce 0.6s ease-out';
       }
     });
 
-    // Add CSS for modal bounce animation
     const modalStyle = document.createElement('style');
     modalStyle.textContent = `
       @keyframes modalBounce {
@@ -2525,54 +2628,47 @@ header .hamburgerList ul li{
     `;
     document.head.appendChild(modalStyle);
 
-    // Add parallax effect to hero section
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       const scrolled = window.pageYOffset;
       const hero = document.querySelector('.hero');
       const rate = scrolled * -0.3;
-      
+
       if (hero) {
         hero.style.transform = `translateY(${rate}px)`;
       }
     });
 
-    // Add glow effect on card hover
     document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
+      card.addEventListener('mouseenter', function () {
         this.style.boxShadow = '0 25px 50px rgba(37, 99, 235, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3)';
       });
-      
-      card.addEventListener('mouseleave', function() {
+
+      card.addEventListener('mouseleave', function () {
         this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
       });
     });
 
-    // Responsive cursor handling
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
       if (window.innerWidth <= 768) {
-        // Remove cursor elements on mobile
         const cursorElement = document.getElementById('cursor');
         const trailElements = document.querySelectorAll('.cursor-trail');
-        
+
         if (cursorElement) cursorElement.style.display = 'none';
         trailElements.forEach(trail => trail.remove());
       } else if (matchMedia('(pointer: fine)').matches) {
-        // Reinitialize cursor on desktop
         const cursorElement = document.getElementById('cursor');
         if (cursorElement) cursorElement.style.display = 'block';
-        
+
         if (trails.length === 0) {
           createTrails();
         }
       }
     });
 
-    // Preloader effect
-    window.addEventListener('load', function() {
-      document.body.style.overflow = 'auto';
+    window.addEventListener('load', function () {
+      // document.body.style.overflow = 'auto';
     });
 
-    // Lazy loading enhancement
     const lazyImages = document.querySelectorAll('img[data-src]');
     const imageObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -2587,62 +2683,66 @@ header .hamburgerList ul li{
 
     lazyImages.forEach(img => imageObserver.observe(img));
 
-    // Cursor magnetic effect for special elements
     document.querySelectorAll('.btn, .alert-btn').forEach(element => {
-      element.addEventListener('mousemove', function(e) {
+      element.addEventListener('mousemove', function (e) {
         const rect = this.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
         const distance = Math.sqrt(x * x + y * y);
-        
+
         if (distance < 50) {
           const force = (50 - distance) / 50;
           const moveX = x * force * 0.3;
           const moveY = y * force * 0.3;
-          
+
           cursor.style.transform = `translate(${moveX}px, ${moveY}px)`;
         }
       });
-      
-      element.addEventListener('mouseleave', function() {
+
+      element.addEventListener('mouseleave', function () {
         cursor.style.transform = 'translate(0, 0)';
       });
 
     });
+
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+
+      if (mobileMenu.classList.contains('active')) {
+        mobileLinks.forEach((link, index) => {
+          link.style.transitionDelay = `${index * 0.1}s`;
+        });
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileLinks.forEach(link => {
+          link.style.transitionDelay = '0s';
+        });
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+    });
   </script>
 </body>
-    <footer>
-        <div class="footer-container">
-            <div class="footer-about">
-                <h3>Transport Co.</h3>
-                <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <p>Email: <a href="mailto:contact@transportco.com">contact@transportco.com</a></p>
-                <p>Phone: +91 98765 XXXXX</p>
-                <p>Address: Lonavala, Maharashtra, India</p>
-            </div>
-            <div class="footer-social">
-                <h4>Follow Us</h4>
-                <a href="#">GitHub</a> | 
-                <a href="#">LeetCode</a> | 
-                <a href="#">LinkedIn</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Transport Co. | All Rights Reserved.</p>
-        </div>
-    </footer>
 
-</body>
 </html>
