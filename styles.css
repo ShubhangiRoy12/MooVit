@@ -3,7 +3,8 @@ body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     color: #ffffff;
-    background-color: #0d1a2e; /* Fallback color */
+    background-color: #0d1a2e;
+    /* Fallback color */
     background-image: linear-gradient(rgba(13, 26, 46, 0.8), rgba(13, 26, 46, 0.8)), url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
     background-size: cover;
     background-position: center;
@@ -12,14 +13,27 @@ body {
     /* Flexbox properties for layout */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between; /* Positions main content at top, footer at bottom */
+    align-items: stretch; /* Fixes the squished header */
+    justify-content: space-between;
     min-height: 100vh;
-    box-sizing: border-box; /* Ensures padding is included in height calculation */
+    box-sizing: border-box;
+} /* <--- CLOSING BRACE FOR BODY MUST BE HERE */
+
+/* --- EMERGENCY FIX for Giant Icons --- */
+img, svg {
+    max-width: 100%;
+    height: auto;
 }
 
+/* Specific fix for the "Close" and "Menu" icons */
+.close-icon, .menu-icon, svg {
+    max-width: 50px; /* Forces that giant X to shrink */
+}
+
+/* Find this block and UPDATE it */
 .main-container {
-    width: 177%;
+    width: 90%;
+    /* CHANGED from 177% to 90% */
     max-width: 1100px;
     background-color: rgba(21, 38, 63, 0.6);
     border-radius: 16px;
@@ -27,7 +41,13 @@ body {
     padding: 2rem 3rem;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    margin: auto 0; /* Helps with vertical centering within the flex space */
+
+    /* Center the container horizontally */
+    margin: auto;
+    margin-top: 2rem;
+    /* Adds space from top */
+    margin-bottom: 2rem;
+    /* Adds space from bottom */
 }
 
 .auth-buttons {
@@ -63,7 +83,8 @@ nav a {
     transition: color 0.3s ease;
 }
 
-nav a:hover, nav a.active {
+nav a:hover,
+nav a.active {
     color: #ffffff;
 }
 
@@ -110,7 +131,7 @@ nav a:hover, nav a.active {
     line-height: 1.2;
 }
 
-.hero > p {
+.hero>p {
     font-size: 1.1rem;
     color: #d0d0d0;
     max-width: 600px;
@@ -156,6 +177,7 @@ nav a:hover, nav a.active {
     background-color: #495057;
     color: #ffffff;
 }
+
 .btn-track:hover {
     background-color: #343a40;
 }
@@ -164,7 +186,7 @@ nav a:hover, nav a.active {
     margin-top: 2rem;
 }
 
-.trusted-brands > p {
+.trusted-brands>p {
     color: #a0a0a0;
     margin-bottom: 1.5rem;
 }
@@ -233,4 +255,38 @@ footer {
     padding-top: 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.9rem;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .main-container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+        /* Smaller text for mobile */
+    }
+
+    .tracking-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tracking-container input {
+        width: 100%;
+    }
 }
