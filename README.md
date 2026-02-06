@@ -33,6 +33,71 @@ Try it now → https://moo-vit.vercel.app/
 
 ---
 
+## ✨ Structure
+
+MooVit/
+├── .github/
+│   └── (GitHub configuration files)
+├── Chatbot/
+├── FoodStall_and_hotels/
+├── Public transportation/
+├── Routes/
+├── Safety and awareness/
+├── Schedule/
+├── Shipments/
+├── Vehicles/
+├── feedback/
+├── live-detection/
+├── sharingcab/
+├── sharp-detection/
+│
+├── .DS_Store
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LEARN.md
+├── LICENSE
+├── README.md
+│
+├── Frontend/
+│   ├── index.html
+│   ├── about.html
+│   ├── admin.html
+│   ├── contact.html
+│   ├── login.html
+│   ├── main.html
+│   ├── privacy.html
+│   ├── register.html
+│   ├── safety.html
+│   ├── script.js
+│   ├── styles.css
+│   ├── favicon.png
+│   ├── bgImg.jpg
+│   ├── close.svg
+│   └── hamburger.svg
+│
+├── Backend/
+│   ├── app.py (assumed backend entry point)
+│   ├── requirements.txt
+│   └── (possible modules for AI/ML inference & APIs)
+│
+├── Models/
+│   └── (YOLO / TensorFlow / PyTorch model files)
+│
+├── Utils/
+│   ├── image_processing.py
+│   ├── voice_alerts.py
+│   └── helpers.py
+│
+├── Static/
+│   ├── images/
+│   ├── css/
+│   └── js/
+│
+└── Deploy/
+    └── (Vercel/GitHub deployment configs)
+
+
+---
 ## 🛠 Tech Stack
 
 ### Computer Vision & AI
