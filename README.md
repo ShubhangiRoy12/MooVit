@@ -21,6 +21,15 @@ Try it now → https://moo-vit.vercel.app/
 
 ---
 
+## 📸 Project Screenshots
+
+### 🏠 Home / Landing Page
+![Home Page](screenshots/home_hero.png)
+
+### 🚚 Services Section
+![Services Section](screenshots/services_section.png)
+
+---
 ## ✨ Features
 
 - Detects vehicles, people, signals, and sharp objects
