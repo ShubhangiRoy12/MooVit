@@ -24,10 +24,10 @@ Try it now → https://moo-vit.vercel.app/
 ## 📸 Project Screenshots
 
 ### 🏠 Home / Landing Page
-![Home Page](screenshots/home_hero.png)
+![Home Page](services_section.png.png)
 
 ### 🚚 Services Section
-![Services Section](screenshots/services_section.png)
+![Services Section](home_hero.png.png)
 
 ---
 ## ✨ Features
@@ -43,67 +43,34 @@ Try it now → https://moo-vit.vercel.app/
 ---
 
 ## ✨ Structure
-
+```
 MooVit/
 ├── .github/
-│   └── (GitHub configuration files)
-├── Chatbot/
-├── FoodStall_and_hotels/
-├── Public transportation/
-├── Routes/
-├── Safety and awareness/
-├── Schedule/
-├── Shipments/
-├── Vehicles/
-├── feedback/
-├── live-detection/
-├── sharingcab/
-├── sharp-detection/
+│   └── workflows/                 # GitHub Actions / CI configs
 │
-├── .DS_Store
-├── CODE_OF_CONDUCT.md
-├── CONTRIBUTING.md
-├── LEARN.md
-├── LICENSE
-├── README.md
+├── frontend/                      # Frontend (HTML, CSS, JS)
+│   ├── index.html                 # Landing page
+│   ├── pages/
+│   │   ├── about.html
+│   │   ├── contact.html
+│   │   ├── login.html
+│   │   └── safety.html
+│   ├── assets/
+│   │   ├── images/                # UI images
+│   │   ├── icons/                 # SVG icons
+│   │   └── styles.css             # Global styles
+│   └── script.js                  # Frontend logic
 │
-├── Frontend/
-│   ├── index.html
-│   ├── about.html
-│   ├── admin.html
-│   ├── contact.html
-│   ├── login.html
-│   ├── main.html
-│   ├── privacy.html
-│   ├── register.html
-│   ├── safety.html
-│   ├── script.js
-│   ├── styles.css
-│   ├── favicon.png
-│   ├── bgImg.jpg
-│   ├── close.svg
-│   └── hamburger.svg
-│
-├── Backend/
-│   ├── app.py (assumed backend entry point)
-│   ├── requirements.txt
-│   └── (possible modules for AI/ML inference & APIs)
-│
-├── Models/
-│   └── (YOLO / TensorFlow / PyTorch model files)
-│
-├── Utils/
-│   ├── image_processing.py
-│   ├── voice_alerts.py
-│   └── helpers.py
-│
-├── Static/
-│   ├── images/
-│   ├── css/
-│   └── js/
-│
-└── Deploy/
-    └── (Vercel/GitHub deployment configs)
+├── backend/                       # Backend (Python)
+│   ├── app.py                     # Main backend entry point
+│   ├── routes/                    # API routes
+│   │   ├── tracking.py
+│   │   ├── vehicles.py
+│   │   └── safety.py
+│   ├── models/                    # ML / Detection models
+│   │   └── detection_model.py
+│   ├── utils/                     # Helper functio
+```
 
 
 ---
