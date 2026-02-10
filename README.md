@@ -1,185 +1,207 @@
-# MooVit
+# 🚀 MooVit
 
-MooVit is an AI-powered real-time object detection and voice-assist system designed to improve road safety and mobility—especially for visually impaired users, logistics operations, and vehicle drivers. It detects people, vehicles, traffic signals, animals, dangerous objects, and known faces. MooVit offers voice alerts for real-time navigation, shipment scheduling assistance, route optimization, and road safety awareness.
+MooVit is an AI‑powered real‑time object detection and voice‑assist system designed to improve road safety and mobility — especially for visually impaired users, logistics operations, and vehicle drivers. It detects people, vehicles, traffic signals, animals, dangerous objects, and known faces while providing intelligent voice alerts for navigation, safety awareness, and logistics support.
 
-🔗 Live site: https://moo-vit.vercel.app/
+🔗 **Live Site:** [https://moo-vit.vercel.app/](https://moo-vit.vercel.app/)
+
+---
+
+## 📑 Table of Contents
+
+* Web Application
+* Features
+* Project Structure
+* Tech Stack
+* Installation
+* Use Cases
+* Future Plans
+* Contributing
+* Contributors
+* License
 
 ---
 
 ## 🌐 Web Application
 
-The MooVit web interface is simple, accessible, and packed with functionality:
+The MooVit web interface is designed to be simple, accessible, and highly functional:
 
-- Access real-time camera feed for object detection
-- Upload image or video files for instant analysis
-- Bounding boxes + voice alerts for detected objects and threats
-- Responsive interface works on both desktop and mobile
-- Shipment route scheduling and alert-based safety recommendations (BETA)
-- Safety awareness prompts for road signs, traffic zones, and conditions
+* Real‑time camera feed for object detection
+* Upload image or video files for instant analysis
+* Bounding boxes with voice alerts for detected objects
+* Fully responsive interface (desktop and mobile)
+* Shipment route scheduling with safety recommendations (Beta)
+* Traffic safety prompts for road signs, crossings, and hazard zones
 
-Try it now → https://moo-vit.vercel.app/
+👉 Try it here: [https://moo-vit.vercel.app/](https://moo-vit.vercel.app/)
 
 ---
 
 ## 📸 Project Screenshots
 
 ### 🏠 Home / Landing Page
+
 ![Home Page](services_section.png.png)
 
 ### 🚚 Services Section
+
 ![Services Section](home_hero.png.png)
 
 ---
+
 ## ✨ Features
 
-- Detects vehicles, people, signals, and sharp objects
-- Recognizes known faces to help visually impaired users follow familiar people
-- Real-time voice alerts based on camera/video input
-- Vehicle shipment schedule module: input shipment data, receive route timelines
-- Route safety planner: avoid known hazard zones or restricted areas
-- Traffic awareness: highlights signals, signs, and crossing points
-- Upload images or use live camera feed for detection
+* Detects vehicles, pedestrians, signals, animals, and hazards
+* Known face recognition to assist visually impaired users
+* Real‑time voice alerts from camera or uploaded media
+* Shipment scheduling with route timeline insights
+* Route safety planner to avoid restricted or risky zones
+* Traffic awareness highlighting signals and crossings
+* Support for both live camera input and file uploads
 
 ---
 
-## ✨ Structure
+## 📂 Project Structure
+
 ```
 MooVit/
 ├── .github/
-│   └── workflows/                 # GitHub Actions / CI configs
+│   └── workflows/           # GitHub Actions / CI configurations
 │
-├── frontend/                      # Frontend (HTML, CSS, JS)
-│   ├── index.html                 # Landing page
+├── frontend/
+│   ├── index.html
 │   ├── pages/
 │   │   ├── about.html
 │   │   ├── contact.html
 │   │   ├── login.html
 │   │   └── safety.html
 │   ├── assets/
-│   │   ├── images/                # UI images
-│   │   ├── icons/                 # SVG icons
-│   │   └── styles.css             # Global styles
-│   └── script.js                  # Frontend logic
+│   │   ├── images/
+│   │   ├── icons/
+│   │   └── styles.css
+│   └── script.js
 │
-├── backend/                       # Backend (Python)
-│   ├── app.py                     # Main backend entry point
-│   ├── routes/                    # API routes
+├── backend/
+│   ├── app.py
+│   ├── routes/
 │   │   ├── tracking.py
 │   │   ├── vehicles.py
 │   │   └── safety.py
-│   ├── models/                    # ML / Detection models
+│   ├── models/
 │   │   └── detection_model.py
-│   ├── utils/                     # Helper functio
+│   └── utils/
 ```
 
-
 ---
+
 ## 🛠 Tech Stack
 
-### Computer Vision & AI
-- YOLOv8 / YOLOv11 / YOLOv12 – object detection
-- OpenCV – image and video stream processing
-- TensorFlow / PyTorch – model training and inference
+### 🤖 Computer Vision & AI
 
-### Web & Voice Interaction
-- HTML, CSS, JavaScript – frontend interface
-- Python + Flask / FastAPI – backend server and APIs
-- Canvas API – draw detection boxes in real-time
-- MediaDevices API – access webcam on web
-- json – text-to-speech alerts
+* YOLOv8 / YOLOv11 / YOLOv12
+* OpenCV for image/video processing
+* TensorFlow / PyTorch for model training and inference
 
-### Logistics & Route Modules
-- Custom scheduling API – for shipment planning (JSON-based input)
-- GeoJSON / Google Maps API (optional) – for route plotting and safe-path suggestions
-- SQLite / JSON – for storing schedules and known hazard zones
+### 🌐 Web & Voice Interaction
 
-### Deployment & Tools
-- Vercel – frontend deployment
-- GitHub – version control
-- WebSocket / HTTP Fetch – real-time communication
+* HTML, CSS, JavaScript frontend
+* Python (Flask / FastAPI) backend
+* Canvas API for drawing detection overlays
+* MediaDevices API for webcam access
+* JSON‑based text‑to‑speech alerts
+
+### 🚚 Logistics & Routing
+
+* Custom scheduling API (JSON‑based input)
+* GeoJSON / Google Maps API (optional integration)
+* SQLite / JSON storage for routes and hazard data
+
+### ☁️ Deployment & Tools
+
+* Vercel (Frontend hosting)
+* GitHub (Version control & collaboration)
+* WebSocket / HTTP Fetch for real‑time communication
 
 ---
 
 ## 📦 Installation (Developer Setup)
 
-1. Clone the repo:
+### 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/ShubhangiRoy12/moovit.git
 cd moovit
 ```
 
-2. Install backend dependencies:
+### 2️⃣ Install Backend Dependencies
+
 ```bash
 cd backend
 pip install -r requirements.txt
 ```
-3. Start the backend server:
+
+### 3️⃣ Run Backend Server
+
 ```bash
 python app.py
 ```
 
-4. For frontend, deploy the frontend/ folder on Vercel or use a static server locally.
+### 4️⃣ Run Frontend
+
+Deploy the `frontend/` folder on Vercel or use any static server locally.
 
 ---
- 
+
 ## 📋 Use Cases
 
--Assist visually impaired users with voice-based object alerts
-
--Help logistics teams plan safe and efficient routes
-
--Offer vehicle drivers route awareness and obstacle warnings
-
--Provide safety prompts in traffic-heavy or high-risk zones
-
--Enable face tracking to follow companions in crowded areas
+* Assist visually impaired users with voice‑based navigation alerts
+* Logistics route planning and shipment tracking
+* Driver assistance for obstacle detection and road awareness
+* Traffic hazard identification and safety prompts
+* Face tracking to help follow companions in crowded environments
 
 ---
 
 ## 🚧 Future Plans
 
--Add multilingual voice support
-
--GPS-based live routing for shipment vehicles
-
--Heatmap overlays for high-risk zones
-
--Admin dashboard to view and edit shipment schedules
-
--Public API for integration with logistics and assistive apps
+* Multilingual voice support
+* GPS‑based live shipment routing
+* Risk zone heatmap overlays
+* Admin dashboard for logistics management
+* Public API integration for third‑party apps
 
 ---
 
 ## 🤝 Contributing
 
--We welcome contributions! You can help with:
+Contributions are welcome and encouraged.
 
--Improving detection accuracy
+### You can contribute by:
 
--Expanding shipment scheduling logic
+* Improving detection accuracy
+* Enhancing logistics and scheduling features
+* UI/UX improvements
+* Accessibility and localization enhancements
 
--UI/UX design improvements
+### Contribution Steps:
 
--Adding more face profiles or localization features
+1. Fork the repository
+2. Create a branch:
 
----
-
-Steps:
-1. Fork this repo
-2. Create a branch (git checkout -b feature-name)
+   ```bash
+   git checkout -b feature-name
+   ```
 3. Commit your changes
-4. Push and open a PR
+4. Push your branch and open a Pull Request
 
 ---
 
-## Contibutors
-- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer 
+## 👥 Contributors
 
-- **[Om Roy](https://github.com/omroy07)** – Web Developer  & Machine Learning Engineer
+* **Shubhangi Roy** – Project Lead & Machine Learning Engineer
+* **Om Roy** – Web Developer & Machine Learning Engineer
 
+---
 
-📜 License
-This project is licensed under the MIT License. See LICENSE file for details.
+## 📜 License
 
-
+This project is licensed under the MIT License. See the LICENSE file for details.
