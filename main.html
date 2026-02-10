@@ -1,90 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.png">
-    <title>Dashboard − MooVit</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, rgba(15,23,42,0.98), rgba(30,64,175,0.95));
+            color: white;
+            margin-top: 4rem;
+            font-size: 0.95rem;
         }
 
-        :root {
-            --primary-blue: #0f172a;
-            --secondary-blue: #1e40af;
-            --accent-orange: #f97316;
-            --accent-green: #059669;
-            --accent-purple: #7c3aed;
-            --light-bg: #f8fafc;
-            --white: #ffffff;
-            --gray-100: #f1f5f9;
-            --gray-200: #e2e8f0;
-            --gray-600: #475569;
-            --gray-800: #1e293b;
-            --shadow-light: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-            --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-large: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            line-height: 1.6;
-            color: var(--gray-800);
-        }
-
-        /* Header */
-         header {
-        background: rgba(255, 255, 255, 0.4); 
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px); /* For Safari Support */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 1.5rem 0;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-content {
+        .footer-content {
             max-width: 1400px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
+            padding: 3rem 2rem;
         }
 
-        .logo {
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            align-items: start;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-orange);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 1.05rem;
             display: flex;
             align-items: center;
+            gap: 0.6rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 1rem;
+            opacity: 0.95;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.92);
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.88);
+            text-decoration: none;
+            transition: color 0.18s ease, transform 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section a:hover,
+        .footer-section a:focus {
+            color: var(--accent-orange);
+            transform: translateX(4px);
+            outline: none;
+        }
+
+        .footer-section a:focus-visible {
+            box-shadow: 0 0 0 4px rgba(249,115,22,0.14);
+            border-radius: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.06);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.18s ease, transform 0.18s ease;
+        }
+
+        .social-links a:hover,
+        .social-links a:focus {
+            background: var(--accent-orange);
+            transform: translateY(-4px);
+        }
+
+        .social-links a i { font-size: 1.05rem; }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            opacity: 0.94;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom .legal {
+            display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            color: rgba(255,255,255,0.75);
         }
 
-        .logo i {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--secondary-blue), var(--accent-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .visually-hidden {
+            position: absolute !important;
+            height: 1px; width: 1px;
+            overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+            white-space: nowrap; border: 0; padding: 0; margin: -1px;
         }
 
-        .logo h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* Responsive Footer */
+        @media (max-width: 1000px) {
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        .header-nav {
-            display: flex;
+        @media (max-width: 520px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-content { padding: 2rem 1rem; }
+            .social-links a { width: 40px; height: 40px; }
+            .footer-section h3 { font-size: 1rem; }
+        }
             gap: 1rem;
             align-items: center;
         }
@@ -727,59 +775,67 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo" aria-label="Site footer">
         <div class="footer-content">
             <div class="footer-grid">
-                <div class="footer-section">
-                    <h3><i class="fas fa-truck-moving"></i> MooVit Transport</h3>
-                    <p>Your trusted logistics and transportation partner — ensuring safe, fast, and reliable mobility solutions for everyone, everywhere. Connecting communities through innovative transport technology.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
+                <div class="footer-section" aria-labelledby="footer-about">
+                    <h3 id="footer-about"><i class="fas fa-truck-moving" aria-hidden="true"></i> MooVit Transport</h3>
+                    <p>Trusted logistics and transportation partner—safe, fast, reliable mobility solutions connecting communities through innovative transport technology.</p>
+                    <nav aria-label="Social media">
+                        <ul class="social-links" role="list">
+                            <li><a href="#" aria-label="MooVit on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#" aria-label="MooVit on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#" aria-label="MooVit on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#" aria-label="MooVit on Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </nav>
                 </div>
 
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
-                        <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
-                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                        <li><a href="privacy.html"><i class="fas fa-envelope"></i> Privacy Policy</a></li>
-                        <li><a href="safety.html"><i class="fas fa-shield-alt"></i> Safety Center</a></li>
+                <div class="footer-section" aria-labelledby="footer-links">
+                    <h3 id="footer-links">Quick Links</h3>
+                    <ul role="list">
+                        <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle" aria-hidden="true"></i> About Us</a></li>
+                        <li><a href="services.html"><i class="fas fa-cogs" aria-hidden="true"></i> Services</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                        <li><a href="privacy.html"><i class="fas fa-user-secret" aria-hidden="true"></i> Privacy Policy</a></li>
+                        <li><a href="safety.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Safety Center</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-section">
-                    <h3>Our Services</h3>
-                    <ul>
-                        <li><a href="#">Fleet Management</a></li>
-                        <li><a href="#">Route Optimization</a></li>
-                        <li><a href="#">Public Transit</a></li>
-                        <li><a href="#">Cab Sharing</a></li>
-                        <li><a href="#">Safety Solutions</a></li>
-                        <li><a href="#">AI Detection</a></li>
+                <div class="footer-section" aria-labelledby="footer-services">
+                    <h3 id="footer-services">Our Services</h3>
+                    <ul role="list">
+                        <li><a href="Vehicles/vechicle.html">Fleet Management</a></li>
+                        <li><a href="Routes/route.html">Route Optimization</a></li>
+                        <li><a href="Public transportation/index.html">Public Transit</a></li>
+                        <li><a href="sharingcab/sharingcab.html">Cab Sharing</a></li>
+                        <li><a href="Safety and awareness/index.html">Safety Solutions</a></li>
+                        <li><a href="sharp-detection/sharp-detection.html">AI Detection</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p><i class="fas fa-envelope"></i> shubhangi.23bai11165@vitbhopal.ac.in</p>
-                    <p><i class="fas fa-phone"></i> +91 98765 XXXXX</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India</p>
-                    <div style="margin-top: 1.5rem;">
-                        <a href="https://github.com/ShubhangiRoy12"><i class="fab fa-github"></i> GitHub</a>
-                        <a href="https://leetcode.com/u/Shubhangi12/" style="margin: 0.5rem 0;"><i class="fas fa-code"></i> LeetCode</a>
-                        <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <div class="footer-section" aria-labelledby="footer-contact">
+                    <h3 id="footer-contact">Contact Info</h3>
+                    <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:shubhangi.23bai11165@vitbhopal.ac.in">shubhangi.23bai11165@vitbhopal.ac.in</a></p>
+                    <p><i class="fas fa-phone" aria-hidden="true"></i> <a href="tel:+9198765XXXXX">+91 98765 XXXXX</a></p>
+                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Chennai, Tamil Nadu, India</p>
+                    <div style="margin-top: 1rem; display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
+                        <a href="https://github.com/ShubhangiRoy12" target="_blank" rel="noopener noreferrer" aria-label="MooVit on GitHub"><i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+                        <a href="https://leetcode.com/u/Shubhangi12/" target="_blank" rel="noopener noreferrer" aria-label="MooVit on LeetCode"><i class="fas fa-code" aria-hidden="true"></i><span class="visually-hidden">LeetCode</span></a>
+                        <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/" target="_blank" rel="noopener noreferrer" aria-label="MooVit on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span class="visually-hidden">LinkedIn</span></a>
                     </div>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2025 MooVit Transport Solutions | All Rights Reserved | Connecting Communities, Enabling Mobility</p>
+                <div class="legal">
+                    <span>&copy; 2025 MooVit Transport Solutions</span>
+                    <span>•</span>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="CONTRIBUTING.md">Contributing</a>
+                </div>
+                <p style="color: rgba(255,255,255,0.8);">Connecting Communities, Enabling Mobility</p>
             </div>
         </div>
     </footer>
