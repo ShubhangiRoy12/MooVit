@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.png">
+  <title>Careers - MoveIt</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    :root {
+      --bg-dark-1: #0a1628;
+      --bg-dark-2: #1a365d;
+      --primary: #2563eb;
+      --primary-700: #1d4ed8;
+      --accent: #ffd700;
+      --accent-dark: #b8860b;
+      --text-white: #ffffff;
+      --text-muted: rgba(255,255,255,0.9);
+      --text-soft: rgba(255,255,255,0.75);
+      --glass: rgba(255,255,255,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      background: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 35%, var(--primary) 100%);
+      background-attachment: fixed;
+      color: var(--text-white);
+      overflow-x: hidden;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Animated Background Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { 
+        transform: translateY(0px) translateX(0px) rotate(0deg); 
+        opacity: 0.2; 
+      }
+      50% { 
+        transform: translateY(-30px) translateX(20px) rotate(180deg); 
+        opacity: 0.8; 
+      }
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(26, 54, 93, 0.2);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.25rem 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: slideDown 0.6s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text-white);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--accent);
+      transform: translateX(-5px);
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
+    }
+
+    .logo {
+      font-size: 1.75rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      color: var(--text-white);
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Not Hiring Banner */
+    .status-banner {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      padding: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+      50% {
+        box-shadow: 0 25px 50px rgba(255, 215, 0, 0.2);
+      }
+    }
+
+    .status-banner .icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .status-banner h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .status-banner p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Section Styles */
+    .section {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--text-white);
+      letter-spacing: -0.5px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      text-align: center;
+      color: var(--text-soft);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+
+    /* Why Join Us Grid */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .benefit-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .benefit-card:hover::before {
+      left: 100%;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 215, 0, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .benefit-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      transition: all 0.4s ease;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+    }
+
+    .benefit-card:hover .benefit-icon {
+      transform: scale(1.15) rotate(5deg);
+      filter: drop-shadow(0 12px 24px rgba(255, 215, 0, 0.4));
+    }
+
+    .benefit-card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 1rem;
+    }
+
+    .benefit-card p {
+      font-size: 1rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    /* Culture Section */
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .culture-card {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(255, 215, 0, 0.05));
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      transition: all 0.4s ease;
+    }
+
+    .culture-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 215, 0, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .culture-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .culture-icon {
+      font-size: 1.8rem;
+    }
+
+    .culture-card p {
+      font-size: 1rem;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    /* Email Notification Section */
+    .notify-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem 2.5rem;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      margin-top: 3rem;
+    }
+
+    .notify-section h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--text-white);
+    }
+
+    .notify-section p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .email-form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .email-input {
+      flex: 1;
+      min-width: 250px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      outline: none;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      color: var(--text-white);
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .email-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .email-input:focus {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-700));
+      color: white;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+    }
+
+    .success-message {
+      background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(16,185,129,0.1));
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--text-white);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      display: none;
+      animation: slideDown 0.4s ease;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    /* Future Roles Section */
+    .roles-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .roles-section h3 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .roles-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .role-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .role-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 215, 0, 0.3);
+      transform: translateY(-5px);
+    }
+
+    .role-item .icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .role-item h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-white);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(10, 22, 40, 0.6);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 6rem;
+    }
+
+    footer p {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 968px) {
+      .hero h1 {
+        font-size: 2.75rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .benefits-grid,
+      .culture-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+
+      .container {
+        padding: 0 1rem 3rem;
+      }
+
+      .hero {
+        padding: 3rem 1rem 2rem;
+      }
+
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .status-banner {
+        padding: 2rem 1.5rem;
+      }
+
+      .notify-section,
+      .roles-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .email-form {
+        flex-direction: column;
+      }
+
+      .email-input,
+      .btn {
+        width: 100%;
+      }
+
+      .back-btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .benefit-icon {
+        font-size: 2.5rem;
+      }
+
+      .status-banner .icon {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Header -->
+  <header>
+    <a href="./main.html" class="back-btn">
+      ⬅ Back
+    </a>
+    <div class="logo">MoveIt</div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Join the <span>MoveIt</span> Team</h1>
+      <p>Be part of a company that's transforming the logistics industry with innovation and passion.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- Not Currently Hiring Banner -->
+    <div class="status-banner">
+      <span class="icon">💼</span>
+      <h2>We're Not Currently Hiring</h2>
+      <p>Thank you for your interest in joining MoveIt! While we don't have any open positions at the moment, we're always looking to connect with talented individuals. Sign up below to be notified when new opportunities become available.</p>
+    </div>
+
+    <!-- Why Join MoveIt Section -->
+    <section class="section">
+      <h2 class="section-title">Why Join MoveIt?</h2>
+      <p class="section-subtitle">Discover what makes MoveIt a great place to build your career</p>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">🚀</div>
+          <h3>Growth Opportunities</h3>
+          <p>Advance your career with continuous learning, mentorship programs, and clear promotion paths.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">💰</div>
+          <h3>Competitive Compensation</h3>
+          <p>Attractive salary packages, performance bonuses, and comprehensive benefits to reward your hard work.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏖️</div>
+          <h3>Work-Life Balance</h3>
+          <p>Flexible schedules, generous PTO, and a culture that values your personal time and wellbeing.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🤝</div>
+          <h3>Inclusive Culture</h3>
+          <p>Join a diverse team where everyone's voice matters and collaboration drives our success.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏥</div>
+          <h3>Health Benefits</h3>
+          <p>Comprehensive health insurance, wellness programs, and mental health support for you and your family.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🎯</div>
+          <h3>Meaningful Impact</h3>
+          <p>Work on projects that make a real difference in people's lives and shape the future of logistics.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Culture Section -->
+    <section class="section">
+      <h2 class="section-title">Our Culture</h2>
+      <p class="section-subtitle">Values that define how we work together</p>
+      <div class="culture-grid">
+        <div class="culture-card">
+          <h3><span class="culture-icon">💡</span> Innovation</h3>
+          <p>We encourage creative thinking and embrace new ideas to continuously improve our services.</p>
+        </div>
+        <div class="culture-card">
+          <h3><span class="culture-icon">🎯</span> Excellence</h3>
+          <p>We strive for the highest quality in everything we do, from customer service to operations.</p>
+        </div>
+        <div class="culture-card">
+          <h3><span class="culture-icon">🤝</span> Teamwork</h3>
+          <p>Collaboration and mutual support are at the heart of our success.</p>
+        </div>
+        <div class="culture-card">
+          <h3><span class="culture-icon">❤️</span> Customer First</h3>
+          <p>Our customers' satisfaction drives every decision we make.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Future Opportunities Section -->
+    <section class="section">
+      <div class="roles-section">
+        <h3>Roles We Typically Hire For</h3>
+        <div class="roles-list">
+          <div class="role-item">
+            <span class="icon">🚚</span>
+            <h4>Delivery Drivers</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">📦</span>
+            <h4>Warehouse Staff</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">📞</span>
+            <h4>Customer Support</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">💻</span>
+            <h4>Software Engineers</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">📊</span>
+            <h4>Operations Managers</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">📈</span>
+            <h4>Sales & Marketing</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Email Notification Section -->
+    <section class="section">
+      <div class="notify-section">
+        <h2>Get Notified About Future Openings</h2>
+        <p>Be the first to know when we start hiring again. Join our talent pool and we'll reach out when a position matches your skills.</p>
+        <form class="email-form" id="notifyForm">
+          <input 
+            type="email" 
+            class="email-input" 
+            placeholder="Enter your email address" 
+            required
+            id="emailInput"
+          >
+          <button type="submit" class="btn btn-primary">
+            Notify Me
+          </button>
+        </form>
+        <div class="success-message" id="successMessage">
+          ✓ Thank you! We'll notify you when positions open up.
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 MoveIt. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Create animated background particles
+    function createParticles() {
+      const particles = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (Math.random() * 6 + 6) + 's';
+        particles.appendChild(particle);
+      }
+    }
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animated sections
+    document.querySelectorAll('.section').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Email notification form
+    document.getElementById('notifyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const emailInput = document.getElementById('emailInput');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Basic email validation
+      if (emailInput.value && emailInput.validity.valid) {
+        // Here you would typically send the email to your backend
+        console.log('Email submitted:', emailInput.value);
+        
+        // Show success message
+        successMessage.classList.add('show');
+        
+        // Clear input
+        emailInput.value = '';
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+          successMessage.classList.remove('show');
+        }, 5000);
+      }
+    });
+
+    // Initialize particles on load
+    window.addEventListener('load', () => {
+      createParticles();
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
