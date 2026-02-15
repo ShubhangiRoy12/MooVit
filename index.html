@@ -930,7 +930,33 @@
     .newsletter-form button:hover {
       background: #1d4ed8;
     }
+    .footer-legal {
+      max-width: 1400px;
+      margin: 2rem auto 0 auto;
+      padding: 0 2rem;
+      text-align: right;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
 
+    .footer-legal a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      margin: 0 8px;
+      transition: 0.3s ease;
+    }
+
+    .footer-legal a:hover {
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+    @media (max-width: 768px) {
+      .footer-legal {
+        text-align: center;
+        margin-top: 2rem;
+      }
+    }
+  
     .footer-bottom {
       text-align: center;
       margin-top: 2rem;
@@ -1259,6 +1285,14 @@
             </svg></button>
         </form>
       </div>
+    </div>
+    <!-- Legal Section -->
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy</a>
+      <span>|</span>
+      <a href="terms.html">Terms</a>
+      <span>|</span>
+      <a href="cookie.html">Cookie</a>
     </div>
     <div class="footer-bottom">
       <p>&copy; 2025 Transport Co. | All Rights Reserved. | Designed with ❤️ for Excellence</p>
