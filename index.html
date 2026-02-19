@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <style>
+    
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
     * {
@@ -49,32 +50,36 @@
     }
 
     /* --- Cursor Styles --- */
-    .cursor {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      border: 1px solid rgba(255, 215, 0, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease;
-      transform: translate(-50%, -50%);
-    }
+   body {
+  cursor: none;
+}
 
-    .cursor::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 4px;
-      height: 4px;
-      background: #ffd700;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-    }
+body {
+  cursor: none;
+}
+
+.cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 1px solid gold;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.cursor-tail .circle {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 215, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+}
+
 
     @media (min-width: 769px) and (pointer: fine) {
       .cursor {
@@ -90,11 +95,7 @@
       }
     }
 
-    .cursor.hover {
-      transform: translate(-50%, -50%) scale(1.8);
-      background: rgba(255, 215, 0, 0.1);
-      border-color: #ffd700;
-    }
+   
 
     /* --- Header --- */
     .modern-header {
@@ -979,7 +980,18 @@
 </head>
 
 <body>
-  <div class="cursor" id="cursor"></div>
+   <div class="cursor"></div>
+
+  <div class="cursor-tail">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <script src="cursor.js"></script>
+
   <div class="particles" id="particles"></div>
 
   <header id="main-header" class="modern-header">
