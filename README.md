@@ -21,6 +21,15 @@ Try it now → https://moo-vit.vercel.app/
 
 ---
 
+## 📸 Project Screenshots
+
+### 🏠 Home / Landing Page
+![Home Page](services_section.png.png)
+
+### 🚚 Services Section
+![Services Section](home_hero.png.png)
+
+---
 ## ✨ Features
 
 - Detects vehicles, people, signals, and sharp objects
@@ -33,6 +42,38 @@ Try it now → https://moo-vit.vercel.app/
 
 ---
 
+## ✨ Structure
+```
+MooVit/
+├── .github/
+│   └── workflows/                 # GitHub Actions / CI configs
+│
+├── frontend/                      # Frontend (HTML, CSS, JS)
+│   ├── index.html                 # Landing page
+│   ├── pages/
+│   │   ├── about.html
+│   │   ├── contact.html
+│   │   ├── login.html
+│   │   └── safety.html
+│   ├── assets/
+│   │   ├── images/                # UI images
+│   │   ├── icons/                 # SVG icons
+│   │   └── styles.css             # Global styles
+│   └── script.js                  # Frontend logic
+│
+├── backend/                       # Backend (Python)
+│   ├── app.py                     # Main backend entry point
+│   ├── routes/                    # API routes
+│   │   ├── tracking.py
+│   │   ├── vehicles.py
+│   │   └── safety.py
+│   ├── models/                    # ML / Detection models
+│   │   └── detection_model.py
+│   ├── utils/                     # Helper functio
+```
+
+
+---
 ## 🛠 Tech Stack
 
 ### Computer Vision & AI

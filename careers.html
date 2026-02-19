@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png">
-  <title>About Us - Moovit</title>
+  <title>Careers - MoveIt</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     
@@ -135,31 +135,16 @@
     /* Hero Section */
     .hero {
       position: relative;
-      height: 70vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 5rem 2rem 4rem;
       text-align: center;
       overflow: hidden;
-      margin-bottom: 4rem;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(10, 22, 40, 0.7), rgba(37, 99, 235, 0.3));
-      z-index: 1;
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
       max-width: 900px;
-      padding: 0 2rem;
+      margin: 0 auto;
       animation: fadeInUp 1s ease;
     }
 
@@ -175,13 +160,12 @@
     }
 
     .hero h1 {
-      font-size: 4rem;
+      font-size: 3.5rem;
       font-weight: 900;
       margin-bottom: 1.5rem;
       color: var(--text-white);
       letter-spacing: -1px;
       line-height: 1.1;
-      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .hero h1 span {
@@ -192,7 +176,7 @@
     }
 
     .hero p {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       color: var(--text-muted);
       line-height: 1.7;
       max-width: 700px;
@@ -203,14 +187,67 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 2rem 4rem;
       position: relative;
       z-index: 1;
     }
 
+    /* Not Hiring Banner */
+    .status-banner {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      padding: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+      50% {
+        box-shadow: 0 25px 50px rgba(255, 215, 0, 0.2);
+      }
+    }
+
+    .status-banner .icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .status-banner h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .status-banner p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
     /* Section Styles */
     .section {
-      margin-bottom: 5rem;
+      margin-bottom: 4rem;
       opacity: 0;
       transform: translateY(30px);
       transition: all 0.8s ease;
@@ -222,7 +259,7 @@
     }
 
     .section-title {
-      font-size: 2.5rem;
+      font-size: 2.25rem;
       font-weight: 800;
       text-align: center;
       margin-bottom: 1rem;
@@ -231,7 +268,7 @@
     }
 
     .section-subtitle {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       text-align: center;
       color: var(--text-soft);
       max-width: 700px;
@@ -239,43 +276,15 @@
       line-height: 1.7;
     }
 
-    /* Mission Section */
-    .mission-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 3rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      transition: all 0.4s ease;
-    }
-
-    .mission-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-      border-color: rgba(255, 215, 0, 0.3);
-    }
-
-    .mission-card p {
-      font-size: 1.15rem;
-      line-height: 1.9;
-      color: var(--text-muted);
-      text-align: center;
-    }
-
-    .mission-card strong {
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    /* Features Grid */
-    .features-grid {
+    /* Why Join Us Grid */
+    .benefits-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
+      margin-bottom: 3rem;
     }
 
-    .feature-card {
+    .benefit-card {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(20px);
       border-radius: 20px;
@@ -287,7 +296,7 @@
       overflow: hidden;
     }
 
-    .feature-card::before {
+    .benefit-card::before {
       content: '';
       position: absolute;
       top: 0;
@@ -298,18 +307,18 @@
       transition: left 0.6s;
     }
 
-    .feature-card:hover::before {
+    .benefit-card:hover::before {
       left: 100%;
     }
 
-    .feature-card:hover {
+    .benefit-card:hover {
       transform: translateY(-15px) scale(1.02);
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
       border-color: rgba(255, 215, 0, 0.3);
       background: rgba(255, 255, 255, 0.08);
     }
 
-    .feature-icon {
+    .benefit-icon {
       font-size: 3.5rem;
       margin-bottom: 1.5rem;
       display: inline-block;
@@ -317,74 +326,32 @@
       filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
     }
 
-    .feature-card:hover .feature-icon {
+    .benefit-card:hover .benefit-icon {
       transform: scale(1.15) rotate(5deg);
       filter: drop-shadow(0 12px 24px rgba(255, 215, 0, 0.4));
     }
 
-    .feature-card h3 {
+    .benefit-card h3 {
       font-size: 1.35rem;
       font-weight: 700;
       color: var(--text-white);
       margin-bottom: 1rem;
     }
 
-    .feature-card p {
+    .benefit-card p {
       font-size: 1rem;
       color: var(--text-soft);
       line-height: 1.7;
     }
 
-    /* Stats Section */
-    .stats-section {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 3rem 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 3rem;
-      text-align: center;
-    }
-
-    .stat {
-      transition: transform 0.3s ease;
-    }
-
-    .stat:hover {
-      transform: translateY(-10px);
-    }
-
-    .stat-number {
-      font-size: 3.5rem;
-      font-weight: 900;
-      background: linear-gradient(135deg, var(--accent), #ffed4e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    /* Values Section */
-    .values-grid {
+    /* Culture Section */
+    .culture-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
     }
 
-    .value-card {
+    .culture-card {
       background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(255, 215, 0, 0.05));
       backdrop-filter: blur(20px);
       border-radius: 20px;
@@ -393,13 +360,13 @@
       transition: all 0.4s ease;
     }
 
-    .value-card:hover {
+    .culture-card:hover {
       transform: translateY(-10px);
       border-color: rgba(255, 215, 0, 0.4);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
-    .value-card h3 {
+    .culture-card h3 {
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--accent);
@@ -409,37 +376,37 @@
       gap: 0.75rem;
     }
 
-    .value-icon {
+    .culture-icon {
       font-size: 1.8rem;
     }
 
-    .value-card p {
+    .culture-card p {
       font-size: 1rem;
       color: var(--text-soft);
       line-height: 1.8;
     }
 
-    /* CTA Section */
-    .cta-section {
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(255, 215, 0, 0.1));
+    /* Email Notification Section */
+    .notify-section {
+      background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(20px);
       border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 4rem 3rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem 2.5rem;
       text-align: center;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      margin-top: 5rem;
+      margin-top: 3rem;
     }
 
-    .cta-section h2 {
-      font-size: 2.5rem;
+    .notify-section h2 {
+      font-size: 2rem;
       font-weight: 800;
       margin-bottom: 1rem;
       color: var(--text-white);
     }
 
-    .cta-section p {
-      font-size: 1.15rem;
+    .notify-section p {
+      font-size: 1.1rem;
       color: var(--text-muted);
       margin-bottom: 2rem;
       max-width: 600px;
@@ -447,23 +414,49 @@
       margin-right: auto;
     }
 
-    .cta-buttons {
+    .email-form {
+      max-width: 500px;
+      margin: 0 auto;
       display: flex;
       gap: 1rem;
-      justify-content: center;
       flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .email-input {
+      flex: 1;
+      min-width: 250px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      outline: none;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      color: var(--text-white);
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .email-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .email-input:focus {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
     }
 
     .btn {
       padding: 14px 32px;
-      border-radius: 50px;
+      border-radius: 12px;
       font-size: 1.05rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
       font-family: 'Inter', sans-serif;
-      text-decoration: none;
-      display: inline-block;
+      border: none;
       position: relative;
       overflow: hidden;
     }
@@ -471,7 +464,6 @@
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), var(--primary-700));
       color: white;
-      border: none;
       box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
     }
 
@@ -495,16 +487,73 @@
       box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
+    .success-message {
+      background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(16,185,129,0.1));
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(34, 197, 94, 0.3);
       color: var(--text-white);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      display: none;
+      animation: slideDown 0.4s ease;
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    .success-message.show {
+      display: block;
+    }
+
+    /* Future Roles Section */
+    .roles-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .roles-section h3 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .roles-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .role-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .role-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 215, 0, 0.3);
+      transform: translateY(-5px);
+    }
+
+    .role-item .icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .role-item h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-white);
     }
 
     /* Footer */
@@ -525,19 +574,15 @@
     /* Responsive Design */
     @media (max-width: 968px) {
       .hero h1 {
-        font-size: 3rem;
-      }
-
-      .hero p {
-        font-size: 1.15rem;
+        font-size: 2.75rem;
       }
 
       .section-title {
         font-size: 2rem;
       }
 
-      .features-grid,
-      .values-grid {
+      .benefits-grid,
+      .culture-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -548,29 +593,37 @@
       }
 
       .container {
-        padding: 0 1rem;
+        padding: 0 1rem 3rem;
       }
 
       .hero {
-        height: 60vh;
+        padding: 3rem 1rem 2rem;
       }
 
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.25rem;
       }
 
       .hero p {
-        font-size: 1.05rem;
+        font-size: 1.1rem;
       }
 
-      .section-title {
-        font-size: 1.75rem;
-      }
-
-      .mission-card,
-      .stats-section,
-      .cta-section {
+      .status-banner {
         padding: 2rem 1.5rem;
+      }
+
+      .notify-section,
+      .roles-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .email-form {
+        flex-direction: column;
+      }
+
+      .email-input,
+      .btn {
+        width: 100%;
       }
 
       .back-btn {
@@ -581,18 +634,6 @@
       .logo {
         font-size: 1.5rem;
       }
-
-      .stat-number {
-        font-size: 2.5rem;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-      }
     }
 
     @media (max-width: 480px) {
@@ -600,25 +641,13 @@
         font-size: 2rem;
       }
 
-      .feature-icon {
+      .benefit-icon {
         font-size: 2.5rem;
       }
 
-      .stats-grid {
-        gap: 2rem;
+      .status-banner .icon {
+        font-size: 3rem;
       }
-    }
-
-    /* Scroll Animation Trigger */
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-    }
-
-    .animate-on-scroll.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
   </style>
 </head>
@@ -631,132 +660,147 @@
     <a href="./main.html" class="back-btn">
       ⬅ Back
     </a>
-    <div class="logo">Moovit</div>
+    <div class="logo">MoveIt</div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <h1>About <span>Moovit</span></h1>
-      <p>Your trusted partner for seamless, reliable, and efficient logistics solutions across the nation.</p>
+      <h1>Join the <span>MoveIt</span> Team</h1>
+      <p>Be part of a company that's transforming the logistics industry with innovation and passion.</p>
     </div>
   </section>
 
   <div class="container">
-    <!-- Mission Section -->
-    <section class="section animate-on-scroll">
-      <h2 class="section-title">Our Mission</h2>
-      <p class="section-subtitle">Redefining logistics with innovation, reliability, and customer-first values</p>
-      <div class="mission-card">
-        <p>
-          At <strong>Moovit </strong>, our mission is to revolutionize the logistics industry by providing 
-          stress-free, affordable, and efficient transportation solutions. We are committed to delivering 
-          safe, reliable, and customer-focused services for both individuals and businesses. Every shipment 
-          matters to us, and we treat your cargo as if it were our own.
-        </p>
-      </div>
-    </section>
+    <!-- Not Currently Hiring Banner -->
+    <div class="status-banner">
+      <span class="icon">💼</span>
+      <h2>We're Not Currently Hiring</h2>
+      <p>Thank you for your interest in joining MoveIt! While we don't have any open positions at the moment, we're always looking to connect with talented individuals. Sign up below to be notified when new opportunities become available.</p>
+    </div>
 
-    <!-- Stats Section -->
-    <section class="section animate-on-scroll">
-      <div class="stats-section">
-        <div class="stats-grid">
-          <div class="stat">
-            <span class="stat-number" data-target="10000">0</span>
-            <p class="stat-label">Deliveries Completed</p>
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-target="500">0</span>
-            <p class="stat-label">Happy Clients</p>
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-target="50">0</span>
-            <p class="stat-label">Cities Covered</p>
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-target="99">0</span>
-            <p class="stat-label">Success Rate %</p>
-          </div>
+    <!-- Why Join MoveIt Section -->
+    <section class="section">
+      <h2 class="section-title">Why Join MoveIt?</h2>
+      <p class="section-subtitle">Discover what makes MoveIt a great place to build your career</p>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">🚀</div>
+          <h3>Growth Opportunities</h3>
+          <p>Advance your career with continuous learning, mentorship programs, and clear promotion paths.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- Why Choose Us Section -->
-    <section class="section animate-on-scroll">
-      <h2 class="section-title">Why Choose Us?</h2>
-      <p class="section-subtitle">Experience the difference with our premium logistics services</p>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🚚</div>
-          <h3>Fast & Reliable</h3>
-          <p>We ensure timely deliveries with real-time tracking and dedicated support teams available 24/7.</p>
+        <div class="benefit-card">
+          <div class="benefit-icon">💰</div>
+          <h3>Competitive Compensation</h3>
+          <p>Attractive salary packages, performance bonuses, and comprehensive benefits to reward your hard work.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">💰</div>
-          <h3>Affordable Pricing</h3>
-          <p>Transparent and competitive pricing with no hidden costs. Get the best value for your money.</p>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏖️</div>
+          <h3>Work-Life Balance</h3>
+          <p>Flexible schedules, generous PTO, and a culture that values your personal time and wellbeing.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🛡️</div>
-          <h3>Safe Handling</h3>
-          <p>Your belongings are handled with utmost care by trained professionals and delivered securely.</p>
+        <div class="benefit-card">
+          <div class="benefit-icon">🤝</div>
+          <h3>Inclusive Culture</h3>
+          <p>Join a diverse team where everyone's voice matters and collaboration drives our success.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌍</div>
-          <h3>Nationwide Reach</h3>
-          <p>Wherever you need to go, Moovit has the network to support your logistics journey.</p>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏥</div>
+          <h3>Health Benefits</h3>
+          <p>Comprehensive health insurance, wellness programs, and mental health support for you and your family.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">📱</div>
-          <h3>Real-time Tracking</h3>
-          <p>Track your shipment every step of the way with our advanced GPS tracking technology.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🏆</div>
-          <h3>Award-Winning Service</h3>
-          <p>Recognized for excellence in customer satisfaction and operational efficiency.</p>
+        <div class="benefit-card">
+          <div class="benefit-icon">🎯</div>
+          <h3>Meaningful Impact</h3>
+          <p>Work on projects that make a real difference in people's lives and shape the future of logistics.</p>
         </div>
       </div>
     </section>
 
-    <!-- Our Values Section -->
-    <section class="section animate-on-scroll">
-      <h2 class="section-title">Our Core Values</h2>
-      <p class="section-subtitle">The principles that guide everything we do</p>
-      <div class="values-grid">
-        <div class="value-card">
-          <h3><span class="value-icon">🎯</span> Excellence</h3>
-          <p>We strive for excellence in every delivery, ensuring the highest standards of service quality and customer satisfaction.</p>
+    <!-- Our Culture Section -->
+    <section class="section">
+      <h2 class="section-title">Our Culture</h2>
+      <p class="section-subtitle">Values that define how we work together</p>
+      <div class="culture-grid">
+        <div class="culture-card">
+          <h3><span class="culture-icon">💡</span> Innovation</h3>
+          <p>We encourage creative thinking and embrace new ideas to continuously improve our services.</p>
         </div>
-        <div class="value-card">
-          <h3><span class="value-icon">🤝</span> Integrity</h3>
-          <p>Honesty and transparency are at the core of our business. We build lasting relationships based on trust.</p>
+        <div class="culture-card">
+          <h3><span class="culture-icon">🎯</span> Excellence</h3>
+          <p>We strive for the highest quality in everything we do, from customer service to operations.</p>
         </div>
-        <div class="value-card">
-          <h3><span class="value-icon">💡</span> Innovation</h3>
-          <p>Continuously improving our processes and adopting cutting-edge technology to serve you better.</p>
+        <div class="culture-card">
+          <h3><span class="culture-icon">🤝</span> Teamwork</h3>
+          <p>Collaboration and mutual support are at the heart of our success.</p>
         </div>
-        <div class="value-card">
-          <h3><span class="value-icon">❤️</span> Customer First</h3>
-          <p>Your needs are our priority. We go above and beyond to ensure your complete satisfaction.</p>
+        <div class="culture-card">
+          <h3><span class="culture-icon">❤️</span> Customer First</h3>
+          <p>Our customers' satisfaction drives every decision we make.</p>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section animate-on-scroll">
-      <h2>Ready to Experience the Difference?</h2>
-      <p>Join thousands of satisfied customers who trust Moovit for their logistics needs.</p>
-      <div class="cta-buttons">
-        <a href="./contact.html" class="btn btn-primary">Contact Us Today</a>
-        <a href="./services.html" class="btn btn-secondary">Explore Services</a>
+    <!-- Future Opportunities Section -->
+    <section class="section">
+      <div class="roles-section">
+        <h3>Roles We Typically Hire For</h3>
+        <div class="roles-list">
+          <div class="role-item">
+            <span class="icon">🚚</span>
+            <h4>Delivery Drivers</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">📦</span>
+            <h4>Warehouse Staff</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">📞</span>
+            <h4>Customer Support</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">💻</span>
+            <h4>Software Engineers</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">📊</span>
+            <h4>Operations Managers</h4>
+          </div>
+          <div class="role-item">
+            <span class="icon">📈</span>
+            <h4>Sales & Marketing</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Email Notification Section -->
+    <section class="section">
+      <div class="notify-section">
+        <h2>Get Notified About Future Openings</h2>
+        <p>Be the first to know when we start hiring again. Join our talent pool and we'll reach out when a position matches your skills.</p>
+        <form class="email-form" id="notifyForm">
+          <input 
+            type="email" 
+            class="email-input" 
+            placeholder="Enter your email address" 
+            required
+            id="emailInput"
+          >
+          <button type="submit" class="btn btn-primary">
+            Notify Me
+          </button>
+        </form>
+        <div class="success-message" id="successMessage">
+          ✓ Thank you! We'll notify you when positions open up.
+        </div>
       </div>
     </section>
   </div>
 
   <!-- Footer -->
   <footer>
-    <p>© 2025 Moovit. All Rights Reserved.</p>
+    <p>© 2025 MoveIt. All Rights Reserved.</p>
   </footer>
 
   <script>
@@ -791,52 +835,41 @@
     }, observerOptions);
 
     // Observe all animated sections
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    document.querySelectorAll('.section').forEach(el => {
       observer.observe(el);
     });
 
-    // Counter animation for stats
-    function animateCounter(element, target, duration = 2000) {
-      const start = 0;
-      const increment = target / (duration / 16);
-      let current = start;
-
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          element.textContent = target.toLocaleString() + (element.textContent.includes('%') ? '' : '');
-          clearInterval(timer);
-        } else {
-          element.textContent = Math.floor(current).toLocaleString();
-        }
-      }, 16);
-    }
-
-    // Trigger counter animation when stats section is visible
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const counters = entry.target.querySelectorAll('.stat-number');
-          counters.forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-target'));
-            animateCounter(counter, target);
-          });
-          statsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    const statsSection = document.querySelector('.stats-section');
-    if (statsSection) {
-      statsObserver.observe(statsSection);
-    }
+    // Email notification form
+    document.getElementById('notifyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const emailInput = document.getElementById('emailInput');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Basic email validation
+      if (emailInput.value && emailInput.validity.valid) {
+        // Here you would typically send the email to your backend
+        console.log('Email submitted:', emailInput.value);
+        
+        // Show success message
+        successMessage.classList.add('show');
+        
+        // Clear input
+        emailInput.value = '';
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+          successMessage.classList.remove('show');
+        }, 5000);
+      }
+    });
 
     // Initialize particles on load
     window.addEventListener('load', () => {
       createParticles();
     });
 
-    // Smooth scroll for anchor links
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -848,15 +881,6 @@
           });
         }
       });
-    });
-
-    // Add parallax effect to hero on scroll
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const hero = document.querySelector('.hero');
-      if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-      }
     });
   </script>
 </body>

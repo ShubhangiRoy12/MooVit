@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="../favicon.png">
   <title>Transport Co. - Your Cargo, Our Priority</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
     
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
     * {
       margin: 0;
       padding: 0;
@@ -26,347 +32,430 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0a1628 0%, #1a365d 35%, #2563eb 100%);
+
+      /* --- BACKGROUND IMAGE UPDATE --- */
+      /* Added a dark overlay (rgba) so text remains readable on top of the image */
+      background: linear-gradient(rgba(5, 10, 20, 0.85), rgba(5, 10, 20, 0.85)),
+        url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      background-size: cover;
+      background-position: center;
       background-attachment: fixed;
+      background-repeat: no-repeat;
+
       font-size: 16px;
       line-height: 1.6;
-      color: #333;
+      color: #e2e8f0;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* High Contrast Utility Classes */
-    .yellow-bg {
-      background: linear-gradient(135deg, #ffd700 0%, #ffb700 100%);
-      color: #0a1628 !important;
-    }
+    /* --- Cursor Styles --- */
+   body {
+  cursor: none;
+}
 
-    .yellow-bg * {
-      color: #0a1628;
-    }
+body {
+  cursor: none;
+}
 
-    /* Enhanced Custom Cursor Styles */
-   
+.cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 1px solid gold;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
 
-    .cursor::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 40px;
-      height: 40px;
-      border: 2px solid rgba(255, 215, 0, 0.3);
-      border-radius: 50%;
-      transition: width 0.1s ease, height 0.1s ease, border-color 0.1s ease;
-    }
+.cursor-tail .circle {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 215, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+}
+
 
     @media (min-width: 769px) and (pointer: fine) {
       .cursor {
         display: block;
       }
-      
-      body, a, button, .card, input, textarea {
+
+      body,
+      a,
+      button,
+      input,
+      .card {
         cursor: none !important;
       }
     }
 
-    .cursor.hover {
-  width: 35px;
-  height: 35px;
-  background: linear-gradient(45deg, #2563eb, #1d4ed8);
-  box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
-}
+   
 
-.cursor.hover::before {
-  width: 50px;
-  height: 50px;
-  border-color: rgba(37, 99, 235, 0.4);
-}
-
-.cursor.click {
-  transform: scale(0.85);
-  transition: transform 0.1s ease;
-}
-
-
-    .cursor.text {
-      width: 2px;
-      height: 20px;
-      border-radius: 2px;
-      background: linear-gradient(45deg, #ffd700, #ffed4a);
-      color: #0a1628;
-    }
-
-    .cursor.text::before {
-      display: none;
-    }
-
-    /* Animated Background Particles */
-    .particles {
+    /* --- Header --- */
+    .modern-header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
+      z-index: 1000;
+      padding: 1.2rem 2rem;
+      transition: all 0.4s ease;
+      background: rgba(10, 22, 40, 0);
     }
 
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
+    .modern-header.scrolled {
+      padding: 0.8rem 2rem;
+      background: rgba(5, 10, 20, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+      z-index: 1002;
+    }
+
+    .logo-icon {
+      color: #ffd700;
       animation: float 6s ease-in-out infinite;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
-      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
 
-    /* Header with Glassmorphism */
-    header {
-      background: rgba(26, 54, 93, 0.15);
-      backdrop-filter: blur(25px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      text-align: center;
-      padding: 1.5rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      transition: all 0.3s ease;
-    }
-
-    header.scrolled {
-      background: rgba(26, 54, 93, 0.25);
-      backdrop-filter: blur(35px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-
-    header h1 {
-      font-size: 2.8em;
-      font-weight: 900;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ffffff 100%);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 4s ease-in-out infinite;
-      text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-    }
-
-    @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    nav {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: rgba(255, 255, 255, 0.9);
-      text-decoration: none;
-      font-size: 1.1em;
-      font-weight: 500;
-      padding: 12px 24px;
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
-      overflow: hidden;
-    }
-
-    nav a::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    nav a:hover::before {
-      left: 100%;
-    }
-
-    nav a:hover {
-      background: rgba(255, 255, 255, 0.2);
+    .logo-text .highlight {
       color: #ffd700;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
     }
 
-    /* Auth Buttons Styles */
-    .auth-buttons {
+    .desktop-nav .nav-links {
       display: flex;
-      gap: 1rem;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1rem;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
-    .auth-buttons .btn {
-      padding: 10px 28px;
-      font-size: 1rem;
+    .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: white;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      z-index: 1002;
+    }
+
+    .search-bar-mini {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 4px 12px;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar-mini input {
+      background: transparent;
+      border: none;
+      color: white;
+      width: 100px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: width 0.3s ease;
+    }
+
+    .search-bar-mini input:focus {
+      width: 160px;
+    }
+
+    .search-bar-mini button {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+    }
+
+    .auth-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-text {
+      color: white;
+      text-decoration: none;
       font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .btn-header-cta {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      padding: 8px 20px;
       border-radius: 50px;
       text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
       transition: all 0.3s ease;
-      border: 2px solid rgba(255, 255, 255, 0.3);
     }
 
-    .btn-login {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      color: #ffffff;
-      border: 2px solid rgba(37, 99, 235, 0.6);
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-    }
-
-    .btn-login:hover {
+    .btn-header-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
-      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.6);
     }
 
-    .btn-signup {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      color: #ffffff;
-      border: 2px solid rgba(37, 99, 235, 0.6);
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    /* Mobile Menu */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
     }
 
-    .btn-signup:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
-      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    .mobile-toggle .bar {
+      width: 24px;
+      height: 2px;
+      background: white;
+      transition: 0.3s;
     }
 
-    /* Hero Section with Advanced Effects */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: rgba(5, 10, 20, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 1001;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      opacity: 0;
+    }
+
+    .mobile-menu.active {
+      height: 100vh;
+      opacity: 1;
+    }
+
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.4s;
+    }
+
+    .mobile-menu.active a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-auth {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 992px) {
+
+      .desktop-nav,
+      .search-bar-mini,
+      .auth-divider,
+      .btn-text,
+      .btn-header-cta {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+    }
+
+    /* --- Hero Section --- */
     .hero {
       max-width: 1400px;
-      margin: 4rem auto;
-      padding: 5rem 5rem;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(25px);
+      margin: 8rem auto 4rem;
+      padding: 5rem 2rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
       border-radius: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
       text-align: center;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #E6BE00, #2563eb, #E6BE00, #2563eb);
-      background-size: 400% 400%;
-      border-radius: 32px;
-      z-index: -2;
-      animation: gradientRotate 8s ease infinite;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(25px);
-      border-radius: 30px;
-      z-index: -1;
-    }
-
-    @keyframes gradientRotate {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #2563eb, transparent);
     }
 
     .hero h2 {
       font-size: 4rem;
-      font-weight: 900;
+      font-weight: 800;
       color: white;
-      margin-bottom: 1.5rem;
-      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
       text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      animation: slideUp 1s ease-out 0.5s both;
+      animation: slideUp 0.8s ease-out both;
     }
 
     .hero p {
-      font-size: 1.3rem;
-      color: #ffffff;
+      font-size: 1.25rem;
+      color: #cbd5e1;
       margin-bottom: 2.5rem;
       max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      font-weight: 500;
-      animation: slideUp 1s ease-out 0.7s both;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 
-                   0 4px 16px rgba(0, 0, 0, 0.6),
-                   0 0 30px rgba(0, 0, 0, 0.5);
-      line-height: 1.8;
-      letter-spacing: 0.3px;
+      margin-inline: auto;
+      animation: slideUp 0.8s ease-out 0.2s both;
     }
 
-    .hero .btn {
-      padding: 1.2rem 3.5rem;
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      animation: slideUp 0.8s ease-out 0.4s both;
+    }
+
+    .btn-hero {
+      padding: 1rem 3rem;
+      background: #2563eb;
       color: white;
-      font-size: 1.2rem;
       font-weight: 700;
       border-radius: 50px;
       text-decoration: none;
-      display: inline-block;
-      position: relative;
-      overflow: hidden;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      animation: slideUp 1s ease-out 0.9s both;
-      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+      transition: 0.3s;
     }
 
-    .hero .btn:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 20px 40px rgba(37, 99, 235, 0.6);
-      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    .btn-hero:hover {
+      background: #1d4ed8;
+      box-shadow: 0 0 30px rgba(37, 99, 235, 0.6);
+      transform: scale(1.05);
+    }
+
+    .tracking-wrapper {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 8px;
+      border-radius: 50px;
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .tracking-wrapper input {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 40px;
+      border: none;
+      background: #fff;
+      outline: none;
+    }
+
+    .tracking-wrapper button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .hero-brands {
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 2rem;
+      animation: slideUp 0.8s ease-out 0.6s both;
+    }
+
+    .hero-brands p {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .brand-logos {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 700;
     }
 
     @keyframes slideUp {
       from {
         opacity: 0;
-        transform: translateY(50px);
+        transform: translateY(30px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    /* Enhanced Services Grid */
+    /* --- Services Section --- */
     .services-section {
       max-width: 1400px;
-      margin: 6rem auto;
+      margin: 4rem auto;
       padding: 0 2rem;
     }
 
@@ -376,129 +465,199 @@
       font-weight: 900;
       color: white;
       margin-bottom: 4rem;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      position: relative;
-    }
-
-    .services-title::after {
-      content: '';
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, #ffd700, transparent);
-      border-radius: 2px;
+      letter-spacing: -1px;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .grid-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 2.5rem;
-      padding: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 2rem;
     }
 
+    /* The Modern Card */
     .card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      border-radius: 25px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 2.5rem 2rem;
-      text-align: center;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
       position: relative;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      text-align: left;
       overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.6s;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .card:hover::before {
-      left: 100%;
+      opacity: 1;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 24px;
+      padding: 1px;
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.4), transparent 40%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .card:hover::after {
+      opacity: 1;
     }
 
     .card:hover {
-      transform: translateY(-15px) scale(1.02);
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 3;
     }
 
     .card .icon {
-      font-size: 4.5rem;
+      font-size: 3.5rem;
       margin-bottom: 1.5rem;
-      transition: all 0.3s ease;
-      filter: drop-shadow(0 4px 15px rgba(255, 215, 0, 0.3));
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
     }
 
     .card:hover .icon {
-      transform: scale(1.2) rotateY(15deg);
-      filter: drop-shadow(0 8px 25px rgba(255, 215, 0, 0.5));
+      transform: scale(1.1) translateY(-5px);
+      text-shadow: 0 0 40px rgba(37, 99, 235, 0.6);
     }
 
     .card h2 {
       color: white;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.5px;
     }
 
     .card p {
-      color: rgba(255, 255, 255, 0.85);
+      color: #94a3b8;
       font-size: 1rem;
-      line-height: 1.6;
+      line-height: 1.7;
       font-weight: 400;
     }
 
-    /* Enhanced Modal */
-    .service-alert {
+    @media (max-width: 768px) {
+      .hero {
+        padding: 3rem 1.5rem;
+      }
+
+      .hero h2 {
+        font-size: 2.5rem;
+      }
+
+      .tracking-wrapper {
+        flex-direction: column;
+        background: transparent;
+        border: none;
+        padding: 0;
+      }
+
+      .tracking-wrapper input {
+        width: 100%;
+        text-align: center;
+      }
+
+      .tracking-wrapper button {
+        width: 100%;
+      }
+
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* --- Modals --- */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .service-alert,
+    .login-container,
+    .signup-container,
+    .admin-container-popup {
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(30px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 3rem 2.5rem;
-      border-radius: 25px;
-      text-align: center;
-      z-index: 1000;
-      max-width: 550px;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem;
+      border-radius: 20px;
+      z-index: 1001;
       width: 90%;
+      max-width: 450px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       opacity: 0;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      visibility: hidden;
+      transition: 0.3s;
     }
 
-    .service-alert.active {
+    .service-alert.active,
+    .login-modal.active .login-container,
+    .signup-modal.active .signup-container,
+    .admin-modal.active .admin-container-popup {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
+      visibility: visible;
     }
 
     .service-alert h3 {
       color: white;
-      margin-bottom: 1.5rem;
-      font-size: 2rem;
-      font-weight: 700;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
     }
 
     .service-alert p {
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 2.5rem;
-      font-size: 1.1rem;
-      line-height: 1.6;
+      color: #cbd5e1;
+      margin-bottom: 2rem;
     }
 
     .alert-buttons {
@@ -509,523 +668,130 @@
     }
 
     .alert-btn {
-      padding: 1rem 2.5rem;
-      border: none;
+      padding: 0.8rem 2rem;
       border-radius: 50px;
-      font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
       text-decoration: none;
-      display: inline-block;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      border: none;
     }
 
     .alert-btn.primary {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      color: white;
+      background: #2563eb;
     }
 
     .alert-btn.secondary {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      color: white;
+      background: #059669;
     }
 
     .alert-btn.close {
       background: rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.9);
     }
 
-    .alert-btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* Login Popup Modal Styles */
-    .login-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      z-index: 1001;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-    }
-
-    .login-modal.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .login-container {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(30px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 25px;
-      padding: 2.5rem;
-      width: 100%;
-      max-width: 450px;
-      position: relative;
-      transform: scale(0.8);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-    }
-
-    .login-modal.active .login-container {
-      transform: scale(1);
-    }
-
-    .login-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-
-    .login-header h2 {
-      color: white;
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 0;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 2rem;
-      cursor: pointer;
-      padding: 0;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-    }
-
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      transform: rotate(90deg);
-    }
-
+    /* Forms */
     .form-group {
       margin-bottom: 1.5rem;
     }
 
     .form-group label {
+      color: #e2e8f0;
       display: block;
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 600;
       margin-bottom: 0.5rem;
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .form-group input {
       width: 100%;
-      padding: 1rem;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 15px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
       color: white;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      box-sizing: border-box;
-    }
-
-    .form-group input::placeholder {
-      color: rgba(255, 255, 255, 0.6);
+      outline: none;
     }
 
     .form-group input:focus {
-      outline: none;
-      border-color: #ffd700;
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      border-color: #2563eb;
+      background: rgba(255, 255, 255, 0.1);
     }
 
+    .login-submit-btn,
+    .signup-submit-btn,
+    .admin-submit-btn {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 10px;
+      border: none;
+      background: #2563eb;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-submit-btn:hover,
+    .signup-submit-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #cbd5e1;
+      font-size: 1.5rem;
+      cursor: pointer;
+      float: right;
+    }
+
+    .login-modal,
+    .signup-modal,
+    .admin-modal {
+      position: fixed;
+      z-index: 1001;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .login-modal.active,
+    .signup-modal.active,
+    .admin-modal.active {
+      pointer-events: auto;
+    }
+
+    /* Error Messages */
     .error-message {
       color: #ff6b6b;
       text-align: center;
       margin-bottom: 1rem;
       font-size: 0.9rem;
-      font-weight: 500;
-      background: rgba(255, 107, 107, 0.1);
-      padding: 0.5rem;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 107, 107, 0.3);
       min-height: 20px;
     }
 
-    .login-submit-btn {
-      width: 100%;
-      padding: 1.2rem;
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      color: white;
-      border: none;
-      border-radius: 15px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
-    }
-
-    .login-submit-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(37, 99, 235, 0.6);
-      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-    }
-
-    .login-footer {
-      text-align: center;
-    }
-
-    .login-footer p {
-      color: rgba(255, 255, 255, 0.8);
-      margin: 0.5rem 0;
-      font-size: 0.95rem;
-    }
-
-    .login-footer a {
-      color: #ffd700;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .login-footer a:hover {
-      color: #ffed4a;
-      text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
-    }
-
-    .admin-link {
-      color: #ff6b6b !important;
-    }
-
-    .admin-link:hover {
-      color: #ff5252 !important;
-      text-shadow: 0 2px 10px rgba(255, 107, 107, 0.3) !important;
-    }
-
-    /* Sign Up Popup Modal Styles */
-    .signup-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      z-index: 1002;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-    }
-
-    .signup-modal.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .signup-container {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(30px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 25px;
-      padding: 2.5rem;
-      width: 100%;
-      max-width: 500px;
-      position: relative;
-      transform: scale(0.8);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .signup-modal.active .signup-container {
-      transform: scale(1);
-    }
-
-    .signup-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-
-    .signup-header h2 {
-      color: white;
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 0;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .signup-submit-btn {
-      width: 100%;
-      padding: 1.2rem;
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      color: white;
-      border: none;
-      border-radius: 15px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 10px 30px rgba(5, 150, 105, 0.4);
-    }
-
-    .signup-submit-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(5, 150, 105, 0.6);
-      background: linear-gradient(135deg, #047857 0%, #065f46 100%);
-    }
-
-    .signup-footer {
-      text-align: center;
-    }
-
-    .signup-footer p {
-      color: rgba(255, 255, 255, 0.8);
-      margin: 0.5rem 0;
-      font-size: 0.95rem;
-    }
-
-    .signup-footer a {
-      color: #ffd700;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .signup-footer a:hover {
-      color: #ffed4a;
-      text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
-    }
-
-    /* Custom Checkbox Styles */
-    .checkbox-group {
-      margin: 1.5rem 0;
-    }
-
-    .checkbox-label {
-      display: flex !important;
-      align-items: flex-start;
-      cursor: pointer;
-      font-size: 0.9rem;
-      line-height: 1.4;
-      color: rgba(255, 255, 255, 0.9) !important;
-      font-weight: 400 !important;
-      margin-bottom: 0 !important;
-    }
-
-    .checkbox-label input[type="checkbox"] {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      width: 0;
-      height: 0;
-    }
-
-    .checkmark {
-      height: 20px;
-      width: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-      margin-right: 12px;
-      margin-top: 2px;
-      flex-shrink: 0;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .checkbox-label:hover input ~ .checkmark {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: #ffd700;
-    }
-
-    .checkbox-label input:checked ~ .checkmark {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      border-color: #059669;
-    }
-
-    .checkmark:after {
-      content: "";
-      position: absolute;
-      display: none;
-    }
-
-    .checkbox-label input:checked ~ .checkmark:after {
-      display: block;
-    }
-
-    .checkbox-label .checkmark:after {
-      left: 6px;
-      top: 2px;
-      width: 6px;
-      height: 10px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
-
-    .checkbox-label a {
-      color: #ffd700 !important;
-      text-decoration: underline;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .checkbox-label a:hover {
-      color: #ffed4a !important;
-      text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
-    }
-
-    /* Admin Popup Modal Styles */
-    .admin-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      z-index: 1003;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-    }
-
-    .admin-modal.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .admin-container-popup {
-      background: rgba(231, 76, 60, 0.1);
-      backdrop-filter: blur(30px);
-      border: 2px solid rgba(231, 76, 60, 0.3);
-      border-radius: 25px;
-      padding: 2.5rem;
-      width: 100%;
-      max-width: 450px;
-      position: relative;
-      transform: scale(0.8);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 30px 60px rgba(231, 76, 60, 0.4);
-    }
-
-    .admin-modal.active .admin-container-popup {
-      transform: scale(1);
-    }
-
-    .admin-header-popup {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 2rem;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .admin-header-popup .close-btn {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background: rgba(231, 76, 60, 0.2);
-      border: 1px solid rgba(231, 76, 60, 0.5);
-    }
-
-    .admin-header-popup .close-btn:hover {
-      background: rgba(231, 76, 60, 0.3);
-      color: #ff6b6b;
-    }
-
-    .admin-header-popup h2 {
-      color: white;
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 0.5rem 0 0 0;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
+    /* --- Admin Modal Styling --- */
     .admin-badge {
       background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
       color: white;
-      padding: 6px 16px;
+      padding: 4px 12px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+      display: inline-block;
+      margin-bottom: 10px;
     }
 
     .admin-submit-btn {
-      width: 100%;
-      padding: 1.2rem;
       background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-      color: white;
-      border: none;
-      border-radius: 15px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .admin-submit-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(231, 76, 60, 0.6);
       background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
     }
 
@@ -1033,67 +799,41 @@
       background: rgba(255, 107, 107, 0.1);
       border: 1px solid rgba(255, 107, 107, 0.3);
       border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 1rem;
+      padding: 0.8rem;
+      margin-top: 1rem;
       font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.9);
       text-align: center;
     }
 
-    .security-icon {
-      margin-right: 5px;
-    }
-
-    .admin-footer {
-      text-align: center;
-    }
-
-    .admin-footer p {
-      color: rgba(255, 255, 255, 0.8);
-      margin: 0.5rem 0;
-      font-size: 0.95rem;
-    }
-
-    .admin-footer a {
-      color: #ff6b6b;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .admin-footer a:hover {
-      color: #ff5252;
-      text-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
-    }
-
-    /* Enhanced Footer Styling */
+    /* --- Footer --- */
     footer {
       background: rgba(10, 22, 40, 0.8);
       backdrop-filter: blur(20px);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       color: white;
-      padding: 5rem 2rem 2rem; /* Increased top padding */
+      padding: 5rem 2rem 2rem;
       margin-top: 6rem;
     }
 
     .footer-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 3.5rem; /* Increased spacing */
+      gap: 3.5rem;
       max-width: 1400px;
       margin: auto;
     }
 
     .footer-container h3,
     .footer-container h4 {
-      margin-bottom: 1.5rem; /* Increased spacing */
+      margin-bottom: 1.5rem;
       font-weight: 700;
       color: #ffd700;
-      font-size: 1.4rem; /* Slightly larger font */
+      font-size: 1.4rem;
       text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
       display: flex;
       align-items: center;
-      gap: 0.75rem; /* Space for icon */
+      gap: 0.75rem;
     }
 
     .footer-container ul {
@@ -1102,7 +842,7 @@
     }
 
     .footer-container ul li {
-      margin-bottom: 1rem; /* Increased spacing */
+      margin-bottom: 1rem;
     }
 
     .footer-container a {
@@ -1110,13 +850,13 @@
       text-decoration: none;
       transition: all 0.3s ease;
       font-weight: 400;
-      display: inline-block; /* For transform */
+      display: inline-block;
     }
 
     .footer-container a:hover {
       color: #ffd700;
-      text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); /* Glow effect */
-      transform: translateX(5px) scale(1.03); /* Scale and move effect */
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+      transform: translateX(5px) scale(1.03);
     }
 
     .footer-social .social-icons {
@@ -1128,25 +868,30 @@
     .footer-social .social-icons a {
       font-size: 1.8rem;
       transition: all 0.3s ease;
+      color: white;
     }
 
     .footer-social .social-icons a:hover {
-      transform: translateY(-5px) scale(1.1); /* Enhanced hover effect */
+      transform: translateY(-5px) scale(1.1);
     }
 
-    /* Newsletter Section Layout */
     .footer-newsletter {
-      grid-column: span 2; /* Make it span 2 columns */
+      grid-column: span 2;
     }
 
-    /* Newsletter Section */
+    @media (max-width: 992px) {
+      .footer-newsletter {
+        grid-column: auto;
+      }
+    }
+
     .newsletter-form {
       display: flex;
       margin-top: 1rem;
       border-radius: 15px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
     }
 
@@ -1158,6 +903,7 @@
       color: white;
       font-size: 1rem;
       transition: background 0.3s ease;
+      outline: none;
     }
 
     .newsletter-form:focus-within {
@@ -1166,9 +912,7 @@
     }
 
     .newsletter-form input:focus {
-      outline: none;
       background: rgba(255, 255, 255, 0.15);
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
     }
 
     .newsletter-form button {
@@ -1188,13 +932,6 @@
       background: #1d4ed8;
     }
 
-    /* Shake animation for failed admin login */
-    @keyframes shake {
-      0%, 100% { transform: translateX(0) scale(1); }
-      25% { transform: translateX(-5px) scale(1); }
-      75% { transform: translateX(5px) scale(1); }
-    }
-
     .footer-bottom {
       text-align: center;
       margin-top: 2rem;
@@ -1204,11 +941,10 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
-    /* Loading Animations */
     .loading {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateY(20px);
+      transition: 0.8s;
     }
 
     .loading.loaded {
@@ -1216,672 +952,234 @@
       transform: translateY(0);
     }
 
-    /* Responsive Design */
-    @media (max-width: 1200px) {
-      .grid-container {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      }
-      .footer-container {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      }
+    /* Checkbox Styles for Signup */
+    .checkbox-group {
+      margin: 1.5rem 0;
     }
 
-    @media (max-width: 992px) {
-      .footer-container {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      }
-      .footer-newsletter {
-        grid-column: auto; /* Revert to single column on smaller screens */
-      }
+    .checkbox-label {
+      display: flex !important;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.9) !important;
     }
 
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-
-      nav {
-        gap: 0.5rem;
-      }
-
-      nav a {
-        padding: 10px 20px;
-        font-size: 1rem;
-      }
-
-      .hero {
-        margin: 2rem 1rem;
-        padding: 3rem 2rem;
-      }
-
-      .hero h2 {
-        font-size: 2.8rem;
-      }
-
-      .hero p {
-        font-size: 1.1rem;
-      }
-
-      .services-title {
-        font-size: 2.5rem;
-      }
-
-      .grid-container {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-      }
-
-      .card {
-        padding: 2rem 1.5rem;
-      }
-
-      .service-alert {
-        padding: 2rem 1.5rem;
-        margin: 1rem;
-      }
-
-      .alert-buttons {
-        flex-direction: column;
-      }
-
-      .cursor {
-        display: none !important;
-      }
-
-      /* Login Modal Mobile Responsive */
-      .login-modal {
-        padding: 1rem;
-      }
-
-      .login-container {
-        padding: 2rem 1.5rem;
-        max-width: 100%;
-      }
-
-      .login-header h2 {
-        font-size: 1.5rem;
-      }
-
-      .close-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 1.5rem;
-      }
-
-      .form-group input {
-        padding: 0.8rem;
-      }
-
-      .login-submit-btn {
-        padding: 1rem;
-        font-size: 1rem;
-      }
-
-      /* Sign Up Modal Mobile Responsive */
-      .signup-modal {
-        padding: 1rem;
-      }
-
-      .signup-container {
-        padding: 2rem 1.5rem;
-        max-width: 100%;
-        max-height: 85vh;
-      }
-
-      .signup-header h2 {
-        font-size: 1.5rem;
-      }
-
-      .signup-submit-btn {
-        padding: 1rem;
-        font-size: 1rem;
-      }
-
-      /* Admin Modal Mobile Responsive */
-      .admin-modal {
-        padding: 1rem;
-      }
-
-      .admin-container-popup {
-        padding: 2rem 1.5rem;
-        max-width: 100%;
-      }
-
-      .admin-header-popup h2 {
-        font-size: 1.5rem;
-      }
-
-      .admin-badge {
-        font-size: 0.7rem;
-        padding: 5px 14px;
-      }
-
-      .admin-submit-btn {
-        padding: 1rem;
-        font-size: 1rem;
-      }
-
-      .security-note {
-        font-size: 0.8rem;
-        padding: 0.8rem;
-      }
-    /* Base Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  background: #0b1224;
-  color: #ffffff;
-  line-height: 1.6;
-}
-
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-}
-
-/* Header Styling */
-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-}
-
-header .logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: white;
-}
-
-header nav {
-  display: flex;
-  gap: 1.5rem;
-}
-
-header nav a {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: background 0.3s, color 0.3s;
-}
-
-header nav a:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #1fb2ff;
-}
-/* hamburger  */
-.hamburger{
-  display: none;
-  cursor: pointer;
-}
-header .hamburgerList{
-    background-color:rgba(23,33,48,0.7);
-    width: 21%; 
-    position: absolute;
-    z-index: 6;
-    top: 83%;
-    right: 9px;
-    border-radius: 6px;
-    display: none;
-}
-header .hamburgerList ul li{
-  list-style: none;
-
-}
-.hamburgerList ul li a{
-    text-decoration: none;
-    color:white;
-    font-size: 1.875rem;
-    padding:24px 14px 14px 16px;
-    
-}
-
-/* Hero Section */
-.hero {
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-  border-radius: 15px;
-  padding: 3rem;
-  text-align: center;
-  max-width: 600px;
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.hero p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.btn {
-  background: #1fb2ff;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.3s;
-}
-
-.btn:hover {
-  background: #0284c7;
-}
-
-.btn-cta {
-  margin-bottom: 2rem;
-}
-
-.tracking-container {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.tracking-container input {
-  padding: 0.75rem 1rem;
-  border-radius: 50px;
-  border: none;
-  outline: none;
-  width: 250px;
-}
-
-.tracking-container .btn-track {
-  padding: 0.75rem 1.5rem;
-}
-
-/* Trusted Brands */
-.trusted-brands {
-  text-align: center;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.brand-logos {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
-.brand-logos span {
-  font-weight: bold;
-  color: #020a0e;
-}
-
-/* Responsive */
-
-
-@media screen and (max-width:652px){
-  header .hamburgerList{
-    width:30%;
-  }
-}
-@media screen and (max-width:456px){
-   header .hamburgerList{
-    width:40%;
-  }
-}
-@media screen and (max-width: 768px) {
-  .hero {
-    padding: 2rem;
-  }
-
-  .tracking-container {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  header {
-    
-    align-items: flex-start;
-  }
-
-  header nav {
-    
-    margin-top: 1rem;
-  }
-  .hamburger{
-      width: 14px;
-      height: 23px;
-  }
-}
-
-@media screen and (max-width:937px){
-  .hamburger{
-    display: block;
-    width: 36px;
-  }
-  header nav{
-    display: none;
-  }
-
-}
-
-      /* Checkbox Mobile Responsive */
-      .checkbox-label {
-        font-size: 0.85rem !important;
-        line-height: 1.3 !important;
-      }
-
-      .checkmark {
-        height: 18px;
-        width: 18px;
-        margin-right: 10px;
-      }
-
-      .checkbox-label .checkmark:after {
-        left: 5px;
-        top: 1px;
-        width: 5px;
-        height: 9px;
-      }
+    .checkbox-label input {
+      width: auto !important;
+      margin-right: 10px;
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 12px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #2563eb, #ffd700);
-      border-radius: 6px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, #1d4ed8, #ffed4a);
-    }
-
-    /* Ripple Effect */
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.6);
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-      pointer-events: none;
-    }
-
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-
-    /* Cursor trail effect */
-    .cursor-trail {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 6px;
-      height: 6px;
-      background: rgba(255, 215, 0, 0.4);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transition: opacity 0.2s ease;
-      will-change: transform;
+    .checkbox-label a {
+      color: #ffd700;
+      text-decoration: underline;
+      margin-left: 4px;
     }
   </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transport Co.</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <!-- Enhanced Custom Cursor -->
-  <div class="cursor" id="cursor"></div>
 
-  <!-- Animated Background Particles -->
+<body>
+   <div class="cursor"></div>
+
+  <div class="cursor-tail">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <script src="cursor.js"></script>
+
   <div class="particles" id="particles"></div>
 
-  <header id="header">
-    <h1>Transport Co.</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="contact.html">Contact</a>
-      <a href="#" onclick="openLoginPopup()" class="nav-btn nav-login">Login</a>
-      <a href="#" onclick="openSignupPopup()" class="nav-btn nav-signup">Sign Up</a>
-    </nav>
-    <img id="Hamburger" class="hamburger" src="hamburger.svg" alt="hamburger">
-    <div class="hamburgerList">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="#" onclick="openLoginPopup()">Login</a></li>
-        <li><a href="#" onclick="openSignupPopup()">Sign Up</a></li>
-      </ul>
+  <header id="main-header" class="modern-header">
+    <div class="header-content">
+      <a href="#" class="brand-logo">
+        <span class="logo-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg></span>
+        <span class="logo-text">Transport<span class="highlight">Co.</span></span>
+      </a>
+      <nav class="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="#" class="nav-link">Tracking</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <div class="search-bar-mini">
+          <input type="text" placeholder="Track ID...">
+          <button><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></button>
+        </div>
+        <div class="auth-divider"></div>
+        <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
+        <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
+        <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
+            class="bar"></span></button>
+      </div>
+    </div>
+    <div class="mobile-menu">
+      <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
+        href="contact.html">Contact</a>
+      <div class="mobile-auth"><a href="#" onclick="openLoginPopup()">Login</a><a href="#"
+          onclick="openSignupPopup()">Sign Up</a></div>
     </div>
   </header>
 
   <main class="hero loading">
     <h2>Your Cargo, Our Priority</h2>
-    <p>Experience world-class logistics and transportation services with cutting-edge technology, unmatched reliability, and a commitment to excellence that sets us apart in the global marketplace.</p>
-    <a class="btn" href="#" onclick="openLoginPopup()">Get Started Today</a>
+    <p>Seamless and reliable global shipping solutions, tailored for your business. Fast, secure, and always on time.
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn-hero" onclick="openSignupPopup()">Get Started Today</a>
+      <div class="tracking-wrapper">
+        <input type="text" placeholder="Enter Tracking ID...">
+        <button>Track Parcel</button>
+      </div>
+    </div>
+    <div class="hero-brands">
+      <p>Trusted by leading brands</p>
+      <div class="brand-logos">
+        <span>GlobalCorp</span><span>❖ TransNet</span><span>Apex Logistics</span><span>Horizon Freight</span>
+      </div>
+    </div>
   </main>
 
   <section class="services-section loading">
     <h2 class="services-title">Our Premium Services</h2>
     <div class="grid-container">
       <div class="card" onclick="handleServiceClick()">
-        <div class="icon">🚛</div>
-        <h2>Ground Transport</h2>
-        <p>Reliable trucking services with real-time GPS tracking, temperature-controlled options, and 24/7 monitoring for sensitive cargo deliveries nationwide.</p>
+        <div class="card-content">
+          <div class="icon">🚛</div>
+          <h2>Ground Transport</h2>
+          <p>Reliable trucking services with real-time GPS tracking, temperature-controlled options, and 24/7
+            monitoring.</p>
+        </div>
       </div>
-      
       <div class="card" onclick="handleServiceClick()">
-        <div class="icon">✈️</div>
-        <h2>Air Freight</h2>
-        <p>Lightning-fast international shipping with priority handling, expedited customs clearance, and door-to-door service for urgent deliveries worldwide.</p>
+        <div class="card-content">
+          <div class="icon">✈️</div>
+          <h2>Air Freight</h2>
+          <p>Lightning-fast international shipping with priority handling and expedited customs clearance for urgent
+            deliveries.</p>
+        </div>
       </div>
-      
       <div class="card" onclick="handleServiceClick()">
-        <div class="icon">🚢</div>
-        <h2>Ocean Freight</h2>
-        <p>Cost-effective sea transport for large shipments with comprehensive insurance, documentation assistance, and port-to-port excellence globally.</p>
+        <div class="card-content">
+          <div class="icon">🚢</div>
+          <h2>Ocean Freight</h2>
+          <p>Cost-effective sea transport for large shipments with comprehensive insurance and port-to-port excellence.
+          </p>
+        </div>
       </div>
-      
       <div class="card" onclick="handleServiceClick()">
-        <div class="icon">📦</div>
-        <h2>Warehousing</h2>
-        <p>State-of-the-art storage facilities with advanced inventory management, automated distribution systems, and climate-controlled environments.</p>
+        <div class="card-content">
+          <div class="icon">📦</div>
+          <h2>Warehousing</h2>
+          <p>State-of-the-art storage facilities with advanced inventory management and automated distribution systems.
+          </p>
+        </div>
       </div>
-      
       <div class="card" onclick="handleServiceClick()">
-        <div class="icon">🛡️</div>
-        <h2>Secure Logistics</h2>
-        <p>High-security transport for valuable goods with GPS monitoring, armed escorts, and specialized handling protocols for maximum protection.</p>
+        <div class="card-content">
+          <div class="icon">🛡️</div>
+          <h2>Secure Logistics</h2>
+          <p>High-security transport for valuable goods with GPS monitoring and specialized handling protocols.</p>
+        </div>
       </div>
-      
       <div class="card" onclick="handleServiceClick()">
-        <div class="icon">⚡</div>
-        <h2>Express Delivery</h2>
-        <p>Same-day and next-day delivery services with live tracking, signature confirmation, and money-back guarantee for time-critical shipments.</p>
+        <div class="card-content">
+          <div class="icon">⚡</div>
+          <h2>Express Delivery</h2>
+          <p>Same-day and next-day delivery services with live tracking and money-back guarantee for time-critical
+            shipments.</p>
+        </div>
       </div>
-
-
-    <div class="main-container">
-        <header>
-            <div class="logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4v-4z" fill="white"/>
-                </svg>
-                <span>Transport Co.</span>
-            </div>
-            <nav>
-                <a href="#">Services</a>
-                <a href="#">About Us</a>
-                <a href="#">Track Shipment</a>
-            </nav>
-            <div class="auth-buttons">
-              <a href="#" onclick="openLoginPopup()" class="btn btn-login">Login</a>
-              <a href="#" onclick="openSignupPopup()" class="btn btn-signup">Signup</a>
-            </div>
-        </header>
-
-        <main class="hero">
-            <h1>Your Cargo, Our Priority</h1>
-            <p>Seamless and reliable global shipping solutions, tailored for your business.</p>
-            <a href="#" class="btn btn-cta">Get a Free Quote &rarr;</a>
-            
-            <div class="tracking-container">
-                <input type="text" placeholder="Enter Tracking ID...">
-                <button class="btn btn-track">Track Parcel</button>
-            </div>
-
-            <div class="trusted-brands">
-                <p>Trusted by leading brands:</p>
-                <div class="brand-logos">
-                    <span><b>Global</b>Corp</span>
-                    <span>❖ TransNet</span>
-                    <span><b>Apex</b> Logistics</span>
-                    <span><b>Horizon</b> Freight</span>
-                </div>
-            </div>
-        </main>
     </div>
   </section>
 
-  <!-- Overlay for modal -->
-  <div class="overlay" id="overlay" onclick="closeServiceAlert()"></div>
+  <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
-  <!-- Service Alert Modal -->
   <div class="service-alert" id="serviceAlert">
-    <h3>🔒 Premium Services Access</h3>
-    <p>To access detailed service information, pricing, and exclusive features, please login to your account or create a new one. Join thousands of satisfied customers worldwide!</p>
+    <h3>🔒 Premium Access</h3>
+    <p>Please login to access detailed service information and pricing.</p>
     <div class="alert-buttons">
       <a href="#" onclick="openLoginPopup(); closeServiceAlert();" class="alert-btn primary">Login Now</a>
-      <a href="#" onclick="openSignupPopup(); closeServiceAlert();" class="alert-btn secondary">Signup Free</a>
-      <button class="alert-btn close" onclick="closeServiceAlert()">Maybe Later</button>
+      <button class="alert-btn close" onclick="closeServiceAlert()">Close</button>
     </div>
   </div>
 
-  <!-- Login Popup Modal -->
   <div class="login-modal" id="loginModal">
     <div class="login-container">
-      <div class="login-header">
-        <h2>Login to MooVit</h2>
-        <button class="close-btn" onclick="closeLoginPopup()">&times;</button>
-      </div>
-      <form id="login-form-popup">
-        <div class="form-group">
-          <label for="popup-email">Email</label>
-          <input type="email" id="popup-email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="popup-password">Password</label>
-          <input type="password" id="popup-password" name="password" required>
-        </div>
+      <button class="close-btn" onclick="closeAllModals()">&times;</button>
+      <h2 style="color:white; margin-bottom:1.5rem;">Login</h2>
+      <form id="login-form-popup" class="form-group">
+        <label for="popup-email">Email</label>
+        <input type="email" id="popup-email" name="email" required>
+        <label style="margin-top:1rem;" for="popup-password">Password</label>
+        <input type="password" id="popup-password" name="password" required>
         <div id="popup-error-msg" class="error-message"></div>
-        <button type="submit" class="login-submit-btn">Login</button>
-        <div class="login-footer">
-          <p>New user? <a href="#" onclick="closeLoginPopup(); openSignupPopup();">Register here</a></p>
-          <p><a href="#" onclick="closeLoginPopup(); openAdminPopup();" class="admin-link">🔐 Admin Portal</a></p>
-        </div>
+        <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
       </form>
+      <p style="text-align:center; color:#94a3b8; font-size:0.9rem;">New here? <a href="#"
+          onclick="openSignupPopup(); closeLoginPopup();" style="color:#2563eb;">Sign Up</a></p>
+      <p style="text-align:center; margin-top:0.5rem;"><a href="#" onclick="closeLoginPopup(); openAdminPopup();"
+          style="color:#ff6b6b; font-size:0.9rem; text-decoration:none;">🔐 Admin Portal</a></p>
     </div>
   </div>
 
-  <!-- Sign Up Popup Modal -->
   <div class="signup-modal" id="signupModal">
     <div class="signup-container">
-      <div class="signup-header">
-        <h2>Join MooVit</h2>
-        <button class="close-btn" onclick="closeSignupPopup()">&times;</button>
-      </div>
-      <form id="signup-form-popup">
-        <div class="form-group">
-          <label for="signup-name">Full Name</label>
-          <input type="text" id="signup-name" name="name" placeholder="Your full name" required>
-        </div>
-        <div class="form-group">
-          <label for="signup-email">Email</label>
-          <input type="email" id="signup-email" name="email" placeholder="you@example.com" required>
-        </div>
-        <div class="form-group">
-          <label for="signup-password">Password</label>
-          <input type="password" id="signup-password" name="password" placeholder="Create password" required>
-        </div>
-        <div class="form-group">
-          <label for="signup-confirm-password">Confirm Password</label>
-          <input type="password" id="signup-confirm-password" name="confirmPassword" placeholder="Confirm password" required>
-        </div>
-        <div class="form-group checkbox-group">
+      <button class="close-btn" onclick="closeAllModals()">&times;</button>
+      <h2 style="color:white; margin-bottom:1.5rem;">Sign Up</h2>
+      <form id="signup-form-popup" class="form-group">
+        <label for="signup-name">Full Name</label>
+        <input type="text" id="signup-name" name="name" placeholder="Your full name" required>
+        <label style="margin-top:1rem;" for="signup-email">Email</label>
+        <input type="email" id="signup-email" name="email" placeholder="you@example.com" required>
+        <label style="margin-top:1rem;" for="signup-password">Password</label>
+        <input type="password" id="signup-password" name="password" placeholder="Create password" required>
+        <label style="margin-top:1rem;" for="signup-confirm-password">Confirm Password</label>
+        <input type="password" id="signup-confirm-password" name="confirmPassword" placeholder="Confirm password"
+          required>
+        <div class="checkbox-group">
           <label class="checkbox-label">
             <input type="checkbox" id="terms-checkbox" name="agreeTerms" required>
-            <span class="checkmark"></span>
-            I agree to the <a href="#" onclick="openTermsModal()">Terms and Conditions</a> and <a href="#" onclick="openPrivacyModal()">Privacy Policy</a>
+            I agree to the <a href="#">Terms and Conditions</a>
           </label>
         </div>
         <div id="signup-error-msg" class="error-message"></div>
-        <button type="submit" class="signup-submit-btn">Create Account</button>
-        <div class="signup-footer">
-          <p>Already have an account? <a href="#" onclick="closeSignupPopup(); openLoginPopup();">Login here</a></p>
-        </div>
+        <button type="submit" class="signup-submit-btn" style="margin-top:1.5rem;">Create Account</button>
       </form>
     </div>
   </div>
 
-  <!-- Admin Popup Modal -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-container-popup">
-      <div class="admin-header-popup">
-        <div class="admin-badge">Admin Access</div>
-        <h2>Control Panel</h2>
-        <button class="close-btn" onclick="closeAdminPopup()">&times;</button>
-      </div>
-      <form id="admin-form-popup">
-        <div class="form-group">
-          <label for="admin-id">Administrator ID</label>
-          <input type="text" id="admin-id" name="adminId" placeholder="Enter admin username" required>
-        </div>
-        <div class="form-group">
-          <label for="admin-password">Admin Password</label>
-          <input type="password" id="admin-password" name="adminPassword" placeholder="Enter secure password" required>
-        </div>
+      <button class="close-btn" onclick="closeAllModals()">&times;</button>
+      <div class="admin-badge">Admin Access</div>
+      <h2 style="color:white; margin-bottom:1.5rem; margin-top:0;">Control Panel</h2>
+      <form id="admin-form-popup" class="form-group">
+        <label for="admin-id">Administrator ID</label>
+        <input type="text" id="admin-id" name="adminId" placeholder="Enter admin username" required>
+        <label style="margin-top:1rem;" for="admin-password">Admin Password</label>
+        <input type="password" id="admin-password" name="adminPassword" placeholder="Enter secure password" required>
         <div id="admin-error-msg" class="error-message"></div>
-        <button type="submit" class="admin-submit-btn">Access Dashboard</button>
+        <button type="submit" class="admin-submit-btn" style="margin-top:1.5rem;">Access Dashboard</button>
         <div class="security-note">
-          <span class="security-icon">🔒</span>
-          <strong>Security Notice:</strong> Admin access is logged and monitored.
-        </div>
-        <div class="admin-footer">
-          <p><a href="#" onclick="closeAdminPopup(); openLoginPopup();">← Back to User Login</a></p>
+          <span>🔒</span> <strong>Security Notice:</strong> Admin access is logged and monitored.
         </div>
       </form>
     </div>
@@ -1891,11 +1189,16 @@ header .hamburgerList ul li{
     <div class="footer-container">
       <div class="footer-about">
         <h3>Transport Co.</h3>
-        <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time with innovative solutions and unmatched customer service excellence across the globe.</p>
+        <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time with innovative
+          solutions and unmatched customer service excellence across the globe.</p>
       </div>
 
       <div class="footer-links">
-        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 17-5-5 5-5"/><path d="m6 17-5-5 5-5"/></svg>Quick Links</h4>
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m13 17-5-5 5-5" />
+            <path d="m6 17-5-5 5-5" />
+          </svg>Quick Links</h4>
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
@@ -1906,33 +1209,66 @@ header .hamburgerList ul li{
       </div>
 
       <div class="footer-contact">
-        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact Us</h4>
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>Contact Us</h4>
         <p>Email: <a href="mailto:shubhangi.23bai11165@vitbhopal.ac.in">shubhangi.23bai11165@vitbhopal.ac.in</a></p>
         <p>Phone: +91 98765 XXXXX</p>
         <p>Address: VIT Bhopal, Madhya Pradesh, India</p>
       </div>
 
       <div class="footer-social">
-        <!-- <h4>Follow Us</h4> -->
-        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>Follow Us</h4>
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect width="4" height="12" x="2" y="9" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>Follow Us</h4>
         <div class="social-icons">
-          <!-- <p> -->
-          <a href="https://github.com/ShubhangiRoy12" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/></svg></a>
-          <a href="https://leetcode.com/u/Shubhangi12/" target="_blank" rel="noopener noreferrer" aria-label="LeetCode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1'374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z"/></svg></a>
-          <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
-          <!-- </p> -->
+          <a href="https://github.com/ShubhangiRoy12" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+            </svg></a>
+          <a href="https://leetcode.com/u/Shubhangi12/" target="_blank" rel="noopener noreferrer"
+            aria-label="LeetCode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1'374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/" target="_blank" rel="noopener noreferrer"
+            aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect width="4" height="12" x="2" y="9" />
+              <circle cx="4" cy="4" r="2" />
+            </svg></a>
         </div>
-        <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.7);">Connect with us for updates and exclusive offers!</p>
+        <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.7);">Connect with us for updates and exclusive offers!
+        </p>
       </div>
 
-    
-
       <div class="footer-newsletter">
-        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>Newsletter</h4>
-        <p>Join our mailing list to get exclusive updates, special offers, and insights into the logistics world delivered straight to your inbox. Don't miss out!</p>
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-6l-2 3h-4l-2-3H2" />
+            <path
+              d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+          </svg>Newsletter</h4>
+        <p>Join our mailing list to get exclusive updates, special offers, and insights into the logistics world
+          delivered
+          straight to your inbox.</p>
         <form class="newsletter-form">
           <input type="email" placeholder="Enter your email" required>
-          <button type="submit">Subscribe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          <button type="submit">Subscribe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg></button>
         </form>
       </div>
     </div>
@@ -1942,707 +1278,183 @@ header .hamburgerList ul li{
   </footer>
 
   <script>
-    // Enhanced Custom Cursor Implementation
-    const cursor = document.getElementById('cursor');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let trails = [];
-
-    // Create cursor trails
-    function createTrails() {
-      for (let i = 0; i < 8; i++) {
-        const trail = document.createElement('div');
-        trail.className = 'cursor-trail';
-        document.body.appendChild(trail);
-        trails.push({
-          element: trail,
-          x: 0,
-          y: 0,
-          delay: i * 0.05
-        });
-      }
-    }
-
-    // Update cursor position
-    function updateCursor() {
-      const dx = mouseX - cursorX;
-      const dy = mouseY - cursorY;
-      
-      // Faster easing for quicker movement
-      cursorX += dx * 0.35;
-      cursorY += dy * 0.35;
-      
-      // Use transform for GPU acceleration (60fps smooth)
-      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-      
-      // Update trails with optimized transforms
-      trails.forEach((trail, index) => {
-        const targetX = mouseX - (index * 5);
-        const targetY = mouseY - (index * 5);
-        
-        trail.x += (targetX - trail.x) * (0.4 - index * 0.02);
-        trail.y += (targetY - trail.y) * (0.4 - index * 0.02);
-        
-        trail.element.style.transform = `translate(${trail.x - 3}px, ${trail.y - 3}px)`;
-        trail.element.style.opacity = 1 - (index * 0.15);
-      });
-      
-      requestAnimationFrame(updateCursor);
-    }
-
-    // Mouse move event
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    // Mouse down event
-    document.addEventListener('mousedown', () => {
-      cursor.classList.add('click');
-    });
-
-    // Mouse up event
-    document.addEventListener('mouseup', () => {
-      cursor.classList.remove('click');
-    });
-
-    // Hover effects for interactive elements
-    const hoverElements = document.querySelectorAll('a, button, .card, input, textarea');
-    hoverElements.forEach(element => {
-      element.addEventListener('mouseenter', () => {
-        cursor.classList.add('hover');
-      });
-      
-      element.addEventListener('mouseleave', () => {
-        cursor.classList.remove('hover');
-      });
-    });
-
-    // Text cursor for input fields
-    const textElements = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], textarea');
-    textElements.forEach(element => {
-      element.addEventListener('mouseenter', () => {
-        cursor.classList.add('text');
-      });
-      
-      element.addEventListener('mouseleave', () => {
-        cursor.classList.remove('text');
-      });
-    });
-
-    // Initialize cursor system
-    function initCursor() {
-      if (window.innerWidth > 768 && matchMedia('(pointer: fine)').matches) {
-        createTrails();
-        updateCursor();
-      }
-    }
-
-    // Create animated background particles
-    function createParticles() {
-      const particles = document.getElementById('particles');
-      const particleCount = 50;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 6 + 's';
-        particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-        particles.appendChild(particle);
-      }
-    }
-
-    // Handle service card clicks with enhanced animation
-    function handleServiceClick() {
-      const overlay = document.getElementById('overlay');
-      const alert = document.getElementById('serviceAlert');
-      
-      overlay.classList.add('active');
-      alert.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    // Close service alert with smooth animation
-    function closeServiceAlert() {
-      const overlay = document.getElementById('overlay');
-      const alert = document.getElementById('serviceAlert');
-      
-      alert.classList.remove('active');
-      
-      setTimeout(() => {
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      }, 300);
-    }
-
-    // Login Popup Functions
-    function openLoginPopup() {
-      const loginModal = document.getElementById('loginModal');
-      loginModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      
-      // Focus on email input
-      setTimeout(() => {
-        document.getElementById('popup-email').focus();
-      }, 300);
-    }
-
-    function closeLoginPopup() {
-      const loginModal = document.getElementById('loginModal');
-      loginModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-      
-      // Clear form
-      document.getElementById('login-form-popup').reset();
-      document.getElementById('popup-error-msg').textContent = '';
-    }
-
-    // Login form validation and submission
-    document.getElementById('login-form-popup').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const email = document.getElementById('popup-email').value.trim();
-      const password = document.getElementById('popup-password').value;
-      const errorMsg = document.getElementById('popup-error-msg');
-      errorMsg.textContent = '';
-
-      // Email validation
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        errorMsg.textContent = 'Please enter a valid email address.';
-        return;
-      }
-
-      // Password strength validation
-      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-      if (!strongPasswordPattern.test(password)) {
-        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
-        return;
-      }
-
-      // Success - show loading effect and redirect
-      const submitBtn = this.querySelector('.login-submit-btn');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Logging in...';
-      submitBtn.disabled = true;
-
-      setTimeout(() => {
-        window.location.href = 'main.html';
-      }, 1000);
-    });
-
-    // Click outside to close login popup
-    document.getElementById('loginModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeLoginPopup();
-      }
-    });
-
-    // Sign Up Popup Functions
-    function openSignupPopup() {
-      const signupModal = document.getElementById('signupModal');
-      signupModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      
-      // Focus on name input
-      setTimeout(() => {
-        document.getElementById('signup-name').focus();
-      }, 300);
-    }
-
-    function closeSignupPopup() {
-      const signupModal = document.getElementById('signupModal');
-      signupModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-      
-      // Clear form
-      document.getElementById('signup-form-popup').reset();
-      document.getElementById('signup-error-msg').textContent = '';
-    }
-
-    // Sign up form validation and submission
-    document.getElementById('signup-form-popup').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const name = document.getElementById('signup-name').value.trim();
-      const email = document.getElementById('signup-email').value.trim();
-      const password = document.getElementById('signup-password').value;
-      const confirmPassword = document.getElementById('signup-confirm-password').value;
-      const agreeTerms = document.getElementById('terms-checkbox').checked;
-      const errorMsg = document.getElementById('signup-error-msg');
-      errorMsg.textContent = '';
-
-      // Check for empty fields
-      if (!name || !email || !password || !confirmPassword) {
-        errorMsg.textContent = 'Please fill in all fields.';
-        return;
-      }
-
-      // Check if terms are agreed
-      if (!agreeTerms) {
-        errorMsg.textContent = 'Please agree to the Terms and Conditions to continue.';
-        return;
-      }
-
-      // Name validation (only alphabets and spaces)
-      const namePattern = /^[A-Za-z ]+$/;
-      if (!namePattern.test(name)) {
-        errorMsg.textContent = 'Name should contain only alphabets and spaces.';
-        return;
-      }
-
-      // Email validation
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        errorMsg.textContent = 'Please enter a valid email address.';
-        return;
-      }
-
-      // Password strength validation
-      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-      if (!strongPasswordPattern.test(password)) {
-        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
-        return;
-      }
-
-      // Confirm password match
-      if (password !== confirmPassword) {
-        errorMsg.textContent = 'Passwords do not match.';
-        return;
-      }
-
-      // Success - show loading effect and redirect
-      const submitBtn = this.querySelector('.signup-submit-btn');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Creating Account...';
-      submitBtn.disabled = true;
-
-      setTimeout(() => {
-        closeSignupPopup();
-        openLoginPopup();
-        // Show success message in login form
-        setTimeout(() => {
-          const loginErrorMsg = document.getElementById('popup-error-msg');
-          loginErrorMsg.style.color = '#10b981';
-          loginErrorMsg.textContent = 'Account created successfully! Please login.';
-        }, 300);
-      }, 1500);
-    });
-
-    // Click outside to close signup popup
-    document.getElementById('signupModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeSignupPopup();
-      }
-    });
-
-    // Admin Popup Functions
-    function openAdminPopup() {
-      const adminModal = document.getElementById('adminModal');
-      adminModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      
-      // Focus on admin ID input
-      setTimeout(() => {
-        document.getElementById('admin-id').focus();
-      }, 300);
-    }
-
-    function closeAdminPopup() {
-      const adminModal = document.getElementById('adminModal');
-      adminModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-      
-      // Clear form
-      document.getElementById('admin-form-popup').reset();
-      document.getElementById('admin-error-msg').textContent = '';
-      
-      // Reset any blocked state
-      const submitBtn = document.querySelector('.admin-submit-btn');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Access Dashboard';
-      submitBtn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
-    }
-
-    // Admin form validation and submission
-    let adminLoginAttempts = 0;
-    const maxAdminAttempts = 3;
-
-    document.getElementById('admin-form-popup').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const adminId = document.getElementById('admin-id').value.trim();
-      const adminPassword = document.getElementById('admin-password').value;
-      const errorMsg = document.getElementById('admin-error-msg');
-      errorMsg.textContent = '';
-
-      // Simple validation (in real app, this would be server-side)
-      if (adminId === 'admin' && adminPassword === 'transport2024') {
-        // Success - show loading effect and redirect
-        const submitBtn = this.querySelector('.admin-submit-btn');
-        submitBtn.textContent = 'Accessing Dashboard...';
-        submitBtn.disabled = true;
-
-        setTimeout(() => {
-          alert('Login successful! Redirecting to admin dashboard...');
-          window.location.href = 'admin-dashboard.html';
-        }, 1000);
-      } else {
-        adminLoginAttempts++;
-        
-        if (adminLoginAttempts >= maxAdminAttempts) {
-          errorMsg.textContent = 'Maximum login attempts exceeded. Access temporarily blocked.';
-          const submitBtn = this.querySelector('.admin-submit-btn');
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Access Blocked';
-          submitBtn.style.background = '#95a5a6';
-          return;
-        }
-        
-        errorMsg.textContent = `Invalid credentials. Attempt ${adminLoginAttempts}/${maxAdminAttempts}`;
-        
-        // Clear password field
-        document.getElementById('admin-password').value = '';
-        
-        // Add shake animation
-        const container = document.querySelector('.admin-container-popup');
-        container.style.animation = 'shake 0.5s ease-in-out';
-        setTimeout(() => {
-          container.style.animation = '';
-        }, 500);
-      }
-    });
-
-    // Click outside to close admin popup
-    document.getElementById('adminModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeAdminPopup();
-      }
-    });
-
-    // Terms and Privacy Policy Functions (placeholder - can be expanded later)
-    function openTermsModal() {
-      alert('Terms and Conditions\n\nWelcome to MooVit Transport Co. By using our services, you agree to:\n\n1. Use our platform responsibly\n2. Provide accurate information\n3. Respect our service guidelines\n4. Follow applicable laws and regulations\n\nFor full terms, please contact our support team.\n\nThis is a demo implementation.');
-    }
-
-    function openPrivacyModal() {
-      alert('Privacy Policy\n\nAt MooVit, we value your privacy and are committed to protecting your personal data:\n\n1. We collect only necessary information\n2. Your data is securely stored and encrypted\n3. We never share your information without consent\n4. You have control over your data\n\nFor complete privacy policy details, please contact our support team.\n\nThis is a demo implementation.');
-    }
-
-    // Enhanced loading animations with stagger effect
-    window.addEventListener('load', function() {
-      createParticles();
-      initCursor();
-      
-      const loadingElements = document.querySelectorAll('.loading');
-      
-      loadingElements.forEach((element, index) => {
-        setTimeout(() => {
-          element.classList.add('loaded');
-        }, index * 300 + 500);
-      });
-    });
-
-    // Header scroll effect with smooth transitions
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', function() {
-      const header = document.getElementById('header');
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
-      if (scrollTop > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-      
-      lastScrollTop = scrollTop;
-    });
-
-    //hamburger interactivity
-     document.querySelector(".hamburger").addEventListener("click",()=>{
-        
-        if(document.querySelector(".hamburger").getAttribute("src")=="hamburger.svg"){
-            document.querySelector(".hamburger").setAttribute("src",'close.svg')
-            document.querySelector(".hamburgerList").style.display="block"
-        }
-        else{
-            document.querySelector(".hamburger").setAttribute("src","hamburger.svg");
-            document.querySelector(".hamburgerList").style.display="none"
-        }
-    })
-
-    // Enhanced ripple effect for interactive elements
-    function createRipple(event, element) {
-      const ripple = document.createElement('span');
-      const rect = element.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = event.clientX - rect.left - size / 2;
-      const y = event.clientY - rect.top - size / 2;
-      
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = x + 'px';
-      ripple.style.top = y + 'px';
-      ripple.classList.add('ripple');
-      
-      element.style.position = 'relative';
-      element.style.overflow = 'hidden';
-      element.appendChild(ripple);
-      
-      setTimeout(() => {
-        if (ripple.parentNode) {
-          ripple.remove();
-        }
-      }, 600);
-    }
-
-    // Add ripple effect to buttons and cards
-    document.querySelectorAll('.btn, .alert-btn, .card').forEach(element => {
-      element.addEventListener('click', function(e) {
-        createRipple(e, this);
-      });
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeServiceAlert();
-        closeLoginPopup();
-        closeSignupPopup();
-        closeAdminPopup();
-      }
-    });
-
-    // Smooth scroll for internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // Enhanced card interactions with 3D effect
+    // --- Mouse Spotlight Logic ---
     document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mousemove', function(e) {
-        const rect = this.getBoundingClientRect();
+      card.onmousemove = e => {
+        const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.02)`;
-      });
-      
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)';
-      });
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      }
     });
 
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // --- Cursor & Particles ---
+    const cursor = document.getElementById('cursor');
+    let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
+    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+    function updateCursor() {
+      const dx = mouseX - cursorX; const dy = mouseY - cursorY;
+      cursorX += dx * 0.2; cursorY += dy * 0.2;
+      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+      requestAnimationFrame(updateCursor);
+    }
+    if (window.innerWidth > 768) updateCursor();
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('loaded');
+    document.querySelectorAll('a, button, .card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Particles
+    const particles = document.getElementById('particles');
+    for (let i = 0; i < 40; i++) {
+      let p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.top = Math.random() * 100 + '%';
+      p.style.animationDelay = Math.random() * 5 + 's';
+      p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      particles.appendChild(p);
+    }
+
+    // Header Scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // Mobile Menu
+    const toggle = document.querySelector('.mobile-toggle');
+    const menu = document.querySelector('.mobile-menu');
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('active');
+      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    // --- Modal Logic ---
+    function closeAllModals() {
+      document.getElementById('overlay').classList.remove('active');
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
+      document.body.style.overflow = 'auto';
+    }
+    function handleServiceClick() {
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('serviceAlert').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeServiceAlert() { closeAllModals(); }
+
+    function openLoginPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('loginModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLoginPopup() { closeAllModals(); }
+
+    function openSignupPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('signupModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openAdminPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('adminModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // --- Backend Form Handling ---
+
+    // Login Validation
+    const loginForm = document.getElementById('login-form-popup');
+    if (loginForm) {
+      loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = document.getElementById('popup-email').value.trim();
+        const password = document.getElementById('popup-password').value;
+        const errorMsg = document.getElementById('popup-error-msg');
+        errorMsg.textContent = '';
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          errorMsg.textContent = 'Please enter a valid email address.';
+          return;
         }
-      });
-    }, observerOptions);
 
-    document.querySelectorAll('.card').forEach(card => {
-      observer.observe(card);
-    });
-
-    // Add floating animation to particles
-    function animateParticles() {
-      const particles = document.querySelectorAll('.particle');
-      particles.forEach(particle => {
-        const randomX = (Math.random() - 0.5) * 100;
-        const randomY = (Math.random() - 0.5) * 100;
-        particle.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        // Simulating submission
+        const submitBtn = this.querySelector('.login-submit-btn');
+        submitBtn.textContent = 'Logging in...';
+        submitBtn.disabled = true;
+        setTimeout(() => { window.location.href = '#'; }, 1000);
       });
     }
 
-    setInterval(animateParticles, 3000);
+    // Signup Validation
+    const signupForm = document.getElementById('signup-form-popup');
+    if (signupForm) {
+      signupForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('signup-name').value.trim();
+        const email = document.getElementById('signup-email').value.trim();
+        const password = document.getElementById('signup-password').value;
+        const confirmPassword = document.getElementById('signup-confirm-password').value;
+        const agreeTerms = document.getElementById('terms-checkbox').checked;
+        const errorMsg = document.getElementById('signup-error-msg');
+        errorMsg.textContent = '';
 
-    // Enhanced modal animations
-    const serviceAlert = document.getElementById('serviceAlert');
-    serviceAlert.addEventListener('transitionend', function(e) {
-      if (e.propertyName === 'opacity' && this.classList.contains('active')) {
-        this.style.animation = 'modalBounce 0.6s ease-out';
-      }
-    });
-
-    // Add CSS for modal bounce animation
-    const modalStyle = document.createElement('style');
-    modalStyle.textContent = `
-      @keyframes modalBounce {
-        0% { transform: translate(-50%, -50%) scale(0.3); }
-        50% { transform: translate(-50%, -50%) scale(1.05); }
-        70% { transform: translate(-50%, -50%) scale(0.9); }
-        100% { transform: translate(-50%, -50%) scale(1); }
-      }
-      
-      .card {
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-      
-      .card:hover {
-        z-index: 10;
-      }
-      
-      .btn, .alert-btn {
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .btn::after, .alert-btn::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        transition: width 0.3s, height 0.3s;
-      }
-      
-      .btn:hover::after, .alert-btn:hover::after {
-        width: 300px;
-        height: 300px;
-      }
-    `;
-    document.head.appendChild(modalStyle);
-
-    // Add parallax effect to hero section
-    window.addEventListener('scroll', function() {
-      const scrolled = window.pageYOffset;
-      const hero = document.querySelector('.hero');
-      const rate = scrolled * -0.3;
-      
-      if (hero) {
-        hero.style.transform = `translateY(${rate}px)`;
-      }
-    });
-
-    // Add glow effect on card hover
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 25px 50px rgba(37, 99, 235, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3)';
-      });
-      
-      card.addEventListener('mouseleave', function() {
-        this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
-      });
-    });
-
-    // Responsive cursor handling
-    window.addEventListener('resize', function() {
-      if (window.innerWidth <= 768) {
-        // Remove cursor elements on mobile
-        const cursorElement = document.getElementById('cursor');
-        const trailElements = document.querySelectorAll('.cursor-trail');
-        
-        if (cursorElement) cursorElement.style.display = 'none';
-        trailElements.forEach(trail => trail.remove());
-      } else if (matchMedia('(pointer: fine)').matches) {
-        // Reinitialize cursor on desktop
-        const cursorElement = document.getElementById('cursor');
-        if (cursorElement) cursorElement.style.display = 'block';
-        
-        if (trails.length === 0) {
-          createTrails();
+        if (!agreeTerms) {
+          errorMsg.textContent = 'Please agree to the Terms.';
+          return;
         }
-      }
-    });
+        if (password !== confirmPassword) {
+          errorMsg.textContent = 'Passwords do not match.';
+          return;
+        }
 
-    // Preloader effect
-    window.addEventListener('load', function() {
-      document.body.style.overflow = 'auto';
-    });
+        const submitBtn = this.querySelector('.signup-submit-btn');
+        submitBtn.textContent = 'Creating Account...';
+        submitBtn.disabled = true;
+        setTimeout(() => {
+          closeAllModals();
+          openLoginPopup();
+          document.getElementById('popup-error-msg').style.color = '#10b981';
+          document.getElementById('popup-error-msg').textContent = 'Account created!';
+        }, 1500);
+      });
+    }
 
-    // Lazy loading enhancement
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src;
-          img.classList.remove('lazy');
-          observer.unobserve(img);
+    // Admin Validation
+    const adminForm = document.getElementById('admin-form-popup');
+    if (adminForm) {
+      adminForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const adminId = document.getElementById('admin-id').value.trim();
+        const password = document.getElementById('admin-password').value;
+        const errorMsg = document.getElementById('admin-error-msg');
+
+        if (adminId === 'admin' && password === 'transport2024') {
+          const submitBtn = this.querySelector('.admin-submit-btn');
+          submitBtn.textContent = 'Accessing...';
+          submitBtn.disabled = true;
+          setTimeout(() => { alert('Access Granted'); closeAllModals(); }, 1000);
+        } else {
+          errorMsg.textContent = 'Invalid Admin credentials.';
         }
       });
-    });
+    }
 
-    lazyImages.forEach(img => imageObserver.observe(img));
-
-    // Cursor magnetic effect for special elements
-    document.querySelectorAll('.btn, .alert-btn').forEach(element => {
-      element.addEventListener('mousemove', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        const distance = Math.sqrt(x * x + y * y);
-        
-        if (distance < 50) {
-          const force = (50 - distance) / 50;
-          const moveX = x * force * 0.3;
-          const moveY = y * force * 0.3;
-          
-          cursor.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        }
+    // Loading
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.loading').forEach((el, i) => {
+        setTimeout(() => el.classList.add('loaded'), i * 200);
       });
-      
-      element.addEventListener('mouseleave', function() {
-        cursor.style.transform = 'translate(0, 0)';
-      });
-
     });
   </script>
 </body>
-    <footer>
-        <div class="footer-container">
-            <div class="footer-about">
-                <h3>Transport Co.</h3>
-                <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <p>Email: <a href="mailto:contact@transportco.com">contact@transportco.com</a></p>
-                <p>Phone: +91 98765 XXXXX</p>
-                <p>Address: Lonavala, Maharashtra, India</p>
-            </div>
-            <div class="footer-social">
-                <h4>Follow Us</h4>
-                <a href="#">GitHub</a> | 
-                <a href="#">LeetCode</a> | 
-                <a href="#">LinkedIn</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Transport Co. | All Rights Reserved.</p>
-        </div>
-    </footer>
 
-</body>
 </html>

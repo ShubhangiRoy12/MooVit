@@ -5,14 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="../favicon.png">
-  <title>📅 Schedule – MooVit</title>
+  <title>Schedule – MooVit</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
     td.vacant-seats {
       text-align: center;
       font-weight: 500;
     }
-
     #map {
       width: 100%;
       height: 400px;
@@ -25,12 +24,15 @@
 
 <body>
   <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center" role="banner">
-    <h1 class="mb-0" id="pageTitle">📅 Schedule</h1>
+    <h1 class="mb-0" id="pageTitle">
+      <span aria-hidden="true">📅</span>
+      <span>Schedule</span>
+    </h1>
     <a href="../main.html" class="btn btn-light" aria-label="Go back to Home">← Home</a>
   </header>
 
   <main class="container my-4" role="main" aria-labelledby="pageTitle">
-    <section class="row g-3 mb-4 text-center" aria-label="Statistics summary">
+    <section class="row g-3 mb-4 text-center" aria-label="Statistics summary"> <!--Stats-->
       <div class="col-md-3 stat-card">
         <div class="card shadow-sm">
           <div class="card-body">
@@ -65,6 +67,7 @@
       </div>
     </section>
 
+<!--Schedule table -->
     <section aria-label="Today's schedule table">
       <div class="card mb-4 shadow-sm">
         <header class="card-header bg-light">
@@ -88,11 +91,12 @@
               </tr>
             </thead>
             <tbody><!-- rows inserted dynamically --></tbody>
-          </table>
+          </table>      
         </div>
       </div>
     </section>
-
+    
+<!--Add new trip-->
     <section aria-label="Add new trip form">
       <div class="card mb-4 shadow-sm">
         <header class="card-header bg-light">
@@ -116,11 +120,17 @@
                 placeholder="Vacant Seats" required aria-required="true" min="0" /></div>
             <div class="col-md-1 d-grid"><button type="submit" class="btn btn-primary"
                 aria-label="Add new trip">Add</button></div>
+            <div id="formErrors" class="alert alert-danger d-none" role="alert" aria-live="assertive"></div>
           </form>
         </div>
       </div>
     </section>
-
+    <!--Undo banner-->
+    <div id="undoBanner" class="alert alert-warning d-none mt-3" role="status">
+      Trip deleted.
+      <button id="undoBtn" class="btn btn-sm btn-link">Undo</button>
+    </div> 
+    <!--Trip booking overview-->
     <section aria-label="Trip Bookings Graph" class="mb-5">
       <h2 class="h4 mb-3">Trip Bookings Overview</h2>
       <canvas id="bookingsChart" style="width:100%; max-width:700px; height:400px;"></canvas>
@@ -150,6 +160,21 @@
     const cancelledTripsElem = document.getElementById("cancelledTrips");
 
     const statusOptions = ["Pending", "Completed", "Cancelled"];
+    let lastDeletedTrip = null;
+    let lastDeletedIndex = null;
+
+    const undoBtn = document.getElementById("undoBtn");
+    const undoBanner = document.getElementById("undoBanner");
+
+    undoBtn.addEventListener("click", () => {
+      if (lastDeletedTrip !== null && lastDeletedIndex !== null) {
+       trips.splice(lastDeletedIndex, 0, lastDeletedTrip);
+       lastDeletedTrip = null;
+       lastDeletedIndex = null;
+       renderTable();
+     }
+      undoBanner.classList.add("d-none");
+    });
 
     function updateStats() {
       totalTripsElem.textContent = trips.length;
@@ -212,9 +237,15 @@
     function addDeleteEventHandlers() {
       tableBody.querySelectorAll("button.btn-danger").forEach(btn => {
         btn.addEventListener("click", e => {
-          const index = e.target.getAttribute("data-index");
-          trips.splice(index, 1);
+          const index = Number(e.target.getAttribute("data-index"));
+
+          if (!confirm("Are you sure you want to delete this trip?")) return;
+
+          lastDeletedTrip = trips.splice(index, 1)[0];
+          lastDeletedIndex = index;
+
           renderTable();
+          undoBanner.classList.remove("d-none");
         });
       });
     }
@@ -230,16 +261,20 @@
       const newEta = document.getElementById("newEta").value;
       const newVacantSeatsStr = document.getElementById("newVacantSeats").value.trim();
 
+      const errorBox = document.getElementById("formErrors");
+      errorBox.textContent = "";
+
       if (!newId || !newVehicle || !newDriver || !newRoute || !newDep || !newEta || !newVacantSeatsStr) {
-        alert("Please fill out all fields.");
+        errorBox.textContent = "Please fill out all required fields.";
         return;
       }
 
       const newVacantSeats = parseInt(newVacantSeatsStr, 10);
       if (isNaN(newVacantSeats) || newVacantSeats < 0) {
-        alert("Vacant seats must be a non-negative number.");
+        errorBox.textContent = "Vacant seats must be a non-negative number.";
         return;
       }
+
 
       trips.push({
         id: newId,
@@ -345,7 +380,7 @@
     renderTable();
     function showRouteOnMap(routeString) {
       const [start, end] = routeString.split('→').map(s => s.trim());
-      if (!start || !end) return alert('Invalid route');
+      if (!start || !end) return;
       const url = `https://maps.google.com/maps?q=from+${encodeURIComponent(start)}+to+${encodeURIComponent(end)}&output=embed`;
       document.getElementById('mapFrame').src = url;
     }
