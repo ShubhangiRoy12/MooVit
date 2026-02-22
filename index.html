@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <style>
+    
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
     * {
@@ -49,32 +50,36 @@
     }
 
     /* --- Cursor Styles --- */
-    .cursor {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      border: 1px solid rgba(255, 215, 0, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease;
-      transform: translate(-50%, -50%);
-    }
+   body {
+  cursor: none;
+}
 
-    .cursor::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 4px;
-      height: 4px;
-      background: #ffd700;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-    }
+body {
+  cursor: none;
+}
+
+.cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 1px solid gold;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.cursor-tail .circle {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 215, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+}
+
 
     @media (min-width: 769px) and (pointer: fine) {
       .cursor {
@@ -90,11 +95,7 @@
       }
     }
 
-    .cursor.hover {
-      transform: translate(-50%, -50%) scale(1.8);
-      background: rgba(255, 215, 0, 0.1);
-      border-color: #ffd700;
-    }
+   
 
     /* --- Header --- */
     .modern-header {
@@ -598,19 +599,19 @@
       }
     }
 
-    /* --- Modals --- */
+    /* --- Enhanced Modals --- */
     .overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(8px);
       z-index: 999;
       opacity: 0;
       visibility: hidden;
-      transition: 0.3s;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .overlay.active {
@@ -618,136 +619,12 @@
       visibility: visible;
     }
 
-    .service-alert,
-    .login-container,
-    .signup-container,
-    .admin-container-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.9);
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2.5rem;
-      border-radius: 20px;
-      z-index: 1001;
-      width: 90%;
-      max-width: 450px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-    }
-
-    .service-alert.active,
-    .login-modal.active .login-container,
-    .signup-modal.active .signup-container,
-    .admin-modal.active .admin-container-popup {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      visibility: visible;
-    }
-
-    .service-alert h3 {
-      color: white;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .service-alert p {
-      color: #cbd5e1;
-      margin-bottom: 2rem;
-    }
-
-    .alert-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .alert-btn {
-      padding: 0.8rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      color: white;
-      border: none;
-    }
-
-    .alert-btn.primary {
-      background: #2563eb;
-    }
-
-    .alert-btn.secondary {
-      background: #059669;
-    }
-
-    .alert-btn.close {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Forms */
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group label {
-      color: #e2e8f0;
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 0.8rem;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.05);
-      color: white;
-      outline: none;
-    }
-
-    .form-group input:focus {
-      border-color: #2563eb;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .login-submit-btn,
-    .signup-submit-btn,
-    .admin-submit-btn {
-      width: 100%;
-      padding: 1rem;
-      border-radius: 10px;
-      border: none;
-      background: #2563eb;
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .login-submit-btn:hover,
-    .signup-submit-btn:hover {
-      background: #1d4ed8;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      color: #cbd5e1;
-      font-size: 1.5rem;
-      cursor: pointer;
-      float: right;
-    }
-
+    /* Modal Wrapper & Layout */
     .login-modal,
     .signup-modal,
-    .admin-modal {
+    .admin-modal,
+    .service-alert {
       position: fixed;
-      z-index: 1001;
       top: 0;
       left: 0;
       width: 100%;
@@ -755,27 +632,305 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 1001;
       pointer-events: none;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .login-modal.active,
     .signup-modal.active,
-    .admin-modal.active {
+    .admin-modal.active,
+    .service-alert.active {
       pointer-events: auto;
+      opacity: 1;
+    }
+
+    .modal-wrapper {
+      display: flex;
+      width: 900px;
+      max-width: 95%;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transform: scale(0.95) translateY(20px);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper,
+    .admin-modal.active .admin-container-popup,
+    .service-alert.active {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Left Panel (Branding) */
+    .modal-left {
+      flex: 1;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-left.signup-bg {
+      background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    }
+
+    .modal-left::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://www.transparenttextures.com/patterns/cubes.png');
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .modal-brand {
+      position: relative;
+      z-index: 2;
+    }
+
+    .modal-brand svg {
+      color: #ffd700;
+      margin-bottom: 1.5rem;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .modal-brand h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    .modal-brand p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+    }
+
+    /* Right Panel (Form) */
+    .modal-right {
+      flex: 1.2;
+      padding: 3rem;
+      position: relative;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .modal-right h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .close-btn:hover {
+      color: white;
+    }
+
+    /* Input Groups */
+    .input-group {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.4);
+      transition: color 0.3s;
+    }
+
+    .input-group input:focus~.input-icon,
+    .input-group input:not(:placeholder-shown)~.input-icon {
+      color: #2563eb;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: white;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+      outline: none;
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .login-submit-btn,
+    .signup-submit-btn,
+    .admin-submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .login-submit-btn:hover,
+    .signup-submit-btn:hover,
+    .admin-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Service Alert styling update (keep concise) */
+    .service-alert {
+      flex-direction: column;
+    }
+
+    .service-alert {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      /* Reset fixed positioning from previous class if conflicting */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      height: auto;
+      display: block;
+      /* Override flex from modal group */
+      text-align: center;
+    }
+
+    .service-alert.active {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Admin Modal Specifics (using popup container) */
+    .admin-container-popup {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 450px;
+      position: relative;
+      transform: scale(0.95) translateY(20px);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        flex-direction: column;
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-left {
+        padding: 2rem;
+        flex: 0 0 auto;
+      }
+
+      .modal-left h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .modal-brand svg {
+        margin-bottom: 0.5rem;
+        width: 32px;
+        height: 32px;
+      }
+
+      .modal-right {
+        padding: 2rem;
+      }
+
+      .close-btn {
+        top: 1rem;
+        right: 1rem;
+        color: white;
+        /* Make visible on dark header if needed */
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+      }
     }
 
     /* Error Messages */
     .error-message {
-      color: #ff6b6b;
+      color: #ef4444;
       text-align: center;
       margin-bottom: 1rem;
       font-size: 0.9rem;
       min-height: 20px;
+      font-weight: 500;
     }
 
-    /* --- Admin Modal Styling --- */
+    /* --- Admin Badge --- */
     .admin-badge {
-      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
       color: white;
       padding: 4px 12px;
       border-radius: 20px;
@@ -786,17 +941,9 @@
       margin-bottom: 10px;
     }
 
-    .admin-submit-btn {
-      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    }
-
-    .admin-submit-btn:hover {
-      background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
-    }
-
     .security-note {
-      background: rgba(255, 107, 107, 0.1);
-      border: 1px solid rgba(255, 107, 107, 0.3);
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
       border-radius: 12px;
       padding: 0.8rem;
       margin-top: 1rem;
@@ -930,7 +1077,33 @@
     .newsletter-form button:hover {
       background: #1d4ed8;
     }
+    .footer-legal {
+      max-width: 1400px;
+      margin: 2rem auto 0 auto;
+      padding: 0 2rem;
+      text-align: right;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
 
+    .footer-legal a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      margin: 0 8px;
+      transition: 0.3s ease;
+    }
+
+    .footer-legal a:hover {
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+    @media (max-width: 768px) {
+      .footer-legal {
+        text-align: center;
+        margin-top: 2rem;
+      }
+    }
+  
     .footer-bottom {
       text-align: center;
       margin-top: 2rem;
@@ -1010,8 +1183,19 @@
   </style>
 </head>
 
-<body id="body">
-  <div class="cursor" id="cursor"></div>
+<body>
+   <div class="cursor"></div>
+
+  <div class="cursor-tail">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <script src="cursor.js"></script>
+
   <div class="particles" id="particles"></div>
 
   <header id="main-header" class="modern-header">
@@ -1142,61 +1326,151 @@
     </div>
   </div>
 
+  <!-- LOGIN MODAL -->
   <div class="login-modal" id="loginModal">
-    <div class="login-container">
-      <button class="close-btn" onclick="closeAllModals()">&times;</button>
-      <h2 style="color:white; margin-bottom:1.5rem;">Login</h2>
-      <form id="login-form-popup" class="form-group">
-        <label for="popup-email">Email</label>
-        <input type="email" id="popup-email" name="email" required>
-        <label style="margin-top:1rem;" for="popup-password">Password</label>
-        <input type="password" id="popup-password" name="password" required>
-        <div id="popup-error-msg" class="error-message"></div>
-        <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
-      </form>
-      <p style="text-align:center; color:#94a3b8; font-size:0.9rem;">New here? <a href="#"
-          onclick="openSignupPopup(); closeLoginPopup();" style="color:#2563eb;">Sign Up</a></p>
-      <p style="text-align:center; margin-top:0.5rem;"><a href="#" onclick="closeLoginPopup(); openAdminPopup();"
-          style="color:#ff6b6b; font-size:0.9rem; text-decoration:none;">🔐 Admin Portal</a></p>
-    </div>
-  </div>
-
-  <div class="signup-modal" id="signupModal">
-    <div class="signup-container">
-      <button class="close-btn" onclick="closeAllModals()">&times;</button>
-      <h2 style="color:white; margin-bottom:1.5rem;">Sign Up</h2>
-      <form id="signup-form-popup" class="form-group">
-        <label for="signup-name">Full Name</label>
-        <input type="text" id="signup-name" name="name" placeholder="Your full name" required>
-        <label style="margin-top:1rem;" for="signup-email">Email</label>
-        <input type="email" id="signup-email" name="email" placeholder="you@example.com" required>
-        <label style="margin-top:1rem;" for="signup-password">Password</label>
-        <input type="password" id="signup-password" name="password" placeholder="Create password" required>
-        <label style="margin-top:1rem;" for="signup-confirm-password">Confirm Password</label>
-        <input type="password" id="signup-confirm-password" name="confirmPassword" placeholder="Confirm password"
-          required>
-        <div class="checkbox-group">
-          <label class="checkbox-label">
-            <input type="checkbox" id="terms-checkbox" name="agreeTerms" required>
-            I agree to the <a href="#">Terms and Conditions</a>
-          </label>
+    <div class="modal-wrapper">
+      <div class="modal-left">
+        <div class="modal-brand">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+          <h3>Welcome Back!</h3>
+          <p>Access your dashboard and manage your shipments with ease.</p>
         </div>
-        <div id="signup-error-msg" class="error-message"></div>
-        <button type="submit" class="signup-submit-btn" style="margin-top:1.5rem;">Create Account</button>
-      </form>
+      </div>
+      <div class="modal-right">
+        <button class="close-btn" onclick="closeAllModals()">&times;</button>
+        <h2>Login</h2>
+        <form id="login-form-popup" class="form-group">
+          <div class="input-group">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <input type="email" id="popup-email" name="email" required placeholder="Email Address">
+          </div>
+          <div class="input-group" style="margin-top:1rem;">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="popup-password" name="password" required placeholder="Password">
+          </div>
+          <div id="popup-error-msg" class="error-message"></div>
+          <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
+        </form>
+        <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
+          New here? <a href="#" onclick="openSignupPopup(); closeLoginPopup();"
+            style="color:#2563eb; font-weight:600;">Create Account</a>
+        </p>
+        <p style="text-align:center; margin-top:0.5rem;">
+          <a href="#" onclick="closeLoginPopup(); openAdminPopup();"
+            style="color:#64748b; font-size:0.85rem; text-decoration:none;">Admin Access</a>
+        </p>
+      </div>
     </div>
   </div>
 
+  <!-- SIGNUP MODAL -->
+  <div class="signup-modal" id="signupModal">
+    <div class="modal-wrapper">
+      <div class="modal-left signup-bg">
+        <div class="modal-brand">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <h3>Join the Network</h3>
+          <p>Create an account to start tracking and shipping globally.</p>
+        </div>
+      </div>
+      <div class="modal-right">
+        <button class="close-btn" onclick="closeAllModals()">&times;</button>
+        <h2>Sign Up</h2>
+        <form id="signup-form-popup" class="form-group">
+          <div class="input-group">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input type="text" id="signup-name" name="name" placeholder="Full Name" required>
+          </div>
+          <div class="input-group" style="margin-top:1rem;">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <input type="email" id="signup-email" name="email" placeholder="Email Address" required>
+          </div>
+          <div class="input-group" style="margin-top:1rem;">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="signup-password" name="password" placeholder="Create Password" required>
+          </div>
+          <div class="input-group" style="margin-top:1rem;">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              <path d="M12 15v2"></path>
+            </svg>
+            <input type="password" id="signup-confirm-password" name="confirmPassword" placeholder="Confirm Password"
+              required>
+          </div>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="terms-checkbox" name="agreeTerms" required>
+              I agree to the <a href="#">Terms and Conditions</a>
+            </label>
+          </div>
+          <div id="signup-error-msg" class="error-message"></div>
+          <button type="submit" class="signup-submit-btn" style="margin-top:1rem;">Create Account</button>
+        </form>
+        <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
+          Already have an account? <a href="#" onclick="openLoginPopup(); closeSignupPopup();"
+            style="color:#2563eb; font-weight:600;">Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN MODAL -->
   <div class="admin-modal" id="adminModal">
     <div class="admin-container-popup">
       <button class="close-btn" onclick="closeAllModals()">&times;</button>
       <div class="admin-badge">Admin Access</div>
       <h2 style="color:white; margin-bottom:1.5rem; margin-top:0;">Control Panel</h2>
       <form id="admin-form-popup" class="form-group">
-        <label for="admin-id">Administrator ID</label>
-        <input type="text" id="admin-id" name="adminId" placeholder="Enter admin username" required>
-        <label style="margin-top:1rem;" for="admin-password">Admin Password</label>
-        <input type="password" id="admin-password" name="adminPassword" placeholder="Enter secure password" required>
+        <div class="input-group">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <input type="text" id="admin-id" name="adminId" placeholder="Admin Username" required>
+        </div>
+        <div class="input-group" style="margin-top:1rem;">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <input type="password" id="admin-password" name="adminPassword" placeholder="Secure Password" required>
+        </div>
         <div id="admin-error-msg" class="error-message"></div>
         <button type="submit" class="admin-submit-btn" style="margin-top:1.5rem;">Access Dashboard</button>
         <div class="security-note">
@@ -1292,6 +1566,14 @@
             </svg></button>
         </form>
       </div>
+    </div>
+    <!-- Legal Section -->
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy</a>
+      <span>|</span>
+      <a href="terms.html">Terms</a>
+      <span>|</span>
+      <a href="cookie.html">Cookie</a>
     </div>
     <div class="footer-bottom">
       <p>&copy; 2025 Transport Co. | All Rights Reserved. | Designed with ❤️ for Excellence</p>
