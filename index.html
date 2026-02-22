@@ -1148,6 +1148,38 @@ body {
       text-decoration: underline;
       margin-left: 4px;
     }
+    
+    /* 🌙 Dark Mode Styles */
+.dark-mode {
+  background: #0f172a !important;
+  color: #e2e8f0;
+}
+
+.dark-mode .hero,
+.dark-mode .services-section,
+.dark-mode footer {
+  background: rgba(15, 23, 42, 0.95) !important;
+}
+
+.dark-mode .card {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dark-mode .modern-header.scrolled {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.dark-mode input {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: white !important;
+}
+
+.dark-mode .tracking-wrapper input {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
   </style>
 </head>
 
@@ -1198,6 +1230,7 @@ body {
         <div class="auth-divider"></div>
         <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
         <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
+        <button id="theme-toggle" class="btn-text">🌙</button>
         <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
             class="bar"></span></button>
       </div>
@@ -1718,6 +1751,30 @@ body {
       });
     }
 
+// 🌙 Dark Mode Toggle
+const themeToggle = document.getElementById("theme-toggle");
+const body = document.getElementById("body");
+
+// Load saved theme
+if (localStorage.getItem("theme") === "dark") {
+  body.classList.add("dark-mode");
+  themeToggle.textContent = "☀️";
+}
+
+// Toggle theme on click
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+  body.classList.toggle("dark-mode");
+
+  if (body.classList.contains("dark-mode")) {
+    localStorage.setItem("theme", "dark");
+    themeToggle.textContent = "☀️";
+  } else {
+    localStorage.setItem("theme", "light");
+    themeToggle.textContent = "🌙";
+  }
+});
+}
     // Loading
     window.addEventListener('load', () => {
       document.querySelectorAll('.loading').forEach((el, i) => {
@@ -1726,5 +1783,4 @@ body {
     });
   </script>
 </body>
-
 </html>
