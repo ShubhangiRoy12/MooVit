@@ -36,6 +36,27 @@
             min-height: 100vh;
             line-height: 1.6;
             color: var(--gray-800);
+            transition: background 240ms ease, color 240ms ease, border-color 240ms ease;
+        }
+
+        /* Light theme override (applied to <html> as class 'theme-light') */
+        html.theme-light {
+            --primary-blue: #0b1f3a;
+            --secondary-blue: #174ea6;
+            --accent-orange: #f97316;
+            --accent-green: #059669;
+            --accent-purple: #6d28d9;
+            --light-bg: #ffffff;
+            --white: #ffffff;
+            --gray-100: #f3f4f6;
+            --gray-200: #e6eef8;
+            --gray-600: #334155;
+            --gray-800: #0f172a;
+        }
+
+        html.theme-light body {
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+            color: var(--gray-800);
         }
 
         /* Header */
@@ -109,6 +130,32 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
         }
+
+        /* Theme toggle button (matches header links) */
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 0.9rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background: var(--white);
+            color: var(--gray-600);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.22s ease;
+        }
+
+        .theme-toggle i { font-size: 1.05rem; }
+
+        .theme-toggle:hover {
+            background: var(--accent-orange);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .theme-toggle:focus { outline: none; box-shadow: 0 0 0 4px rgba(249,115,22,0.12); }
 
         /* Main Container */
         .main-container {
@@ -467,13 +514,17 @@
                 <i class="fas fa-truck-moving"></i>
                 <h1>MooVit</h1>
             </div>
-            <nav class="header-nav">
+            <nav class="header-nav" aria-label="Main navigation">
                 <a href="index.html">
-                    <i class="fas fa-home"></i>
+                    <i class="fas fa-home" aria-hidden="true"></i>
                     Home
                 </a>
+                <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle color mode" title="Toggle dark / light">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                    <span class="visually-hidden">Toggle theme</span>
+                </button>
                 <a href="login.html">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                     Logout
                 </a>
             </nav>
@@ -784,6 +835,45 @@
             </div>
         </div>
     </footer>
+
+    <script>
+    (function(){
+        const toggle = document.getElementById('theme-toggle');
+        const storageKey = 'moovit-theme';
+        const lightClass = 'theme-light';
+
+        function setToggleContent(isLight){
+            if(!toggle) return;
+            const icon = isLight ? '<i class="fas fa-sun" aria-hidden="true"></i>' : '<i class="fas fa-moon" aria-hidden="true"></i>';
+            toggle.innerHTML = icon + '<span class="visually-hidden">Toggle theme</span>';
+            toggle.setAttribute('aria-pressed', String(isLight));
+        }
+
+        function applyTheme(theme){
+            if(theme === 'light') document.documentElement.classList.add(lightClass);
+            else document.documentElement.classList.remove(lightClass);
+            setToggleContent(theme === 'light');
+        }
+
+        function init(){
+            let theme = localStorage.getItem(storageKey);
+            if(!theme){
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            }
+            applyTheme(theme);
+            if(toggle){
+                toggle.addEventListener('click', function(){
+                    const next = document.documentElement.classList.contains(lightClass) ? 'dark' : 'light';
+                    localStorage.setItem(storageKey, next);
+                    applyTheme(next);
+                });
+            }
+        }
+
+        if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
+    })();
+    </script>
 </body>
 
 </html>
