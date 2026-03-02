@@ -283,8 +283,18 @@
         <p>Help us improve MooVit by sharing your thoughts and suggestions</p>
       </div>
 
-      <div id="success-msg" class="success-msg">
-        <strong>✓ Thank you!</strong> Your feedback has been submitted successfully.
+
+      <div id="success-msg" class="success-msg" role="alert" aria-live="assertive">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px;">
+          <div>
+            <strong>✓ Thank you!</strong> Your feedback has been submitted successfully.
+          </div>
+           <button type="button" id="dismiss-success" 
+            style="background:none;border:none;font-size:1.2rem;cursor:pointer;"
+           aria-label="Dismiss success message">
+            ✕
+           </button>
+         </div>
       </div>
 
       <form id="feedback-form">
@@ -345,6 +355,13 @@
     const stars = document.querySelectorAll('.star');
     const messageField = document.getElementById('message');
     const charCount = document.getElementById('char-count');
+    const dismissBtn = document.getElementById('dismiss-success');
+
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', function() {
+        document.getElementById('success-msg').classList.remove('show');
+      });
+    }
 
     // Star rating functionality
     stars.forEach(star => {
@@ -431,10 +448,6 @@
       selectedRating = 0;
       updateStars();
       charCount.textContent = '0';
-
-      setTimeout(() => {
-        successMsg.classList.remove('show');
-      }, 5000);
     });
 
     function showError(message) {
@@ -445,5 +458,6 @@
     }
   </script>
 </body>
+
 
 </html>
