@@ -5,7 +5,7 @@ body {
     color: #ffffff;
     background-color: #0d1a2e;
     /* Fallback color */
-    background-image: linear-gradient(rgba(13, 26, 46, 0.8), rgba(13, 26, 46, 0.8)), url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background-image: linear-gradient(rgba(13, 26, 46, 0.8), rgba(13, 26, 46, 0.8)), url('bgImg.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

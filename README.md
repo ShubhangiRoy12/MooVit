@@ -24,10 +24,10 @@ Try it now → https://moo-vit.vercel.app/
 ## 📸 Project Screenshots
 
 ### 🏠 Home / Landing Page
-![Home Page](services_section.png.png)
+![Home Page](services_section.webp)
 
 ### 🚚 Services Section
-![Services Section](home_hero.png.png)
+![Services Section](home_hero.webp)
 
 ---
 ## ✨ Features

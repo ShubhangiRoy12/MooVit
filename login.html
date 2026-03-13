@@ -8,10 +8,12 @@
   <title>Login - Transport Co.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <style>
     /* theme variables copied from index.html */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
     :root {
       --primary: #2563eb;
       --primary-light: #2d5a87;
@@ -37,7 +39,7 @@
       padding: 0;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
-        url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+        url('bgImg.webp');
       background-size: cover;
       background-position: center;
       height: 100vh;
@@ -77,7 +79,7 @@
       border: 1px solid var(--border-color);
       border-radius: 5px;
       box-sizing: border-box;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255, 255, 255, 0.7);
       color: #000;
     }
 
@@ -177,10 +179,11 @@
       <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
       <button type="submit">Login</button>
       <p style="margin-top:12px;"><a href="#" id="forgot-link">Forgot password?</a></p>
-      <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
+      <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin
+          Portal</a></p>
     </form>
   </div>
-  
+
   <script>
 
     // populate email if remembered
