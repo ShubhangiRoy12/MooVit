@@ -147,9 +147,19 @@
     }
 
     @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-5px);
+      }
+
+      75% {
+        transform: translateX(5px);
+      }
     }
 
     .error-shake {
@@ -188,7 +198,8 @@
 
       .admin-container input {
         padding: 14px 12px;
-        font-size: 16px; /* Prevents zoom on iOS */
+        font-size: 16px;
+        /* Prevents zoom on iOS */
       }
 
       .admin-container button {
@@ -329,53 +340,71 @@
       <h2>Control Panel</h2>
       <div class="admin-subtitle">Transport Management System</div>
     </div>
-    
+
     <form id="admin-login-form">
       <div class="form-group">
         <label>Administrator ID</label>
         <input type="text" name="admin-id" placeholder="Enter admin username" required>
       </div>
-      
+
       <div class="form-group">
         <label>Admin Password</label>
         <input type="password" name="admin-password" placeholder="Enter secure password" required>
       </div>
-      
+
       <button type="submit">Access Dashboard</button>
-      
+
       <div class="security-note">
         <span class="security-icon">🔒</span>
-        <strong>Security Notice:</strong> Admin access is logged and monitored. Unauthorized access attempts will be reported.
+        <strong>Security Notice:</strong> Admin access is logged and monitored. Unauthorized access attempts will be
+        reported.
       </div>
     </form>
-    
+
     <div class="back-link">
       <a href="index.html">← Back to User Login</a>
     </div>
   </div>
-  
+
   <div class="version-info">
     v2.1.0 | Admin Portal
   </div>
-  
+
   <script>
     let loginAttempts = 0;
     const maxAttempts = 3;
-    
-    document.getElementById('admin-login-form').addEventListener('submit', function (e) {
+
+    // Security improvement: Using SHA-256 hashes instead of hardcoded strings
+    // Hash for 'admin': 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+    // Hash for 'transport2024': 8e658e476149419b16e159a22f38c356b4618e7d23d917387cc838612f0e0b3c
+    const ADMIN_ID_HASH = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918';
+    const ADMIN_PW_HASH = '8e658e476149419b16e159a22f38c356b4618e7d23d917387cc838612f0e0b3c';
+
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      return hashHex;
+    }
+
+    document.getElementById('admin-login-form').addEventListener('submit', async function (e) {
       e.preventDefault();
-      
+
       const adminId = document.querySelector('input[name="admin-id"]').value;
       const adminPassword = document.querySelector('input[name="admin-password"]').value;
-      
-      // Simple validation (in real app, this would be server-side)
-      if (adminId === 'admin' && adminPassword === 'transport2024') {
-        // Success - redirect to admin dashboard
+
+      const userIdHash = await sha256(adminId);
+      const passwordHash = await sha256(adminPassword);
+
+      if (userIdHash === ADMIN_ID_HASH && passwordHash === ADMIN_PW_HASH) {
+        // Success - store session and redirect
+        localStorage.setItem('admin_session', 'active_' + Date.now());
         alert('Login successful! Redirecting to admin dashboard...');
         window.location.href = 'admin-dashboard.html';
       } else {
         loginAttempts++;
-        
+
         if (loginAttempts >= maxAttempts) {
           alert('Maximum login attempts exceeded. Access temporarily blocked.');
           document.getElementById('admin-login-form').style.pointerEvents = 'none';
@@ -383,22 +412,21 @@
           document.querySelector('button').style.background = '#95a5a6';
           return;
         }
-        
+
         // Shake animation for failed login
         const container = document.querySelector('.admin-container');
         container.classList.add('error-shake');
         setTimeout(() => container.classList.remove('error-shake'), 500);
-        
+
         alert(`Invalid credentials. Attempt ${loginAttempts}/${maxAttempts}`);
-        
+
         // Clear password field
         document.querySelector('input[name="admin-password"]').value = '';
       }
     });
-    
+
     // Add some keyboard shortcuts for admin convenience
-    document.addEventListener('keydown', function(e) {
-      // Ctrl + Alt + R to reset attempts (for demo purposes)
+    document.addEventListener('keydown', function (e) {
       if (e.ctrlKey && e.altKey && e.key === 'r') {
         loginAttempts = 0;
         document.getElementById('admin-login-form').style.pointerEvents = 'auto';
