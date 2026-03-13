@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +19,25 @@
       --text-muted: rgba(255,255,255,0.9);
       --text-soft: rgba(255,255,255,0.75);
       --glass: rgba(255,255,255,0.08);
+      --bg-gradient: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 35%, var(--primary) 100%);
+      --header-bg: var(--glass);
+      --text-color: var(--text-white);
+    }
+
+    [data-theme="light"] {
+      --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 35%, #bae6fd 100%);
+      --header-bg: rgba(255, 255, 255, 0.95);
+      --text-color: #1e293b;
+      --text-muted: rgba(30, 41, 59, 0.9);
+      --text-soft: rgba(30, 41, 59, 0.75);
+      --glass: rgba(0, 0, 0, 0.08);
+      --bg-dark-1: #f0f9ff;
+      --bg-dark-2: #e0f2fe;
+      --primary: #3b82f6;
+      --primary-700: #2563eb;
+      --accent: #f59e0b;
+      --accent-dark: #d97706;
+      --text-white: #1a1a1a;
     }
 
     * {
@@ -30,9 +49,9 @@
     body {
       font-family: 'Inter', sans-serif;
       font-size: 16px;
-      background: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 35%, var(--primary) 100%);
+      background: var(--bg-gradient);
       background-attachment: fixed;
-      color: var(--text-white);
+      color: var(--text-color);
       overflow-x: hidden;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
@@ -49,6 +68,7 @@
       pointer-events: none;
       z-index: 0;
       opacity: 0.6;
+      transition: opacity 0.4s ease;
     }
 
     .particle {
@@ -76,7 +96,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(26, 54, 93, 0.2);
+      background: var(--header-bg);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding: 1.25rem 2rem;
@@ -96,6 +116,21 @@
         transform: translateY(0);
         opacity: 1;
       }
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--glass);
     }
 
     .back-btn {
@@ -142,6 +177,7 @@
       text-align: center;
       overflow: hidden;
       margin-bottom: 4rem;
+      transition: opacity 0.3s ease;
     }
 
     .hero::before {
@@ -632,6 +668,7 @@
       ⬅ Back
     </a>
     <div class="logo">Moovit</div>
+    <button id="theme-toggle" class="theme-toggle" title="Toggle theme">🌙</button>
   </header>
 
   <!-- Hero Section -->
@@ -644,7 +681,7 @@
 
   <div class="container">
     <!-- Mission Section -->
-    <section class="section animate-on-scroll">
+    <section id="mission" class="section animate-on-scroll">
       <h2 class="section-title">Our Mission</h2>
       <p class="section-subtitle">Redefining logistics with innovation, reliability, and customer-first values</p>
       <div class="mission-card">
@@ -850,14 +887,61 @@
       });
     });
 
-    // Add parallax effect to hero on scroll
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const hero = document.querySelector('.hero');
-      if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+    // Fade particles + hero text/overlay as Mission section scrolls into view
+    const missionSection = document.getElementById('mission');
+    const particles = document.getElementById('particles');
+    const heroSection = document.querySelector('.hero');
+
+    function updateFadeOnScroll() {
+      if (!missionSection) return;
+      const rect = missionSection.getBoundingClientRect();
+      const fadeDistance = 100; // px of scroll range where fade happens (smaller = faster fade)
+      const baseParticleOpacity = 0.6; // match CSS initial opacity
+      const baseHeroOpacity = 1;
+
+      // Calculate fade progress (1 when mission is far down, 0 when mission overlaps top)
+      const progress = rect.top <= 0
+        ? 0
+        : rect.top < fadeDistance
+        ? Math.max(0, rect.top / fadeDistance)
+        : 1;
+
+      if (particles) {
+        particles.style.opacity = progress * baseParticleOpacity;
       }
+
+      if (heroSection) {
+        heroSection.style.opacity = progress * baseHeroOpacity;
+
+        // Move hero up faster so it doesn't overlap mission
+        const scrollY = window.pageYOffset;
+        const extraLift = (1 - progress) * 200; // pixels to lift hero up
+        heroSection.style.transform = `translateY(${scrollY * 0.5 - extraLift}px)`;
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      updateFadeOnScroll();
     });
+
+    // Make sure fades are correct on load
+    updateFadeOnScroll();
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      const html = document.documentElement;
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      html.setAttribute('data-theme', currentTheme);
+      themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+      themeToggle.addEventListener('click', () => {
+        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      });
+    }
   </script>
 </body>
 </html>
