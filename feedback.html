@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../favicon.png">
+  <title>Feedback - Transport Co.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="transport.css">
+   <style>
+    .feedback-section {
+      max-width: 800px;
+      margin: 8rem auto 4rem;
+      padding: 3rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .feedback-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    .feedback-section p {
+      color: #cbd5e1;
+      margin-bottom: 2rem;
+    }
+
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .feedback-form input,
+    .feedback-form textarea {
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .feedback-form input:focus,
+    .feedback-form textarea:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255,215,0,0.3);
+    }
+
+    .feedback-form textarea {
+      resize: none;
+      min-height: 140px;
+    }
+
+    .feedback-form button {
+      padding: 1rem;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .feedback-form button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(37,99,235,0.5);
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .popup-content {
+      background: rgba(15,23,42,0.95);
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+  </style>
+  <style>
+    .feedback-section {
+      max-width: 800px;
+      margin: 8rem auto 4rem;
+      padding: 3rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .feedback-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    .feedback-section p {
+      color: #cbd5e1;
+      margin-bottom: 2rem;
+    }
+
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .feedback-form input,
+    .feedback-form textarea {
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .feedback-form input:focus,
+    .feedback-form textarea:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255,215,0,0.3);
+    }
+
+    .feedback-form textarea {
+      resize: none;
+      min-height: 140px;
+    }
+
+    .feedback-form button {
+      padding: 1rem;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .feedback-form button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(37,99,235,0.5);
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .popup-content {
+      background: rgba(15,23,42,0.95);
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- COPY HEADER FROM index.html HERE -->
+
+<header id="main-header" class="modern-header">
+    <div class="header-content">
+      <a href="#" class="brand-logo">
+        <span class="logo-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg></span>
+        <span class="logo-text">Transport<span class="highlight">Co.</span></span>
+      </a>
+      <nav class="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="#" class="nav-link">Tracking</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <div class="search-bar-mini">
+          <input type="text" placeholder="Track ID...">
+          <button><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></button>
+        </div>
+        <div class="auth-divider"></div>
+        <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
+        <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
+        <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
+            class="bar"></span></button>
+      </div>
+    </div>
+    <div class="mobile-menu">
+      <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
+        href="contact.html">Contact</a>
+      <div class="mobile-auth"><a href="#" onclick="openLoginPopup()">Login</a><a href="#"
+          onclick="openSignupPopup()">Sign Up</a></div>
+    </div>
+  </header>
+
+<main class="feedback-section">
+  <h2>We Value Your Feedback</h2>
+  <p>Share your suggestions, queries, or report any issue.</p>
+
+  <form class="feedback-form" id="feedbackForm">
+    <input type="text" placeholder="Your Name (Optional)">
+    <input type="email" placeholder="Your Email (Optional)">
+    <textarea placeholder="Write your feedback here..." required></textarea>
+    <button type="submit">Submit Feedback</button>
+  </form>
+</main>
+
+<div class="popup" id="thankPopup">
+  <div class="popup-content">
+    <h3>🎉 Thank You!</h3>
+    <p>Your feedback has been successfully submitted.</p>
+    <button onclick="closePopup()" style="margin-top:1rem;padding:0.6rem 1.5rem;border-radius:20px;border:none;background:#2563eb;color:white;">Close</button>
+  </div>
+</div>
+
+<!-- COPY FOOTER FROM index.html HERE -->
+
+<footer >
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>Transport Co.</h3>
+        <p>Your trusted logistics partner — ensuring safe, fast, and reliable delivery every time with innovative
+          solutions and unmatched customer service excellence across the globe.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m13 17-5-5 5-5" />
+            <path d="m6 17-5-5 5-5" />
+          </svg>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>Contact Us</h4>
+        <p>Email: <a href="mailto:shubhangi.23bai11165@vitbhopal.ac.in">shubhangi.23bai11165@vitbhopal.ac.in</a></p>
+        <p>Phone: +91 98765 XXXXX</p>
+        <p>Address: VIT Bhopal, Madhya Pradesh, India</p>
+      </div>
+
+      <div class="footer-social">
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect width="4" height="12" x="2" y="9" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>Follow Us</h4>
+        <div class="social-icons">
+          <a href="https://github.com/ShubhangiRoy12" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+            </svg></a>
+          <a href="https://leetcode.com/u/Shubhangi12/" target="_blank" rel="noopener noreferrer"
+            aria-label="LeetCode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1'374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/" target="_blank" rel="noopener noreferrer"
+            aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect width="4" height="12" x="2" y="9" />
+              <circle cx="4" cy="4" r="2" />
+            </svg></a>
+        </div>
+        <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.7);">Connect with us for updates and exclusive offers!
+        </p>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-6l-2 3h-4l-2-3H2" />
+            <path
+              d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+          </svg>Newsletter</h4>
+        <p>Join our mailing list to get exclusive updates, special offers, and insights into the logistics world
+          delivered
+          straight to your inbox.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Transport Co. | All Rights Reserved. | Designed with ❤️ for Excellence</p>
+    </div>
+  </footer>
+<script>
+  const form = document.getElementById("feedbackForm");
+  const popup = document.getElementById("thankPopup");
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    popup.style.display = "flex";
+    form.reset();
+  });
+
+  function closePopup(){
+    popup.style.display = "none";
+  }
+</script>
+
+</body>
+</html>
