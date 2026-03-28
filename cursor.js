@@ -1,35 +1,48 @@
 const cursor = document.querySelector(".cursor");
-const circles = document.querySelectorAll(".circle");
+const circles = Array.from(document.querySelectorAll(".circle"));
+const supportsCustomCursor =
+  window.matchMedia("(min-width: 769px) and (pointer: fine)").matches;
 
-let mouseX = 0;
-let mouseY = 0;
+if (cursor && circles.length > 0 && supportsCustomCursor) {
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
 
-const positions = Array.from(circles).map(() => ({ x: 0, y: 0 }));
+  const trailPositions = circles.map(() => ({ x: mouseX, y: mouseY }));
 
-window.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+  function setCursorPosition(x, y) {
+    cursor.style.left = `${x}px`;
+    cursor.style.top = `${y}px`;
+  }
 
-  cursor.style.left = mouseX + "px";
-  cursor.style.top = mouseY + "px";
-});
-
-function animate() {
-  let x = mouseX;
-  let y = mouseY;
-
-  positions.forEach((pos, i) => {
-    pos.x += (x - pos.x) * 0.3;
-    pos.y += (y - pos.y) * 0.3;
-
-    circles[i].style.left = pos.x + "px";
-    circles[i].style.top = pos.y + "px";
-
-    x = pos.x;
-    y = pos.y;
+  window.addEventListener("mousemove", (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    setCursorPosition(mouseX, mouseY);
   });
 
-  requestAnimationFrame(animate);
-}
+  function animateTrail() {
+    let targetX = mouseX;
+    let targetY = mouseY;
 
-animate();
+    trailPositions.forEach((position, index) => {
+      position.x += (targetX - position.x) * 0.28;
+      position.y += (targetY - position.y) * 0.28;
+
+      circles[index].style.left = `${position.x}px`;
+      circles[index].style.top = `${position.y}px`;
+
+      targetX = position.x;
+      targetY = position.y;
+    });
+
+    window.requestAnimationFrame(animateTrail);
+  }
+
+  setCursorPosition(mouseX, mouseY);
+  animateTrail();
+
+  document.querySelectorAll("a, button, input, .card").forEach((element) => {
+    element.addEventListener("mouseenter", () => cursor.classList.add("hover"));
+    element.addEventListener("mouseleave", () => cursor.classList.remove("hover"));
+  });
+}
