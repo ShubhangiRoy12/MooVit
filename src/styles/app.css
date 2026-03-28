@@ -1,0 +1,25 @@
+@import "./transport.css";
+@import "./dashboard.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: Inter, "Segoe UI", sans-serif;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+a,
+button,
+input,
+textarea {
+  font: inherit;
+}
