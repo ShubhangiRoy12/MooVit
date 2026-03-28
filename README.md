@@ -30,6 +30,7 @@ Try it now → https://moo-vit.vercel.app/
 ![Services Section](home_hero.png.png)
 
 ---
+
 ## ✨ Features
 
 - Detects vehicles, people, signals, and sharp objects
@@ -43,60 +44,57 @@ Try it now → https://moo-vit.vercel.app/
 ---
 
 ## ✨ Structure
-```
+
+```text
 MooVit/
-├── .github/
-│   └── workflows/                 # GitHub Actions / CI configs
-│
-├── frontend/                      # Frontend (HTML, CSS, JS)
-│   ├── index.html                 # Landing page
-│   ├── pages/
-│   │   ├── about.html
-│   │   ├── contact.html
-│   │   ├── login.html
-│   │   └── safety.html
-│   ├── assets/
-│   │   ├── images/                # UI images
-│   │   ├── icons/                 # SVG icons
-│   │   └── styles.css             # Global styles
-│   └── script.js                  # Frontend logic
-│
-├── backend/                       # Backend (Python)
-│   ├── app.py                     # Main backend entry point
-│   ├── routes/                    # API routes
-│   │   ├── tracking.py
-│   │   ├── vehicles.py
-│   │   └── safety.py
-│   ├── models/                    # ML / Detection models
-│   │   └── detection_model.py
-│   ├── utils/                     # Helper functio
+├── .github/                      # Repository automation
+├── Chatbot/                      # AI assistant UI
+├── FoodStall_and_hotels/         # Hotel and food module
+├── Public transportation/        # Public transit module
+├── Routes/                       # Route planning module
+├── Safety and awareness/         # Safety awareness module
+├── Schedule/                     # Scheduling module
+├── Shipments/                    # Shipment tracking module
+├── Vehicles/                     # Vehicle management module
+├── index.html                    # Landing page
+├── main.html                     # Main dashboard page
+├── services.html                 # Services page
+├── about.html                    # About page
+├── contact.html                  # Contact page
+├── script.js                     # Shared frontend behavior
+├── styles.css                    # Shared frontend styling
+└── transport.css                 # Transport UI styling
 ```
 
+Note: this repository currently contains the frontend and feature modules only. The `README` previously referenced a `backend/` directory, but that directory is not present in this repository.
 
 ---
+
 ## 🛠 Tech Stack
 
 ### Computer Vision & AI
+
 - YOLOv8 / YOLOv11 / YOLOv12 – object detection
 - OpenCV – image and video stream processing
 - TensorFlow / PyTorch – model training and inference
 
 ### Web & Voice Interaction
+
 - HTML, CSS, JavaScript – frontend interface
-- Python + Flask / FastAPI – backend server and APIs
 - Canvas API – draw detection boxes in real-time
 - MediaDevices API – access webcam on web
-- json – text-to-speech alerts
+- JSON – text-to-speech alerts
 
 ### Logistics & Route Modules
-- Custom scheduling API – for shipment planning (JSON-based input)
+
+- Custom scheduling flows – for shipment planning and route timelines
 - GeoJSON / Google Maps API (optional) – for route plotting and safe-path suggestions
-- SQLite / JSON – for storing schedules and known hazard zones
+- JSON-based data handling – for schedules and known hazard zones
 
 ### Deployment & Tools
+
 - Vercel – frontend deployment
 - GitHub – version control
-- WebSocket / HTTP Fetch – real-time communication
 
 ---
 
@@ -109,77 +107,61 @@ git clone https://github.com/ShubhangiRoy12/moovit.git
 cd moovit
 ```
 
-2. Install backend dependencies:
+2. Start the frontend locally using any static server, or deploy the repository to Vercel.
+
+If you use Python locally, one simple option is:
+
 ```bash
-cd backend
-pip install -r requirements.txt
-```
-3. Start the backend server:
-```bash
-python app.py
+python -m http.server 8000
 ```
 
-4. For frontend, deploy the frontend/ folder on Vercel or use a static server locally.
+Then open `http://localhost:8000`.
 
 ---
- 
+
 ## 📋 Use Cases
 
--Assist visually impaired users with voice-based object alerts
-
--Help logistics teams plan safe and efficient routes
-
--Offer vehicle drivers route awareness and obstacle warnings
-
--Provide safety prompts in traffic-heavy or high-risk zones
-
--Enable face tracking to follow companions in crowded areas
+- Assist visually impaired users with voice-based object alerts
+- Help logistics teams plan safe and efficient routes
+- Offer vehicle drivers route awareness and obstacle warnings
+- Provide safety prompts in traffic-heavy or high-risk zones
+- Enable face tracking to follow companions in crowded areas
 
 ---
 
 ## 🚧 Future Plans
 
--Add multilingual voice support
-
--GPS-based live routing for shipment vehicles
-
--Heatmap overlays for high-risk zones
-
--Admin dashboard to view and edit shipment schedules
-
--Public API for integration with logistics and assistive apps
+- Add multilingual voice support
+- GPS-based live routing for shipment vehicles
+- Heatmap overlays for high-risk zones
+- Admin dashboard to view and edit shipment schedules
+- Public API for integration with logistics and assistive apps
 
 ---
 
 ## 🤝 Contributing
 
--We welcome contributions! You can help with:
+We welcome contributions. You can help with:
 
--Improving detection accuracy
-
--Expanding shipment scheduling logic
-
--UI/UX design improvements
-
--Adding more face profiles or localization features
-
----
+- Improving detection accuracy
+- Expanding shipment scheduling logic
+- UI/UX design improvements
+- Adding more face profiles or localization features
 
 Steps:
+
 1. Fork this repo
-2. Create a branch (git checkout -b feature-name)
+2. Create a branch (`git checkout -b feature-name`)
 3. Commit your changes
 4. Push and open a PR
 
 ---
 
-## Contibutors
-- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer 
+## Contributors
 
-- **[Om Roy](https://github.com/omroy07)** – Web Developer  & Machine Learning Engineer
+- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer
+- **[Om Roy](https://github.com/omroy07)** – Web Developer & Machine Learning Engineer
 
+## 📜 License
 
-📜 License
-This project is licensed under the MIT License. See LICENSE file for details.
-
-
+This project is licensed under the MIT License. See `LICENSE` for details.
