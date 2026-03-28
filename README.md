@@ -42,34 +42,37 @@ Try it now → https://moo-vit.vercel.app/
 
 ---
 
-## ✨ Structure
+## 📁 Folder Structure
 ```
 MooVit/
-├── .github/
-│   └── workflows/                 # GitHub Actions / CI configs
-│
-├── frontend/                      # Frontend (HTML, CSS, JS)
-│   ├── index.html                 # Landing page
-│   ├── pages/
-│   │   ├── about.html
-│   │   ├── contact.html
-│   │   ├── login.html
-│   │   └── safety.html
-│   ├── assets/
-│   │   ├── images/                # UI images
-│   │   ├── icons/                 # SVG icons
-│   │   └── styles.css             # Global styles
-│   └── script.js                  # Frontend logic
-│
-├── backend/                       # Backend (Python)
-│   ├── app.py                     # Main backend entry point
-│   ├── routes/                    # API routes
-│   │   ├── tracking.py
-│   │   ├── vehicles.py
-│   │   └── safety.py
-│   ├── models/                    # ML / Detection models
-│   │   └── detection_model.py
-│   ├── utils/                     # Helper functio
+├── .github/                       # GitHub templates and automation
+│   ├── ISSUE_TEMPLATE/            # Bug and feature request templates
+│   └── pull_request_template.md   # PR checklist template
+├── Chatbot/                       # Chatbot module
+├── feedback/                      # Feedback-related assets
+├── FoodStall_and_hotels/          # Food and hotel feature pages
+├── live-detection/                # Live detection feature
+├── Public transportation/         # Public transport module
+├── Routes/                        # Route planning module
+├── Safety and awareness/          # Safety awareness module
+├── Schedule/                      # Scheduling feature
+├── sharingcab/                    # Cab sharing feature
+├── sharp-detection/               # Sharp object detection
+├── Shipments/                     # Shipment-related pages
+├── Vehicles/                      # Vehicle module
+├── index.html                     # Landing page
+├── about.html                     # About page
+├── services.html                  # Services page
+├── contact.html                   # Contact page
+├── feedback.html                  # Feedback page
+├── script.js                      # Shared JavaScript
+├── cursor.js                      # Cursor interaction logic
+├── styles.css                     # Shared site styles
+├── transport.css                  # Main transport UI styles
+├── README.md                      # Project overview
+├── CONTRIBUTING.md                # Contribution guide
+├── CODE_OF_CONDUCT.md             # Community guidelines
+└── LICENSE                        # MIT license
 ```
 
 
@@ -181,5 +184,4 @@ Steps:
 
 📜 License
 This project is licensed under the MIT License. See LICENSE file for details.
-
 
