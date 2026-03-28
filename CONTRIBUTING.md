@@ -1,204 +1,128 @@
-# 🚗 Contributing to MooVit
+# Contributing to MooVit
 
-Thank you for your interest in contributing to MooVit 🚀
-We welcome developers, designers, ML engineers, and documentation contributors.
+Thanks for contributing to MooVit.
 
-MooVit aims to improve road safety, logistics planning, and accessibility using AI-powered object detection and voice assistance. Every contribution helps make mobility safer and smarter.
+MooVit is a web-first project focused on road safety, accessibility, logistics support, and AI-assisted mobility. Contributions are welcome across frontend pages, JavaScript behavior, documentation, and project structure improvements.
 
----
-## 📌 Code of Conduct
+## Before You Start
 
-By participating in this project, you agree to:
+- Read [README.md](./README.md) for the project overview
+- Read [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) before participating
+- Check existing issues and pull requests to avoid duplicate work
+- Prefer small, focused pull requests over large mixed changes
 
-• Be respectful and inclusive
+## Tech Stack Overview
 
-• Provide constructive feedback
+This repository is currently organized as a static web project with feature-specific folders.
 
-• Avoid offensive or harmful language
+- HTML for page structure
+- CSS for styling and responsiveness
+- JavaScript for interactions and page logic
+- Vercel-compatible static deployment for the frontend
 
-• Collaborate professionally
+Some documentation mentions backend and AI integrations, but the current repository is primarily frontend-oriented.
 
+## Project Structure
 
----
+Common areas you may work in:
 
-## 📌 Scope of Contributions
+- `index.html`, `about.html`, `contact.html`, `services.html`, and similar root pages
+- `styles.css`, `transport.css`, and feature-level CSS files
+- `script.js`, `cursor.js`, and folder-specific JavaScript files
+- Feature folders such as `Routes/`, `Vehicles/`, `Shipments/`, and `Safety and awareness/`
 
-We welcome contributions that align with MooVit’s mission of improving AI-powered road safety, accessibility, and logistics.
+## Local Setup
 
-### In Scope:
+1. Fork the repository.
+2. Clone your fork.
 
-• Improving object detection accuracy and performance
-
-• UI/UX and accessibility enhancements
-
-• Voice alert improvements (multilingual support, clarity)
-
-• Logistics & route planning improvements
-
-• Backend optimization and API improvements
-
-• Bug fixes and performance enhancements
-
-• Documentation improvements and testing
-
-### 🚫 Out of Scope:
-
-• To maintain focus and stability, the following are not accepted without prior discussion:
-
-• Features unrelated to road safety or mobility
-
-• Major architectural/framework changes
-
-• Complete UI redesign without proposal
-
-• Adding sensitive third-party integrations
-
-• Large PRs without issue discussion
-
-• Low-quality, untested, or copy-pasted code
-
-👉 For major changes, please open an issue first before starting work.
-
----
-## 📌 How to Contribute
-
-### 1️⃣ Fork & Clone the Repository
-
-
-Fork the repository and clone it locally:
 ```bash
-git clone https://github.com/your-username/moovit.git
-cd moovit
+git clone https://github.com/your-username/MooVit.git
+cd MooVit
 ```
----
 
-### 2️⃣ Create a New Branch
-Use a clear and descriptive branch name:
+3. Open the project in your editor.
+4. Run the site locally using any static server.
+
+Examples:
+
 ```bash
-git checkout -b feature/your-feature-name
+npx serve .
 ```
-Use meaningful branch names:
 
-• feature/add-multilingual-voice
+or
 
-• fix/detection-bug
+```bash
+python -m http.server 8000
+```
 
-• docs/update-api-guide
+Then open the local server URL in your browser and test the pages you changed.
 
+## Contribution Workflow
 
+1. Create a branch from `main`.
 
----
+```bash
+git checkout -b docs/short-description
+```
 
-### 3️⃣ Make Your Changes
-You can help by:
+2. Make focused changes related to one issue or task.
+3. Test the affected pages, links, and interactions locally.
+4. Commit with a clear message.
 
-- 💻 Adding new detection features or AI models  
-- 🐞 Fixing bugs or improving performance  
-- 🧪 Enhancing shipment scheduling and route safety modules  
-- 🎨 Improving UI/UX for accessibility and ease of use  
-- 🌐 Adding localization or multilingual voice support  
-- 📄 Improving documentation  
-
-> Ensure your changes align with MooVit's goals and are clean, tested, and documented.
-
----
-
-### 4️⃣ Test Before You Commit
-- Run your backend (`app.py`) and frontend locally to ensure everything works  
-- Test detection accuracy and voice alerts  
-- Validate that shipment scheduling and routing modules behave as expected  
-- Add/update test cases if applicable  
-
----
-
-### 5️⃣ Commit and Push
-Write clear, descriptive commit messages:
 ```bash
 git add .
-git commit -m "feat: short description of your change"
-git push origin feature/your-feature-name
+git commit -m "docs: improve contributor setup guidance"
 ```
 
----
+5. Push your branch to your fork.
 
-### 6️⃣ Submit a Pull Request (PR)
-1. Go to your fork on GitHub  
-2. Click **Compare & Pull Request**  
-3. Clearly describe your changes and link related issues (if any)  
-4. Include before/after screenshots or demo GIFs if relevant  
+```bash
+git push origin docs/short-description
+```
 
----
+6. Open a pull request against the upstream repository.
 
-## 🎓 OSCG 2026 Contributors
+## What to Include in a Pull Request
 
-This project participates in **Open Source Connect Global (OSCG) 2026**.
+- A short summary of what changed
+- Why the change was needed
+- The related issue number, if applicable
+- Screenshots for UI changes
+- Testing notes describing what you verified locally
 
-OSGC contributors are expected to:
-- Follow the general contribution guidelines in this document
-- Work on issues labeled or approved for OSCG participation
-- Communicate progress clearly in issue threads and pull requests
-- Ensure all contributions are well-documented and reproducible
+## Code Standards
 
-For substantial changes, please open an issue first to discuss the scope with the maintainers.
+When contributing:
 
----
+- Match the existing file and folder structure
+- Use meaningful file names, IDs, class names, and variables
+- Keep HTML semantic where possible
+- Keep CSS organized and avoid unnecessary duplication
+- Keep JavaScript simple and scoped to the feature you are changing
+- Avoid unrelated refactors in the same pull request
 
-## 💡 Suggested Contribution Areas
+## Best Practices
 
+- Fix the root problem, not just the visible symptom
+- Preserve existing behavior outside the scope of your change
+- Update documentation when contributor workflow or user-visible behavior changes
+- Verify links and asset paths after editing pages
+- Check mobile responsiveness when changing layouts or CSS
 
-| Area                     | Description                                                             | Skills Required                    | Difficulty            |
-| ------------------------ | ----------------------------------------------------------------------- | ---------------------------------- | --------------------- |
-| 🧠 AI & Object Detection | Improve YOLO accuracy, add new object classes, optimize inference speed | Python, OpenCV, PyTorch/TensorFlow | Intermediate–Advanced |
-| 🌐 Frontend UI/UX        | Improve accessibility, responsiveness, and detection visualization      | HTML, CSS, JavaScript              | Beginner–Intermediate |
-| 🔊 Voice & Accessibility | Add multilingual alerts, improve text-to-speech clarity                 | JavaScript, Web APIs               | Beginner–Intermediate |
-| 🚚 Logistics & Routing   | Improve shipment scheduling and route safety logic                      | Python, APIs, JSON                 | Intermediate          |
-| ⚡ Backend Optimization   | Improve API performance and structure                                   | Python, Flask/FastAPI              | Intermediate          |
-| 🧪 Testing & QA          | Write unit tests, test APIs, improve reliability                        | Python, Testing frameworks         | Beginner–Intermediate |
-| 📖 Documentation         | Improve README, write API docs, add setup guides                        | Markdown, Technical Writing        | Beginner              |
+## Good First Contributions
 
+Good contribution areas for this project include:
 
+- Documentation improvements
+- Accessibility and responsiveness fixes
+- Broken links or navigation fixes
+- UI consistency improvements
+- Small JavaScript bug fixes
+- Cleanup of unclear setup or contributor guidance
 
----
-## 📏 Contribution Guidelines
+## Need Help?
 
-### Code Style:-
-
-• Follow **PEP8** for Python
-
-• Use meaningful variable names
-
-• Keep functions modular
-
-• Avoid large unstructured files
-
-• Add comments where logic is complex
-
----
-
-## ✅ Contribution Checklist
-- [ ] My code follows the project style and conventions  
-- [ ] I’ve tested my changes locally  
-- [ ] I’ve updated relevant documentation  
-- [ ] I’ve linked related issues/PRs if applicable  
-- [ ] I’ve added comments for complex logic  
-
----
-
-## 💬 Need Help?
-If you have questions or suggestions:
-- Open an [issue](https://github.com/ShubhangiRoy12/moovit/issues)  
-- Tag a maintainer in the discussion  
-
----
-
-### 🚀 Let’s Build Safer Mobility Together
-
-Your contribution can help improve accessibility and road safety worldwide.
-
-Happy Coding 💙
-
-
-
-
-
-
+- Open an issue: <https://github.com/ShubhangiRoy12/MooVit/issues>
+- Mention the related page or folder when reporting a bug
+- Include screenshots, steps to reproduce, and expected behavior when possible

@@ -171,6 +171,8 @@ Steps:
 3. Commit your changes
 4. Push and open a PR
 
+For full contribution setup and workflow details, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ---
 
 ## Contibutors
@@ -181,5 +183,4 @@ Steps:
 
 📜 License
 This project is licensed under the MIT License. See LICENSE file for details.
-
 
