@@ -1,185 +1,105 @@
 # MooVit
 
-MooVit is an AI-powered real-time object detection and voice-assist system designed to improve road safety and mobility—especially for visually impaired users, logistics operations, and vehicle drivers. It detects people, vehicles, traffic signals, animals, dangerous objects, and known faces. MooVit offers voice alerts for real-time navigation, shipment scheduling assistance, route optimization, and road safety awareness.
+MooVit is a transport, safety, and accessibility project focused on AI-assisted mobility features such as object detection, route awareness, shipment tools, and public transport support.
 
-🔗 Live site: https://moo-vit.vercel.app/
+Live site: https://moo-vit.vercel.app/
 
----
+## Overview
 
-## 🌐 Web Application
+- React now powers the main frontend shell for the landing page, dashboard, and feedback flow.
+- Legacy static HTML modules are still present and linked from the new dashboard while the migration continues.
+- The repository also includes experimental safety, logistics, detection, and assistive feature pages.
 
-The MooVit web interface is simple, accessible, and packed with functionality:
+## Frontend Migration
 
-- Access real-time camera feed for object detection
-- Upload image or video files for instant analysis
-- Bounding boxes + voice alerts for detected objects and threats
-- Responsive interface works on both desktop and mobile
-- Shipment route scheduling and alert-based safety recommendations (BETA)
-- Safety awareness prompts for road signs, traffic zones, and conditions
+Issue `#110` introduces an incremental migration from plain HTML, CSS, and JavaScript to React instead of trying to rewrite every page in one PR.
 
-Try it now → https://moo-vit.vercel.app/
+Current React routes:
 
----
+- `/` for the landing page
+- `/#/dashboard` for the module dashboard
+- `/#/feedback` for feedback submission
 
-## 📸 Project Screenshots
+Compatibility pages:
 
-### 🏠 Home / Landing Page
-![Home Page](services_section.png.png)
+- `main.html` redirects to the React dashboard route
+- `feedback.html` redirects to the React feedback route
 
-### 🚚 Services Section
-![Services Section](home_hero.png.png)
+## Project Structure
 
----
-## ✨ Features
-
-- Detects vehicles, people, signals, and sharp objects
-- Recognizes known faces to help visually impaired users follow familiar people
-- Real-time voice alerts based on camera/video input
-- Vehicle shipment schedule module: input shipment data, receive route timelines
-- Route safety planner: avoid known hazard zones or restricted areas
-- Traffic awareness: highlights signals, signs, and crossing points
-- Upload images or use live camera feed for detection
-
----
-
-## ✨ Structure
-```
+```text
 MooVit/
-├── .github/
-│   └── workflows/                 # GitHub Actions / CI configs
-│
-├── frontend/                      # Frontend (HTML, CSS, JS)
-│   ├── index.html                 # Landing page
-│   ├── pages/
-│   │   ├── about.html
-│   │   ├── contact.html
-│   │   ├── login.html
-│   │   └── safety.html
-│   ├── assets/
-│   │   ├── images/                # UI images
-│   │   ├── icons/                 # SVG icons
-│   │   └── styles.css             # Global styles
-│   └── script.js                  # Frontend logic
-│
-├── backend/                       # Backend (Python)
-│   ├── app.py                     # Main backend entry point
-│   ├── routes/                    # API routes
-│   │   ├── tracking.py
-│   │   ├── vehicles.py
-│   │   └── safety.py
-│   ├── models/                    # ML / Detection models
-│   │   └── detection_model.py
-│   ├── utils/                     # Helper functio
+|- .github/                     # GitHub Actions workflows
+|- src/
+|  |- components/               # Shared React layouts and modal UI
+|  |- pages/                    # React routes
+|  `- styles/                   # React-scoped styling
+|- index.html                   # React app entry point
+|- main.html                    # Legacy redirect to dashboard
+|- feedback.html                # Legacy redirect to feedback
+|- package.json                 # Vite + React scripts and dependencies
+|- transport.css                # Legacy transport styling for non-migrated pages
+|- Shipments/                   # Static feature module
+|- Vehicles/                    # Static feature module
+|- Routes/                      # Static feature module
+|- Schedule/                    # Static feature module
+|- Public transportation/       # Static feature module
+`- other feature folders/       # Additional static modules still awaiting migration
 ```
 
+## Tech Stack
 
----
-## 🛠 Tech Stack
+### Frontend
 
-### Computer Vision & AI
-- YOLOv8 / YOLOv11 / YOLOv12 – object detection
-- OpenCV – image and video stream processing
-- TensorFlow / PyTorch – model training and inference
+- React
+- React Router
+- Vite
+- HTML, CSS, and JavaScript for legacy pages that have not been migrated yet
 
-### Web & Voice Interaction
-- HTML, CSS, JavaScript – frontend interface
-- Python + Flask / FastAPI – backend server and APIs
-- Canvas API – draw detection boxes in real-time
-- MediaDevices API – access webcam on web
-- json – text-to-speech alerts
+### AI and Computer Vision
 
-### Logistics & Route Modules
-- Custom scheduling API – for shipment planning (JSON-based input)
-- GeoJSON / Google Maps API (optional) – for route plotting and safe-path suggestions
-- SQLite / JSON – for storing schedules and known hazard zones
+- YOLO-based object detection
+- OpenCV
+- TensorFlow / PyTorch
 
-### Deployment & Tools
-- Vercel – frontend deployment
-- GitHub – version control
-- WebSocket / HTTP Fetch – real-time communication
+### Platform and Deployment
 
----
+- Vercel
+- GitHub
 
-## 📦 Installation (Developer Setup)
+## Local Development
 
-1. Clone the repo:
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/ShubhangiRoy12/moovit.git
-cd moovit
+git clone https://github.com/ShubhangiRoy12/MooVit.git
+cd MooVit
 ```
 
-2. Install backend dependencies:
+2. Install frontend dependencies:
+
 ```bash
-cd backend
-pip install -r requirements.txt
+npm install
 ```
-3. Start the backend server:
+
+3. Start the React development server:
+
 ```bash
-python app.py
+npm run dev
 ```
 
-4. For frontend, deploy the frontend/ folder on Vercel or use a static server locally.
+4. Build the frontend for deployment:
 
----
- 
-## 📋 Use Cases
+```bash
+npm run build
+```
 
--Assist visually impaired users with voice-based object alerts
+## Contribution Notes
 
--Help logistics teams plan safe and efficient routes
+- New shared frontend work should go into the React app under `src/`.
+- Legacy feature pages can still be improved in place until they are migrated.
+- See `CONTRIBUTING.md` for contribution workflow and repository standards.
 
--Offer vehicle drivers route awareness and obstacle warnings
+## License
 
--Provide safety prompts in traffic-heavy or high-risk zones
-
--Enable face tracking to follow companions in crowded areas
-
----
-
-## 🚧 Future Plans
-
--Add multilingual voice support
-
--GPS-based live routing for shipment vehicles
-
--Heatmap overlays for high-risk zones
-
--Admin dashboard to view and edit shipment schedules
-
--Public API for integration with logistics and assistive apps
-
----
-
-## 🤝 Contributing
-
--We welcome contributions! You can help with:
-
--Improving detection accuracy
-
--Expanding shipment scheduling logic
-
--UI/UX design improvements
-
--Adding more face profiles or localization features
-
----
-
-Steps:
-1. Fork this repo
-2. Create a branch (git checkout -b feature-name)
-3. Commit your changes
-4. Push and open a PR
-
----
-
-## Contibutors
-- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer 
-
-- **[Om Roy](https://github.com/omroy07)** – Web Developer  & Machine Learning Engineer
-
-
-📜 License
-This project is licensed under the MIT License. See LICENSE file for details.
-
-
+This project is licensed under the MIT License. See `LICENSE` for details.
