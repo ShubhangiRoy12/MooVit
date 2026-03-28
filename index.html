@@ -57,6 +57,7 @@
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg></button>
         </div>
+        <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-pressed="false">Light mode</button>
         <div class="auth-divider"></div>
         <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
         <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
@@ -587,6 +588,38 @@
         setTimeout(() => el.classList.add('loaded'), i * 200);
       });
     });
+
+    (function () {
+      const toggle = document.getElementById('theme-toggle');
+      const storageKey = 'moovit-theme';
+      const lightClass = 'theme-light';
+
+      function applyTheme(theme) {
+        if (theme === 'light') document.documentElement.classList.add(lightClass);
+        else document.documentElement.classList.remove(lightClass);
+
+        if (toggle) {
+          const isLight = theme === 'light';
+          toggle.textContent = isLight ? 'Dark mode' : 'Light mode';
+          toggle.setAttribute('aria-pressed', String(isLight));
+        }
+      }
+
+      let theme = localStorage.getItem(storageKey);
+      if (!theme) {
+        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+
+      applyTheme(theme);
+
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          const next = document.documentElement.classList.contains(lightClass) ? 'dark' : 'light';
+          localStorage.setItem(storageKey, next);
+          applyTheme(next);
+        });
+      }
+    })();
   </script>
 </body>
 
