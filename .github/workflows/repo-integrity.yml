@@ -1,0 +1,68 @@
+name: Repository Integrity Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify-repository-integrity:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify expected project files still exist
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_paths=(
+            "README.md"
+            "index.html"
+            "main.html"
+            "services.html"
+            "about.html"
+            "contact.html"
+            "script.js"
+            "styles.css"
+            "transport.css"
+            "Shipments/shipments.html"
+            "Routes/route.html"
+            "Vehicles/vechicle.html"
+            "Schedule/schedule.html"
+            "Chatbot/index.html"
+            "Public transportation/index.html"
+          )
+
+          missing_paths=()
+          for path in "${required_paths[@]}"; do
+            if [[ ! -e "$path" ]]; then
+              missing_paths+=("$path")
+            fi
+          done
+
+          if (( ${#missing_paths[@]} > 0 )); then
+            echo "The repository is missing expected paths:"
+            printf ' - %s\n' "${missing_paths[@]}"
+            exit 1
+          fi
+
+      - name: Verify repository was not reduced to an unexpectedly small file set
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          file_count="$(find . -type f \
+            -not -path './.git/*' \
+            -not -path './node_modules/*' \
+            -not -path './dist/*' | wc -l)"
+
+          echo "Detected file count: $file_count"
+
+          if (( file_count < 25 )); then
+            echo "Repository file count is suspiciously low. Expected at least 25 files."
+            exit 1
+          fi
