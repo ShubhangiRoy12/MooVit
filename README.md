@@ -4,6 +4,16 @@ MooVit is an AI-powered real-time object detection and voice-assist system desig
 
 🔗 Live site: https://moo-vit.vercel.app/
 
+## 📚 Table of Contents
+- [Web Application](#-web-application)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Installation](#-installation-developer-setup)
+- [Use Cases](#-use-cases)
+- [Future Plans](#-future-plans)
+- [Contributing](#-contributing)
+- [Contributors](#contributors)
+
 ---
 
 ## 🌐 Web Application
@@ -125,47 +135,36 @@ python app.py
  
 ## 📋 Use Cases
 
--Assist visually impaired users with voice-based object alerts
-
--Help logistics teams plan safe and efficient routes
-
--Offer vehicle drivers route awareness and obstacle warnings
-
--Provide safety prompts in traffic-heavy or high-risk zones
-
--Enable face tracking to follow companions in crowded areas
+- Assist visually impaired users with voice-based object alerts
+- Help logistics teams plan safe and efficient routes
+- Offer vehicle drivers route awareness and obstacle warnings
+- Provide safety prompts in traffic-heavy or high-risk zones
+- Enable face tracking to follow companions in crowded areas
 
 ---
 
 ## 🚧 Future Plans
 
--Add multilingual voice support
-
--GPS-based live routing for shipment vehicles
-
--Heatmap overlays for high-risk zones
-
--Admin dashboard to view and edit shipment schedules
-
--Public API for integration with logistics and assistive apps
+- Add multilingual voice support
+- GPS-based live routing for shipment vehicles
+- Heatmap overlays for high-risk zones
+- Admin dashboard to view and edit shipment schedules
+- Public API for integration with logistics and assistive apps
 
 ---
 
 ## 🤝 Contributing
 
--We welcome contributions! You can help with:
+We welcome contributions! You can help with:
 
--Improving detection accuracy
-
--Expanding shipment scheduling logic
-
--UI/UX design improvements
-
--Adding more face profiles or localization features
+- Improving detection accuracy
+- Expanding shipment scheduling logic
+- UI/UX design improvements
+- Adding more face profiles or localization features
 
 ---
 
-Steps:
+ ### Steps to Contribute:
 1. Fork this repo
 2. Create a branch (git checkout -b feature-name)
 3. Commit your changes
@@ -173,13 +172,12 @@ Steps:
 
 ---
 
-## Contibutors
+## Contributors
 - **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer 
-
 - **[Om Roy](https://github.com/omroy07)** – Web Developer  & Machine Learning Engineer
 
 
-📜 License
+## 📜 License
 This project is licensed under the MIT License. See LICENSE file for details.
 
 
