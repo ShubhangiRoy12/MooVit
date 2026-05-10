@@ -624,6 +624,7 @@
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
       transition: 0.3s;
     }
 
@@ -634,6 +635,7 @@
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
       visibility: visible;
+      pointer-events: auto;
     }
 
     .service-alert h3 {
@@ -679,6 +681,9 @@
     /* Forms */
     .form-group {
       margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      pointer-events: auto;
     }
 
     .form-group label {
@@ -686,9 +691,11 @@
       display: block;
       margin-bottom: 0.5rem;
       font-size: 0.9rem;
+      pointer-events: auto;
     }
 
-    .form-group input {
+    .form-group input,
+    .form-group textarea {
       width: 100%;
       padding: 0.8rem;
       border-radius: 10px;
@@ -696,11 +703,22 @@
       background: rgba(255, 255, 255, 0.05);
       color: white;
       outline: none;
+      font-family: 'Inter', sans-serif;
+      pointer-events: auto;
+      cursor: text;
     }
 
-    .form-group input:focus {
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
       border-color: #2563eb;
       background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      pointer-events: auto;
     }
 
     .login-submit-btn,
@@ -715,11 +733,13 @@
       font-weight: 700;
       cursor: pointer;
       transition: 0.3s;
+      pointer-events: auto;
     }
 
     .login-submit-btn:hover,
     .signup-submit-btn:hover {
       background: #1d4ed8;
+      pointer-events: auto;
     }
 
     .close-btn {
@@ -740,7 +760,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
       pointer-events: none;
@@ -749,6 +769,7 @@
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
+      display: flex;
       pointer-events: auto;
     }
 
@@ -791,6 +812,175 @@
       font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.9);
       text-align: center;
+    }
+
+    /* --- Modal Layout Styling (LOGIN & SIGNUP) --- */
+    .modal-wrapper {
+      display: flex;
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      max-height: 85vh;
+      overflow: hidden;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    .modal-left {
+      display: none;
+      flex: 1;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(14, 116, 144, 0.15) 100%);
+      padding: 3rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 280px;
+    }
+
+    .modal-left.signup-bg {
+      background: linear-gradient(135deg, rgba(14, 116, 144, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+    }
+
+    .modal-brand {
+      text-align: center;
+      color: white;
+    }
+
+    .modal-brand svg {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 1.5rem;
+      color: #ffd700;
+    }
+
+    .modal-brand h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: white;
+    }
+
+    .modal-brand p {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+    }
+
+    .modal-right {
+      flex: 1;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      min-width: 350px;
+      overflow-y: auto;
+      max-height: 85vh;
+    }
+
+    .modal-right h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: white;
+      text-align: left;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+      position: relative;
+      pointer-events: auto;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.5);
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 45px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.3s ease;
+      pointer-events: auto;
+      cursor: text;
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .input-group input:focus {
+      border-color: #2563eb;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 2rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    .close-btn:hover {
+      color: white;
+      transform: scale(1.1);
+      pointer-events: auto;
+    }
+
+    /* Responsive: Hide modal-left on smaller screens */
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        max-width: 95%;
+        max-height: 90vh;
+      }
+
+      .modal-left {
+        display: none !important;
+      }
+
+      .modal-right {
+        padding: 2rem;
+        min-width: auto;
+      }
+
+      .modal-right h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .input-group input {
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
     }
 
     /* --- Footer --- */
@@ -942,6 +1132,7 @@
     /* Checkbox Styles for Signup */
     .checkbox-group {
       margin: 1.5rem 0;
+      pointer-events: auto;
     }
 
     .checkbox-label {
@@ -951,15 +1142,19 @@
       font-size: 0.9rem;
       line-height: 1.4;
       color: rgba(255, 255, 255, 0.9) !important;
+      pointer-events: auto;
     }
 
     .checkbox-label input {
       width: auto !important;
       margin-right: 10px;
+      cursor: pointer;
+      pointer-events: auto;
     }
 
     .checkbox-label a {
       color: #ffd700;
       text-decoration: underline;
       margin-left: 4px;
+      pointer-events: auto;
     }
