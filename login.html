@@ -2,236 +2,489 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="favicon.png">
-  <title>Login - Transport Co.</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Login - MooVit</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
   <style>
-    /* theme variables copied from index.html */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-    :root {
-      --primary: #2563eb;
-      --primary-light: #2d5a87;
-      --secondary: #1d4ed8;
-      --accent: #f59e0b;
-      --glass: rgba(255, 255, 255, 0.1);
-      --glass-border: rgba(255, 255, 255, 0.2);
-      --bg-overlay: rgba(255, 255, 255, 0.9);
-      --text-color: #1a1a1a;
-      --header-bg: rgba(255, 255, 255, 0.9);
-      --header-scrolled-bg: rgba(255, 255, 255, 0.95);
-      --nav-color: rgba(0, 0, 0, 0.7);
-      --nav-hover: #000000;
-      --search-bg: rgba(0, 0, 0, 0.05);
-      --search-border: rgba(0, 0, 0, 0.1);
-      --btn-bg: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-      --btn-shadow: rgba(29, 78, 216, 0.4);
-      --border-color: rgba(0, 0, 0, 0.1);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
-        url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-      background-size: cover;
-      background-position: center;
-      height: 100vh;
+      min-height: 100vh;
+
       display: flex;
       justify-content: center;
       align-items: center;
-      color: var(--text-color);
+
+      padding: 20px;
+
+      background:
+        linear-gradient(
+          rgba(2, 6, 23, 0.82),
+          rgba(2, 6, 23, 0.92)
+        ),
+        url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+
+      background-size: cover;
+      background-position: center;
+
+      overflow: hidden;
+      color: white;
     }
 
     .auth-container {
-      background: var(--bg-overlay);
-      backdrop-filter: blur(10px);
-      padding: 40px 30px;
-      border-radius: 12px;
-      width: 320px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      border: 1px solid var(--glass-border);
+            position:relative;
+
+      
+      width: 100%;
+      max-width: 500px;
+
+      padding: 55px 45px;
+
+      border-radius: 32px;
+
+      background: rgba(15, 23, 42, 0.78);
+
+      backdrop-filter: blur(18px);
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45),
+        0 0 50px rgba(37, 99, 235, 0.14);
+
+      animation: fadeUp 0.55s ease;
+      transition: 0.35s ease;
+    }
+.close-btn{
+  position:absolute;
+
+  top:22px;
+  right:24px;
+
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.06);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  color:white;
+
+  text-decoration:none;
+
+  font-size:20px;
+  font-weight:700;
+
+  transition:0.3s ease;
+}
+
+.close-btn:hover{
+  background:rgba(37,99,235,0.22);
+
+  transform:rotate(90deg);
+}
+    .auth-container:hover {
+      transform: translateY(-5px);
+
+      box-shadow:
+        0 35px 80px rgba(0, 0, 0, 0.5),
+        0 0 70px rgba(37, 99, 235, 0.2);
     }
 
-    .auth-container h2 {
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 100%;
+
+      font-size: 70px;
+
+      margin-bottom: 18px;
+    }
+
+    h1 {
       text-align: center;
-      margin-bottom: 25px;
-      color: var(--text-color);
+
+      font-size: 3rem;
+      font-weight: 800;
+
+      margin-bottom: 12px;
+
+      letter-spacing: -1px;
     }
 
-    .auth-container label {
+    .subtitle {
+      text-align: center;
+
+      color: #cbd5e1;
+
+      line-height: 1.7;
+
+      margin-bottom: 40px;
+
+      font-size: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
       display: block;
-      margin-bottom: 15px;
-      color: var(--text-color);
+
+      margin-bottom: 10px;
+
+      font-size: 0.95rem;
       font-weight: 600;
+
+      color: #f1f5f9;
     }
 
     .auth-container input {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid var(--border-color);
-      border-radius: 5px;
-      box-sizing: border-box;
-      background: rgba(255,255,255,0.7);
-      color: #000;
-    }
 
-    .auth-container button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      background: var(--btn-bg);
+      padding: 17px 18px;
+
+      border-radius: 18px;
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      background: rgba(255, 255, 255, 0.05);
+
       color: white;
+
+      font-size: 1rem;
+
+      transition: 0.3s ease;
+
+      outline: none;
+    }
+
+    .auth-container input::placeholder {
+      color: #94a3b8;
+    }
+
+    .auth-container input:focus {
+      border-color: #3b82f6;
+
+      background: rgba(255, 255, 255, 0.08);
+
+      box-shadow:
+        0 0 20px rgba(59, 130, 246, 0.25);
+    }
+
+    .remember-row {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      margin-top: 5px;
+      margin-bottom: 20px;
+
+      color: #cbd5e1;
+    }
+
+    .remember-row input {
+      width: auto;
+    }
+
+    button {
+      width: 100%;
+
+      padding: 18px;
+
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #2563eb,
+          #1d4ed8
+        );
+
+      color: white;
+
+      font-size: 1rem;
+      font-weight: 700;
+
       cursor: pointer;
-      transition: filter 0.3s ease;
-      box-shadow: 0 4px 15px var(--btn-shadow);
+
+      transition: 0.3s ease;
+
+      box-shadow:
+        0 15px 35px rgba(37, 99, 235, 0.35);
     }
 
-    .auth-container button:hover {
-      filter: brightness(0.9);
+    button:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 20px 45px rgba(37, 99, 235, 0.45);
     }
 
-    .auth-container p {
+    .forgot-link {
       text-align: center;
+
       margin-top: 20px;
-      color: var(--text-color);
     }
 
-    .auth-container a {
-      color: var(--primary);
+    .forgot-link a {
+      color: #60a5fa;
+
       text-decoration: none;
+
+      font-size: 0.95rem;
     }
 
-    .auth-container a:hover {
+    .forgot-link a:hover {
       text-decoration: underline;
     }
 
-    /* Admin link styling */
-    .admin-link-inline {
-      color: #e74c3c !important;
-      font-weight: 500;
+    .bottom-links {
+      margin-top: 28px;
+
+      text-align: center;
+
+      color: #cbd5e1;
+
+      line-height: 1.8;
     }
 
-    .admin-link-inline:hover {
-      color: #c0392b !important;
-      text-decoration: underline !important;
+    .bottom-links a {
+      color: #60a5fa;
+
+      text-decoration: none;
+
+      font-weight: 600;
     }
 
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      body {
-        padding: 20px;
+    .bottom-links a:hover {
+      text-decoration: underline;
+    }
+
+    .admin-link {
+      color: #f87171 !important;
+    }
+
+    #error-msg {
+      color: #f87171;
+
+      text-align: center;
+
+      margin-bottom: 15px;
+
+      font-size: 14px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
       }
 
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
       .auth-container {
-        width: 100%;
-        max-width: 350px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .auth-container {
-        padding: 30px 25px;
+        padding: 40px 25px;
       }
 
-      .auth-container p {
-        font-size: 14px;
-        line-height: 1.5;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .auth-container {
-        padding: 30px 25px;
+      h1 {
+        font-size: 2.3rem;
       }
 
-      .auth-container p {
-        font-size: 14px;
-        line-height: 1.5;
+      .logo {
+        font-size: 56px;
       }
     }
   </style>
 </head>
 
 <body>
+
   <div class="auth-container">
+    <a href="index.html" class="close-btn">
+  ✕
+</a>
+
+    <div class="logo">
+      🚚
+    </div>
+
+    <h1>Login to MooVit.</h1>
+
+
     <form id="login-form">
-      <h2>Login to MooVit.</h2>
-      <label>Email
-        <input type="email" name="email" id="email" required>
-      </label>
-      <label>Password
-        <input type="password" name="password" id="password" required>
-      </label>
-      <label style="display:flex; align-items:center; margin-top:10px;">
-        <input type="checkbox" id="remember" style="margin-right:6px;"> Remember me
-      </label>
-      <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
-      <button type="submit">Login</button>
-      <p style="margin-top:12px;"><a href="#" id="forgot-link">Forgot password?</a></p>
-      <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
+
+      <div class="form-group">
+        <label> Email Address</label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label> Password</label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          required>
+      </div>
+
+      <div class="remember-row">
+        <input type="checkbox" id="remember">
+
+        <span> Remember me</span>
+      </div>
+
+      <div id="error-msg"></div>
+
+      <button type="submit">
+        Login
+      </button>
+
+      <div class="forgot-link">
+        <a href="#" id="forgot-link">
+           Forgot password?
+        </a>
+      </div>
+
+      <div class="bottom-links">
+        New here?
+        <a href="register.html">
+          Register here
+        </a>
+
+        <br><br>
+
+        <a href="admin.html" class="admin-link">
+         Admin Portal
+        </a>
+      </div>
+
     </form>
+
   </div>
-  
+
   <script>
 
-    // populate email if remembered
-    window.addEventListener('load', function () {
-      const saved = localStorage.getItem('rememberedEmail');
-      if (saved) {
-        document.getElementById('email').value = saved;
-        document.getElementById('remember').checked = true;
+    window.addEventListener('load', () => {
+
+      const savedEmail =
+        localStorage.getItem('rememberedEmail');
+
+      if (savedEmail) {
+
+        document.getElementById('email').value =
+          savedEmail;
+
+        document.getElementById('remember').checked =
+          true;
       }
     });
 
-    document.getElementById('login-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const remember = document.getElementById('remember').checked;
-      const errorMsg = document.getElementById('error-msg');
-      errorMsg.textContent = '';
+    document
+      .getElementById('login-form')
+      .addEventListener('submit', function (e) {
 
-      // Email validation
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        errorMsg.textContent = 'Please enter a valid email address.';
-        return;
-      }
+        e.preventDefault();
 
+        const email =
+          document.getElementById('email').value.trim();
 
-      // Password strength validation
-      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
-      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-      if (!strongPasswordPattern.test(password)) {
-        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
-        return;
-      }
+        const password =
+          document.getElementById('password').value;
 
-      // handle remember me
-      if (remember) {
-        localStorage.setItem('rememberedEmail', email);
-      } else {
-        localStorage.removeItem('rememberedEmail');
-      }
-      // If all validations pass, redirect
-      window.location.href = 'main.html';
-    });
+        const remember =
+          document.getElementById('remember').checked;
 
-    // simple placeholder for forgot password
-    document.getElementById('forgot-link').addEventListener('click', function (e) {
-      e.preventDefault();
-      alert('Forgot password functionality is not available in this demo.');
-    });
+        const errorMsg =
+          document.getElementById('error-msg');
+
+        errorMsg.textContent = '';
+
+        const emailPattern =
+          /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(email)) {
+
+          errorMsg.textContent =
+            'Please enter a valid email address.';
+
+          return;
+        }
+
+        if (password.length < 6) {
+
+          errorMsg.textContent =
+            'Password must be at least 6 characters.';
+
+          return;
+        }
+
+        if (remember) {
+
+          localStorage.setItem(
+            'rememberedEmail',
+            email
+          );
+
+        } else {
+
+          localStorage.removeItem(
+            'rememberedEmail'
+          );
+        }
+
+        window.location.href = 'main.html';
+      });
+
+    document
+      .getElementById('forgot-link')
+      .addEventListener('click', function (e) {
+
+        e.preventDefault();
+
+        alert(
+          'Forgot password feature is not available in this demo.'
+        );
+      });
+
   </script>
+
 </body>
 
 </html>

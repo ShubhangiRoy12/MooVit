@@ -19,8 +19,8 @@ function animate() {
   let y = mouseY;
 
   positions.forEach((pos, i) => {
-    pos.x += (x - pos.x) * 0.3;
-    pos.y += (y - pos.y) * 0.3;
+    pos.x += (x - pos.x) * 0.5;
+    pos.y += (y - pos.y) * 0.5;
 
     circles[i].style.left = pos.x + "px";
     circles[i].style.top = pos.y + "px";
