@@ -195,7 +195,7 @@
           <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          New here? <a href="#" onclick="openSignupPopup(); closeLoginPopup();"
+          New here? <a href="#" onclick="openSignupPopup();"
             style="color:#2563eb; font-weight:600;">Create Account</a>
         </p>
         <p style="text-align:center; margin-top:0.5rem;">
@@ -270,7 +270,7 @@
           <button type="submit" class="signup-submit-btn" style="margin-top:1rem;">Create Account</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          Already have an account? <a href="#" onclick="openLoginPopup(); closeSignupPopup();"
+          Already have an account? <a href="#" onclick="openLoginPopup();"
             style="color:#2563eb; font-weight:600;">Login</a>
         </p>
       </div>
@@ -466,41 +466,6 @@
       document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
     });
 
-    // --- Modal Logic ---
-    function closeAllModals() {
-      document.getElementById('overlay').classList.remove('active');
-      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
-      document.body.style.overflow = 'auto';
-    }
-    function handleServiceClick() {
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('serviceAlert').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeServiceAlert() { closeAllModals(); }
-
-    function openLoginPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('loginModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLoginPopup() { closeAllModals(); }
-
-    function openSignupPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('signupModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function openAdminPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('adminModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
     // --- Backend Form Handling ---
 
     // Login Validation
@@ -587,6 +552,78 @@
         setTimeout(() => el.classList.add('loaded'), i * 200);
       });
     });
+  </script>
+
+  <script>
+    window.closeAllModals = function () {
+      const overlay = document.getElementById('overlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+      }
+
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach((el) => {
+        el.classList.remove('active');
+      });
+
+      document.body.style.overflow = 'auto';
+    };
+
+    window.openModal = function (modalId) {
+      window.closeAllModals();
+
+      const overlay = document.getElementById('overlay');
+      const modal = document.getElementById(modalId);
+
+      if (overlay) {
+        overlay.classList.add('active');
+      }
+
+      if (modal) {
+        modal.classList.add('active');
+      }
+
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.handleServiceClick = function () {
+      window.closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const serviceAlert = document.getElementById('serviceAlert');
+
+      if (overlay) {
+        overlay.classList.add('active');
+      }
+
+      if (serviceAlert) {
+        serviceAlert.classList.add('active');
+      }
+
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeServiceAlert = function () {
+      window.closeAllModals();
+    };
+
+    window.openLoginPopup = function () {
+      window.openModal('loginModal');
+    };
+
+    window.closeLoginPopup = function () {
+      window.closeAllModals();
+    };
+
+    window.closeSignupPopup = function () {
+      window.closeAllModals();
+    };
+
+    window.openSignupPopup = function () {
+      window.openModal('signupModal');
+    };
+
+    window.openAdminPopup = function () {
+      window.openModal('adminModal');
+    };
   </script>
 </body>
 
