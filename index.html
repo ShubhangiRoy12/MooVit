@@ -456,6 +456,10 @@
       document.body.style.overflow = 'hidden';
     }
 
+    function closeSignupPopup() {
+      closeAllModals();
+    }
+
     function openAdminPopup() {
       closeAllModals();
       const overlay = document.getElementById('overlay');
@@ -475,25 +479,6 @@
         card.style.setProperty('--mouse-y', `${y}px`);
       }
     });
-
-    // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
-    if (cursor) {
-      let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
-      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-      function updateCursor() {
-        const dx = mouseX - cursorX; const dy = mouseY - cursorY;
-        cursorX += dx * 0.2; cursorY += dy * 0.2;
-        cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-        requestAnimationFrame(updateCursor);
-      }
-      if (window.innerWidth > 768) updateCursor();
-
-      document.querySelectorAll('a, button, .card').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-      });
-    }
 
     // Particles
     const particles = document.getElementById('particles');
@@ -612,7 +597,7 @@
 
   <!-- BACKUP MODAL FUNCTIONS - Ensures functions are available even if main script fails -->
   <script>
-    // Fallback function definitions - these will override any missing/broken definitions from main script
+    // Fallback function definitions - only applied when the main script did not define the function
     if (typeof window.openLoginPopup !== 'function') {
       window.openLoginPopup = function() {
         const overlay = document.getElementById('overlay');
@@ -682,6 +667,10 @@
 
     if (typeof window.closeLoginPopup !== 'function') {
       window.closeLoginPopup = function() { window.closeAllModals(); };
+    }
+
+    if (typeof window.closeSignupPopup !== 'function') {
+      window.closeSignupPopup = function() { window.closeAllModals(); };
     }
   </script>
 </body>
