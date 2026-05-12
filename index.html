@@ -150,7 +150,7 @@
     <h3>🔒 Premium Access</h3>
     <p>Please login to access detailed service information and pricing.</p>
     <div class="alert-buttons">
-      <a href="#" onclick="openLoginPopup(); closeServiceAlert();" class="alert-btn primary">Login Now</a>
+      <a href="#" onclick="event.preventDefault(); openLoginPopup();" class="alert-btn primary">Login Now</a>
       <button class="alert-btn close" onclick="closeServiceAlert()">Close</button>
     </div>
   </div>
@@ -195,11 +195,11 @@
           <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          New here? <a href="#" onclick="openSignupPopup(); closeLoginPopup();"
+          New here? <a href="#" onclick="event.preventDefault(); openSignupPopup();"
             style="color:#2563eb; font-weight:600;">Create Account</a>
         </p>
         <p style="text-align:center; margin-top:0.5rem;">
-          <a href="#" onclick="closeLoginPopup(); openAdminPopup();"
+          <a href="#" onclick="event.preventDefault(); openAdminPopup();"
             style="color:#64748b; font-size:0.85rem; text-decoration:none;">Admin Access</a>
         </p>
       </div>
@@ -270,7 +270,7 @@
           <button type="submit" class="signup-submit-btn" style="margin-top:1rem;">Create Account</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          Already have an account? <a href="#" onclick="openLoginPopup(); closeSignupPopup();"
+          Already have an account? <a href="#" onclick="event.preventDefault(); openLoginPopup();"
             style="color:#2563eb; font-weight:600;">Login</a>
         </p>
       </div>
@@ -467,39 +467,44 @@
     });
 
     // --- Modal Logic ---
+    const modalIds = ['serviceAlert', 'loginModal', 'signupModal', 'adminModal'];
+
     function closeAllModals() {
       document.getElementById('overlay').classList.remove('active');
-      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
+      modalIds.forEach(id => document.getElementById(id)?.classList.remove('active'));
       document.body.style.overflow = 'auto';
     }
-    function handleServiceClick() {
+
+    function openModal(modalId) {
+      closeAllModals();
       document.getElementById('overlay').classList.add('active');
-      document.getElementById('serviceAlert').classList.add('active');
+      document.getElementById(modalId).classList.add('active');
       document.body.style.overflow = 'hidden';
+    }
+
+    function handleServiceClick() {
+      openModal('serviceAlert');
     }
     function closeServiceAlert() { closeAllModals(); }
 
     function openLoginPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('loginModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
+      openModal('loginModal');
     }
     function closeLoginPopup() { closeAllModals(); }
 
     function openSignupPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('signupModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
+      openModal('signupModal');
     }
+    function closeSignupPopup() { closeAllModals(); }
 
     function openAdminPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('adminModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
+      openModal('adminModal');
     }
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllModals();
+    });
 
     // --- Backend Form Handling ---
 
