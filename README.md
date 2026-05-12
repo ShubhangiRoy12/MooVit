@@ -1,8 +1,10 @@
 # MooVit
 
-MooVit is an AI-powered real-time object detection and voice-assist system designed to improve road safety and mobility—especially for visually impaired users, logistics operations, and vehicle drivers. It detects people, vehicles, traffic signals, animals, dangerous objects, and known faces. MooVit offers voice alerts for real-time navigation, shipment scheduling assistance, route optimization, and road safety awareness.
+MooVit is an AI-powered real-time object detection and voice-assist system designed to improve road safety and mobility — especially for visually impaired users, logistics operations, and vehicle drivers. It detects people, vehicles, traffic signals, animals, dangerous objects, and known faces, and offers voice alerts for real-time navigation, route optimization, and road safety awareness.
 
-🔗 Live site: https://moo-vit.vercel.app/
+🔗 **Live site:** [https://moo-vit.vercel.app/](https://moo-vit.vercel.app/)
+
+> **Note:** MooVit is currently a static multi-page website. There is no backend server in this repository. All pages are plain HTML/CSS/JS files that can be opened directly in a browser.
 
 ---
 
@@ -17,19 +19,20 @@ The MooVit web interface is simple, accessible, and packed with functionality:
 - Shipment route scheduling and alert-based safety recommendations (BETA)
 - Safety awareness prompts for road signs, traffic zones, and conditions
 
-Try it now → https://moo-vit.vercel.app/
+Try it now → [https://moo-vit.vercel.app/](https://moo-vit.vercel.app/)
 
 ---
 
 ## 📸 Project Screenshots
 
 ### 🏠 Home / Landing Page
-![Home Page](services_section.png.png)
+![Home Page](home_hero.png.png)
 
 ### 🚚 Services Section
-![Services Section](home_hero.png.png)
+![Services Section](services_section.png.png)
 
 ---
+
 ## ✨ Features
 
 - Detects vehicles, people, signals, and sharp objects
@@ -42,144 +45,136 @@ Try it now → https://moo-vit.vercel.app/
 
 ---
 
-## ✨ Structure
+## 📁 Project Structure
+
+This is a **static website** — no backend or build step is required.
+
 ```
 MooVit/
-├── .github/
-│   └── workflows/                 # GitHub Actions / CI configs
-│
-├── frontend/                      # Frontend (HTML, CSS, JS)
-│   ├── index.html                 # Landing page
-│   ├── pages/
-│   │   ├── about.html
-│   │   ├── contact.html
-│   │   ├── login.html
-│   │   └── safety.html
-│   ├── assets/
-│   │   ├── images/                # UI images
-│   │   ├── icons/                 # SVG icons
-│   │   └── styles.css             # Global styles
-│   └── script.js                  # Frontend logic
-│
-├── backend/                       # Backend (Python)
-│   ├── app.py                     # Main backend entry point
-│   ├── routes/                    # API routes
-│   │   ├── tracking.py
-│   │   ├── vehicles.py
-│   │   └── safety.py
-│   ├── models/                    # ML / Detection models
-│   │   └── detection_model.py
-│   ├── utils/                     # Helper functio
+├── index.html                  # Landing page
+├── pages/
+│   ├── about.html
+│   ├── contact.html
+│   ├── login.html
+│   └── safety.html
+├── Routes/                     # Route safety planner feature
+├── Vehicles/                   # Vehicle detection feature
+├── Chatbot/                    # Chatbot / voice assistant feature
+├── assets/
+│   ├── images/                 # UI images and screenshots
+│   ├── icons/                  # SVG icons
+│   └── styles.css              # Global stylesheet
+└── script.js                   # Frontend logic
 ```
 
-
----
-## 🛠 Tech Stack
-
-### Computer Vision & AI
-- YOLOv8 / YOLOv11 / YOLOv12 – object detection
-- OpenCV – image and video stream processing
-- TensorFlow / PyTorch – model training and inference
-
-### Web & Voice Interaction
-- HTML, CSS, JavaScript – frontend interface
-- Python + Flask / FastAPI – backend server and APIs
-- Canvas API – draw detection boxes in real-time
-- MediaDevices API – access webcam on web
-- json – text-to-speech alerts
-
-### Logistics & Route Modules
-- Custom scheduling API – for shipment planning (JSON-based input)
-- GeoJSON / Google Maps API (optional) – for route plotting and safe-path suggestions
-- SQLite / JSON – for storing schedules and known hazard zones
-
-### Deployment & Tools
-- Vercel – frontend deployment
-- GitHub – version control
-- WebSocket / HTTP Fetch – real-time communication
+> If your local clone contains additional feature folders or files not listed above, please update this section and open a PR!
 
 ---
 
-## 📦 Installation (Developer Setup)
+## 🚀 Local Setup
 
-1. Clone the repo:
+No installation or build tools required. Just open the project in a browser.
+
+### Option 1 — Open directly (quickest)
 
 ```bash
 git clone https://github.com/ShubhangiRoy12/moovit.git
 cd moovit
+# Open index.html in your browser
+open index.html          # macOS
+start index.html         # Windows
+xdg-open index.html      # Linux
 ```
 
-2. Install backend dependencies:
-```bash
-cd backend
-pip install -r requirements.txt
-```
-3. Start the backend server:
-```bash
-python app.py
-```
+### Option 2 — VS Code Live Server (recommended for development)
 
-4. For frontend, deploy the frontend/ folder on Vercel or use a static server locally.
+1. Install the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) in VS Code.
+2. Open the `moovit/` folder in VS Code.
+3. Right-click `index.html` → **Open with Live Server**.
+4. The site will open at `http://127.0.0.1:5500` and auto-reload on file changes.
+
+### Option 3 — Python simple HTTP server
+
+```bash
+git clone https://github.com/ShubhangiRoy12/moovit.git
+cd moovit
+python -m http.server 8080
+# Visit http://localhost:8080 in your browser
+```
 
 ---
- 
+
+## 🛠 Tech Stack
+
+### Computer Vision & AI (planned / integrated via JS)
+- YOLOv8 / YOLOv11 / YOLOv12 – object detection
+- OpenCV – image and video stream processing
+- TensorFlow.js / ONNX Runtime Web – in-browser model inference
+
+### Frontend
+- HTML, CSS, JavaScript – page structure and interactivity
+- Canvas API – draw real-time detection bounding boxes
+- MediaDevices API – access webcam in the browser
+- Web Speech API – text-to-speech voice alerts
+
+### Deployment & Tools
+- Vercel – static site hosting
+- GitHub – version control and CI
+
+---
+
 ## 📋 Use Cases
 
--Assist visually impaired users with voice-based object alerts
-
--Help logistics teams plan safe and efficient routes
-
--Offer vehicle drivers route awareness and obstacle warnings
-
--Provide safety prompts in traffic-heavy or high-risk zones
-
--Enable face tracking to follow companions in crowded areas
+- Assist visually impaired users with voice-based object alerts
+- Help logistics teams plan safe and efficient routes
+- Offer vehicle drivers route awareness and obstacle warnings
+- Provide safety prompts in traffic-heavy or high-risk zones
+- Enable face tracking to follow companions in crowded areas
 
 ---
 
 ## 🚧 Future Plans
 
--Add multilingual voice support
-
--GPS-based live routing for shipment vehicles
-
--Heatmap overlays for high-risk zones
-
--Admin dashboard to view and edit shipment schedules
-
--Public API for integration with logistics and assistive apps
+- Add backend (Python + Flask / FastAPI) for server-side ML inference
+- Multilingual voice support
+- GPS-based live routing for shipment vehicles
+- Heatmap overlays for high-risk zones
+- Admin dashboard to view and edit shipment schedules
+- Public API for integration with logistics and assistive apps
 
 ---
 
 ## 🤝 Contributing
 
--We welcome contributions! You can help with:
+We welcome contributions! This project is part of **OSCG '26**.
 
--Improving detection accuracy
+You can help with:
+- Improving detection accuracy
+- Expanding shipment scheduling logic
+- UI/UX design improvements
+- Adding more face profiles or localization features
+- Writing tests or improving documentation
 
--Expanding shipment scheduling logic
+### Steps to contribute
 
--UI/UX design improvements
-
--Adding more face profiles or localization features
-
----
-
-Steps:
 1. Fork this repo
-2. Create a branch (git checkout -b feature-name)
-3. Commit your changes
-4. Push and open a PR
+2. Create a branch: `git checkout -b feature/your-feature-name`
+3. Make your changes
+4. Commit: `git commit -m "feat: describe your change"`
+5. Push: `git push origin feature/your-feature-name`
+6. Open a Pull Request and describe what you changed and why
+
+**First time contributing?** Start with issues labelled `good first issue` or `documentation`.
 
 ---
 
-## Contibutors
-- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer 
+## 👥 Contributors
 
-- **[Om Roy](https://github.com/omroy07)** – Web Developer  & Machine Learning Engineer
+- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** — Project Lead & Machine Learning Engineer
+- **[Om Roy](https://github.com/omroy07)** — Web Developer & Machine Learning Engineer
 
+---
 
-📜 License
-This project is licensed under the MIT License. See LICENSE file for details.
+## 📜 License
 
-
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
