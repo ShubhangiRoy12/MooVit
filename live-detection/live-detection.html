@@ -3,6 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
+  <script>
+  (function() {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
   <link rel="icon" href="../favicon.png">
   <title>Live Object Detection</title>
   <link rel="stylesheet" href="live-detection.css">
