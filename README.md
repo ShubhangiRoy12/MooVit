@@ -24,10 +24,10 @@ Try it now → https://moo-vit.vercel.app/
 ## 📸 Project Screenshots
 
 ### 🏠 Home / Landing Page
-![Home Page](services_section.png.png)
+![Home Page](services_section.png)
 
 ### 🚚 Services Section
-![Services Section](home_hero.png.png)
+![Services Section](home_hero.png)
 
 ---
 ## ✨ Features
@@ -69,7 +69,7 @@ MooVit/
 │   │   └── safety.py
 │   ├── models/                    # ML / Detection models
 │   │   └── detection_model.py
-│   ├── utils/                     # Helper functio
+│   ├── utils/                     # Helper functions and utilities 
 ```
 
 
@@ -153,15 +153,15 @@ python app.py
 
 ## 🤝 Contributing
 
--We welcome contributions! You can help with:
+We welcome contributions! You can help with:
 
--Improving detection accuracy
+- Improving detection accuracy
 
--Expanding shipment scheduling logic
+- Expanding shipment scheduling logic
 
--UI/UX design improvements
+- UI/UX design improvements
 
--Adding more face profiles or localization features
+- Adding more face profiles or localization features
 
 ---
 
