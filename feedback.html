@@ -7,13 +7,19 @@
   <title>Feedback - Transport Co.</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="transport.css">
+  <script>
+    (() => {
+      const savedTheme = localStorage.getItem('moovit-theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
    <style>
     .feedback-section {
       max-width: 800px;
       margin: 8rem auto 4rem;
       padding: 3rem;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
       backdrop-filter: blur(20px);
       border-radius: 20px;
       text-align: center;
@@ -22,11 +28,11 @@
     .feedback-section h2 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
-      color: white;
+      color: var(--text-primary);
     }
 
     .feedback-section p {
-      color: #cbd5e1;
+      color: var(--text-muted);
       margin-bottom: 2rem;
     }
 
@@ -40,9 +46,9 @@
     .feedback-form textarea {
       padding: 1rem;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.05);
-      color: white;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--input-text);
       font-size: 1rem;
       outline: none;
       transition: 0.3s;
@@ -50,8 +56,8 @@
 
     .feedback-form input:focus,
     .feedback-form textarea:focus {
-      border-color: #ffd700;
-      box-shadow: 0 0 20px rgba(255,215,0,0.3);
+      border-color: var(--accent-strong);
+      box-shadow: 0 0 20px rgba(202, 138, 4, 0.22);
     }
 
     .feedback-form textarea {
@@ -63,7 +69,7 @@
       padding: 1rem;
       border-radius: 50px;
       border: none;
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      background: linear-gradient(135deg, var(--button-primary) 0%, var(--button-primary-hover) 100%);
       color: white;
       font-weight: 700;
       cursor: pointer;
@@ -79,7 +85,7 @@
     .popup {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.8);
+      background: var(--overlay-bg);
       display: none;
       justify-content: center;
       align-items: center;
@@ -87,11 +93,13 @@
     }
 
     .popup-content {
-      background: rgba(15,23,42,0.95);
+      background: var(--modal-bg);
       padding: 2rem 3rem;
       border-radius: 20px;
       text-align: center;
       animation: fadeIn 0.4s ease;
+      border: 1px solid var(--panel-border);
+      color: var(--text-primary);
     }
 
     @keyframes fadeIn {
@@ -195,7 +203,7 @@
   </style>
 </head>
 
-<body>
+<body data-theme="light">
 
 <!-- COPY HEADER FROM index.html HERE -->
 
@@ -228,6 +236,10 @@
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg></button>
         </div>
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
+          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+          <span class="theme-toggle-label">Dark Mode</span>
+        </button>
         <div class="auth-divider"></div>
         <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
         <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
@@ -238,6 +250,10 @@
     <div class="mobile-menu">
       <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
         href="contact.html">Contact</a>
+      <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
+        <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+        <span class="theme-toggle-label">Dark Mode</span>
+      </button>
       <div class="mobile-auth"><a href="#" onclick="openLoginPopup()">Login</a><a href="#"
           onclick="openSignupPopup()">Sign Up</a></div>
     </div>
@@ -358,6 +374,47 @@
     </div>
   </footer>
 <script>
+  const root = document.documentElement;
+  const body = document.body;
+  const themeButtons = document.querySelectorAll(".theme-toggle");
+
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    body.setAttribute("data-theme", theme);
+    localStorage.setItem("moovit-theme", theme);
+
+    themeButtons.forEach((button) => {
+      const icon = button.querySelector(".theme-toggle-icon");
+      const label = button.querySelector(".theme-toggle-label");
+      const darkMode = theme === "dark";
+
+      button.setAttribute("aria-pressed", String(darkMode));
+      if (icon) icon.textContent = darkMode ? "☀️" : "🌙";
+      if (label) label.textContent = darkMode ? "Light Mode" : "Dark Mode";
+    });
+  }
+
+  applyTheme(root.getAttribute("data-theme") || "light");
+  themeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextTheme = (root.getAttribute("data-theme") || "light") === "light" ? "dark" : "light";
+      applyTheme(nextTheme);
+    });
+  });
+
+  const header = document.getElementById("main-header");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+  });
+
+  const menuToggle = document.querySelector(".mobile-toggle");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  menuToggle.addEventListener("click", () => {
+    mobileMenu.classList.toggle("active");
+    document.body.style.overflow = mobileMenu.classList.contains("active") ? "hidden" : "auto";
+  });
+
   const form = document.getElementById("feedbackForm");
   const popup = document.getElementById("thankPopup");
 

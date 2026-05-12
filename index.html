@@ -9,378 +9,43 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Inter", sans-serif;
-    }
-
-    body {
-      background:
-        linear-gradient(rgba(2, 6, 23, 0.82),
-          rgba(2, 6, 23, 0.9)),
-        url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-
-      color: white;
-      overflow-x: hidden;
-    }
-
-    header {
-      width: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-
-      z-index: 1000;
-
-      padding: 20px 7%;
-
-      backdrop-filter: blur(14px);
-
-      background: rgba(10, 15, 30, 0.45);
-
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-    }
-
-    .logo {
-      font-size: 1.7rem;
-      font-weight: 800;
-      text-decoration: none;
-      color: white;
-      white-space: nowrap;
-    }
-
-    .logo span {
-      color: #2563eb;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 42px;
-      margin-left: 20px;
-    }
-
-    nav a {
-      color: rgba(255, 255, 255, 0.78);
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s ease;
-    }
-
-    nav a:hover,
-    nav a.active {
-      color: white;
-    }
-
-    .nav-buttons {
-      margin-left: auto;
-
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .tracking-wrapper {
-      display: flex;
-      align-items: center;
-
-      background: rgba(255, 255, 255, 0.05);
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-
-      border-radius: 40px;
-
-      padding: 4px 12px;
-    }
-
-    .tracking-wrapper input {
-      width: 105px;
-
-      border: none;
-      outline: none;
-
-      background: transparent;
-
-      color: white;
-
-      font-size: 0.82rem;
-    }
-
-    .tracking-wrapper input::placeholder {
-      color: #94a3b8;
-    }
-
-    .login-btn {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .signup-btn {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-
-      padding: 12px 24px;
-
-      border-radius: 40px;
-
-      text-decoration: none;
-      color: white;
-
-      font-weight: 600;
-
-      box-shadow:
-        0 10px 30px rgba(37, 99, 235, 0.35);
-
-      transition: 0.3s ease;
-    }
-
-    .signup-btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .hero {
-      min-height: 100vh;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 120px 7% 80px;
-    }
-
-    .hero-content {
-      max-width: 900px;
-      text-align: center;
-
-      animation: fadeUp 0.7s ease;
-    }
-
-    .hero-content h1 {
-      font-size: 4.4rem;
-      font-weight: 800;
-
-      line-height: 1.1;
-
-      margin-bottom: 25px;
-    }
-
-    .hero-content p {
-      font-size: 1.1rem;
-
-      color: #cbd5e1;
-
-      max-width: 700px;
-
-      margin: auto;
-      margin-bottom: 35px;
-
-      line-height: 1.7;
-    }
-
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .primary-btn {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-
-      color: white;
-
-      padding: 15px 34px;
-
-      border-radius: 50px;
-
-      text-decoration: none;
-
-      font-weight: 700;
-
-      transition: 0.3s ease;
-
-      box-shadow:
-        0 12px 30px rgba(37, 99, 235, 0.4);
-    }
-
-    .primary-btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .secondary-btn {
-      border: 1px solid rgba(255, 255, 255, 0.15);
-
-      background: rgba(255, 255, 255, 0.05);
-
-      color: white;
-
-      padding: 15px 34px;
-
-      border-radius: 50px;
-
-      text-decoration: none;
-
-      font-weight: 600;
-
-      backdrop-filter: blur(10px);
-
-      transition: 0.3s ease;
-    }
-
-    .secondary-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .services {
-      padding: 60px 7% 100px;
-    }
-
-    .section-title {
-      text-align: center;
-
-      font-size: 3rem;
-      font-weight: 800;
-
-      margin-bottom: 60px;
-    }
-
-    .service-grid {
-      display: grid;
-
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-
-      gap: 28px;
-    }
-
-    .service-card {
-      background: rgba(255, 255, 255, 0.04);
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-
-      border-radius: 28px;
-
-      padding: 35px;
-
-      backdrop-filter: blur(16px);
-
-      transition: 0.35s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-8px);
-
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.35);
-    }
-
-    .service-card .icon {
-      font-size: 3rem;
-      margin-bottom: 18px;
-    }
-
-    .service-card h3 {
-      font-size: 1.4rem;
-
-      margin-bottom: 14px;
-    }
-
-    .service-card p {
-      color: #cbd5e1;
-      line-height: 1.7;
-    }
-
-    footer {
-      text-align: center;
-
-      padding: 30px;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-
-      color: #94a3b8;
-
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 900px) {
-
-      nav,
-      .tracking-wrapper {
-        display: none;
-      }
-
-      .hero-content h1 {
-        font-size: 3rem;
-      }
-
-      .section-title {
-        font-size: 2.2rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-
-      .navbar {
-        gap: 15px;
-      }
-
-      .hero-content h1 {
-        font-size: 2.4rem;
-      }
-
-      .hero-content p {
-        font-size: 1rem;
-      }
-
-      .primary-btn,
-      .secondary-btn {
-        width: 100%;
-      }
-
-      .signup-btn {
-        padding: 10px 18px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="transport.css">
+  <script>
+    (() => {
+      const savedTheme = localStorage.getItem('moovit-theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
 </head>
 
-<body>
+<body data-theme="light">
+   <div class="cursor"></div>
 
-  <header>
-    <div class="navbar">
+  <div class="cursor-tail">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
 
-      <a href="#" class="logo">
-        Transport<span>Co.</span>
+  <script src="cursor.js"></script>
+
+  <div class="particles" id="particles"></div>
+
+  <header id="main-header" class="modern-header">
+    <div class="header-content">
+      <a href="#" class="brand-logo">
+        <span class="logo-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg></span>
+        <span class="logo-text">Transport<span class="highlight">Co.</span></span>
       </a>
 
       <nav>
@@ -390,23 +55,34 @@
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </nav>
-
-      <div class="nav-buttons">
-
-        <div class="tracking-wrapper">
-          <input type="text" placeholder="Enter Tracking ID...">
+      <div class="header-actions">
+        <div class="search-bar-mini">
+          <input type="text" placeholder="Track ID...">
+          <button><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></button>
         </div>
-
-        <a href="login.html" class="login-btn">
-          Login
-        </a>
-
-        <a href="register.html" class="signup-btn">
-          Sign Up
-        </a>
-
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
+          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+          <span class="theme-toggle-label">Dark Mode</span>
+        </button>
+        <div class="auth-divider"></div>
+        <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
+        <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
+        <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
+            class="bar"></span></button>
       </div>
-
+    </div>
+    <div class="mobile-menu">
+      <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
+        href="contact.html">Contact</a>
+      <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
+        <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+        <span class="theme-toggle-label">Dark Mode</span>
+      </button>
+      <div class="mobile-auth"><a href="#" onclick="openLoginPopup()">Login</a><a href="#"
+          onclick="openSignupPopup()">Sign Up</a></div>
     </div>
   </header>
 
@@ -490,6 +166,212 @@
     © 2026 TransportCo. All Rights Reserved.
   </footer>
 
+  <script>
+    const root = document.documentElement;
+    const body = document.body;
+    const themeButtons = document.querySelectorAll('.theme-toggle');
+
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      body.setAttribute('data-theme', theme);
+      localStorage.setItem('moovit-theme', theme);
+
+      themeButtons.forEach(button => {
+        const icon = button.querySelector('.theme-toggle-icon');
+        const label = button.querySelector('.theme-toggle-label');
+        const darkMode = theme === 'dark';
+
+        button.setAttribute('aria-pressed', String(darkMode));
+        if (icon) icon.textContent = darkMode ? '☀️' : '🌙';
+        if (label) label.textContent = darkMode ? 'Light Mode' : 'Dark Mode';
+      });
+    }
+
+    applyTheme(root.getAttribute('data-theme') || 'light');
+    themeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const nextTheme = (root.getAttribute('data-theme') || 'light') === 'light' ? 'dark' : 'light';
+        applyTheme(nextTheme);
+      });
+    });
+
+    // --- Mouse Spotlight Logic ---
+    document.querySelectorAll('.card').forEach(card => {
+      card.onmousemove = e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      }
+    });
+
+    // --- Cursor & Particles ---
+    const cursor = document.getElementById('cursor');
+    let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
+    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+    function updateCursor() {
+      const dx = mouseX - cursorX; const dy = mouseY - cursorY;
+      cursorX += dx * 0.2; cursorY += dy * 0.2;
+      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+      requestAnimationFrame(updateCursor);
+    }
+    if (window.innerWidth > 768) updateCursor();
+
+    document.querySelectorAll('a, button, .card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Particles
+    const particles = document.getElementById('particles');
+    for (let i = 0; i < 40; i++) {
+      let p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.top = Math.random() * 100 + '%';
+      p.style.animationDelay = Math.random() * 5 + 's';
+      p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      particles.appendChild(p);
+    }
+
+    // Header Scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // Mobile Menu
+    const toggle = document.querySelector('.mobile-toggle');
+    const menu = document.querySelector('.mobile-menu');
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('active');
+      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    // --- Modal Logic ---
+    function closeAllModals() {
+      document.getElementById('overlay').classList.remove('active');
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
+      document.body.style.overflow = 'auto';
+    }
+    function handleServiceClick() {
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('serviceAlert').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeServiceAlert() { closeAllModals(); }
+
+    function openLoginPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('loginModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLoginPopup() { closeAllModals(); }
+
+    function openSignupPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('signupModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openAdminPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('adminModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // --- Backend Form Handling ---
+
+    // Login Validation
+    const loginForm = document.getElementById('login-form-popup');
+    if (loginForm) {
+      loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = document.getElementById('popup-email').value.trim();
+        const password = document.getElementById('popup-password').value;
+        const errorMsg = document.getElementById('popup-error-msg');
+        errorMsg.textContent = '';
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          errorMsg.textContent = 'Please enter a valid email address.';
+          return;
+        }
+
+        // Simulating submission
+        const submitBtn = this.querySelector('.login-submit-btn');
+        submitBtn.textContent = 'Logging in...';
+        submitBtn.disabled = true;
+        setTimeout(() => { window.location.href = '#'; }, 1000);
+      });
+    }
+
+    // Signup Validation
+    const signupForm = document.getElementById('signup-form-popup');
+    if (signupForm) {
+      signupForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('signup-name').value.trim();
+        const email = document.getElementById('signup-email').value.trim();
+        const password = document.getElementById('signup-password').value;
+        const confirmPassword = document.getElementById('signup-confirm-password').value;
+        const agreeTerms = document.getElementById('terms-checkbox').checked;
+        const errorMsg = document.getElementById('signup-error-msg');
+        errorMsg.textContent = '';
+
+        if (!agreeTerms) {
+          errorMsg.textContent = 'Please agree to the Terms.';
+          return;
+        }
+        if (password !== confirmPassword) {
+          errorMsg.textContent = 'Passwords do not match.';
+          return;
+        }
+
+        const submitBtn = this.querySelector('.signup-submit-btn');
+        submitBtn.textContent = 'Creating Account...';
+        submitBtn.disabled = true;
+        setTimeout(() => {
+          closeAllModals();
+          openLoginPopup();
+          document.getElementById('popup-error-msg').style.color = '#10b981';
+          document.getElementById('popup-error-msg').textContent = 'Account created!';
+        }, 1500);
+      });
+    }
+
+    // Admin Validation
+    const adminForm = document.getElementById('admin-form-popup');
+    if (adminForm) {
+      adminForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const adminId = document.getElementById('admin-id').value.trim();
+        const password = document.getElementById('admin-password').value;
+        const errorMsg = document.getElementById('admin-error-msg');
+
+        if (adminId === 'admin' && password === 'transport2024') {
+          const submitBtn = this.querySelector('.admin-submit-btn');
+          submitBtn.textContent = 'Accessing...';
+          submitBtn.disabled = true;
+          setTimeout(() => { alert('Access Granted'); closeAllModals(); }, 1000);
+        } else {
+          errorMsg.textContent = 'Invalid Admin credentials.';
+        }
+      });
+    }
+
+    // Loading
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.loading').forEach((el, i) => {
+        setTimeout(() => el.classList.add('loaded'), i * 200);
+      });
+    });
+  </script>
 </body>
 
 </html>
