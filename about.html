@@ -699,19 +699,19 @@
       <div class="stats-section">
         <div class="stats-grid">
           <div class="stat">
-            <span class="stat-number" data-target="10000">0</span>
+            <span class="stat-number" data-target="15000">0</span>
             <p class="stat-label">Deliveries Completed</p>
           </div>
           <div class="stat">
-            <span class="stat-number" data-target="500">0</span>
+            <span class="stat-number" data-target="3200">0</span>
             <p class="stat-label">Happy Clients</p>
           </div>
           <div class="stat">
-            <span class="stat-number" data-target="50">0</span>
+            <span class="stat-number" data-target="48">0</span>
             <p class="stat-label">Cities Covered</p>
           </div>
           <div class="stat">
-            <span class="stat-number" data-target="99">0</span>
+            <span class="stat-number" data-target="98" data-suffix="%">0</span>
             <p class="stat-label">Success Rate %</p>
           </div>
         </div>
@@ -833,20 +833,26 @@
     });
 
     // Counter animation for stats
-    function animateCounter(element, target, duration = 2000) {
-      const start = 0;
-      const increment = target / (duration / 16);
-      let current = start;
+    function animateCounter(element, target, suffix = '', duration = 1800) {
+      let start = null;
+      const easeOutQuad = t => t * (2 - t);
 
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          element.textContent = target.toLocaleString() + (element.textContent.includes('%') ? '' : '');
-          clearInterval(timer);
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const easeProgress = easeOutQuad(progress);
+        
+        const current = Math.floor(easeProgress * target);
+        element.textContent = current.toLocaleString() + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
         } else {
-          element.textContent = Math.floor(current).toLocaleString();
+          element.textContent = target.toLocaleString() + suffix;
         }
-      }, 16);
+      }
+      
+      requestAnimationFrame(step);
     }
 
     // Trigger counter animation when stats section is visible
@@ -856,12 +862,13 @@
           const counters = entry.target.querySelectorAll('.stat-number');
           counters.forEach(counter => {
             const target = parseInt(counter.getAttribute('data-target'));
-            animateCounter(counter, target);
+            const suffix = counter.getAttribute('data-suffix') || '';
+            animateCounter(counter, target, suffix);
           });
           statsObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.15 });
 
     const statsSection = document.querySelector('.stats-section');
     if (statsSection) {
