@@ -1,185 +1,108 @@
 # MooVit
 
-MooVit is an AI-powered real-time object detection and voice-assist system designed to improve road safety and mobility—especially for visually impaired users, logistics operations, and vehicle drivers. It detects people, vehicles, traffic signals, animals, dangerous objects, and known faces. MooVit offers voice alerts for real-time navigation, shipment scheduling assistance, route optimization, and road safety awareness.
+MooVit is a transport, safety, and accessibility project that combines shipment workflows, route planning, public mobility features, and AI-assisted detection experiences.
 
-🔗 Live site: https://moo-vit.vercel.app/
+Live site: https://moo-vit.vercel.app/
 
----
+## Overview
 
-## 🌐 Web Application
+- Frontend modules cover shipments, vehicles, routes, scheduling, public transit, safety, and assistive experiences.
+- A new FastAPI backend slice now powers shipment tracking APIs.
+- The tracking backend is intentionally small and focused so the repository has a usable backend foundation instead of only placeholder references.
 
-The MooVit web interface is simple, accessible, and packed with functionality:
+## Project Structure
 
-- Access real-time camera feed for object detection
-- Upload image or video files for instant analysis
-- Bounding boxes + voice alerts for detected objects and threats
-- Responsive interface works on both desktop and mobile
-- Shipment route scheduling and alert-based safety recommendations (BETA)
-- Safety awareness prompts for road signs, traffic zones, and conditions
-
-Try it now → https://moo-vit.vercel.app/
-
----
-
-## 📸 Project Screenshots
-
-### 🏠 Home / Landing Page
-![Home Page](services_section.png.png)
-
-### 🚚 Services Section
-![Services Section](home_hero.png.png)
-
----
-## ✨ Features
-
-- Detects vehicles, people, signals, and sharp objects
-- Recognizes known faces to help visually impaired users follow familiar people
-- Real-time voice alerts based on camera/video input
-- Vehicle shipment schedule module: input shipment data, receive route timelines
-- Route safety planner: avoid known hazard zones or restricted areas
-- Traffic awareness: highlights signals, signs, and crossing points
-- Upload images or use live camera feed for detection
-
----
-
-## ✨ Structure
-```
+```text
 MooVit/
-├── .github/
-│   └── workflows/                 # GitHub Actions / CI configs
-│
-├── frontend/                      # Frontend (HTML, CSS, JS)
-│   ├── index.html                 # Landing page
-│   ├── pages/
-│   │   ├── about.html
-│   │   ├── contact.html
-│   │   ├── login.html
-│   │   └── safety.html
-│   ├── assets/
-│   │   ├── images/                # UI images
-│   │   ├── icons/                 # SVG icons
-│   │   └── styles.css             # Global styles
-│   └── script.js                  # Frontend logic
-│
-├── backend/                       # Backend (Python)
-│   ├── app.py                     # Main backend entry point
-│   ├── routes/                    # API routes
-│   │   ├── tracking.py
-│   │   ├── vehicles.py
-│   │   └── safety.py
-│   ├── models/                    # ML / Detection models
-│   │   └── detection_model.py
-│   ├── utils/                     # Helper functio
+|- backend/
+|  |- app.py                  # FastAPI entry point
+|  |- models.py               # Tracking API models
+|  |- storage.py              # JSON-backed persistence layer
+|  |- routes/
+|  |  `- tracking.py          # Tracking endpoints
+|  |- data/
+|  |  `- tracking_records.json
+|  `- requirements.txt
+|- Shipments/                 # Shipment dashboard frontend
+|- Vehicles/                  # Fleet frontend
+|- Routes/                    # Route management frontend
+|- Schedule/                  # Scheduling frontend
+|- Public transportation/     # Public transit frontend
+|- Chatbot/                   # Assistant frontend
+|- index.html                 # Landing page
+|- main.html                  # Main dashboard
+|- services.html              # Services page
+|- script.js                  # Shared frontend interactions
+`- transport.css              # Shared transport styling
 ```
 
+## Tracking Backend
 
----
-## 🛠 Tech Stack
+The backend currently provides a first tracking service slice with persistent JSON storage.
 
-### Computer Vision & AI
-- YOLOv8 / YOLOv11 / YOLOv12 – object detection
-- OpenCV – image and video stream processing
-- TensorFlow / PyTorch – model training and inference
+Available endpoints:
 
-### Web & Voice Interaction
-- HTML, CSS, JavaScript – frontend interface
-- Python + Flask / FastAPI – backend server and APIs
-- Canvas API – draw detection boxes in real-time
-- MediaDevices API – access webcam on web
-- json – text-to-speech alerts
+- `GET /health`
+- `GET /api/tracking`
+- `GET /api/tracking/summary`
+- `GET /api/tracking/{tracking_id}`
+- `POST /api/tracking`
+- `PATCH /api/tracking/{tracking_id}`
+- `DELETE /api/tracking/{tracking_id}`
 
-### Logistics & Route Modules
-- Custom scheduling API – for shipment planning (JSON-based input)
-- GeoJSON / Google Maps API (optional) – for route plotting and safe-path suggestions
-- SQLite / JSON – for storing schedules and known hazard zones
+Example create payload:
 
-### Deployment & Tools
-- Vercel – frontend deployment
-- GitHub – version control
-- WebSocket / HTTP Fetch – real-time communication
-
----
-
-## 📦 Installation (Developer Setup)
-
-1. Clone the repo:
-
-```bash
-git clone https://github.com/ShubhangiRoy12/moovit.git
-cd moovit
+```json
+{
+  "tracking_id": "TRK-1001",
+  "customer_name": "Aarav Sharma",
+  "origin": "Bhopal",
+  "destination": "Indore",
+  "current_location": "Bhopal Dispatch Hub",
+  "eta": "2026-03-30T10:30:00Z",
+  "status": "Pending",
+  "quantity": 4,
+  "note": "Shipment booked"
+}
 ```
 
-2. Install backend dependencies:
+## Local Development
+
+### Backend
+
 ```bash
 cd backend
 pip install -r requirements.txt
+uvicorn app:app --reload
 ```
-3. Start the backend server:
+
+The API will run at `http://127.0.0.1:8000`.
+
+### Frontend
+
+Serve the repository with any static server. One simple option is:
+
 ```bash
-python app.py
+python -m http.server 8080
 ```
 
-4. For frontend, deploy the frontend/ folder on Vercel or use a static server locally.
+Then open `http://127.0.0.1:8080`.
 
----
- 
-## 📋 Use Cases
+## Tech Stack
 
--Assist visually impaired users with voice-based object alerts
+- FastAPI
+- Pydantic
+- HTML, CSS, JavaScript
+- Chart.js
+- Bootstrap
+- JSON-backed local persistence for the tracking prototype
 
--Help logistics teams plan safe and efficient routes
+## Contributing
 
--Offer vehicle drivers route awareness and obstacle warnings
+- Frontend improvements can continue in the existing module folders.
+- Backend tracking work should live under `backend/`.
+- See `CONTRIBUTING.md` for contribution workflow and standards.
 
--Provide safety prompts in traffic-heavy or high-risk zones
+## License
 
--Enable face tracking to follow companions in crowded areas
-
----
-
-## 🚧 Future Plans
-
--Add multilingual voice support
-
--GPS-based live routing for shipment vehicles
-
--Heatmap overlays for high-risk zones
-
--Admin dashboard to view and edit shipment schedules
-
--Public API for integration with logistics and assistive apps
-
----
-
-## 🤝 Contributing
-
--We welcome contributions! You can help with:
-
--Improving detection accuracy
-
--Expanding shipment scheduling logic
-
--UI/UX design improvements
-
--Adding more face profiles or localization features
-
----
-
-Steps:
-1. Fork this repo
-2. Create a branch (git checkout -b feature-name)
-3. Commit your changes
-4. Push and open a PR
-
----
-
-## Contibutors
-- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer 
-
-- **[Om Roy](https://github.com/omroy07)** – Web Developer  & Machine Learning Engineer
-
-
-📜 License
-This project is licensed under the MIT License. See LICENSE file for details.
-
-
+This project is licensed under the MIT License. See `LICENSE` for details.
