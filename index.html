@@ -464,23 +464,6 @@
       }
     });
 
-    // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
-    let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
-    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-    function updateCursor() {
-      const dx = mouseX - cursorX; const dy = mouseY - cursorY;
-      cursorX += dx * 0.2; cursorY += dy * 0.2;
-      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-      requestAnimationFrame(updateCursor);
-    }
-    if (window.innerWidth > 768) updateCursor();
-
-    document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-
     // Particles
     const particles = document.getElementById('particles');
     for (let i = 0; i < 40; i++) {
