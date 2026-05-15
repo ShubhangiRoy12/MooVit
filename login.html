@@ -114,6 +114,35 @@
       text-decoration: underline;
     }
 
+    .form-toggle {
+      display: none;
+    }
+
+    .form-toggle.active {
+      display: block;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .checkbox-label span {
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
     /* Admin link styling */
     .admin-link-inline {
       color: #e74c3c !important;
@@ -163,7 +192,7 @@
 
 <body>
   <div class="auth-container">
-    <form id="login-form">
+    <form id="login-form" class="form-toggle active">
       <h2>Login to MooVit.</h2>
       <label>Email
         <input type="email" name="email" id="email" required>
@@ -171,19 +200,52 @@
       <label>Password
         <input type="password" name="password" id="password" required>
       </label>
-      <label style="display:flex; align-items:center; margin-top:10px;">
-        <input type="checkbox" id="remember" style="margin-right:6px;"> Remember me
+      <label class="checkbox-label">
+        <input type="checkbox" id="remember">
+        <span>Remember me</span>
       </label>
-      <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
+      <div id="login-error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
       <button type="submit">Login</button>
       <p style="margin-top:12px;"><a href="#" id="forgot-link">Forgot password?</a></p>
-      <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
+      <p>New? <a href="#" id="show-register">Register here</a> | <a href="./admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
+    </form>
+
+    <form id="register-form" class="form-toggle">
+      <h2>Sign Up at Transport Co.</h2>
+      <label>Name
+        <input type="text" name="name" id="reg-name" placeholder="Your full name" required>
+      </label>
+      <label>Email
+        <input type="email" name="email" id="reg-email" placeholder="you@example.com" required>
+      </label>
+      <label>Password
+        <input id="reg-pwd" type="password" placeholder="Create password" required>
+      </label>
+      <label>Confirm Password
+        <input id="reg-cpwd" type="password" placeholder="Confirm password" required>
+      </label>
+      <div id="reg-error-msg" style="color: #ffb3b3; text-align:center; margin-top:10px;"></div>
+      <button type="submit">Register</button>
+      <p>Already have an account? <a href="#" id="show-login">Login</a></p>
     </form>
   </div>
   
   <script>
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
 
-    // populate email if remembered
+    document.getElementById('show-register').addEventListener('click', function (e) {
+      e.preventDefault();
+      loginForm.classList.remove('active');
+      registerForm.classList.add('active');
+    });
+
+    document.getElementById('show-login').addEventListener('click', function (e) {
+      e.preventDefault();
+      registerForm.classList.remove('active');
+      loginForm.classList.add('active');
+    });
+
     window.addEventListener('load', function () {
       const saved = localStorage.getItem('rememberedEmail');
       if (saved) {
@@ -197,36 +259,72 @@
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       const remember = document.getElementById('remember').checked;
-      const errorMsg = document.getElementById('error-msg');
+      const errorMsg = document.getElementById('login-error-msg');
       errorMsg.textContent = '';
 
-      // Email validation
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
         errorMsg.textContent = 'Please enter a valid email address.';
         return;
       }
 
-
-      // Password strength validation
-      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
       const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
       if (!strongPasswordPattern.test(password)) {
         errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
         return;
       }
 
-      // handle remember me
       if (remember) {
         localStorage.setItem('rememberedEmail', email);
       } else {
         localStorage.removeItem('rememberedEmail');
       }
-      // If all validations pass, redirect
       window.location.href = 'main.html';
     });
 
-    // simple placeholder for forgot password
+    document.getElementById('register-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-pwd').value;
+      const confirmPassword = document.getElementById('reg-cpwd').value;
+      const errorMsg = document.getElementById('reg-error-msg');
+      errorMsg.textContent = '';
+
+      if (!name || !email || !password || !confirmPassword) {
+        errorMsg.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      const namePattern = /^[A-Za-z ]+$/;
+      if (!namePattern.test(name)) {
+        errorMsg.textContent = 'Name should contain only alphabets and spaces.';
+        return;
+      }
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!strongPasswordPattern.test(password)) {
+        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        errorMsg.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      alert('Registration successful! Please login.');
+      registerForm.classList.remove('active');
+      loginForm.classList.add('active');
+      registerForm.reset();
+    });
+
     document.getElementById('forgot-link').addEventListener('click', function (e) {
       e.preventDefault();
       alert('Forgot password functionality is not available in this demo.');
