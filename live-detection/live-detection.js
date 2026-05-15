@@ -1,15 +1,103 @@
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const wrapper = document.getElementById('wrapper');
 let lastSpoken = {};
 const speakDelay = 4000; // Delay between speaking the same label (ms)
 
-async function start() {
-    // Load the COCO-SSD model.
-    const model = await cocoSsd.load();
+function showError(type) {
+    // Remove any existing error message
+    const old = document.getElementById('camera-error');
+    if (old) old.remove();
 
-    // Request access to the user's webcam.
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    const box = document.createElement('div');
+    box.id = 'camera-error';
+
+    let heading = 'Camera unavailable';
+    let message = 'Something went wrong while accessing your camera.';
+
+    if (type === 'denied') {
+        heading = 'Camera access denied';
+        message = 'You blocked camera permission. To use live detection, allow camera access in your browser settings and try again.';
+    } else if (type === 'not-found') {
+        heading = 'No camera found';
+        message = 'This device does not appear to have a camera, or it is being used by another application.';
+    } else if (type === 'insecure') {
+        heading = 'HTTPS required';
+        message = 'Camera access requires a secure connection. Open this page using HTTPS instead of HTTP.';
+    } else if (type === 'model') {
+        heading = 'Detection model failed to load';
+        message = 'The object detection model could not be downloaded. Check your internet connection and try again.';
+    }
+
+    box.innerHTML =
+        '<div class="error-icon">&#9888;</div>' +
+        '<h3>' + heading + '</h3>' +
+        '<p>' + message + '</p>' +
+        '<button id="retry-btn" onclick="retryCamera()">Try again</button>';
+
+    wrapper.appendChild(box);
+}
+
+function showLoading() {
+    const old = document.getElementById('loading-indicator');
+    if (old) old.remove();
+
+    const el = document.createElement('div');
+    el.id = 'loading-indicator';
+    el.innerHTML =
+        '<div class="spinner"></div>' +
+        '<p>Loading detection model...</p>';
+
+    wrapper.appendChild(el);
+}
+
+function hideLoading() {
+    const el = document.getElementById('loading-indicator');
+    if (el) el.remove();
+}
+
+function retryCamera() {
+    const errorBox = document.getElementById('camera-error');
+    if (errorBox) errorBox.remove();
+    start();
+}
+
+async function start() {
+    showLoading();
+
+    // Load the COCO-SSD model first.
+    let model;
+    try {
+        model = await cocoSsd.load();
+    } catch (err) {
+        console.error('Model load failed:', err);
+        hideLoading();
+        showError('model');
+        return;
+    }
+
+    // Request camera access.
+    let stream;
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    } catch (err) {
+        console.error('Camera error:', err);
+        hideLoading();
+
+        if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+            showError('denied');
+        } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+            showError('not-found');
+        } else if (err.name === 'NotSupportedError') {
+            showError('insecure');
+        } else {
+            showError('generic');
+        }
+        return;
+    }
+
+    hideLoading();
     video.srcObject = stream;
 
     video.onloadedmetadata = () => {
@@ -77,8 +165,5 @@ async function start() {
     }
 }
 
-// Start the application and handle any errors.
-start().catch(err => {
-    console.error(err);
-    alert('Webcam or model error: ' + err.message);
-});
+// Start the application.
+start();
