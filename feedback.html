@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  (function() {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
   <link rel="icon" href="../favicon.png">
   <title>Feedback - Transport Co.</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="transport.css">
-  <script>
-    (() => {
-      const savedTheme = localStorage.getItem('moovit-theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    })();
-  </script>
+  
    <style>
     .feedback-section {
       max-width: 800px;
@@ -381,7 +384,7 @@
   function applyTheme(theme) {
     root.setAttribute("data-theme", theme);
     body.setAttribute("data-theme", theme);
-    localStorage.setItem("moovit-theme", theme);
+    localStorage.setItem("theme", theme);
 
     themeButtons.forEach((button) => {
       const icon = button.querySelector(".theme-toggle-icon");
