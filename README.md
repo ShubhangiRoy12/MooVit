@@ -1,185 +1,271 @@
 # MooVit
 
-MooVit is an AI-powered real-time object detection and voice-assist system designed to improve road safety and mobility—especially for visually impaired users, logistics operations, and vehicle drivers. It detects people, vehicles, traffic signals, animals, dangerous objects, and known faces. MooVit offers voice alerts for real-time navigation, shipment scheduling assistance, route optimization, and road safety awareness.
+MooVit is a road safety and mobility assistant focused on real-time awareness, accessibility, logistics support, and route-related tooling. The project combines a frontend-first web experience with feature modules for detection, safety guidance, transport workflows, and shipment planning.
 
-🔗 Live site: https://moo-vit.vercel.app/
-
----
-
-## 🌐 Web Application
-
-The MooVit web interface is simple, accessible, and packed with functionality:
-
-- Access real-time camera feed for object detection
-- Upload image or video files for instant analysis
-- Bounding boxes + voice alerts for detected objects and threats
-- Responsive interface works on both desktop and mobile
-- Shipment route scheduling and alert-based safety recommendations (BETA)
-- Safety awareness prompts for road signs, traffic zones, and conditions
-
-Try it now → https://moo-vit.vercel.app/
+Live site: <https://moo-vit.vercel.app/>
 
 ---
 
-## 📸 Project Screenshots
+## Table of Contents
 
-### 🏠 Home / Landing Page
+- [Project Overview](#project-overview)
+- [Core Capabilities](#core-capabilities)
+- [Architecture Overview](#architecture-overview)
+- [Project Screenshots](#project-screenshots)
+- [Folder Structure](#folder-structure)
+- [Tech Stack](#tech-stack)
+- [Installation and Local Setup](#installation-and-local-setup)
+- [Usage and Navigation](#usage-and-navigation)
+- [Use Cases](#use-cases)
+- [Future Plans](#future-plans)
+- [Contributing](#contributing)
+- [Contributors](#contributors)
+- [License](#license)
+
+---
+
+## Project Overview
+
+MooVit is designed to improve road awareness and transport usability for a range of users, including:
+
+- Visually impaired users who benefit from object awareness and voice-assisted guidance
+- Drivers and logistics operators who need route, vehicle, or shipment-related visibility
+- Contributors exploring accessibility, safety, and mobility-focused web features
+
+The repository currently functions as a frontend-first codebase with multiple feature-specific pages and modules. The broader project vision also references AI-assisted detection and backend-supported flows, which are represented in the documentation and feature direction.
+
+---
+
+## Core Capabilities
+
+### Detection and Awareness
+
+- Real-time object-awareness workflows
+- Sharp-object and live-detection feature areas
+- Traffic and route-awareness oriented UI
+
+### Voice and Accessibility
+
+- Voice-assist oriented user flows
+- Safety-focused information surfaces
+- Accessible mobility support use cases
+
+### Logistics and Transport
+
+- Shipment and scheduling modules
+- Route planning and public transportation pages
+- Vehicle and cab-sharing related interfaces
+
+### Contributor-Friendly Frontend
+
+- Static HTML, CSS, and JavaScript pages
+- Feature folders organized by domain
+- GitHub templates for issues and pull requests
+
+---
+
+## Architecture Overview
+
+The current repository is best understood as a modular frontend application with domain-based feature folders.
+
+### 1. Presentation Layer
+
+- Root HTML pages such as `index.html`, `about.html`, `services.html`, and `contact.html`
+- Shared styling through `styles.css` and `transport.css`
+- Shared interaction logic in scripts like `script.js` and `cursor.js`
+
+### 2. Feature Modules
+
+- Directory-based feature areas such as `Routes/`, `Vehicles/`, `Shipments/`, `Schedule/`, and `Safety and awareness/`
+- Each module contains its own UI assets, scripts, or page-specific logic where needed
+
+### 3. Experience Flow
+
+Typical user flow in the current project looks like:
+
+1. Enter through the main landing page
+2. Navigate into a specific domain such as routes, vehicles, safety, feedback, or shipment tools
+3. Interact with page-level JavaScript and UI components for that feature
+4. Use the project as a frontend showcase for mobility, awareness, and logistics-related capabilities
+
+### 4. AI and Backend Direction
+
+Project documentation references AI detection, voice assistance, and backend-supported workflows. In the current repository, these are primarily represented through:
+
+- Frontend modules and demos
+- Documentation and roadmap references
+- Feature-specific structure prepared for future expansion
+
+---
+
+## Project Screenshots
+
+### Home / Landing Page
 ![Home Page](services_section.png.png)
 
-### 🚚 Services Section
+### Services Section
 ![Services Section](home_hero.png.png)
 
 ---
-## ✨ Features
 
-- Detects vehicles, people, signals, and sharp objects
-- Recognizes known faces to help visually impaired users follow familiar people
-- Real-time voice alerts based on camera/video input
-- Vehicle shipment schedule module: input shipment data, receive route timelines
-- Route safety planner: avoid known hazard zones or restricted areas
-- Traffic awareness: highlights signals, signs, and crossing points
-- Upload images or use live camera feed for detection
+## Folder Structure
 
----
-
-## ✨ Structure
-```
+```text
 MooVit/
-├── .github/
-│   └── workflows/                 # GitHub Actions / CI configs
-│
-├── frontend/                      # Frontend (HTML, CSS, JS)
-│   ├── index.html                 # Landing page
-│   ├── pages/
-│   │   ├── about.html
-│   │   ├── contact.html
-│   │   ├── login.html
-│   │   └── safety.html
-│   ├── assets/
-│   │   ├── images/                # UI images
-│   │   ├── icons/                 # SVG icons
-│   │   └── styles.css             # Global styles
-│   └── script.js                  # Frontend logic
-│
-├── backend/                       # Backend (Python)
-│   ├── app.py                     # Main backend entry point
-│   ├── routes/                    # API routes
-│   │   ├── tracking.py
-│   │   ├── vehicles.py
-│   │   └── safety.py
-│   ├── models/                    # ML / Detection models
-│   │   └── detection_model.py
-│   ├── utils/                     # Helper functio
+├── .github/                       # GitHub templates and automation
+│   ├── ISSUE_TEMPLATE/            # Bug and feature request templates
+│   └── pull_request_template.md   # PR checklist template
+├── Chatbot/                       # Chatbot module
+├── feedback/                      # Feedback-related assets
+├── FoodStall_and_hotels/          # Food and hotel feature pages
+├── live-detection/                # Live detection feature
+├── Public transportation/         # Public transport module
+├── Routes/                        # Route planning module
+├── Safety and awareness/          # Safety awareness module
+├── Schedule/                      # Scheduling feature
+├── sharingcab/                    # Cab sharing feature
+├── sharp-detection/               # Sharp object detection
+├── Shipments/                     # Shipment-related pages
+├── Vehicles/                      # Vehicle module
+├── index.html                     # Landing page
+├── about.html                     # About page
+├── services.html                  # Services page
+├── contact.html                   # Contact page
+├── feedback.html                  # Feedback page
+├── script.js                      # Shared JavaScript
+├── cursor.js                      # Cursor interaction logic
+├── styles.css                     # Shared site styles
+├── transport.css                  # Main transport UI styles
+├── README.md                      # Project overview
+├── CONTRIBUTING.md                # Contribution guide
+├── CODE_OF_CONDUCT.md             # Community guidelines
+└── LICENSE                        # MIT license
 ```
 
-
----
-## 🛠 Tech Stack
-
-### Computer Vision & AI
-- YOLOv8 / YOLOv11 / YOLOv12 – object detection
-- OpenCV – image and video stream processing
-- TensorFlow / PyTorch – model training and inference
-
-### Web & Voice Interaction
-- HTML, CSS, JavaScript – frontend interface
-- Python + Flask / FastAPI – backend server and APIs
-- Canvas API – draw detection boxes in real-time
-- MediaDevices API – access webcam on web
-- json – text-to-speech alerts
-
-### Logistics & Route Modules
-- Custom scheduling API – for shipment planning (JSON-based input)
-- GeoJSON / Google Maps API (optional) – for route plotting and safe-path suggestions
-- SQLite / JSON – for storing schedules and known hazard zones
-
-### Deployment & Tools
-- Vercel – frontend deployment
-- GitHub – version control
-- WebSocket / HTTP Fetch – real-time communication
-
 ---
 
-## 📦 Installation (Developer Setup)
+## Tech Stack
 
-1. Clone the repo:
+### Frontend
+
+- HTML
+- CSS
+- JavaScript
+
+### UX and Browser APIs
+
+- Responsive page design
+- Canvas-oriented visual interactions
+- MediaDevices-based browser integrations where applicable
+
+### AI and Detection Direction
+
+- YOLO-based object detection references
+- OpenCV-based computer vision references
+- TensorFlow / PyTorch documentation-level integration direction
+
+### Tooling and Delivery
+
+- GitHub for collaboration
+- Vercel for deployment
+- Markdown-based documentation and contributor templates
+
+---
+
+## Installation and Local Setup
+
+### Option 1: Frontend-only local preview
+
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/ShubhangiRoy12/moovit.git
-cd moovit
+git clone https://github.com/ShubhangiRoy12/MooVit.git
+cd MooVit
 ```
 
-2. Install backend dependencies:
+2. Serve the repository locally with any static server:
+
+```bash
+python -m http.server 8000
+```
+
+3. Open the local URL in your browser and navigate through the pages you want to test.
+
+### Option 2: Backend-related experimentation
+
+Some project documentation references backend setup. If you are working with backend code that exists outside the current root layout or in future branches, the intended flow is:
+
 ```bash
 cd backend
 pip install -r requirements.txt
-```
-3. Start the backend server:
-```bash
 python app.py
 ```
 
-4. For frontend, deploy the frontend/ folder on Vercel or use a static server locally.
-
----
- 
-## 📋 Use Cases
-
--Assist visually impaired users with voice-based object alerts
-
--Help logistics teams plan safe and efficient routes
-
--Offer vehicle drivers route awareness and obstacle warnings
-
--Provide safety prompts in traffic-heavy or high-risk zones
-
--Enable face tracking to follow companions in crowded areas
+If a `backend/` directory is not present in the current checkout, treat the repository as frontend-first and use the static-server workflow above.
 
 ---
 
-## 🚧 Future Plans
+## Usage and Navigation
 
--Add multilingual voice support
+After opening the app locally or on the deployed site, contributors and users can explore:
 
--GPS-based live routing for shipment vehicles
-
--Heatmap overlays for high-risk zones
-
--Admin dashboard to view and edit shipment schedules
-
--Public API for integration with logistics and assistive apps
+- The landing page for project overview and service entry points
+- Services and route-related pages for transport-focused workflows
+- Safety and awareness sections for accessibility and road-safety use cases
+- Vehicles, shipments, and scheduling modules for logistics-oriented demos
+- Feedback and informational pages for project interaction and contributor discovery
 
 ---
 
-## 🤝 Contributing
+## Use Cases
 
--We welcome contributions! You can help with:
-
--Improving detection accuracy
-
--Expanding shipment scheduling logic
-
--UI/UX design improvements
-
--Adding more face profiles or localization features
+- Assist visually impaired users with awareness-oriented guidance
+- Help logistics teams explore shipment and route planning flows
+- Offer drivers route awareness and obstacle-related context
+- Demonstrate accessibility-centered mobility experiences
+- Provide a modular frontend base for future AI-backed transport features
 
 ---
 
-Steps:
-1. Fork this repo
-2. Create a branch (git checkout -b feature-name)
-3. Commit your changes
-4. Push and open a PR
+## Future Plans
+
+- Add multilingual voice support
+- Expand live routing and transport intelligence features
+- Add richer risk-zone and safety overlays
+- Improve admin and dashboard capabilities
+- Integrate more backend- and model-driven workflows over time
 
 ---
 
-## Contibutors
-- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer 
+## Contributing
 
-- **[Om Roy](https://github.com/omroy07)** – Web Developer  & Machine Learning Engineer
+Contributions are welcome across:
 
+- Accessibility improvements
+- Frontend polish and responsiveness fixes
+- Documentation and onboarding improvements
+- Mobility, safety, and logistics feature enhancements
+- JavaScript bug fixes and UX refinements
 
-📜 License
-This project is licensed under the MIT License. See LICENSE file for details.
+Recommended contribution flow:
 
+1. Fork the repository
+2. Create a focused branch
+3. Make a scoped change
+4. Test the relevant pages locally
+5. Open a pull request with the related issue linked
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for contributor workflow details.
+
+---
+
+## Contributors
+
+- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** - Project Lead and Machine Learning Engineer
+- **[Om Roy](https://github.com/omroy07)** - Web Developer and Machine Learning Engineer
+
+---
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
