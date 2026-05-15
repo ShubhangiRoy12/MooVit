@@ -10,12 +10,84 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="transport.css">
+  <link rel="stylesheet" href="transport.css?v=2">
   <script>
     (() => {
       const savedTheme = localStorage.getItem('moovit-theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
     })();
+  </script>
+
+  <!-- Modal Functions: MUST be defined early for onclick handlers -->
+  <script>
+    // Close ALL modals and overlay
+    function closeAllModals() {
+      const overlay = document.getElementById('overlay');
+      if (overlay) overlay.classList.remove('active');
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => {
+        if (el) el.classList.remove('active');
+      });
+      document.body.style.overflow = 'auto';
+    }
+
+    // Open Login Modal
+    function openLoginPopup() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const loginModal = document.getElementById('loginModal');
+      if (overlay) overlay.classList.add('active');
+      if (loginModal) loginModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close Login Modal
+    function closeLoginPopup() {
+      closeAllModals();
+    }
+
+    // Open Signup Modal
+    function openSignupPopup() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const signupModal = document.getElementById('signupModal');
+      if (overlay) overlay.classList.add('active');
+      if (signupModal) signupModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close Signup Modal
+    function closeSignupPopup() {
+      closeAllModals();
+    }
+
+    // Open Admin Modal
+    function openAdminPopup() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const adminModal = document.getElementById('adminModal');
+      if (overlay) overlay.classList.add('active');
+      if (adminModal) adminModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close Admin Modal
+    function closeAdminPopup() {
+      closeAllModals();
+    }
+
+    // Handle Service Card Click (shows alert modal)
+    function handleServiceClick() {
+      const overlay = document.getElementById('overlay');
+      const serviceAlert = document.getElementById('serviceAlert');
+      if (overlay) overlay.classList.add('active');
+      if (serviceAlert) serviceAlert.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close Service Alert
+    function closeServiceAlert() {
+      closeAllModals();
+    }
   </script>
 </head>
 
@@ -508,40 +580,26 @@
       document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
     });
 
-    // --- Modal Logic ---
-    function closeAllModals() {
-      document.getElementById('overlay').classList.remove('active');
-      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
-      document.body.style.overflow = 'auto';
-    }
-    function handleServiceClick() {
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('serviceAlert').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeServiceAlert() { closeAllModals(); }
-
-    function openLoginPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('loginModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLoginPopup() { closeAllModals(); }
-
-    function openSignupPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('signupModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function openAdminPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('adminModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+    // --- Overlay Click Handler: Close modals when overlay is clicked ---
+    document.addEventListener('DOMContentLoaded', function() {
+      const overlay = document.getElementById('overlay');
+      if (overlay) {
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) {
+            closeAllModals();
+          }
+        });
+      }
+      
+      // Prevent modal from closing when clicking inside it
+      document.querySelectorAll('.modal-wrapper, .admin-container-popup, .service-alert').forEach(modal => {
+        if (modal) {
+          modal.addEventListener('click', function(e) {
+            e.stopPropagation();
+          });
+        }
+      });
+    });
 
     // --- Backend Form Handling ---
 

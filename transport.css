@@ -688,7 +688,9 @@
       }
     }
 
-    /* --- Modals --- */
+    /* --- MODALS: CLEAN REFACTORED SYSTEM --- */
+    
+    /* Overlay: Blurred backdrop */
     .overlay {
       position: fixed;
       top: 0;
@@ -697,10 +699,11 @@
       height: 100%;
       background: var(--overlay-bg);
       backdrop-filter: blur(8px);
-      z-index: 999;
+      z-index: 2000;
       opacity: 0;
       visibility: hidden;
-      transition: 0.3s;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      cursor: pointer;
     }
 
     .overlay.active {
@@ -708,10 +711,134 @@
       visibility: visible;
     }
 
-    .service-alert,
-    .login-container,
-    .signup-container,
+    /* Modal containers: Hidden by default, flexed when active */
+    .login-modal,
+    .signup-modal,
+    .admin-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2001;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      pointer-events: none;
+    }
+
+    /* Show modal: Display and enable interactions */
+    .login-modal.active,
+    .signup-modal.active,
+    .admin-modal.active {
+      display: flex;
+      pointer-events: auto;
+    }
+
+    /* Modal content: Scale and fade animations */
+    .modal-wrapper,
     .admin-container-popup {
+      background: var(--modal-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      pointer-events: auto;
+      transform: scale(0.9) translateZ(0);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      will-change: transform, opacity;
+    }
+
+    /* Animate in modal content when parent is active */
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper,
+    .admin-modal.active .admin-container-popup {
+      transform: scale(1) translateZ(0);
+      opacity: 1;
+    }
+
+    .modal-wrapper {
+      display: flex;
+      width: 100%;
+      max-width: 850px;
+      overflow: hidden;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .admin-container-popup {
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    /* Modal sides: Left brand section, right form section */
+    .modal-left {
+      flex: 1;
+      background: linear-gradient(135deg, var(--button-primary) 0%, var(--button-primary-hover) 100%);
+      color: white;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-left.signup-bg {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+
+    .modal-brand {
+      text-align: center;
+    }
+
+    .modal-brand svg {
+      margin-bottom: 1rem;
+    }
+
+    .modal-brand h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-brand p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.95rem;
+    }
+
+    .modal-right {
+      flex: 1;
+      padding: 3rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .modal-right h2 {
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        flex-direction: column;
+        max-width: 450px;
+      }
+      .modal-left {
+        display: none;
+      }
+      .modal-right {
+        padding: 2rem;
+      }
+    }
+
+    .service-alert {
       position: fixed;
       top: 50%;
       left: 50%;
@@ -720,22 +847,20 @@
       border: 1px solid var(--panel-border);
       padding: 2.5rem;
       border-radius: 20px;
-      z-index: 1001;
+      z-index: 2001;
       width: 90%;
       max-width: 450px;
+      text-align: center;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       opacity: 0;
       visibility: hidden;
       transition: 0.3s;
     }
 
-    .service-alert.active,
-    .login-modal.active .login-container,
-    .signup-modal.active .signup-container,
-    .admin-modal.active .admin-container-popup {
+    .service-alert.active {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
       visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
     }
 
     .service-alert h3 {
@@ -770,12 +895,9 @@
       background: var(--button-primary);
     }
 
-    .alert-btn.secondary {
-      background: #059669;
-    }
-
     .alert-btn.close {
       background: var(--search-bg);
+      color: var(--text-primary);
     }
 
     /* Forms */
@@ -783,26 +905,34 @@
       margin-bottom: 1.5rem;
     }
 
-    .form-group label {
-      color: var(--text-secondary);
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
+    .input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
     }
 
-    .form-group input {
+    .input-group .input-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .input-group input {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.8rem 1rem 0.8rem 3rem;
       border-radius: 10px;
       border: 1px solid var(--input-border);
       background: var(--input-bg);
       color: var(--input-text);
       outline: none;
+      transition: all 0.3s ease;
     }
 
-    .form-group input:focus {
-      border-color: #2563eb;
+    .input-group input:focus {
+      border-color: var(--button-primary);
       background: color-mix(in srgb, var(--input-bg) 85%, transparent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
     .login-submit-btn,
@@ -825,36 +955,16 @@
     }
 
     .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
       background: none;
       border: none;
       color: var(--text-muted);
       font-size: 1.5rem;
       cursor: pointer;
-      float: right;
     }
 
-    .login-modal,
-    .signup-modal,
-    .admin-modal {
-      position: fixed;
-      z-index: 1001;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .login-modal.active,
-    .signup-modal.active,
-    .admin-modal.active {
-      pointer-events: auto;
-    }
-
-    /* Error Messages */
     .error-message {
       color: #ff6b6b;
       text-align: center;
@@ -863,7 +973,6 @@
       min-height: 20px;
     }
 
-    /* --- Admin Modal Styling --- */
     .admin-badge {
       background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
       color: white;
