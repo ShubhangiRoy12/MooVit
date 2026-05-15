@@ -465,21 +465,45 @@
     });
 
     // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
-    let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
-    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-    function updateCursor() {
-      const dx = mouseX - cursorX; const dy = mouseY - cursorY;
-      cursorX += dx * 0.2; cursorY += dy * 0.2;
-      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-      requestAnimationFrame(updateCursor);
-    }
-    if (window.innerWidth > 768) updateCursor();
+    // --- Cursor & Particles ---
+const cursor = document.querySelector('.cursor');
 
-    document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
+let mouseX = 0,
+    mouseY = 0;
+let cursorX = 0,
+    cursorY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function updateCursor() {
+  const dx = mouseX - cursorX;
+  const dy = mouseY - cursorY;
+
+  cursorX += dx * 0.2;
+  cursorY += dy * 0.2;
+
+  cursor.style.transform =
+    `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+
+  requestAnimationFrame(updateCursor);
+}
+
+if (window.innerWidth > 768 && cursor) {
+  updateCursor();
+}
+
+document.querySelectorAll('a, button, .card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    if (cursor) cursor.classList.add('hover');
+  });
+
+  el.addEventListener('mouseleave', () => {
+    if (cursor) cursor.classList.remove('hover');
+  });
+});
 
     // Particles
     const particles = document.getElementById('particles');
@@ -512,7 +536,7 @@
     function closeAllModals() {
       document.getElementById('overlay').classList.remove('active');
       document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
     }
     function handleServiceClick() {
       document.getElementById('overlay').classList.add('active');
