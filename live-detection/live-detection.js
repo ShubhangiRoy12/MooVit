@@ -5,13 +5,26 @@ const wrapper = document.getElementById('wrapper');
 let lastSpoken = {};
 const speakDelay = 4000; // Delay between speaking the same label (ms)
 
+// Cache the model so retries don't re-download it.
+let cachedModel = null;
+
+// Guard flag to prevent overlapping start() calls.
+let isStarting = false;
+
+// Track the active stream so we can stop it on retry.
+let activeStream = null;
+
 function showError(type) {
-    // Remove any existing error message
+    // Remove any existing error message.
     const old = document.getElementById('camera-error');
     if (old) old.remove();
 
     const box = document.createElement('div');
     box.id = 'camera-error';
+
+    // Accessibility: let screen readers announce this error.
+    box.setAttribute('role', 'alert');
+    box.setAttribute('aria-live', 'assertive');
 
     let heading = 'Camera unavailable';
     let message = 'Something went wrong while accessing your camera.';
@@ -45,6 +58,8 @@ function showLoading() {
 
     const el = document.createElement('div');
     el.id = 'loading-indicator';
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-live', 'polite');
     el.innerHTML =
         '<div class="spinner"></div>' +
         '<p>Loading detection model...</p>';
@@ -57,24 +72,55 @@ function hideLoading() {
     if (el) el.remove();
 }
 
+function stopActiveStream() {
+    // Stop all tracks on the existing stream to free the camera.
+    if (activeStream) {
+        activeStream.getTracks().forEach(function(track) {
+            track.stop();
+        });
+        activeStream = null;
+    }
+    video.srcObject = null;
+}
+
 function retryCamera() {
+    // Prevent spamming the retry button.
+    if (isStarting) return;
+
     const errorBox = document.getElementById('camera-error');
     if (errorBox) errorBox.remove();
     start();
 }
 
 async function start() {
+    // Block concurrent calls.
+    if (isStarting) return;
+    isStarting = true;
+
+    // Release any previous camera stream before requesting a new one.
+    stopActiveStream();
+
     showLoading();
 
-    // Load the COCO-SSD model first.
-    let model;
-    try {
-        model = await cocoSsd.load();
-    } catch (err) {
-        console.error('Model load failed:', err);
+    // Check for secure context before even trying the camera.
+    if (window.isSecureContext === false) {
         hideLoading();
-        showError('model');
+        isStarting = false;
+        showError('insecure');
         return;
+    }
+
+    // Load the COCO-SSD model, or reuse the cached one.
+    if (!cachedModel) {
+        try {
+            cachedModel = await cocoSsd.load();
+        } catch (err) {
+            console.error('Model load failed:', err);
+            hideLoading();
+            isStarting = false;
+            showError('model');
+            return;
+        }
     }
 
     // Request camera access.
@@ -84,12 +130,14 @@ async function start() {
     } catch (err) {
         console.error('Camera error:', err);
         hideLoading();
+        isStarting = false;
 
         if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
             showError('denied');
         } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
             showError('not-found');
-        } else if (err.name === 'NotSupportedError') {
+        } else if (err.name === 'NotSupportedError' || err.name === 'SecurityError') {
+            // Some browsers throw SecurityError instead of NotSupportedError.
             showError('insecure');
         } else {
             showError('generic');
@@ -97,8 +145,12 @@ async function start() {
         return;
     }
 
+    activeStream = stream;
     hideLoading();
+    isStarting = false;
     video.srcObject = stream;
+
+    const model = cachedModel;
 
     video.onloadedmetadata = () => {
         // Set the canvas dimensions to match the video.
