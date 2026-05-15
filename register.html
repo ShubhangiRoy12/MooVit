@@ -31,27 +31,34 @@
       --border-color: rgba(0, 0, 0, 0.1);
     }
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
-        url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-      background-size: cover;
-      background-position: center;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: var(--text-color);
-    }
+  margin: 0;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+    url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+  overflow-x: hidden;
+  position: relative;
+}
 
     .auth-container {
-      width: 360px;
-      padding: 40px;
-      border-radius: 8px;
-      background: var(--bg-overlay);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--glass-border);
-    }
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 8px;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  z-index: 10;
+}
 
     /* responsive tweaks */
     @media (max-width: 480px) {
