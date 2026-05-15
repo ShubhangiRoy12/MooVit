@@ -173,13 +173,9 @@ Steps:
 
 ---
 
-## Contibutors
-- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** – Project Lead & Machine Learning Engineer 
+## Contributors
+- **[Shubhangi Roy](https://github.com/ShubhangiRoy12)** - Project Lead and Machine Learning Engineer
+- **[Om Roy](https://github.com/omroy07)** - Web Developer and Machine Learning Engineer
 
-- **[Om Roy](https://github.com/omroy07)** – Web Developer  & Machine Learning Engineer
-
-
-📜 License
+## License
 This project is licensed under the MIT License. See LICENSE file for details.
-
-
