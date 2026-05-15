@@ -1,237 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png">
-  <title>Login - Transport Co.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>Login / Register - MooVit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* theme variables copied from index.html */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
     :root {
       --primary: #2563eb;
-      --primary-light: #2d5a87;
       --secondary: #1d4ed8;
-      --accent: #f59e0b;
-      --glass: rgba(255, 255, 255, 0.1);
-      --glass-border: rgba(255, 255, 255, 0.2);
-      --bg-overlay: rgba(255, 255, 255, 0.9);
+      --bg-overlay: rgba(255, 255, 255, 0.92);
       --text-color: #1a1a1a;
-      --header-bg: rgba(255, 255, 255, 0.9);
-      --header-scrolled-bg: rgba(255, 255, 255, 0.95);
-      --nav-color: rgba(0, 0, 0, 0.7);
-      --nav-hover: #000000;
-      --search-bg: rgba(0, 0, 0, 0.05);
-      --search-border: rgba(0, 0, 0, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
       --btn-bg: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
       --btn-shadow: rgba(29, 78, 216, 0.4);
-      --border-color: rgba(0, 0, 0, 0.1);
+      --border-color: rgba(0, 0, 0, 0.15);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box; /* FIX: prevents input overflow */
     }
 
     body {
       margin: 0;
-      padding: 0;
+      padding: 20px;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
         url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
       background-size: cover;
       background-position: center;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       color: var(--text-color);
     }
 
-    .auth-container {
-      background: var(--bg-overlay);
-      backdrop-filter: blur(10px);
-      padding: 40px 30px;
-      border-radius: 12px;
-      width: 320px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      border: 1px solid var(--glass-border);
-    }
-
-    .auth-container h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: var(--text-color);
-    }
-
-    .auth-container label {
-      display: block;
-      margin-bottom: 15px;
-      color: var(--text-color);
-      font-weight: 600;
-    }
-
-    .auth-container input {
+    /* === WRAPPER === */
+    .auth-wrapper {
       width: 100%;
-      padding: 10px;
+      max-width: 400px;
+      position: relative; /* FIX: no absolute/fixed stacking */
+    }
+
+    /* === TAB TOGGLE === */
+    .tab-toggle {
+      display: flex;
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+    }
+
+    .tab-toggle button {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      background: rgba(255,255,255,0.6);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #555;
+      transition: all 0.25s ease;
+    }
+
+    .tab-toggle button.active {
+      background: white;
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+    }
+
+    /* === FORM CONTAINER === */
+    .auth-container {
+      background: white;
+      padding: 35px 30px;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      border: 1px solid var(--border-color);
+    }
+
+    /* FIX: only ONE form visible at a time */
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    /* === FORM ELEMENTS === */
+    .auth-form h2 {
+      text-align: center;
+      margin: 0 0 24px;
+      font-size: 22px;
+      color: var(--text-color);
+    }
+
+    .auth-form label {
+      display: block;
+      margin-bottom: 14px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-color);
+    }
+
+    .auth-form input[type="text"],
+    .auth-form input[type="email"],
+    .auth-form input[type="password"] {
+      width: 100%;
+      padding: 11px 12px;
       margin-top: 5px;
       border: 1px solid var(--border-color);
-      border-radius: 5px;
-      box-sizing: border-box;
-      background: rgba(255,255,255,0.7);
+      border-radius: 6px;
+      font-size: 14px;
+      background: rgba(255,255,255,0.8);
       color: #000;
+      transition: border-color 0.2s;
     }
 
-    .auth-container button {
+    .auth-form input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .remember-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      font-weight: 400;
+      font-size: 14px;
+    }
+
+    .auth-form button[type="submit"] {
       width: 100%;
-      padding: 12px;
+      padding: 13px;
       margin-top: 20px;
       background: var(--btn-bg);
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
       transition: filter 0.3s ease;
       box-shadow: 0 4px 15px var(--btn-shadow);
     }
 
-    .auth-container button:hover {
+    .auth-form button[type="submit"]:hover {
       filter: brightness(0.9);
     }
 
-    .auth-container p {
+    .error-msg {
+      color: #dc2626; /* FIX: visible red, not light pink */
+      font-size: 13px;
       text-align: center;
-      margin-top: 20px;
-      color: var(--text-color);
+      margin-top: 10px;
+      min-height: 18px;
     }
 
-    .auth-container a {
+    .auth-form p {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .auth-form a {
       color: var(--primary);
       text-decoration: none;
     }
 
-    .auth-container a:hover {
+    .auth-form a:hover {
       text-decoration: underline;
     }
 
-    /* Admin link styling */
-    .admin-link-inline {
-      color: #e74c3c !important;
+    .admin-link {
+      color: #dc2626 !important;
       font-weight: 500;
     }
 
-    .admin-link-inline:hover {
-      color: #c0392b !important;
-      text-decoration: underline !important;
-    }
-
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
+    /* === RESPONSIVE === */
+    @media (max-width: 480px) {
       body {
-        padding: 20px;
+        padding: 15px;
+        align-items: flex-start;
+        padding-top: 40px;
       }
 
       .auth-container {
-        width: 100%;
-        max-width: 350px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .auth-container {
-        padding: 30px 25px;
+        padding: 25px 20px;
       }
 
-      .auth-container p {
-        font-size: 14px;
-        line-height: 1.5;
+      .auth-form h2 {
+        font-size: 19px;
       }
-    }
-
-    @media (max-width: 480px) {
-      .auth-container {
-        padding: 30px 25px;
-      }
-
-      .auth-container p {
-        font-size: 14px;
-        line-height: 1.5;
-      }
-    }
   </style>
 </head>
-
 <body>
-  <div class="auth-container">
-    <form id="login-form">
-      <h2>Login to MooVit.</h2>
-      <label>Email
-        <input type="email" name="email" id="email" required>
-      </label>
-      <label>Password
-        <input type="password" name="password" id="password" required>
-      </label>
-      <label style="display:flex; align-items:center; margin-top:10px;">
-        <input type="checkbox" id="remember" style="margin-right:6px;"> Remember me
-      </label>
-      <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
-      <button type="submit">Login</button>
-      <p style="margin-top:12px;"><a href="#" id="forgot-link">Forgot password?</a></p>
-      <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
-    </form>
-  </div>
-  
-  <script>
 
-    // populate email if remembered
+  <div class="auth-wrapper">
+
+    <!-- TAB BUTTONS -->
+    <div class="tab-toggle">
+      <button class="active" onclick="showTab('login')" id="tab-login">Login</button>
+      <button onclick="showTab('register')" id="tab-register">Sign Up</button>
+    </div>
+
+    <div class="auth-container">
+
+      <!-- LOGIN FORM -->
+      <div class="auth-form active" id="form-login">
+        <h2>Login to MooVit</h2>
+        <form id="login-form" onsubmit="handleLogin(event)">
+          <label>Email
+            <input type="email" id="login-email" required>
+          </label>
+          <label>Password
+            <input type="password" id="login-password" required>
+          </label>
+          <label class="remember-row">
+            <input type="checkbox" id="remember"> Remember me
+          </label>
+          <div class="error-msg" id="login-error"></div>
+          <button type="submit">Login</button>
+          <p><a href="#" id="forgot-link" onclick="alert('Forgot password is not available in this demo.'); return false;">Forgot password?</a></p>
+          <p>New here? <a href="#" onclick="showTab('register'); return false;">Sign Up</a> | <a href="admin.html" class="admin-link">🔐 Admin Portal</a></p>
+        </form>
+      </div>
+
+      <!-- SIGNUP FORM -->
+      <div class="auth-form" id="form-register">
+        <h2>Create Account</h2>
+        <form id="register-form" onsubmit="handleRegister(event)">
+          <label>Full Name
+            <input type="text" id="reg-name" placeholder="Your full name" required>
+          </label>
+          <label>Email
+            <input type="email" id="reg-email" placeholder="you@example.com" required>
+          </label>
+          <label>Password
+            <input type="password" id="reg-pwd" placeholder="Create password" required>
+          </label>
+          <label>Confirm Password
+            <input type="password" id="reg-cpwd" placeholder="Confirm password" required>
+          </label>
+          <div class="error-msg" id="register-error"></div>
+          <button type="submit">Create Account</button>
+          <p>Already registered? <a href="#" onclick="showTab('login'); return false;">Login here</a></p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // === TAB TOGGLE FUNCTION ===
+    function showTab(tab) {
+      // Hide all forms
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      document.querySelectorAll('.tab-toggle button').forEach(b => b.classList.remove('active'));
+
+      // Show selected form
+      document.getElementById('form-' + tab).classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    // === LOGIN HANDLER ===
     window.addEventListener('load', function () {
       const saved = localStorage.getItem('rememberedEmail');
       if (saved) {
-        document.getElementById('email').value = saved;
+        document.getElementById('login-email').value = saved;
         document.getElementById('remember').checked = true;
       }
     });
 
-    document.getElementById('login-form').addEventListener('submit', function (e) {
+    function handleLogin(e) {
       e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
       const remember = document.getElementById('remember').checked;
-      const errorMsg = document.getElementById('error-msg');
+      const errorMsg = document.getElementById('login-error');
       errorMsg.textContent = '';
 
-      // Email validation
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
         errorMsg.textContent = 'Please enter a valid email address.';
         return;
       }
 
-
-      // Password strength validation
-      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
-      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-      if (!strongPasswordPattern.test(password)) {
-        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+      const strongPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!strongPwd.test(password)) {
+        errorMsg.textContent = 'Password must be 8+ chars with uppercase, lowercase, number & special character.';
         return;
       }
 
-      // handle remember me
       if (remember) {
         localStorage.setItem('rememberedEmail', email);
       } else {
         localStorage.removeItem('rememberedEmail');
       }
-      // If all validations pass, redirect
-      window.location.href = 'main.html';
-    });
 
-    // simple placeholder for forgot password
-    document.getElementById('forgot-link').addEventListener('click', function (e) {
+      window.location.href = 'main.html';
+    }
+
+    // === REGISTER HANDLER ===
+    function handleRegister(e) {
       e.preventDefault();
-      alert('Forgot password functionality is not available in this demo.');
-    });
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-pwd').value;
+      const confirmPassword = document.getElementById('reg-cpwd').value;
+      const errorMsg = document.getElementById('register-error');
+      errorMsg.textContent = '';
+
+      if (!name || !email || !password || !confirmPassword) {
+        errorMsg.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      if (!/^[A-Za-z ]+$/.test(name)) {
+        errorMsg.textContent = 'Name should contain only letters and spaces.';
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      const strongPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!strongPwd.test(password)) {
+        errorMsg.textContent = 'Password must be 8+ chars with uppercase, lowercase, number & special character.';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        errorMsg.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      window.location.href = 'login.html';
+    }
   </script>
 </body>
-
 </html>

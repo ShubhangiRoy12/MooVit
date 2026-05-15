@@ -1065,3 +1065,367 @@
       text-decoration: underline;
       margin-left: 4px;
     }
+
+    /* --- MODAL WRAPPER & LAYOUT FIX --- */
+    .modal-wrapper {
+      display: flex;
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      background: var(--modal-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--panel-border);
+    }
+
+    .modal-left {
+      display: none;
+      width: 40%;
+      background: linear-gradient(135deg, var(--button-primary) 0%, var(--button-primary-hover) 100%);
+      color: white;
+      padding: 3rem 2rem;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .modal-left.signup-bg {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    .modal-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .modal-brand svg {
+      width: 60px;
+      height: 60px;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    }
+
+    .modal-brand h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .modal-brand p {
+      font-size: 0.95rem;
+      opacity: 0.95;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .modal-right {
+      flex: 1;
+      padding: 3rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .modal-right h2 {
+      color: var(--text-primary);
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    /* --- FORM INPUT STYLING --- */
+    .input-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .input-icon {
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: color 0.3s ease;
+    }
+
+    .input-group input {
+      flex: 1;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--input-text);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: var(--button-primary);
+      background: color-mix(in srgb, var(--input-bg) 85%, transparent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .input-group input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.7;
+    }
+
+    .input-group:focus-within .input-icon {
+      color: var(--button-primary);
+    }
+
+    /* --- LOGIN & SIGNUP MODALS --- */
+    .login-modal,
+    .signup-modal {
+      position: fixed !important;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      z-index: 1001;
+      width: 95%;
+      max-width: 900px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      pointer-events: none;
+    }
+
+    .login-modal.active,
+    .signup-modal.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
+    /* --- CLOSE BUTTON --- */
+    .close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+      z-index: 10;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+    }
+
+    .close-btn:hover {
+      color: var(--text-primary);
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    /* --- ADMIN MODAL --- */
+    .admin-modal {
+      position: fixed !important;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      z-index: 1001;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      pointer-events: none;
+    }
+
+    .admin-modal.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
+    .admin-container-popup {
+      position: relative;
+      background: var(--modal-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      width: 95%;
+      max-width: 450px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* --- SUBMIT BUTTONS --- */
+    .login-submit-btn,
+    .signup-submit-btn,
+    .admin-submit-btn {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 10px;
+      border: none;
+      background: var(--button-primary);
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1.5rem;
+    }
+
+    .login-submit-btn:hover,
+    .signup-submit-btn:hover {
+      background: var(--button-primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+    }
+
+    .login-submit-btn:disabled,
+    .signup-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .admin-submit-btn {
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    }
+
+    .admin-submit-btn:hover {
+      background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+    }
+
+    /* --- ERROR MESSAGE --- */
+    .error-message {
+      color: #ff6b6b;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      min-height: 20px;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* --- RESPONSIVE DESIGN --- */
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        flex-direction: column;
+        max-width: 95%;
+      }
+
+      .modal-left {
+        display: flex;
+        width: 100%;
+        padding: 2rem 1.5rem;
+      }
+
+      .modal-left.signup-bg {
+        display: flex;
+      }
+
+      .modal-right {
+        padding: 2rem 1.5rem;
+        width: 100%;
+      }
+
+      .modal-right h2 {
+        font-size: 1.5rem;
+      }
+
+      .modal-brand h3 {
+        font-size: 1.4rem;
+      }
+
+      .modal-brand p {
+        font-size: 0.85rem;
+      }
+
+      .input-group {
+        margin-bottom: 0.8rem;
+      }
+
+      .input-group input {
+        padding: 0.8rem 0.9rem;
+        font-size: 0.9rem;
+      }
+
+      .login-submit-btn,
+      .signup-submit-btn,
+      .admin-submit-btn {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+      }
+
+      .close-btn {
+        top: 1rem;
+        right: 1rem;
+        width: 36px;
+        height: 36px;
+        font-size: 1.5rem;
+      }
+
+      .admin-container-popup {
+        padding: 1.8rem;
+      }
+
+      /* Stack modals properly on mobile */
+      .login-modal,
+      .signup-modal,
+      .admin-modal {
+        width: 90%;
+        max-width: calc(100% - 2rem);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .modal-wrapper {
+        max-width: 100%;
+      }
+
+      .modal-right {
+        padding: 1.5rem 1rem;
+      }
+
+      .modal-left {
+        padding: 1.5rem 1rem;
+      }
+
+      .modal-right h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+      }
+
+      .input-group {
+        margin-bottom: 0.7rem;
+      }
+
+      .input-group input {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.85rem;
+      }
+
+      .close-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1.3rem;
+      }
+
+      .checkbox-label {
+        font-size: 0.8rem !important;
+      }
+    }
