@@ -208,11 +208,9 @@
       }
 
 
-      // Password strength validation
-      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
-      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-      if (!strongPasswordPattern.test(password)) {
-        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+      // Password length validation
+      if (password.length < 6) {
+        errorMsg.textContent = 'Password must be at least 6 characters.';
         return;
       }
 
