@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -14,43 +14,133 @@
             box-sizing: border-box;
         }
 
-        :root {
+        /* ─────────────────────────────────────────
+           LIGHT THEME (default)
+        ───────────────────────────────────────── */
+        :root,
+        [data-theme="light"] {
             --primary-blue: #0f172a;
             --secondary-blue: #1e40af;
             --accent-orange: #f97316;
             --accent-green: #059669;
             --accent-purple: #7c3aed;
-            --light-bg: #f8fafc;
-            --white: #ffffff;
-            --gray-100: #f1f5f9;
-            --gray-200: #e2e8f0;
-            --gray-600: #475569;
-            --gray-800: #1e293b;
+
+            /* Body / page */
+            --body-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            /* Header */
+            --header-bg: rgba(255, 255, 255, 0.4);
+            --header-border: rgba(255, 255, 255, 0.2);
+            --nav-link-bg: #ffffff;
+            --nav-link-color: #475569;
+
+            /* Logo */
+            --logo-text-start: #0f172a;
+            --logo-text-end: #1e40af;
+
+            /* Cards */
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --card-title-color: #0f172a;
+            --card-desc-color: #475569;
+            --card-stat-bg: #f1f5f9;
+            --card-stat-color: #1e40af;
+            --card-link-color: #1e40af;
+
+            /* Footer */
+            --footer-bg: #0f172a;
+            --footer-text: #ffffff;
+            --footer-link: rgba(255, 255, 255, 0.8);
+
+            /* Toggle button */
+            --toggle-bg: rgba(255, 255, 255, 0.85);
+            --toggle-color: #1e40af;
+            --toggle-border: rgba(255, 255, 255, 0.5);
+            --toggle-hover-bg: #1e40af;
+            --toggle-hover-color: #ffffff;
+
+            /* Shadows */
             --shadow-light: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
             --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             --shadow-large: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            line-height: 1.6;
-            color: var(--gray-800);
+        /* ─────────────────────────────────────────
+           DARK THEME
+        ───────────────────────────────────────── */
+        [data-theme="dark"] {
+            --primary-blue: #e2e8f0;
+            --secondary-blue: #93c5fd;
+            --accent-orange: #fb923c;
+            --accent-green: #34d399;
+            --accent-purple: #a78bfa;
+
+            /* Body / page */
+            --body-bg: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1a1740 100%);
+
+            /* Header */
+            --header-bg: rgba(15, 15, 35, 0.75);
+            --header-border: rgba(255, 255, 255, 0.08);
+            --nav-link-bg: rgba(255, 255, 255, 0.07);
+            --nav-link-color: #cbd5e1;
+
+            /* Logo */
+            --logo-text-start: #e2e8f0;
+            --logo-text-end: #93c5fd;
+
+            /* Cards */
+            --card-bg: #1e1e35;
+            --card-border: #2e2e52;
+            --card-title-color: #e2e8f0;
+            --card-desc-color: #94a3b8;
+            --card-stat-bg: #2a2a4a;
+            --card-stat-color: #93c5fd;
+            --card-link-color: #93c5fd;
+
+            /* Footer */
+            --footer-bg: #0a0a1a;
+            --footer-text: #e2e8f0;
+            --footer-link: rgba(255, 255, 255, 0.7);
+
+            /* Toggle button */
+            --toggle-bg: rgba(255, 255, 255, 0.1);
+            --toggle-color: #fcd34d;
+            --toggle-border: rgba(255, 255, 255, 0.15);
+            --toggle-hover-bg: #fcd34d;
+            --toggle-hover-color: #1a1740;
+
+            /* Shadows */
+            --shadow-light: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+            --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+            --shadow-large: 0 20px 25px -5px rgb(0 0 0 / 0.6), 0 8px 10px -6px rgb(0 0 0 / 0.5);
         }
 
-        /* Header */
+        /* ─────────────────────────────────────────
+           BASE
+        ───────────────────────────────────────── */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--body-bg);
+            min-height: 100vh;
+            line-height: 1.6;
+            color: var(--card-title-color);
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* ─────────────────────────────────────────
+           HEADER
+        ───────────────────────────────────────── */
         header {
-            background: rgba(255, 255, 255, 0.4);
+            background: var(--header-bg);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            /* For Safari Support */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid var(--header-border);
             padding: 1.5rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.4s ease, border-color 0.4s ease;
         }
 
         .header-content {
@@ -79,10 +169,11 @@
         .logo h1 {
             font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            background: linear-gradient(135deg, var(--logo-text-start), var(--logo-text-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            transition: background 0.4s ease;
         }
 
         .header-nav {
@@ -95,13 +186,13 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--gray-600);
+            color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 500;
             padding: 0.75rem 1.5rem;
             border-radius: 12px;
             transition: all 0.3s ease;
-            background: var(--white);
+            background: var(--nav-link-bg);
             border: 2px solid transparent;
         }
 
@@ -112,7 +203,35 @@
             box-shadow: var(--shadow-medium);
         }
 
-        /* Main Container */
+        /* ─────────────────────────────────────────
+           DARK MODE TOGGLE BUTTON
+        ───────────────────────────────────────── */
+        #theme-toggle {
+            background: var(--toggle-bg);
+            color: var(--toggle-color);
+            border: 1.5px solid var(--toggle-border);
+            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        #theme-toggle:hover {
+            background: var(--toggle-hover-bg);
+            color: var(--toggle-hover-color);
+            transform: translateY(-2px) rotate(15deg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* ─────────────────────────────────────────
+           MAIN CONTAINER
+        ───────────────────────────────────────── */
         .main-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -141,7 +260,9 @@
             font-weight: 400;
         }
 
-        /* Service Grid */
+        /* ─────────────────────────────────────────
+           SERVICE GRID & CARDS
+        ───────────────────────────────────────── */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -149,14 +270,14 @@
         }
 
         .service-card {
-            background: var(--white);
+            background: var(--card-bg);
             border-radius: 24px;
             text-decoration: none;
             color: inherit;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-medium);
-            border: 1px solid var(--gray-200);
+            border: 1px solid var(--card-border);
             position: relative;
         }
 
@@ -203,6 +324,7 @@
             font-size: 2rem;
             color: white;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
         .service-card:hover .card-icon {
@@ -261,15 +383,17 @@
         .card-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary-blue);
+            color: var(--card-title-color);
             margin: 0;
+            transition: color 0.4s ease;
         }
 
         .card-description {
-            color: var(--gray-600);
+            color: var(--card-desc-color);
             line-height: 1.7;
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
+            transition: color 0.4s ease;
         }
 
         .card-stats {
@@ -280,13 +404,14 @@
         }
 
         .card-stat {
-            background: var(--gray-100);
+            background: var(--card-stat-bg);
             padding: 0.5rem 1rem;
             border-radius: 25px;
             font-size: 0.875rem;
             font-weight: 600;
-            color: var(--secondary-blue);
+            color: var(--card-stat-color);
             white-space: nowrap;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
         .card-action {
@@ -297,7 +422,7 @@
         }
 
         .card-link {
-            color: var(--secondary-blue);
+            color: var(--card-link-color);
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -318,7 +443,11 @@
             transform: translateX(3px);
         }
 
-        /* Special Card Styles */
+        /* ─────────────────────────────────────────
+           SPECIAL CARD VARIANTS
+           (featured / urgent use their own bg so
+            dark mode tweaks only the stat badges)
+        ───────────────────────────────────────── */
         .featured-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -359,11 +488,14 @@
             color: white;
         }
 
-        /* Footer */
+        /* ─────────────────────────────────────────
+           FOOTER
+        ───────────────────────────────────────── */
         footer {
-            background: var(--primary-blue);
-            color: white;
+            background: var(--footer-bg);
+            color: var(--footer-text);
             margin-top: 4rem;
+            transition: background 0.4s ease;
         }
 
         .footer-content {
@@ -401,7 +533,7 @@
         }
 
         .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--footer-link);
             text-decoration: none;
             transition: all 0.3s ease;
             display: flex;
@@ -445,7 +577,9 @@
             transform: translateY(-2px);
         }
 
-        /* Responsive Design */
+        /* ─────────────────────────────────────────
+           RESPONSIVE
+        ───────────────────────────────────────── */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -475,7 +609,9 @@
             }
         }
 
-        /* Loading Animation */
+        /* ─────────────────────────────────────────
+           LOADING ANIMATION
+        ───────────────────────────────────────── */
         .service-card {
             opacity: 0;
             transform: translateY(30px);
@@ -502,6 +638,30 @@
             animation-delay: 0.5s;
         }
 
+        .service-card:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        .service-card:nth-child(8) {
+            animation-delay: 0.7s;
+        }
+
+        .service-card:nth-child(9) {
+            animation-delay: 0.8s;
+        }
+
+        .service-card:nth-child(10) {
+            animation-delay: 0.9s;
+        }
+
+        .service-card:nth-child(11) {
+            animation-delay: 1.0s;
+        }
+
+        .service-card:nth-child(12) {
+            animation-delay: 1.1s;
+        }
+
         @keyframes slideUp {
             to {
                 opacity: 1;
@@ -509,6 +669,14 @@
             }
         }
     </style>
+
+    <!-- ── Apply saved theme BEFORE first paint (prevents flash) ── -->
+    <script>
+        (function () {
+            var saved = localStorage.getItem('moovit-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
 </head>
 
 <body>
@@ -528,6 +696,11 @@
                     <i class="fas fa-sign-out-alt"></i>
                     Go Back
                 </a>
+                <!-- Dark / Light Mode Toggle -->
+                <button id="theme-toggle" onclick="toggleTheme()" title="Toggle dark / light mode"
+                    aria-label="Toggle dark / light mode">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                </button>
             </nav>
         </div>
     </header>
@@ -626,7 +799,7 @@
                 </div>
             </a>
 
-            <!-- Safety & Awareness (Urgent) -->
+            <!-- Safety & Awareness -->
             <a href="Safety and awareness/index.html" class="service-card safety">
                 <div class="card-content">
                     <div class="card-header">
@@ -648,7 +821,7 @@
                 </div>
             </a>
 
-            <!-- AI Detection (Featured) -->
+            <!-- AI Detection -->
             <a href="sharp-detection/sharp-detection.html" class="service-card detection">
                 <div class="card-content">
                     <div class="card-header">
@@ -859,6 +1032,33 @@
             </div>
         </div>
     </footer>
+
+    <!-- ── Theme Toggle Script ── -->
+    <script>
+        // Sync icon with whatever theme is active on load
+        (function () {
+            var theme = document.documentElement.getAttribute('data-theme') || 'light';
+            setIcon(theme);
+        })();
+
+        function toggleTheme() {
+            var current = document.documentElement.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('moovit-theme', next);
+            setIcon(next);
+        }
+
+        function setIcon(theme) {
+            var icon = document.getElementById('theme-icon');
+            if (!icon) return;
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';   // show sun in dark mode → click to go light
+            } else {
+                icon.className = 'fas fa-moon';  // show moon in light mode → click to go dark
+            }
+        }
+    </script>
 </body>
 
 </html>
