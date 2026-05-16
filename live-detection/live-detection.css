@@ -69,6 +69,25 @@ main {
     font-size: 1.1rem;
 }
 
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.controls label {
+    font-weight: 600;
+}
+
+.controls select {
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+
 #wrapper {
     position: relative;
     max-width: 600px;

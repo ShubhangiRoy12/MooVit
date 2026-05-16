@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../styles.css">
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+  <script src="../scripts/detection-core.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -71,13 +72,33 @@
       font-size: 1.1rem;
       color: #333;
     }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .controls label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .controls select {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #ced4da;
+      font-size: 1rem;
+    }
   </style>
 </head>
 
 <body>
   <header>
     <h1>Sharp Object Detection</h1>
-    <a href="C:\\Users\\Konda Reddy\\OneDrive\\Desktop\\MooVit\\main.html" class="btn btn-light">← Home</a>
+    <a href="../main.html" class="btn btn-light">← Home</a>
   </header>
 
   <main>
@@ -85,8 +106,17 @@
       Show a sharp object like a knife or scissors in front of the webcam. This tool will identify and announce it
       aloud.
     </p>
+    <div class="controls">
+      <label for="voiceLang">Voice language</label>
+      <select id="voiceLang" aria-label="Voice alert language">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+      </select>
+    </div>
     <div id="wrapper">
-      <video id="video" autoplay muted></video>
+      <video id="video" autoplay muted playsinline></video>
       <canvas id="canvas"></canvas>
     </div>
     <p><small>Powered by TensorFlow.js and COCO-SSD. Works best in good lighting.</small></p>
@@ -96,77 +126,7 @@
     <p>&copy; 2025 MooVit.</p>
   </footer>
 
-  <script>
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let model;
-    let lastSpoken = {};
-    const speakDelay = 4000;
-
-    // Speak detected label
-    function speak(label) {
-      const msg = new SpeechSynthesisUtterance(`This is a ${label}`);
-      msg.lang = 'en-US';
-      msg.rate = 1;
-      window.speechSynthesis.speak(msg);
-    }
-
-    function speakLabels(predictions) {
-      const now = Date.now();
-      predictions.forEach(pred => {
-        const label = pred.class;
-        const last = lastSpoken[label] || 0;
-        if (now - last > speakDelay) {
-          if (['knife', 'scissors', 'fork', 'spoon'].includes(label)) {
-            speak(label);
-            lastSpoken[label] = now;
-          }
-        }
-      });
-    }
-
-    function drawBoxes(predictions) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      predictions.forEach(pred => {
-        ctx.beginPath();
-        ctx.rect(...pred.bbox);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = 'red';
-        ctx.font = '16px Arial';
-        ctx.fillStyle = 'red';
-        ctx.stroke();
-        ctx.fillText(
-          `${pred.class} (${Math.round(pred.score * 100)}%)`,
-          pred.bbox[0],
-          pred.bbox[1] > 10 ? pred.bbox[1] - 5 : 10
-        );
-      });
-    }
-
-    async function detectFrame() {
-      const predictions = await model.detect(video);
-      drawBoxes(predictions);
-      speakLabels(predictions);
-      requestAnimationFrame(detectFrame);
-    }
-
-    async function init() {
-      model = await cocoSsd.load();
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = stream;
-
-      video.onloadedmetadata = () => {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        detectFrame();
-      };
-    }
-
-    init().catch(err => {
-      alert('Error initializing detection: ' + err.message);
-    });
-  </script>
+  <script src="sharp-detection.js"></script>
 </body>
 
 </html>
