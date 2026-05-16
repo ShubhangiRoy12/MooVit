@@ -19,8 +19,8 @@
   </script>
 </head>
 
-<body data-theme="light">
-   <div class="cursor"></div>
+<body>
+  <div class="cursor" id="cursor"></div>
 
   <div class="cursor-tail">
     <div class="circle"></div>
@@ -170,7 +170,7 @@
   </div>
 
   <!-- LOGIN MODAL -->
-  <div class="login-modal" id="loginModal">
+  <div class="login-modal" id="loginModal" onclick="if(event.target === this) closeAllModals()">
     <div class="modal-wrapper">
       <div class="modal-left">
         <div class="modal-brand">
@@ -197,7 +197,7 @@
             </svg>
             <input type="email" id="popup-email" name="email" required placeholder="Email Address">
           </div>
-          <div class="input-group" style="margin-top:1rem;">
+          <div class="input-group">
             <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -206,22 +206,18 @@
             <input type="password" id="popup-password" name="password" required placeholder="Password">
           </div>
           <div id="popup-error-msg" class="error-message"></div>
-          <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
+          <button type="submit" class="login-submit-btn">Login</button>
         </form>
-        <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          New here? <a href="#" onclick="openSignupPopup(); closeLoginPopup();"
-            style="color:#2563eb; font-weight:600;">Create Account</a>
-        </p>
-        <p style="text-align:center; margin-top:0.5rem;">
-          <a href="#" onclick="closeLoginPopup(); openAdminPopup();"
-            style="color:#64748b; font-size:0.85rem; text-decoration:none;">Admin Access</a>
-        </p>
+        <div class="modal-footer">
+          New here? <a href="#" onclick="openSignupPopup()" class="modal-link">Create Account</a>
+          <a href="#" onclick="openAdminPopup()" class="admin-link">Admin Access</a>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- SIGNUP MODAL -->
-  <div class="signup-modal" id="signupModal">
+  <div class="signup-modal" id="signupModal" onclick="if(event.target === this) closeAllModals()">
     <div class="modal-wrapper">
       <div class="modal-left signup-bg">
         <div class="modal-brand">
@@ -248,7 +244,7 @@
             </svg>
             <input type="text" id="signup-name" name="name" placeholder="Full Name" required>
           </div>
-          <div class="input-group" style="margin-top:1rem;">
+          <div class="input-group">
             <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -256,7 +252,7 @@
             </svg>
             <input type="email" id="signup-email" name="email" placeholder="Email Address" required>
           </div>
-          <div class="input-group" style="margin-top:1rem;">
+          <div class="input-group">
             <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -264,7 +260,7 @@
             </svg>
             <input type="password" id="signup-password" name="password" placeholder="Create Password" required>
           </div>
-          <div class="input-group" style="margin-top:1rem;">
+          <div class="input-group">
             <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -281,18 +277,17 @@
             </label>
           </div>
           <div id="signup-error-msg" class="error-message"></div>
-          <button type="submit" class="signup-submit-btn" style="margin-top:1rem;">Create Account</button>
+          <button type="submit" class="signup-submit-btn">Create Account</button>
         </form>
-        <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          Already have an account? <a href="#" onclick="openLoginPopup(); closeSignupPopup();"
-            style="color:#2563eb; font-weight:600;">Login</a>
-        </p>
+        <div class="modal-footer">
+          Already have an account? <a href="#" onclick="openLoginPopup()" class="modal-link">Login</a>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- ADMIN MODAL -->
-  <div class="admin-modal" id="adminModal">
+  <div class="admin-modal" id="adminModal" onclick="if(event.target === this) closeAllModals()">
     <div class="admin-container-popup">
       <button class="close-btn" onclick="closeAllModals()">&times;</button>
       <div class="admin-badge">Admin Access</div>
@@ -306,7 +301,7 @@
           </svg>
           <input type="text" id="admin-id" name="adminId" placeholder="Admin Username" required>
         </div>
-        <div class="input-group" style="margin-top:1rem;">
+        <div class="input-group">
           <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -315,7 +310,7 @@
           <input type="password" id="admin-password" name="adminPassword" placeholder="Secure Password" required>
         </div>
         <div id="admin-error-msg" class="error-message"></div>
-        <button type="submit" class="admin-submit-btn" style="margin-top:1.5rem;">Access Dashboard</button>
+        <button type="submit" class="admin-submit-btn">Access Dashboard</button>
         <div class="security-note">
           <span>🔒</span> <strong>Security Notice:</strong> Admin access is logged and monitored.
         </div>
@@ -376,7 +371,7 @@
             aria-label="LeetCode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="currentColor">
               <path
-                d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1'374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z" />
+                d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1.374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z" />
             </svg></a>
           <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/" target="_blank" rel="noopener noreferrer"
             aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -437,18 +432,22 @@
       themeButtons.forEach(button => {
         const icon = button.querySelector('.theme-toggle-icon');
         const label = button.querySelector('.theme-toggle-label');
-        const darkMode = theme === 'dark';
+        const isDark = theme === 'dark';
 
-        button.setAttribute('aria-pressed', String(darkMode));
-        if (icon) icon.textContent = darkMode ? '☀️' : '🌙';
-        if (label) label.textContent = darkMode ? 'Light Mode' : 'Dark Mode';
+        button.setAttribute('aria-pressed', String(isDark));
+        if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+        if (label) label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
       });
     }
 
-    applyTheme(root.getAttribute('data-theme') || 'light');
+    // Initial Apply
+    const initialTheme = localStorage.getItem('moovit-theme') || 'light';
+    applyTheme(initialTheme);
+
     themeButtons.forEach(button => {
       button.addEventListener('click', () => {
-        const nextTheme = (root.getAttribute('data-theme') || 'light') === 'light' ? 'dark' : 'light';
+        const currentTheme = root.getAttribute('data-theme') || 'light';
+        const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
         applyTheme(nextTheme);
       });
     });
@@ -464,21 +463,15 @@
       }
     });
 
-    // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
-    let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
-    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-    function updateCursor() {
-      const dx = mouseX - cursorX; const dy = mouseY - cursorY;
-      cursorX += dx * 0.2; cursorY += dy * 0.2;
-      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-      requestAnimationFrame(updateCursor);
-    }
-    if (window.innerWidth > 768) updateCursor();
-
     document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      el.addEventListener('mouseenter', () => {
+        const c = document.getElementById('cursor');
+        if (c) c.classList.add('hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        const c = document.getElementById('cursor');
+        if (c) c.classList.remove('hover');
+      });
     });
 
     // Particles
@@ -503,10 +496,12 @@
     // Mobile Menu
     const toggle = document.querySelector('.mobile-toggle');
     const menu = document.querySelector('.mobile-menu');
-    toggle.addEventListener('click', () => {
-      menu.classList.toggle('active');
-      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
-    });
+    if (toggle && menu) {
+      toggle.addEventListener('click', () => {
+        menu.classList.toggle('active');
+        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+      });
+    }
 
     // --- Modal Logic ---
     function closeAllModals() {
@@ -620,6 +615,49 @@
         } else {
           errorMsg.textContent = 'Invalid Admin credentials.';
         }
+      });
+    }
+
+    // Newsletter Submission
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = this.querySelector('input').value;
+        const btn = this.querySelector('button');
+        const originalText = btn.innerHTML;
+        
+        btn.innerHTML = 'Subscribed! ✓';
+        btn.disabled = true;
+        btn.style.background = '#10b981';
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          btn.style.background = '';
+          this.reset();
+        }, 3000);
+      });
+    }
+
+    // Hero Tracking
+    const trackingBtn = document.querySelector('.tracking-wrapper button');
+    const trackingInput = document.querySelector('.tracking-wrapper input');
+    if (trackingBtn && trackingInput) {
+      trackingBtn.addEventListener('click', () => {
+        const id = trackingInput.value.trim();
+        if (!id) {
+          trackingInput.style.borderColor = '#ef4444';
+          setTimeout(() => trackingInput.style.borderColor = '', 2000);
+          return;
+        }
+        trackingBtn.textContent = 'Searching...';
+        trackingBtn.disabled = true;
+        setTimeout(() => {
+          alert(`Tracking status for ${id}: In Transit - On schedule for delivery.`);
+          trackingBtn.textContent = 'Track Parcel';
+          trackingBtn.disabled = false;
+        }, 1500);
       });
     }
 
