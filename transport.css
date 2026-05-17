@@ -846,12 +846,17 @@
       justify-content: center;
       align-items: center;
       pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
       pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
     }
 
     /* Error Messages */
