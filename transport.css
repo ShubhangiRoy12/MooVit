@@ -709,8 +709,6 @@
     }
 
     .service-alert,
-    .login-modal .modal-wrapper,
-    .signup-modal .modal-wrapper,
     .admin-container-popup {
       position: fixed;
       top: 50%;
@@ -730,12 +728,71 @@
     }
 
     .service-alert.active,
-    .login-modal.active .modal-wrapper,
-    .signup-modal.active .modal-wrapper,
     .admin-modal.active .admin-container-popup {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
       visibility: visible;
+    }
+
+    .modal-wrapper {
+      width: min(960px, 100%);
+      display: grid;
+      grid-template-columns: minmax(280px, 0.95fr) minmax(340px, 1.05fr);
+      background: var(--modal-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 3rem 2.5rem;
+      background: linear-gradient(160deg, #0f172a 0%, #1d4ed8 100%);
+      color: #f8fafc;
+    }
+
+    .signup-bg {
+      background: linear-gradient(160deg, #0f172a 0%, #059669 100%);
+    }
+
+    .modal-brand {
+      max-width: 320px;
+    }
+
+    .modal-brand h3 {
+      margin: 1.25rem 0 0.75rem;
+      font-size: 2rem;
+      line-height: 1.1;
+      color: #fff;
+    }
+
+    .modal-brand p {
+      margin: 0;
+      color: rgba(248, 250, 252, 0.82);
+      line-height: 1.7;
+    }
+
+    .modal-right {
+      padding: 2.5rem;
+    }
+
+    .modal-right h2 {
+      margin: 0 0 1.5rem;
+      color: var(--text-primary);
+      font-size: 2rem;
     }
 
     .service-alert h3 {
@@ -845,13 +902,34 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
+      opacity: 1;
+      visibility: visible;
       pointer-events: auto;
+    }
+
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        grid-template-columns: 1fr;
+        max-width: 560px;
+      }
+
+      .modal-left {
+        display: none;
+      }
+
+      .modal-right {
+        padding: 2rem 1.5rem;
+      }
     }
 
     /* Error Messages */
