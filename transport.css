@@ -709,8 +709,8 @@
     }
 
     .service-alert,
-    .login-container,
-    .signup-container,
+    .login-modal .modal-wrapper,
+    .signup-modal .modal-wrapper,
     .admin-container-popup {
       position: fixed;
       top: 50%;
@@ -730,8 +730,8 @@
     }
 
     .service-alert.active,
-    .login-modal.active .login-container,
-    .signup-modal.active .signup-container,
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper,
     .admin-modal.active .admin-container-popup {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
