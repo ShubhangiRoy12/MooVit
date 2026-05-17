@@ -20,7 +20,7 @@
 </head>
 
 <body data-theme="light">
-   <div class="cursor"></div>
+   <div id="cursor" class="cursor"></div>
 
   <div class="cursor-tail">
     <div class="circle"></div>
@@ -68,8 +68,8 @@
           <span class="theme-toggle-label">Dark Mode</span>
         </button>
         <div class="auth-divider"></div>
-        <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
-        <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
+        <a href="javascript:void(0)" onclick="openLoginPopup()" class="btn-text">Login</a>
+        <a href="javascript:void(0)" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
         <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
             class="bar"></span></button>
       </div>
@@ -464,22 +464,7 @@
       }
     });
 
-    // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
-    let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
-    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-    function updateCursor() {
-      const dx = mouseX - cursorX; const dy = mouseY - cursorY;
-      cursorX += dx * 0.2; cursorY += dy * 0.2;
-      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-      requestAnimationFrame(updateCursor);
-    }
-    if (window.innerWidth > 768) updateCursor();
-
-    document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
+    
 
     // Particles
     const particles = document.getElementById('particles');
