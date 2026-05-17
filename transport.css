@@ -746,15 +746,8 @@
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       position: relative;
       z-index: 1002;
-      opacity: 0;
-      transform: translateY(24px) scale(0.98);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .login-modal.active .modal-wrapper,
-    .signup-modal.active .modal-wrapper {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: none;
     }
 
     .modal-left {
@@ -918,7 +911,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
       padding: 1.5rem;
@@ -931,6 +924,7 @@
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
+      display: flex;
       opacity: 1;
       visibility: visible;
       pointer-events: auto;

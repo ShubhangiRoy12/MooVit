@@ -68,8 +68,8 @@
           <span class="theme-toggle-label">Dark Mode</span>
         </button>
         <div class="auth-divider"></div>
-        <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
-        <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
+        <a href="#" onclick="openLoginPopup(); return false;" class="btn-text">Login</a>
+        <a href="#" onclick="openSignupPopup(); return false;" class="btn-header-cta">Sign Up</a>
         <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
             class="bar"></span></button>
       </div>
@@ -81,8 +81,8 @@
         <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
         <span class="theme-toggle-label">Dark Mode</span>
       </button>
-      <div class="mobile-auth"><a href="#" onclick="openLoginPopup()">Login</a><a href="#"
-          onclick="openSignupPopup()">Sign Up</a></div>
+      <div class="mobile-auth"><a href="#" onclick="openLoginPopup(); return false;">Login</a><a href="#"
+          onclick="openSignupPopup(); return false;">Sign Up</a></div>
     </div>
   </header>
 
@@ -91,7 +91,7 @@
     <p>Seamless and reliable global shipping solutions, tailored for your business. Fast, secure, and always on time.
     </p>
     <div class="hero-actions">
-      <a href="#" class="btn-hero" onclick="openSignupPopup()">Get Started Today</a>
+      <a href="#" class="btn-hero" onclick="openSignupPopup(); return false;">Get Started Today</a>
       <div class="tracking-wrapper">
         <input type="text" placeholder="Enter Tracking ID...">
         <button>Track Parcel</button>
@@ -164,7 +164,7 @@
     <h3>🔒 Premium Access</h3>
     <p>Please login to access detailed service information and pricing.</p>
     <div class="alert-buttons">
-      <a href="#" onclick="openLoginPopup(); closeServiceAlert();" class="alert-btn primary">Login Now</a>
+      <a href="#" onclick="openLoginPopup(); closeServiceAlert(); return false;" class="alert-btn primary">Login Now</a>
       <button class="alert-btn close" onclick="closeServiceAlert()">Close</button>
     </div>
   </div>
@@ -209,11 +209,11 @@
           <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          New here? <a href="#" onclick="openSignupPopup()"
+          New here? <a href="#" onclick="openSignupPopup(); return false;"
             style="color:#2563eb; font-weight:600;">Create Account</a>
         </p>
         <p style="text-align:center; margin-top:0.5rem;">
-          <a href="#" onclick="openAdminPopup()"
+          <a href="#" onclick="openAdminPopup(); return false;"
             style="color:#64748b; font-size:0.85rem; text-decoration:none;">Admin Access</a>
         </p>
       </div>
@@ -284,7 +284,7 @@
           <button type="submit" class="signup-submit-btn" style="margin-top:1rem;">Create Account</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          Already have an account? <a href="#" onclick="openLoginPopup()"
+          Already have an account? <a href="#" onclick="openLoginPopup(); return false;"
             style="color:#2563eb; font-weight:600;">Login</a>
         </p>
       </div>
@@ -462,23 +462,6 @@
         card.style.setProperty('--mouse-x', `${x}px`);
         card.style.setProperty('--mouse-y', `${y}px`);
       }
-    });
-
-    // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
-    let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
-    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-    function updateCursor() {
-      const dx = mouseX - cursorX; const dy = mouseY - cursorY;
-      cursorX += dx * 0.2; cursorY += dy * 0.2;
-      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-      requestAnimationFrame(updateCursor);
-    }
-    if (window.innerWidth > 768) updateCursor();
-
-    document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
 
     // Particles
