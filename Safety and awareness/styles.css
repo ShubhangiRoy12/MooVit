@@ -211,10 +211,10 @@ nav ul li a:hover {
 .importance-card {
     background: white;
     padding: 40px 30px;
-    border-radius: 20px;
+    border-radius: 15px;
     box-shadow: var(--shadow);
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     cursor: pointer;
     border: 2px solid transparent;
 }
