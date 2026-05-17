@@ -695,12 +695,13 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--overlay-bg);
-      backdrop-filter: blur(8px);
-      z-index: 999;
+      background: color-mix(in srgb, var(--overlay-bg) 82%, #020617);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 1000;
       opacity: 0;
       visibility: hidden;
-      transition: 0.3s;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .overlay.active {
@@ -709,8 +710,6 @@
     }
 
     .service-alert,
-    .login-container,
-    .signup-container,
     .admin-container-popup {
       position: fixed;
       top: 50%;
@@ -730,12 +729,66 @@
     }
 
     .service-alert.active,
-    .login-modal.active .login-container,
-    .signup-modal.active .signup-container,
     .admin-modal.active .admin-container-popup {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
       visibility: visible;
+    }
+
+    .modal-wrapper {
+      width: min(960px, 100%);
+      display: grid;
+      grid-template-columns: minmax(280px, 0.95fr) minmax(340px, 1.05fr);
+      background: var(--modal-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 1002;
+      opacity: 1;
+      transform: none;
+    }
+
+    .modal-left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 3rem 2.5rem;
+      background: linear-gradient(160deg, #0f172a 0%, #1d4ed8 100%);
+      color: #f8fafc;
+    }
+
+    .signup-bg {
+      background: linear-gradient(160deg, #0f172a 0%, #059669 100%);
+    }
+
+    .modal-brand {
+      max-width: 320px;
+    }
+
+    .modal-brand h3 {
+      margin: 1.25rem 0 0.75rem;
+      font-size: 2rem;
+      line-height: 1.1;
+      color: #fff;
+    }
+
+    .modal-brand p {
+      margin: 0;
+      color: rgba(248, 250, 252, 0.82);
+      line-height: 1.7;
+    }
+
+    .modal-right {
+      padding: 2.5rem;
+    }
+
+    .modal-right h2 {
+      margin: 0 0 1.5rem;
+      color: var(--text-primary);
+      font-size: 2rem;
     }
 
     .service-alert h3 {
@@ -790,9 +843,25 @@
       font-size: 0.9rem;
     }
 
+    .input-group {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      width: 20px;
+      height: 20px;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      z-index: 1;
+    }
+
     .form-group input {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.9rem 0.9rem 0.9rem 3rem;
       border-radius: 10px;
       border: 1px solid var(--input-border);
       background: var(--input-bg);
@@ -837,21 +906,43 @@
     .signup-modal,
     .admin-modal {
       position: fixed;
-      z-index: 1001;
+      z-index: 1003;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
       pointer-events: auto;
+    }
+
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        grid-template-columns: 1fr;
+        max-width: 560px;
+      }
+
+      .modal-left {
+        display: none;
+      }
+
+      .modal-right {
+        padding: 2rem 1.5rem;
+      }
     }
 
     /* Error Messages */
