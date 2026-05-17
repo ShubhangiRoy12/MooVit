@@ -695,12 +695,13 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--overlay-bg);
-      backdrop-filter: blur(8px);
-      z-index: 999;
+      background: color-mix(in srgb, var(--overlay-bg) 82%, #020617);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 1000;
       opacity: 0;
       visibility: hidden;
-      transition: 0.3s;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .overlay.active {
@@ -743,6 +744,8 @@
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 1002;
       opacity: 0;
       transform: translateY(24px) scale(0.98);
       transition: opacity 0.3s ease, transform 0.3s ease;
@@ -847,9 +850,25 @@
       font-size: 0.9rem;
     }
 
+    .input-group {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      width: 20px;
+      height: 20px;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      z-index: 1;
+    }
+
     .form-group input {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.9rem 0.9rem 0.9rem 3rem;
       border-radius: 10px;
       border: 1px solid var(--input-border);
       background: var(--input-bg);
@@ -894,7 +913,7 @@
     .signup-modal,
     .admin-modal {
       position: fixed;
-      z-index: 1001;
+      z-index: 1003;
       top: 0;
       left: 0;
       width: 100%;
