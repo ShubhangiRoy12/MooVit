@@ -85,7 +85,7 @@
       /* --- BACKGROUND IMAGE UPDATE --- */
       /* Added a dark overlay (rgba) so text remains readable on top of the image */
       background: linear-gradient(var(--bg-overlay-start), var(--bg-overlay-end)),
-        url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+        url('home_hero.png.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -709,8 +709,6 @@
     }
 
     .service-alert,
-    .login-container,
-    .signup-container,
     .admin-container-popup {
       position: fixed;
       top: 50%;
@@ -729,13 +727,86 @@
       transition: 0.3s;
     }
 
+    .modal-wrapper {
+      display: flex;
+      background: var(--modal-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      overflow: hidden;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.9);
+      transition: 0.3s;
+      /* Remove position fixed so it behaves well in the flex container */
+    }
+
     .service-alert.active,
-    .login-modal.active .login-container,
-    .signup-modal.active .signup-container,
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper,
     .admin-modal.active .admin-container-popup {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
       visibility: visible;
+    }
+    
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper {
+      transform: scale(1); /* No translate needed as parent is flex center */
+    }
+
+    .modal-left {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .signup-bg {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    }
+
+    .modal-brand svg {
+      margin-bottom: 1rem;
+    }
+
+    .modal-brand h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-brand p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.95rem;
+    }
+
+    .modal-right {
+      flex: 1.2;
+      padding: 3rem 2.5rem;
+      position: relative;
+    }
+
+    .modal-right h2 {
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        flex-direction: column;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      .modal-left, .modal-right {
+        padding: 2rem 1.5rem;
+      }
     }
 
     .service-alert h3 {
