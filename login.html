@@ -10,152 +10,223 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    /* theme variables copied from index.html */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
     :root {
       --primary: #2563eb;
-      --primary-light: #2d5a87;
+      --primary-light: #3b82f6;
       --secondary: #1d4ed8;
       --accent: #f59e0b;
-      --glass: rgba(255, 255, 255, 0.1);
-      --glass-border: rgba(255, 255, 255, 0.2);
-      --bg-overlay: rgba(255, 255, 255, 0.9);
-      --text-color: #1a1a1a;
-      --header-bg: rgba(255, 255, 255, 0.9);
-      --header-scrolled-bg: rgba(255, 255, 255, 0.95);
-      --nav-color: rgba(0, 0, 0, 0.7);
-      --nav-hover: #000000;
-      --search-bg: rgba(0, 0, 0, 0.05);
-      --search-border: rgba(0, 0, 0, 0.1);
-      --btn-bg: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-      --btn-shadow: rgba(29, 78, 216, 0.4);
-      --border-color: rgba(0, 0, 0, 0.1);
+      --glass-bg: rgba(15, 23, 42, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      --text-color: #ffffff;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      padding: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
-        url('https://images.pexels.com/photos/1637438/pexels-photo-1637438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.8)),
+        url('home_hero.png.png');
       background-size: cover;
       background-position: center;
-      height: 100vh;
+      background-attachment: fixed;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       color: var(--text-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Abstract background shapes */
+    body::before, body::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: -1;
+      animation: float 10s ease-in-out infinite alternate;
+    }
+    body::before {
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: rgba(37, 99, 235, 0.3);
+    }
+    body::after {
+      bottom: -10%;
+      right: -10%;
+      width: 40vw;
+      height: 40vw;
+      background: rgba(245, 158, 11, 0.2);
+      animation-delay: -5s;
+    }
+    
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
     }
 
     .auth-container {
-      background: var(--bg-overlay);
-      backdrop-filter: blur(10px);
-      padding: 40px 30px;
-      border-radius: 12px;
-      width: 320px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 50px 40px;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: var(--glass-shadow);
       border: 1px solid var(--glass-border);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .auth-container h2 {
       text-align: center;
-      margin-bottom: 25px;
-      color: var(--text-color);
+      margin-bottom: 30px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .auth-container label {
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
       display: block;
-      margin-bottom: 15px;
-      color: var(--text-color);
-      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
     }
 
-    .auth-container input {
+    .input-group input {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid var(--border-color);
-      border-radius: 5px;
-      box-sizing: border-box;
-      background: rgba(255,255,255,0.7);
-      color: #000;
-    }
-
-    .auth-container button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      background: var(--btn-bg);
+      padding: 14px 16px;
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.2);
       color: white;
-      border: none;
-      border-radius: 5px;
       font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .remember-container {
+      display: flex;
+      align-items: center;
       cursor: pointer;
-      transition: filter 0.3s ease;
-      box-shadow: 0 4px 15px var(--btn-shadow);
     }
 
-    .auth-container button:hover {
-      filter: brightness(0.9);
-    }
-
-    .auth-container p {
-      text-align: center;
-      margin-top: 20px;
-      color: var(--text-color);
+    .remember-container input {
+      margin-right: 8px;
+      accent-color: var(--primary);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
     }
 
     .auth-container a {
-      color: var(--primary);
+      color: var(--primary-light);
       text-decoration: none;
-    }
-
-    .auth-container a:hover {
-      text-decoration: underline;
-    }
-
-    /* Admin link styling */
-    .admin-link-inline {
-      color: #e74c3c !important;
+      transition: color 0.3s ease;
       font-weight: 500;
     }
 
+    .auth-container a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .auth-container button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .auth-container button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+    
+    .auth-container button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .auth-footer p {
+      margin-bottom: 8px;
+    }
+
+    .admin-link-inline {
+      color: #f87171 !important;
+    }
+    
     .admin-link-inline:hover {
-      color: #c0392b !important;
-      text-decoration: underline !important;
+      color: #fca5a5 !important;
+    }
+
+    #error-msg {
+      color: #ef4444;
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 14px;
+      min-height: 20px;
     }
 
     /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      body {
-        padding: 20px;
-      }
-
-      .auth-container {
-        width: 100%;
-        max-width: 350px;
-      }
-    }
-
     @media (max-width: 480px) {
       .auth-container {
-        padding: 30px 25px;
-      }
-
-      .auth-container p {
-        font-size: 14px;
-        line-height: 1.5;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .auth-container {
-        padding: 30px 25px;
-      }
-
-      .auth-container p {
-        font-size: 14px;
-        line-height: 1.5;
+        padding: 40px 25px;
+        border-radius: 20px;
+        margin: 20px;
       }
     }
   </style>
@@ -165,24 +236,37 @@
   <div class="auth-container">
     <form id="login-form">
       <h2>Login to MooVit.</h2>
-      <label>Email
-        <input type="email" name="email" id="email" required>
-      </label>
-      <label>Password
-        <input type="password" name="password" id="password" required>
-      </label>
-      <label style="display:flex; align-items:center; margin-top:10px;">
-        <input type="checkbox" id="remember" style="margin-right:6px;"> Remember me
-      </label>
-      <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
+      
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="you@example.com" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="••••••••" required>
+      </div>
+      
+      <div class="form-options">
+        <label class="remember-container">
+          <input type="checkbox" id="remember">
+          <span style="color: var(--text-muted);">Remember me</span>
+        </label>
+        <a href="#" id="forgot-link">Forgot password?</a>
+      </div>
+
+      <div id="error-msg"></div>
+      
       <button type="submit">Login</button>
-      <p style="margin-top:12px;"><a href="#" id="forgot-link">Forgot password?</a></p>
-      <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
+      
+      <div class="auth-footer">
+        <p>New? <a href="register.html">Register here</a></p>
+        <p><a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
+      </div>
     </form>
   </div>
   
   <script>
-
     // populate email if remembered
     window.addEventListener('load', function () {
       const saved = localStorage.getItem('rememberedEmail');
@@ -207,12 +291,11 @@
         return;
       }
 
-
       // Password strength validation
       // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
       const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
       if (!strongPasswordPattern.test(password)) {
-        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+        errorMsg.textContent = 'Password must be at least 8 characters and include upper, lower, number, and special char.';
         return;
       }
 
