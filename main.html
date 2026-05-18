@@ -58,6 +58,17 @@
             background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
             color: var(--gray-800);
         }
+        
+        /* Fix hero text visibility in light mode */
+        html.theme-light .welcome-section h2 {
+            color: #0f172a;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        html.theme-light .welcome-section p {
+            color: #1e293b;
+            opacity: 1;
+        }
 
         /* Header */
          header {
