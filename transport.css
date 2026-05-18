@@ -842,15 +842,18 @@
       left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
+
+      display: none;   /* FIXED */
       justify-content: center;
       align-items: center;
+
       pointer-events: none;
     }
 
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
+      display: flex;      /* FIXED */
       pointer-events: auto;
     }
 
