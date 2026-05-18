@@ -508,6 +508,77 @@
                 transform: translateY(0);
             }
         }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background: var(--white);
+            color: var(--gray-600);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-orange);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+/* Dark Mode Styles */
+html.theme-dark {
+    --white: #1e293b;
+    --gray-100: #334155;
+    --gray-200: #475569;
+    --gray-600: #cbd5e1;
+    --gray-800: #f1f5f9;
+    --primary-blue: #e2e8f0;
+    --light-bg: #0f172a;
+}
+
+html.theme-dark body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    color: #f1f5f9;
+}
+
+html.theme-dark header {
+    background: rgba(15, 23, 42, 0.8);
+}
+
+html.theme-dark .service-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+html.theme-dark .card-title {
+    color: #f1f5f9;
+}
+
+html.theme-dark .card-description {
+    color: #cbd5e1;
+}
+
+html.theme-dark .card-stat {
+    background: #334155;
+    color: #93c5fd;
+}
+
+html.theme-dark .header-nav a {
+    background: #334155;
+    color: #cbd5e1;
+}
+
+html.theme-dark .theme-toggle {
+    background: #334155;
+    color: #cbd5e1;
+}
     </style>
 </head>
 
@@ -524,6 +595,9 @@
                     <i class="fas fa-home"></i>
                     Home
                 </a>
+                <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle color mode" title="Toggle dark / light">
+                   <i class="fas fa-moon"></i>
+                </button>
                 <a href="index.html">
                     <i class="fas fa-sign-out-alt"></i>
                     Go Back
@@ -859,6 +933,42 @@
             </div>
         </div>
     </footer>
+    <script>
+(function(){
+    const toggle = document.getElementById('theme-toggle');
+    const storageKey = 'moovit-theme';
+    const darkClass = 'theme-dark';
+
+    function setToggleIcon(isDark){
+        if(!toggle) return;
+        toggle.innerHTML = isDark
+            ? '<i class="fas fa-sun"></i>'
+            : '<i class="fas fa-moon"></i>';
+        toggle.setAttribute('aria-pressed', String(isDark));
+    }
+
+    function applyTheme(theme){
+        if(theme === 'dark') document.documentElement.classList.add(darkClass);
+        else document.documentElement.classList.remove(darkClass);
+        setToggleIcon(theme === 'dark');
+    }
+
+    function init(){
+        let theme = localStorage.getItem(storageKey) || 'light';
+        applyTheme(theme);
+        if(toggle){
+            toggle.addEventListener('click', function(){
+                const next = document.documentElement.classList.contains(darkClass) ? 'light' : 'dark';
+                localStorage.setItem(storageKey, next);
+                applyTheme(next);
+            });
+        }
+    }
+
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+</script>
 </body>
 
 </html>
