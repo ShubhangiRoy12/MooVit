@@ -43,6 +43,8 @@
       --theme-toggle-bg: rgba(255, 255, 255, 0.72);
       --theme-toggle-border: rgba(148, 163, 184, 0.3);
       --theme-toggle-shadow: rgba(15, 23, 42, 0.08);
+      --spotlight-bg: rgba(37, 99, 235, 0.03);
+      --spotlight-border: rgba(37, 99, 235, 0.25);
     }
 
     :root[data-theme="dark"],
@@ -76,6 +78,8 @@
       --theme-toggle-bg: rgba(255, 255, 255, 0.08);
       --theme-toggle-border: rgba(255, 255, 255, 0.14);
       --theme-toggle-shadow: rgba(0, 0, 0, 0.2);
+      --spotlight-bg: rgba(255, 255, 255, 0.06);
+      --spotlight-border: rgba(255, 255, 255, 0.4);
     }
 
     body {
@@ -586,7 +590,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+      background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), var(--spotlight-bg), transparent 40%);
       opacity: 0;
       transition: opacity 0.5s ease;
       pointer-events: none;
@@ -606,7 +610,7 @@
       bottom: 0;
       border-radius: 24px;
       padding: 1px;
-      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.4), transparent 40%);
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), var(--spotlight-border), transparent 40%);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
@@ -846,12 +850,196 @@
       justify-content: center;
       align-items: center;
       pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
       pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Split-Pane Premium Modals */
+    .login-modal .modal-wrapper,
+    .signup-modal .modal-wrapper {
+      background: var(--modal-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      width: 90%;
+      max-width: 800px;
+      min-height: 500px;
+      display: flex;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+    }
+
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .modal-left {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      color: white;
+      text-align: left;
+      position: relative;
+    }
+
+    .modal-left.signup-bg {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    }
+
+    .modal-brand {
+      z-index: 2;
+    }
+
+    .modal-brand svg {
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      animation: float 6s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+    }
+
+    .modal-brand h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+
+    .modal-brand p {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.5;
+      color: #e2e8f0;
+    }
+
+    .modal-right {
+      flex: 1.2;
+      padding: 3rem;
+      background: var(--modal-bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .modal-right h2 {
+      color: var(--text-primary);
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      letter-spacing: -0.5px;
+    }
+
+    .modal-right .close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .modal-right .close-btn:hover {
+      color: var(--text-primary);
+    }
+
+    /* Modal Input Groups */
+    .input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .input-group .input-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--text-muted);
+      pointer-events: none;
+      transition: color 0.3s ease;
+      z-index: 10;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.8rem;
+      border-radius: 12px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--input-text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: var(--button-primary);
+      background: var(--panel-strong);
+      box-shadow: 0 0 0 4px var(--button-shadow);
+    }
+
+    .input-group input:focus + .input-icon,
+    .input-group input:focus ~ .input-icon {
+      color: var(--button-primary);
+    }
+
+    @media (max-width: 768px) {
+      .login-modal .modal-wrapper,
+      .signup-modal .modal-wrapper {
+        flex-direction: column;
+        max-width: 450px;
+        min-height: auto;
+      }
+      
+      .modal-left {
+        padding: 2rem;
+        text-align: center;
+        align-items: center;
+      }
+      
+      .modal-left h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .modal-left p {
+        font-size: 0.9rem;
+      }
+      
+      .modal-brand svg {
+        margin-bottom: 0.75rem;
+      }
+      
+      .modal-right {
+        padding: 2.5rem 2rem;
+      }
+      
+      .modal-right h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
     }
 
     /* Error Messages */
@@ -874,6 +1062,10 @@
       text-transform: uppercase;
       display: inline-block;
       margin-bottom: 10px;
+    }
+
+    .admin-container-popup h2 {
+      color: var(--text-primary);
     }
 
     .admin-submit-btn {
