@@ -10,6 +10,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Enhanced Knowledge Base organized by categories
     const knowledgeBase = {
+        // MooVit Platform Features
+        moovit: [
+            { question: "what is moovit", answer: "MooVit is a smart, real-time safety and transit assistant designed to enhance mobility. It features assistive navigation technology for visually impaired users (via Live Object Detection and voice alerts), road safety awareness, real-time fleet management, shipment tracking, route optimization, cab sharing, and transit services. 🚗💨" },
+            { question: "moovit", answer: "MooVit is a unified transportation platform featuring Live Object Detection assistive navigation for the visually impaired, road safety awareness initiatives, fleet management, route optimization, cab sharing, and transit tracking. 🌟" },
+            { question: "visually impaired", answer: "MooVit includes advanced Live Object Detection that acts as a real-time assistive assistant for visually impaired users. It detects obstacles, pedestrians, and traffic signals using camera input and provides voice/audio alerts to ensure safe mobility. 👁️✨" },
+            { question: "blind", answer: "MooVit includes advanced Live Object Detection that acts as a real-time assistive assistant for visually impaired and blind users. It detects road obstacles, pedestrians, and traffic signals via camera input and provides instant voice alerts for safe, independent travel. 👁️✨" },
+            { question: "blind assistant", answer: "MooVit includes advanced Live Object Detection that acts as a real-time assistive assistant for visually impaired and blind users. It detects road obstacles, pedestrians, and traffic signals via camera input and provides instant voice alerts for safe, independent travel. 👁️✨" },
+            { question: "assistive navigation", answer: "MooVit includes advanced Live Object Detection that acts as a real-time assistive assistant for visually impaired and blind users. It detects road obstacles, pedestrians, and traffic signals via camera input and provides instant voice alerts for safe, independent travel. 👁️✨" },
+            { question: "live object detection", answer: "Live Object Detection is our flagship assistive navigation feature. It uses computer vision to detect road obstacles, pedestrians, and traffic signals in real time, helping visually impaired individuals travel independently and safely. 🚦🚶‍♂️" },
+            { question: "object detection", answer: "Live Object Detection is our flagship assistive navigation feature. It uses computer vision to detect road obstacles, pedestrians, and traffic signals in real time, helping visually impaired individuals travel independently and safely. 🚦🚶‍♂️" },
+            { question: "obstacle detection", answer: "Live Object Detection is our flagship assistive navigation feature. It uses computer vision to detect road obstacles, pedestrians, and traffic signals in real time, helping visually impaired individuals travel independently and safely. 🚦🚶‍♂️" },
+            { question: "sharp object detection", answer: "Our Sharp Object Detection uses AI-powered computer vision to scan road surfaces and alert drivers/riders to nearby sharp or hazardous objects like nails, glass shards, or debris, preventing accidents and tire damage. 🛡️" },
+            { question: "road safety", answer: "MooVit prioritizes road safety awareness by highlighting critical safety measures like helmet and seatbelt compliance. In India, non-compliance contributes to ~30% of two-wheeler fatalities and up to 14% of car-related deaths, and our initiative aims to educate and promote safety habits. 🪖" },
+            { question: "helmet", answer: "Our Road Safety Awareness campaign highlights helmet and seatbelt compliance. Wearing helmets reduces the risk of head injury by 70% and death by 40% in two-wheeler crashes. MooVit aims to promote these essential life-saving habits. 🪖" },
+            { question: "seatbelt", answer: "Our Road Safety Awareness campaign highlights seatbelt compliance. Sticking to seatbelts reduces the risk of fatal injuries by 45-50% in front seat occupants. MooVit aims to promote these essential life-saving habits. 🦺" },
+            { question: "fleet management", answer: "MooVit's Fleet Management system allows operators to monitor driver behavior, maintenance schedules, real-time locations, fuel usage, and vehicle utilization metrics from a centralized dashboard. 🚛" },
+            { question: "shipment tracking", answer: "MooVit offers real-time shipment tracking, grouping them into status categories: Pending, In Route, Delivered, and Delayed, alongside transit time metrics and volume trends to optimize delivery workflows. 📦" },
+            { question: "route optimization", answer: "Route Optimization analyzes origins, destinations, distances, and traffic performance to calculate the fastest, safest, and most fuel-efficient routes, saving up to 15% in fuel costs. 🗺️" },
+            { question: "optimize routes", answer: "Route Optimization analyzes origins, destinations, distances, and traffic performance to calculate the fastest, safest, and most fuel-efficient routes, saving up to 15% in fuel costs. 🗺️" },
+            { question: "cab sharing", answer: "MooVit's Cab Sharing Network enables users to offer or join rides with verified community members, reducing travel expenses by up to 60% while decreasing traffic congestion and carbon footprints. 🚗" },
+            { question: "carpooling", answer: "MooVit's Cab Sharing Network enables users to offer or join rides with verified community members, reducing travel expenses by up to 60% while decreasing traffic congestion and carbon footprints. 🚗" },
+            { question: "public transit", answer: "The Public Transit Hub provides real-time bus and train tracking, accurate schedules, and service alerts so commuters can plan their routes efficiently and stay informed. 🚌" }
+        ],
+
         // Basic Greetings & Interactions
         greetings: [
             { question: "hello", answer: "Hello there! 👋 How can I assist you today?" },
@@ -224,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Category emojis and titles
             const categoryInfo = {
+                moovit: { title: '🤖 MooVit Platform', icon: '🤖' },
                 greetings: { title: '👋 Greetings', icon: '👋' },
                 transportation: { title: '🚗 Transportation', icon: '🚗' },
                 safety: { title: '🛡️ Safety', icon: '🛡️' },
@@ -242,11 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show first 3 questions from each category
             knowledgeBase[categoryKey].slice(0, 3).forEach(item => {
                 const questionBtn = document.createElement('button');
-                questionBtn.classList.add(
-                    'suggested-question-btn', 'w-full', 'text-left', 'bg-white', 'hover:bg-blue-50',
-                    'text-gray-700', 'hover:text-blue-700', 'p-3', 'rounded-lg', 'border', 'border-gray-200',
-                    'hover:border-blue-300', 'transition-all', 'duration-200', 'text-sm'
-                );
+                questionBtn.classList.add('suggested-question-btn');
                 
                 questionBtn.textContent = item.question.charAt(0).toUpperCase() + item.question.slice(1);
                 questionBtn.addEventListener('click', () => {
@@ -274,14 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 randomQuestions.push(question);
             }
         }
-        
         randomQuestions.forEach(item => {
             const questionBtn = document.createElement('button');
-            questionBtn.classList.add(
-                'suggested-question-btn', 'w-full', 'text-left', 'bg-blue-50', 'hover:bg-blue-100',
-                'text-blue-700', 'p-3', 'rounded-lg', 'border', 'border-blue-200',
-                'hover:border-blue-400', 'transition-all', 'duration-200', 'text-sm'
-            );
+            questionBtn.classList.add('suggested-question-btn', 'random');
             
             questionBtn.innerHTML = `<span class="font-medium">${item.question.charAt(0).toUpperCase() + item.question.slice(1)}</span>`;
             questionBtn.addEventListener('click', () => {

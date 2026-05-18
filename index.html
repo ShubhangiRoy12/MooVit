@@ -20,7 +20,7 @@
 </head>
 
 <body data-theme="light">
-   <div class="cursor"></div>
+   <div class="cursor" id="cursor"></div>
 
   <div class="cursor-tail">
     <div class="circle"></div>
@@ -296,7 +296,7 @@
     <div class="admin-container-popup">
       <button class="close-btn" onclick="closeAllModals()">&times;</button>
       <div class="admin-badge">Admin Access</div>
-      <h2 style="color:white; margin-bottom:1.5rem; margin-top:0;">Control Panel</h2>
+      <h2 style="margin-bottom:1.5rem; margin-top:0;">Control Panel</h2>
       <form id="admin-form-popup" class="form-group">
         <div class="input-group">
           <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -445,7 +445,7 @@
       });
     }
 
-    applyTheme(root.getAttribute('data-theme') || 'light');
+    applyTheme(localStorage.getItem('moovit-theme') || root.getAttribute('data-theme') || 'light');
     themeButtons.forEach(button => {
       button.addEventListener('click', () => {
         const nextTheme = (root.getAttribute('data-theme') || 'light') === 'light' ? 'dark' : 'light';
@@ -465,7 +465,7 @@
     });
 
     // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
+    // cursor is already declared globally by cursor.js
     let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
     document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
     function updateCursor() {
@@ -565,7 +565,7 @@
         const submitBtn = this.querySelector('.login-submit-btn');
         submitBtn.textContent = 'Logging in...';
         submitBtn.disabled = true;
-        setTimeout(() => { window.location.href = '#'; }, 1000);
+        setTimeout(() => { window.location.href = 'main.html'; }, 1000);
       });
     }
 
@@ -616,7 +616,7 @@
           const submitBtn = this.querySelector('.admin-submit-btn');
           submitBtn.textContent = 'Accessing...';
           submitBtn.disabled = true;
-          setTimeout(() => { alert('Access Granted'); closeAllModals(); }, 1000);
+          localStorage.setItem('admin_session', 'active_' + Date.now()); setTimeout(() => { alert('Login successful! Redirecting to admin dashboard...'); window.location.href = 'admin-dashboard.html'; }, 1000);
         } else {
           errorMsg.textContent = 'Invalid Admin credentials.';
         }
