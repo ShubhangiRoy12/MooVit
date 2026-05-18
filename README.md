@@ -105,8 +105,8 @@ MooVit/
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/ShubhangiRoy12/moovit.git
-cd moovit
+git clone https://github.com/ShubhangiRoy12/MooVit.git
+cd MooVit
 ```
 
 2. Install backend dependencies:
