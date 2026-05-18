@@ -20,7 +20,7 @@
 </head>
 
 <body data-theme="light">
-   <div class="cursor"></div>
+   <div class="cursor" id="cursor"></div>
 
   <div class="cursor-tail">
     <div class="circle"></div>
@@ -465,7 +465,7 @@
     });
 
     // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
+    // cursor is already declared globally by cursor.js
     let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
     document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
     function updateCursor() {
@@ -616,7 +616,7 @@
           const submitBtn = this.querySelector('.admin-submit-btn');
           submitBtn.textContent = 'Accessing...';
           submitBtn.disabled = true;
-          setTimeout(() => { alert('Access Granted'); closeAllModals(); }, 1000);
+          localStorage.setItem('admin_session', 'active_' + Date.now()); setTimeout(() => { alert('Login successful! Redirecting to admin dashboard...'); window.location.href = 'admin-dashboard.html'; }, 1000);
         } else {
           errorMsg.textContent = 'Invalid Admin credentials.';
         }
