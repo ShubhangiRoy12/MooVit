@@ -93,8 +93,17 @@
     <div class="hero-actions">
       <a href="#" class="btn-hero" onclick="openSignupPopup()">Get Started Today</a>
       <div class="tracking-wrapper">
-        <input type="text" placeholder="Enter Tracking ID...">
-        <button>Track Parcel</button>
+        <input id="trackingIdInput" type="text" placeholder="Enter Tracking ID...">
+        <button id="trackParcelBtn" type="button">Track Parcel</button>
+      </div>
+    </div>
+    <div class="tracking-panel" id="trackingPanel">
+      <div class="tracking-card">
+        <div class="tracking-header">
+          <h3>Live Parcel Tracker</h3>
+          <p id="trackingMessage">Enter a tracking ID such as <strong>MOO1234</strong> to view delivery status.</p>
+        </div>
+        <div id="trackingResult" class="tracking-result-card hidden" aria-live="polite"></div>
       </div>
     </div>
     <div class="hero-brands">
@@ -619,6 +628,120 @@
           setTimeout(() => { alert('Access Granted'); closeAllModals(); }, 1000);
         } else {
           errorMsg.textContent = 'Invalid Admin credentials.';
+        }
+      });
+    }
+
+    // Parcel Tracking Feature
+    const trackingData = {
+      'MOO1234': {
+        trackingId: 'MOO1234',
+        status: 'Out for delivery',
+        eta: 'June 22, 2025',
+        location: 'Bhopal Delivery Hub',
+        lastUpdate: '12 minutes ago',
+        route: [
+          { stage: 'Shipment picked up', time: 'Jun 18, 2025 · 08:15' },
+          { stage: 'Packed and loaded', time: 'Jun 18, 2025 · 10:40' },
+          { stage: 'In transit to regional hub', time: 'Jun 19, 2025 · 02:30' },
+          { stage: 'Arrived at destination city', time: 'Jun 19, 2025 · 08:05' },
+          { stage: 'Out for delivery', time: 'Jun 19, 2025 · 09:40' }
+        ]
+      },
+      'MOO5678': {
+        trackingId: 'MOO5678',
+        status: 'Arrived at sorting center',
+        eta: 'June 25, 2025',
+        location: 'Indore Sorting Center',
+        lastUpdate: '1 hour ago',
+        route: [
+          { stage: 'Shipment created', time: 'Jun 16, 2025 · 06:20' },
+          { stage: 'Picked up by courier', time: 'Jun 16, 2025 · 11:10' },
+          { stage: 'Customs clearance completed', time: 'Jun 17, 2025 · 17:30' },
+          { stage: 'Arrived at sorting center', time: 'Jun 18, 2025 · 05:55' }
+        ]
+      },
+      'MOO9012': {
+        trackingId: 'MOO9012',
+        status: 'Delivered',
+        eta: 'June 20, 2025',
+        location: 'Customer doorstep',
+        lastUpdate: 'Delivered 1 hour ago',
+        route: [
+          { stage: 'Shipment created', time: 'Jun 14, 2025 · 09:00' },
+          { stage: 'Picked up by courier', time: 'Jun 14, 2025 · 13:25' },
+          { stage: 'In transit', time: 'Jun 15, 2025 · 07:45' },
+          { stage: 'Arrived at local delivery hub', time: 'Jun 16, 2025 · 11:10' },
+          { stage: 'Delivered', time: 'Jun 20, 2025 · 14:22' }
+        ]
+      }
+    };
+
+    const trackingInput = document.getElementById('trackingIdInput');
+    const trackingButton = document.getElementById('trackParcelBtn');
+    const trackingResult = document.getElementById('trackingResult');
+    const trackingMessage = document.getElementById('trackingMessage');
+
+    function renderTrackingResult(data) {
+      if (!data) {
+        trackingResult.innerHTML = '<p class="tracking-empty">We could not find a shipment for that ID. Please check the tracking number and try again.</p>';
+        trackingResult.classList.remove('hidden');
+        return;
+      }
+
+      const routeItems = data.route.map(step => `
+        <li class="tracking-stage">
+          <strong>${step.stage}</strong>
+          <span>${step.time}</span>
+        </li>
+      `).join('');
+
+      trackingResult.innerHTML = `
+        <div class="tracking-status">
+          <span class="tracking-tag">${data.status}</span>
+          <span class="tracking-meta">ETA: ${data.eta}</span>
+        </div>
+        <div class="tracking-detail">
+          <strong>Current location</strong>
+          <span>${data.location}</span>
+        </div>
+        <div class="tracking-detail">
+          <strong>Last update</strong>
+          <span>${data.lastUpdate}</span>
+        </div>
+        <div class="tracking-detail">
+          <strong>Tracking ID</strong>
+          <span>${data.trackingId}</span>
+        </div>
+        <div>
+          <strong>Route progress</strong>
+          <ul class="tracking-stage-list">${routeItems}</ul>
+        </div>
+      `;
+      trackingResult.classList.remove('hidden');
+    }
+
+    function handleParcelTracking() {
+      const query = trackingInput.value.trim().toUpperCase();
+      if (!query) {
+        trackingMessage.textContent = 'Please enter your parcel tracking ID to continue.';
+        trackingResult.classList.add('hidden');
+        return;
+      }
+
+      trackingMessage.textContent = `Showing status for ${query}.`;
+      renderTrackingResult(trackingData[query]);
+    }
+
+    if (trackingButton) {
+      trackingButton.addEventListener('click', handleParcelTracking);
+    }
+
+    if (trackingInput) {
+      trackingInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleParcelTracking();
         }
       });
     }
