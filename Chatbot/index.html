@@ -1,95 +1,1051 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../favicon.png">
-    <title>AI Assistant Chatbot</title>
+    <title>MooVit AI Assistant</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --accent: #3b7fff;
+            --accent2: #6441f5;
+            --accent3: #19d4a3;
+            --border: #e0e8ff;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 50%, #d1fae5 100%);
+            background-attachment: fixed;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c7d4f5;
+            border-radius: 99px;
+        }
+
+        /* Header */
+        .chat-header {
+            background: linear-gradient(135deg, #1d4ed8 0%, #4338ca 55%, #0e7490 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .chat-header::after {
+            content: '';
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(99, 102, 241, .25) 0%, transparent 70%);
+            bottom: -70px;
+            right: -50px;
+            pointer-events: none;
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        /* Messages */
+        .message-animation {
+            animation: slideUp .32s cubic-bezier(.22, 1, .36, 1) both;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .bot-bubble {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px 18px 18px 4px;
+            box-shadow: 0 2px 12px rgba(59, 127, 255, .07);
+        }
+
+        .user-bubble {
+            background: linear-gradient(135deg, #3b7fff, #6441f5);
+            color: #fff;
+            border-radius: 18px 18px 4px 18px;
+            box-shadow: 0 4px 16px rgba(59, 127, 255, .28);
+        }
+
+        /* Typing */
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #93a3c4;
+            animation: typeBounce .9s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: .15s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: .30s;
+        }
+
+        @keyframes typeBounce {
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+                opacity: .4
+            }
+
+            40% {
+                transform: translateY(-6px);
+                opacity: 1
+            }
+        }
+
+        /* Avatars */
+        .bot-avatar {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #3b7fff, #6441f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .88rem;
+            box-shadow: 0 3px 10px rgba(59, 127, 255, .28);
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #6441f5, #3b7fff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .88rem;
+            box-shadow: 0 3px 10px rgba(100, 65, 245, .22);
+        }
+
+        /* Sidebar tabs */
+        .sb-tab {
+            flex: 1;
+            padding: 8px 4px;
+            font-size: .72rem;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            border-bottom: 2px solid transparent;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: all .18s;
+            text-align: center;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+
+        .sb-tab.active {
+            color: #3b7fff;
+            border-bottom-color: #3b7fff;
+        }
+
+        .sb-tab:hover:not(.active) {
+            color: #6b7280;
+        }
+
+        .sb-panel {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            flex-direction: column;
+        }
+
+        .sb-panel.active {
+            display: flex;
+        }
+
+        /* Quick buttons */
+        .quick-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .81rem;
+            color: #374151;
+            cursor: pointer;
+            transition: all .18s;
+            text-align: left;
+        }
+
+        .quick-btn:hover {
+            background: #eff6ff;
+            border-color: #93b4ff;
+            color: #1d4ed8;
+            transform: translateX(2px);
+            box-shadow: 0 2px 8px rgba(59, 127, 255, .1);
+        }
+
+        .category-heading {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .category-heading::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Timestamp */
+        .msg-time {
+            font-size: .65rem;
+            color: #9ca3af;
+            margin-top: 3px;
+            padding: 0 2px;
+        }
+
+        /* Feature chip */
+        .feature-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(255, 255, 255, .15);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 99px;
+            padding: 3px 10px;
+            font-size: .7rem;
+            color: rgba(255, 255, 255, .9);
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+        }
+
+        /* Send btn */
+        #send-button {
+            background: linear-gradient(135deg, #3b7fff, #6441f5);
+            box-shadow: 0 4px 14px rgba(59, 127, 255, .35);
+            transition: all .18s;
+        }
+
+        #send-button:hover {
+            box-shadow: 0 6px 20px rgba(59, 127, 255, .45);
+            transform: scale(1.05);
+        }
+
+        #send-button:active {
+            transform: scale(.97);
+        }
+
+        .input-wrap:focus-within {
+            border-color: #3b7fff !important;
+            box-shadow: 0 0 0 3px rgba(59, 127, 255, .1);
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        /* ── History panel ── */
+        .history-item {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 11px 13px;
+            cursor: pointer;
+            transition: all .18s;
+        }
+
+        .history-item:hover {
+            border-color: #93b4ff;
+            background: #eff6ff;
+        }
+
+        .history-item .hi-q {
+            font-size: .8rem;
+            font-weight: 500;
+            color: #1e3a8a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-item .hi-a {
+            font-size: .72rem;
+            color: #6b7280;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-item .hi-time {
+            font-size: .63rem;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        .history-empty {
+            text-align: center;
+            padding: 30px 16px;
+            color: #9ca3af;
+            font-size: .82rem;
+        }
+
+        .history-empty .hi-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        /* ── Distance panel ── */
+        .dist-input {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .82rem;
+            color: #374151;
+            outline: none;
+            background: #fff;
+            transition: all .18s;
+        }
+
+        .dist-input:focus {
+            border-color: #3b7fff;
+            box-shadow: 0 0 0 3px rgba(59, 127, 255, .08);
+        }
+
+        .dist-btn {
+            width: 100%;
+            padding: 9px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #3b7fff, #6441f5);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: .8rem;
+            cursor: pointer;
+            transition: all .18s;
+            box-shadow: 0 4px 12px rgba(59, 127, 255, .3);
+        }
+
+        .dist-btn:hover {
+            opacity: .9;
+            transform: translateY(-1px);
+        }
+
+        .dist-btn:active {
+            transform: translateY(0);
+        }
+
+        .dist-result {
+            background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            animation: slideUp .3s ease;
+        }
+
+        .dist-stat {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .dist-stat .val {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #1d4ed8;
+        }
+
+        .dist-stat .lbl {
+            font-size: .68rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-top: 2px;
+        }
+
+        .mode-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: .78rem;
+        }
+
+        .mode-row:last-child {
+            border-bottom: none;
+        }
+
+        .mode-icon {
+            font-size: 1rem;
+            width: 22px;
+            text-align: center;
+        }
+
+        .mode-name {
+            flex: 1;
+            color: #374151;
+        }
+
+        .mode-time {
+            font-weight: 600;
+            color: #1d4ed8;
+        }
+
+        .mode-co2 {
+            font-size: .65rem;
+            color: #16a34a;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 99px;
+        }
+
+        /* Stats bar */
+        .stat-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-card .sv {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1d4ed8;
+        }
+
+        .stat-card .sl {
+            font-size: .65rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            margin-top: 1px;
+        }
+
+        /* Swap button */
+        .swap-btn {
+            background: #eff6ff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: .75rem;
+            color: #3b7fff;
+            cursor: pointer;
+            transition: all .18s;
+        }
+
+        .swap-btn:hover {
+            background: #dbeafe;
+        }
+
+        @media (max-width:640px) {
+            .sidebar-panel {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
+
 <body class="flex items-center justify-center min-h-screen p-4">
-    <div class="flex flex-col w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden h-[85vh]">
-        <!-- Header -->
-        <div class="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold">AI Assistant</h1>
-                    <p class="text-blue-100 text-sm mt-1">Your intelligent companion</p>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="flex items-center space-x-2">
-                        <span class="relative flex h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                        </span>
-                        <span class="text-sm font-medium">Online</span>
+
+    <div class="flex flex-col w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden"
+        style="height:88vh;background:#fff;">
+
+        <!-- ══ HEADER ══ -->
+        <div class="chat-header text-white px-6 py-4 relative z-10 flex-shrink-0">
+            <div class="flex items-center justify-between relative z-10">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-11 h-11 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center text-xl border border-white/20 shadow-lg">
+                        🚌</div>
+                    <div>
+                        <h1 class="brand-name text-2xl leading-tight">MooVit AI</h1>
+                        <p class="text-blue-200 text-xs font-light tracking-wide mt-0.5">Intelligent travel companion
+                        </p>
                     </div>
-                    <button id="clear-chat" class="p-2 hover:bg-blue-700 rounded-lg transition-colors duration-200" title="Clear Chat">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div
+                        class="flex items-center gap-2 bg-white/10 backdrop-blur rounded-full px-3 py-1.5 border border-white/15">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+                        </span>
+                        <span class="text-xs font-medium text-emerald-200">Online</span>
+                    </div>
+                    <button id="clear-chat"
+                        class="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 transition-all duration-200 group"
+                        title="Clear Chat">
+                        <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
                     </button>
                 </div>
             </div>
+            <div class="flex gap-2 mt-3 relative z-10 flex-wrap">
+                <span class="feature-chip">🗺️ Routes</span>
+                <span class="feature-chip">🚦 Live Traffic</span>
+                <span class="feature-chip">🚌 Transit</span>
+                <span class="feature-chip">⏱️ ETA</span>
+                <span class="feature-chip">🌿 Eco Travel</span>
+            </div>
         </div>
 
+        <!-- ══ BODY ══ -->
         <div class="flex flex-1 overflow-hidden">
-            <!-- Main Chat Area -->
-            <div class="flex-1 flex flex-col">
-                <!-- Chat History -->
-                <div id="chat-history" class="flex-1 p-6 overflow-y-auto space-y-4 chat-history">
-                    <!-- Initial bot message -->
-                    <div class="flex justify-start message-animation">
-                        <div class="bg-gray-100 text-gray-800 p-4 rounded-2xl rounded-bl-md max-w-[80%] shadow-sm">
-                            <p class="font-medium text-blue-600 mb-2">👋 Welcome!</p>
-                            <p>Hello! I'm your AI Assistant. I can help you with various topics including transportation, technology, general knowledge, and more. Try asking me something or click on the suggested questions!</p>
+
+            <!-- Chat Area -->
+            <div class="flex-1 flex flex-col min-w-0">
+                <div id="chat-history" class="flex-1 p-5 overflow-y-auto space-y-5 chat-history">
+                    <div class="flex items-end gap-2.5 message-animation">
+                        <div class="bot-avatar">🤖</div>
+                        <div>
+                            <div class="welcome-card">
+                                <p class="font-semibold text-blue-700 mb-2"
+                                    style="font-family:'Outfit',sans-serif;font-size:.95rem;">👋 Welcome to MooVit AI!
+                                </p>
+                                <p class="text-gray-600 text-sm leading-relaxed">
+                                    I'm your intelligent urban mobility companion. Ask me about
+                                    <strong class="text-blue-600">routes</strong>,
+                                    <strong class="text-indigo-600">traffic</strong>,
+                                    <strong class="text-teal-600">transit schedules</strong>,
+                                    or anything to make your commute smarter.
+                                </p>
+                                <p class="text-gray-400 text-xs mt-2.5">Try Quick Questions, check Distance Calculator,
+                                    or browse your History →</p>
+                            </div>
+                            <p class="msg-time">MooVit AI · just now</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Chat Input -->
-                <div class="p-6 bg-gray-50 border-t border-gray-200">
-                    <div class="flex items-end space-x-4">
-                        <div class="flex-1">
-                            <textarea id="user-input" placeholder="Type your message here..." 
-                                   class="w-full p-4 border-2 border-gray-300 rounded-2xl focus:outline-none focus:border-blue-500 resize-none transition-all duration-200"
-                                   rows="1"></textarea>
-                        </div>
+                <!-- Input -->
+                <div class="p-4 border-t border-gray-100 bg-gray-50/80 flex-shrink-0">
+                    <div
+                        class="input-wrap flex items-end gap-3 bg-white border-2 border-gray-200 rounded-2xl px-4 py-3 transition-all duration-200">
+                        <textarea id="user-input" placeholder="Ask about routes, traffic, bus schedules…"
+                            class="flex-1 bg-transparent border-none outline-none resize-none text-gray-700 text-sm leading-relaxed"
+                            rows="1" style="max-height:100px;font-family:'DM Sans',sans-serif;"></textarea>
                         <button id="send-button"
-                                class="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-2xl shadow-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-200">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            class="text-white p-2.5 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-200 flex-shrink-0"
+                            title="Send">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                             </svg>
                         </button>
                     </div>
+                    <p class="text-center text-gray-400 text-xs mt-2">
+                        <kbd class="bg-gray-200 px-1.5 py-0.5 rounded text-gray-500 text-xs">Enter</kbd> to send ·
+                        <kbd class="bg-gray-200 px-1.5 py-0.5 rounded text-gray-500 text-xs">Shift+Enter</kbd> for new
+                        line
+                    </p>
                 </div>
             </div>
 
-            <!-- Sidebar with Suggested Questions -->
-            <div class="w-80 bg-gray-50 border-l border-gray-200 p-6 overflow-y-auto">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">💡 Quick Questions</h3>
-                
-                <!-- Categories -->
-                <div id="categories-container" class="space-y-6">
-                    <!-- Categories will be populated by JavaScript -->
+            <!-- ══ SIDEBAR ══ -->
+            <div class="sidebar-panel w-72 flex flex-col flex-shrink-0 border-l border-blue-50 bg-gray-50/80">
+
+                <!-- Tab bar -->
+                <div class="flex border-b border-blue-50 bg-white flex-shrink-0">
+                    <button class="sb-tab active" data-tab="quick">💡 Quick</button>
+                    <button class="sb-tab" data-tab="history">🕐 History</button>
+                    <button class="sb-tab" data-tab="distance">📏 Distance</button>
                 </div>
-                
-                <!-- Random Questions -->
-                <div class="mt-8">
-                    <h4 class="text-lg font-medium text-gray-700 mb-3">🎲 Random Questions</h4>
-                    <div id="random-questions" class="space-y-2">
-                        <!-- Random questions will be populated here -->
+
+                <!-- ── Panel 1: Quick Questions ── -->
+                <div id="panel-quick" class="sb-panel active flex-col">
+                    <div id="categories-container" class="flex-1 overflow-y-auto px-3 py-3 space-y-5"></div>
+                    <div class="border-t border-blue-50 px-3 py-4 bg-white flex-shrink-0">
+                        <h4 class="category-heading mb-2"><span>🎲</span> Random</h4>
+                        <div id="random-questions" class="space-y-1.5"></div>
+                        <button id="refresh-random"
+                            class="mt-3 w-full bg-white hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 text-gray-600 text-xs py-2 px-3 rounded-lg border border-gray-200 font-medium transition-all duration-200"
+                            style="font-family:'DM Sans',sans-serif;">
+                            🔄 Refresh Questions
+                        </button>
                     </div>
-                    <button id="refresh-random" class="mt-3 w-full bg-white hover:bg-gray-100 text-gray-700 py-2 px-4 rounded-lg border border-gray-300 transition-colors duration-200">
-                        🔄 Refresh
-                    </button>
                 </div>
-            </div>
-        </div>
-    </div>
+
+                <!-- ── Panel 2: Chat History ── -->
+                <div id="panel-history" class="sb-panel flex-col">
+
+                    <!-- Stats row -->
+                    <div class="grid grid-cols-3 gap-2 p-3 border-b border-blue-50 bg-white flex-shrink-0">
+                        <div class="stat-card">
+                            <div class="sv" id="stat-msgs">0</div>
+                            <div class="sl">Messages</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="sv" id="stat-sessions">0</div>
+                            <div class="sl">Chats</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="sv" id="stat-today">0</div>
+                            <div class="sl">Today</div>
+                        </div>
+                    </div>
+
+                    <!-- History list -->
+                    <div id="history-list" class="flex-1 overflow-y-auto px-3 py-3 space-y-2">
+                        <div class="history-empty">
+                            <div class="hi-icon">💬</div>
+                            <p>No history yet.</p>
+                            <p class="mt-1 text-xs">Start chatting — your conversations will appear here!</p>
+                        </div>
+                    </div>
+
+                    <!-- Clear history -->
+                    <div class="px-3 pb-3 flex-shrink-0">
+                        <button id="clear-history-btn"
+                            class="w-full text-xs text-red-400 hover:text-red-600 py-2 border border-red-100 hover:border-red-300 rounded-lg transition-all bg-white hover:bg-red-50">
+                            🗑️ Clear History
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── Panel 3: Distance Calculator ── -->
+                <div id="panel-distance" class="sb-panel flex-col">
+                    <div class="flex-1 overflow-y-auto px-3 py-4 space-y-4">
+
+                        <!-- Inputs -->
+                        <div class="space-y-2">
+                            <label class="category-heading"><span>📍</span> From</label>
+                            <input id="dist-from" class="dist-input" type="text" placeholder="Enter starting point…">
+                        </div>
+
+                        <div class="flex justify-center">
+                            <button class="swap-btn" id="swap-btn" title="Swap locations">⇅ Swap</button>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="category-heading"><span>🏁</span> To</label>
+                            <input id="dist-to" class="dist-input" type="text" placeholder="Enter destination…">
+                        </div>
+
+                        <!-- Mode select -->
+                        <div class="space-y-2">
+                            <label class="category-heading"><span>🚗</span> Speed Profile</label>
+                            <select id="dist-mode" class="dist-input" style="cursor:pointer;">
+                                <option value="city">🏙️ City driving (avg 30 km/h)</option>
+                                <option value="highway">🛣️ Highway (avg 80 km/h)</option>
+                                <option value="mixed">🔀 Mixed (avg 50 km/h)</option>
+                            </select>
+                        </div>
+
+                        <button class="dist-btn" id="calc-btn">📏 Calculate Distance</button>
+
+                        <!-- Result -->
+                        <div id="dist-result" style="display:none;" class="dist-result space-y-3">
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="dist-stat bg-blue-50 rounded-xl">
+                                    <div class="val" id="res-km">—</div>
+                                    <div class="lbl">Kilometres</div>
+                                </div>
+                                <div class="dist-stat bg-indigo-50 rounded-xl">
+                                    <div class="val" id="res-miles">—</div>
+                                    <div class="lbl">Miles</div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-0.5">
+                                <p class="category-heading mb-2"><span>🕐</span> Travel Time by Mode</p>
+                                <div class="mode-row"><span class="mode-icon">🚗</span><span
+                                        class="mode-name">Car</span><span class="mode-time" id="tt-car">—</span><span
+                                        class="mode-co2" id="co2-car">—</span></div>
+                                <div class="mode-row"><span class="mode-icon">🚌</span><span
+                                        class="mode-name">Bus</span><span class="mode-time" id="tt-bus">—</span><span
+                                        class="mode-co2" id="co2-bus">—</span></div>
+                                <div class="mode-row"><span class="mode-icon">🚇</span><span
+                                        class="mode-name">Metro</span><span class="mode-time"
+                                        id="tt-metro">—</span><span class="mode-co2" id="co2-metro">—</span></div>
+                                <div class="mode-row"><span class="mode-icon">🚴</span><span
+                                        class="mode-name">Cycling</span><span class="mode-time"
+                                        id="tt-bike">—</span><span class="mode-co2" id="co2-bike">—</span></div>
+                                <div class="mode-row"><span class="mode-icon">🚶</span><span
+                                        class="mode-name">Walking</span><span class="mode-time"
+                                        id="tt-walk">—</span><span class="mode-co2" id="co2-walk">—</span></div>
+                            </div>
+
+                            <div class="bg-green-50 border border-green-100 rounded-xl p-3">
+                                <p class="text-xs font-semibold text-green-700 mb-1">🌿 Eco Insight</p>
+                                <p class="text-xs text-green-600" id="eco-tip">—</p>
+                            </div>
+
+                            <div class="bg-amber-50 border border-amber-100 rounded-xl p-3">
+                                <p class="text-xs font-semibold text-amber-700 mb-1">💰 Estimated Cost</p>
+                                <div class="grid grid-cols-2 gap-1 text-xs text-amber-800" id="cost-grid">—</div>
+                            </div>
+
+                            <button id="ask-route-btn" class="dist-btn"
+                                style="background:linear-gradient(135deg,#059669,#0891b2);">
+                                💬 Ask AI about this route
+                            </button>
+                        </div>
+
+                        <!-- Saved distances -->
+                        <div id="saved-routes-section" style="display:none;" class="space-y-2">
+                            <p class="category-heading"><span>📌</span> Saved Routes</p>
+                            <div id="saved-routes-list" class="space-y-1.5"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end sidebar -->
+        </div><!-- end body -->
+    </div><!-- end card -->
 
     <script src="script.js"></script>
+
+    <script>
+        /* ════════════════════════════════
+           CORE UTILITIES
+        ════════════════════════════════ */
+
+        // Auto-resize textarea + keyboard shortcut
+        const ta = document.getElementById('user-input');
+        ta.addEventListener('input', () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 100) + 'px'; });
+        ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('send-button').click(); } });
+
+        function timestamp() {
+            const n = new Date();
+            return `${n.getHours().toString().padStart(2, '0')}:${n.getMinutes().toString().padStart(2, '0')}`;
+        }
+        function dateLabel() {
+            return new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+        }
+
+        /* ════════════════════════════════
+           SIDEBAR TABS
+        ════════════════════════════════ */
+        document.querySelectorAll('.sb-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.sb-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.sb-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        /* ════════════════════════════════
+           CHAT HISTORY TRACKER
+        ════════════════════════════════ */
+        let chatLog = JSON.parse(localStorage.getItem('moovit_history') || '[]');
+        let sessionCount = parseInt(localStorage.getItem('moovit_sessions') || '0');
+        let todayKey = new Date().toDateString();
+        let todayCount = parseInt(localStorage.getItem('moovit_today_count') || '0');
+        let todayKeyStored = localStorage.getItem('moovit_today_key') || '';
+        if (todayKeyStored !== todayKey) { todayCount = 0; localStorage.setItem('moovit_today_key', todayKey); }
+
+        sessionCount++;
+        localStorage.setItem('moovit_sessions', sessionCount);
+
+        function updateStats() {
+            document.getElementById('stat-msgs').textContent = chatLog.length;
+            document.getElementById('stat-sessions').textContent = sessionCount;
+            document.getElementById('stat-today').textContent = todayCount;
+        }
+
+        function renderHistory() {
+            const list = document.getElementById('history-list');
+            updateStats();
+            if (chatLog.length === 0) {
+                list.innerHTML = `<div class="history-empty"><div class="hi-icon">💬</div><p>No history yet.</p><p class="mt-1 text-xs">Start chatting — your conversations will appear here!</p></div>`;
+                return;
+            }
+            list.innerHTML = [...chatLog].reverse().map((item, i) => `
+        <div class="history-item" onclick="replayHistory(${chatLog.length - 1 - i})">
+            <div class="hi-q">🧑 ${item.user}</div>
+            <div class="hi-a">🤖 ${item.bot}</div>
+            <div class="hi-time">🕐 ${item.time}</div>
+        </div>
+    `).join('');
+        }
+
+        function addToHistory(userMsg, botMsg) {
+            chatLog.push({ user: userMsg, bot: botMsg, time: dateLabel() });
+            if (chatLog.length > 50) chatLog.shift(); // keep last 50
+            todayCount++;
+            localStorage.setItem('moovit_history', JSON.stringify(chatLog));
+            localStorage.setItem('moovit_today_count', todayCount);
+            renderHistory();
+        }
+
+        function replayHistory(idx) {
+            const item = chatLog[idx];
+            document.getElementById('user-input').value = item.user;
+            document.querySelectorAll('.sb-tab')[0].click(); // switch to quick tab
+            document.getElementById('user-input').focus();
+        }
+
+        document.getElementById('clear-history-btn').addEventListener('click', () => {
+            if (!confirm('Clear all chat history?')) return;
+            chatLog = [];
+            localStorage.removeItem('moovit_history');
+            renderHistory();
+        });
+
+        // Intercept messages injected by script.js via MutationObserver
+        const chatHistory = document.getElementById('chat-history');
+        let lastUserMsg = '';
+
+        const msgObs = new MutationObserver(mutations => {
+            mutations.forEach(m => {
+                m.addedNodes.forEach(node => {
+                    if (node.nodeType !== 1 || !node.classList.contains('flex')) return;
+
+                    // Bot message
+                    if (node.classList.contains('justify-start')) {
+                        node.classList.remove('justify-start');
+                        node.classList.add('items-end', 'gap-2.5');
+                        const inner = node.firstElementChild;
+                        if (inner) {
+                            inner.classList.remove('bg-gray-100', 'text-gray-800', 'p-4', 'rounded-2xl', 'rounded-bl-md', 'max-w-[80%]', 'shadow-sm');
+                            inner.classList.add('bot-bubble', 'p-4', 'max-w-[75%]', 'text-gray-700', 'text-sm', 'leading-relaxed');
+                            const av = document.createElement('div'); av.className = 'bot-avatar'; av.textContent = '🤖';
+                            const time = document.createElement('p'); time.className = 'msg-time'; time.textContent = `MooVit AI · ${timestamp()}`;
+                            const wrap = document.createElement('div');
+                            node.insertBefore(av, node.firstChild);
+                            wrap.appendChild(inner); wrap.appendChild(time); node.appendChild(wrap);
+                            // Log to history
+                            const botText = inner.textContent.trim().substring(0, 80) + '…';
+                            if (lastUserMsg) addToHistory(lastUserMsg, botText);
+                        }
+                    }
+                    // User message
+                    else if (node.classList.contains('justify-end')) {
+                        node.classList.remove('justify-end');
+                        node.classList.add('justify-end', 'items-end', 'gap-2.5');
+                        const inner = node.firstElementChild;
+                        if (inner) {
+                            lastUserMsg = inner.textContent.trim().substring(0, 60);
+                            inner.classList.remove('bg-blue-500', 'text-white', 'p-4', 'rounded-2xl', 'rounded-br-md', 'max-w-[80%]', 'shadow-sm');
+                            inner.classList.add('user-bubble', 'p-4', 'max-w-[75%]', 'text-sm', 'leading-relaxed');
+                            const av = document.createElement('div'); av.className = 'user-avatar'; av.textContent = '👤';
+                            const time = document.createElement('p'); time.className = 'msg-time text-right'; time.textContent = `You · ${timestamp()}`;
+                            const bw = document.createElement('div'); bw.className = 'flex flex-col items-end';
+                            node.insertBefore(bw, inner); bw.appendChild(inner); bw.appendChild(time);
+                            node.appendChild(av);
+                        }
+                    }
+                });
+            });
+        });
+        msgObs.observe(chatHistory, { childList: true });
+
+        // Style sidebar buttons injected by script.js
+        function styleQuickBtns(root) {
+            root.querySelectorAll('h4').forEach(el => { if (!el.classList.contains('category-heading')) el.className = 'category-heading mb-2'; });
+            root.querySelectorAll('button').forEach(btn => { if (!btn.classList.contains('quick-btn') && btn.id !== 'refresh-random') btn.className = 'quick-btn'; });
+        }
+        const sideObs = new MutationObserver(() => {
+            styleQuickBtns(document.getElementById('categories-container'));
+            styleQuickBtns(document.getElementById('random-questions'));
+        });
+        sideObs.observe(document.getElementById('categories-container'), { childList: true, subtree: true });
+        sideObs.observe(document.getElementById('random-questions'), { childList: true, subtree: true });
+
+        /* ════════════════════════════════
+           DISTANCE CALCULATOR
+        ════════════════════════════════ */
+
+        // Geocode simulation using a simple hash → consistent fake coords
+        function fakeCoords(str) {
+            let h = 0;
+            for (let c of str.toLowerCase().trim()) h = (h * 31 + c.charCodeAt(0)) & 0xffffffff;
+            const lat = 12 + (((h >>> 4) & 0xffff) / 0xffff) * 18;  // 12–30° N (India range)
+            const lng = 70 + (((h >>> 16) & 0xffff) / 0xffff) * 27;  // 70–97° E
+            return { lat, lng };
+        }
+
+        // Haversine formula
+        function haversine(a, b) {
+            const R = 6371, toRad = d => d * Math.PI / 180;
+            const dLat = toRad(b.lat - a.lat), dLng = toRad(b.lng - a.lng);
+            const x = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
+            return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+        }
+
+        function fmtTime(hrs) {
+            if (hrs < 1 / 60) return '<1 min';
+            if (hrs < 1) { const m = Math.round(hrs * 60); return `${m} min`; }
+            const h = Math.floor(hrs), m = Math.round((hrs - h) * 60);
+            return m > 0 ? `${h}h ${m}m` : `${h}h`;
+        }
+
+        const speeds = { city: { car: 30, bus: 22, metro: 40, bike: 14, walk: 5 }, highway: { car: 80, bus: 60, metro: 60, bike: 18, walk: 5 }, mixed: { car: 50, bus: 35, metro: 45, bike: 15, walk: 5 } };
+        const co2PerKm = { car: '~120g CO₂', bus: '~68g CO₂', metro: '~14g CO₂', bike: '0g CO₂', walk: '0g CO₂' };
+        const costPerKm = { car: 6, bus: 1.5, metro: 2.5 };
+
+        document.getElementById('calc-btn').addEventListener('click', calcDistance);
+        document.getElementById('dist-from').addEventListener('keydown', e => { if (e.key === 'Enter') calcDistance(); });
+        document.getElementById('dist-to').addEventListener('keydown', e => { if (e.key === 'Enter') calcDistance(); });
+
+        document.getElementById('swap-btn').addEventListener('click', () => {
+            const a = document.getElementById('dist-from'), b = document.getElementById('dist-to');
+            [a.value, b.value] = [b.value, a.value];
+        });
+
+        function calcDistance() {
+            const from = document.getElementById('dist-from').value.trim();
+            const to = document.getElementById('dist-to').value.trim();
+            if (!from || !to) { alert('Please enter both From and To locations.'); return; }
+
+            const mode = document.getElementById('dist-mode').value;
+            const s = speeds[mode];
+
+            const cA = fakeCoords(from), cB = fakeCoords(to);
+            const km = Math.max(0.5, haversine(cA, cB));
+            const miles = (km * 0.621371);
+
+            document.getElementById('res-km').textContent = km.toFixed(1) + ' km';
+            document.getElementById('res-miles').textContent = miles.toFixed(1) + ' mi';
+
+            document.getElementById('tt-car').textContent = fmtTime(km / s.car);
+            document.getElementById('tt-bus').textContent = fmtTime(km / s.bus);
+            document.getElementById('tt-metro').textContent = fmtTime(km / s.metro);
+            document.getElementById('tt-bike').textContent = fmtTime(km / s.bike);
+            document.getElementById('tt-walk').textContent = fmtTime(km / s.walk);
+
+            document.getElementById('co2-car').textContent = co2PerKm.car;
+            document.getElementById('co2-bus').textContent = co2PerKm.bus;
+            document.getElementById('co2-metro').textContent = co2PerKm.metro;
+            document.getElementById('co2-bike').textContent = co2PerKm.bike;
+            document.getElementById('co2-walk').textContent = co2PerKm.walk;
+
+            // Eco tip
+            let eco = '';
+            if (km < 2) eco = '🚶 This is a short trip — consider walking for zero emissions!';
+            else if (km < 8) eco = '🚴 Great distance for cycling. Zero cost, zero emissions, great exercise!';
+            else if (km < 20) eco = '🚌 Public bus or metro will save ~60–90% CO₂ vs driving alone.';
+            else eco = '🚇 For this distance, metro is your fastest eco-friendly option.';
+            document.getElementById('eco-tip').textContent = eco;
+
+            // Cost estimate
+            const carCost = (km * costPerKm.car).toFixed(0);
+            const busCost = (km * costPerKm.bus).toFixed(0);
+            const metroCost = (km * costPerKm.metro).toFixed(0);
+            document.getElementById('cost-grid').innerHTML = `
+        <div>🚗 Car / Cab</div><div class="font-semibold text-right">₹${carCost}–${(carCost * 1.3).toFixed(0)}</div>
+        <div>🚌 Bus</div><div class="font-semibold text-right">₹${busCost}–${Math.ceil(busCost * 1.5)}</div>
+        <div>🚇 Metro</div><div class="font-semibold text-right">₹${metroCost}–${Math.ceil(metroCost * 1.4)}</div>
+    `;
+
+            document.getElementById('dist-result').style.display = 'block';
+
+            // Save route
+            saveRoute(from, to, km.toFixed(1));
+
+            // Ask AI button
+            document.getElementById('ask-route-btn').onclick = () => {
+                const q = `What's the best way to travel from ${from} to ${to} (about ${km.toFixed(1)} km)?`;
+                document.getElementById('user-input').value = q;
+                document.querySelectorAll('.sb-tab')[0].click();
+                document.getElementById('send-button').click();
+            };
+        }
+
+        /* ── Saved Routes ── */
+        let savedRoutes = JSON.parse(localStorage.getItem('moovit_routes') || '[]');
+
+        function saveRoute(from, to, km) {
+            const route = { from, to, km, time: dateLabel() };
+            savedRoutes = savedRoutes.filter(r => !(r.from === from && r.to === to));
+            savedRoutes.unshift(route);
+            if (savedRoutes.length > 10) savedRoutes.pop();
+            localStorage.setItem('moovit_routes', JSON.stringify(savedRoutes));
+            renderSavedRoutes();
+        }
+
+        function renderSavedRoutes() {
+            const section = document.getElementById('saved-routes-section');
+            const list = document.getElementById('saved-routes-list');
+            if (savedRoutes.length === 0) { section.style.display = 'none'; return; }
+            section.style.display = 'block';
+            list.innerHTML = savedRoutes.map((r, i) => `
+        <div class="history-item flex items-center gap-2" onclick="loadRoute(${i})">
+            <span style="font-size:.9rem;">📌</span>
+            <div style="min-width:0;flex:1;">
+                <div class="hi-q">${r.from} → ${r.to}</div>
+                <div class="hi-time">${r.km} km · ${r.time}</div>
+            </div>
+        </div>
+    `).join('');
+        }
+
+        function loadRoute(i) {
+            const r = savedRoutes[i];
+            document.getElementById('dist-from').value = r.from;
+            document.getElementById('dist-to').value = r.to;
+            calcDistance();
+        }
+
+        // Init
+        renderHistory();
+        renderSavedRoutes();
+    </script>
+
 </body>
+
 </html>
