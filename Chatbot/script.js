@@ -267,11 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show first 3 questions from each category
             knowledgeBase[categoryKey].slice(0, 3).forEach(item => {
                 const questionBtn = document.createElement('button');
-                questionBtn.classList.add(
-                    'suggested-question-btn', 'w-full', 'text-left', 'bg-white', 'hover:bg-blue-50',
-                    'text-gray-700', 'hover:text-blue-700', 'p-3', 'rounded-lg', 'border', 'border-gray-200',
-                    'hover:border-blue-300', 'transition-all', 'duration-200', 'text-sm'
-                );
+                questionBtn.classList.add('suggested-question-btn');
                 
                 questionBtn.textContent = item.question.charAt(0).toUpperCase() + item.question.slice(1);
                 questionBtn.addEventListener('click', () => {
@@ -299,14 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 randomQuestions.push(question);
             }
         }
-        
         randomQuestions.forEach(item => {
             const questionBtn = document.createElement('button');
-            questionBtn.classList.add(
-                'suggested-question-btn', 'w-full', 'text-left', 'bg-blue-50', 'hover:bg-blue-100',
-                'text-blue-700', 'p-3', 'rounded-lg', 'border', 'border-blue-200',
-                'hover:border-blue-400', 'transition-all', 'duration-200', 'text-sm'
-            );
+            questionBtn.classList.add('suggested-question-btn', 'random');
             
             questionBtn.innerHTML = `<span class="font-medium">${item.question.charAt(0).toUpperCase() + item.question.slice(1)}</span>`;
             questionBtn.addEventListener('click', () => {
