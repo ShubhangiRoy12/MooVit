@@ -52,7 +52,9 @@
       backdrop-filter: blur(10px);
       padding: 1rem;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+      position:relative;
+      z-index:1000;
+     }
 
     .header-content {
       display: flex;
@@ -346,7 +348,7 @@
     <div class="header-content">
       <h1 class="header-title">🚖 Cab Sharing Planner</h1>
       <div class="header-buttons">
-        <button id="toggleMode" class="btn btn-light">🌃 Dark Mode</button>
+        <button id="toggleMode" class="btn btn-light" onclick="toggleDarkMode()">🌃 Dark Mode</button>
         <a href="..\main.html" class="btn btn-light">← Home</a>
       </div>
     </div>
@@ -504,13 +506,28 @@
       "mini": 10
     };
 
-    let isDarkMode = false;
+    function toggleDarkMode() {
 
-    document.getElementById("toggleMode").addEventListener("click", () => {
-      isDarkMode = !isDarkMode;
-      document.body.classList.toggle("dark-mode");
-      document.getElementById("toggleMode").textContent = isDarkMode ? "☀️ Light Mode" : "🌃 Dark Mode";
-    });
+    document.body.classList.toggle("dark-mode");
+
+    const btn = document.getElementById("toggleMode");
+
+    if (document.body.classList.contains("dark-mode")) {
+    btn.textContent = "☀️ Light Mode";
+    } else {
+    btn.textContent = "🌃 Dark Mode";
+    }
+
+}
+
+    // let isDarkMode = false;
+    //   function toggleDarkMode(){
+    //     alert("Button Clicked");
+    // // document.getElementById("toggleMode").addEventListener("click", () => {
+    //   isDarkMode = !isDarkMode;
+    //   document.body.classList.toggle("dark-mode");
+    //   document.getElementById("toggleMode").textContent = isDarkMode ? "☀️ Light Mode" : "🌃 Dark Mode";
+    // };
 
     const map = L.map('map').setView([22.9, 76.2], 7);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

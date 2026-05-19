@@ -465,21 +465,24 @@
     });
 
     // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
-    let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
-    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+    const customCursor = document.querySelector('.cursor');
+    if(customCursor){
+    let customMouseX = 0, customMouseY = 0; let customCursorX = 0, customCursorY = 0;
+    document.addEventListener('mousemove', (e) => { customMouseX = e.clientX; customMouseY = e.clientY; });
     function updateCursor() {
-      const dx = mouseX - cursorX; const dy = mouseY - cursorY;
-      cursorX += dx * 0.2; cursorY += dy * 0.2;
-      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+      const dx = customMouseX - customCursorX; const dy = customMouseY - customCursorY;
+      customCursorX += dx * 0.35; customCursorY += dy * 0.35;
+      customCursor.style.left = `${customCursorX}px`;
+      customCursor.style.top=`${customCursorY}px`;
       requestAnimationFrame(updateCursor);
     }
     if (window.innerWidth > 768) updateCursor();
 
     document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      el.addEventListener('mouseenter', () => customCursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => customCursor.classList.remove('hover'));
     });
+  }
 
     // Particles
     const particles = document.getElementById('particles');

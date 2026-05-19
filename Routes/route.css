@@ -441,13 +441,31 @@ header .badge {
 }
 
 /* Modal Enhancements */
-.modal-content {
+
+ .modal-content {
+  position: relative;
+  z-index: 1050;
   border-radius: 15px;
   border: none;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   backdrop-filter: var(--backdrop-blur);
+  background-color: white;
 }
+.dark-mode .modal-content {
+  background-color: #1e1e2e;
+  color: white;
+}
+.modal{
+  z-index:1040;
+}
+/* .modal-content {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  backdrop-filter: var(--backdrop-blur);
+} */
 
 .modal-header {
   border-radius: 15px 15px 0 0;

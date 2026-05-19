@@ -21,6 +21,9 @@
     }
 
     /* Snake Cursor */
+    body{
+      cursor:none;
+    }
     .cursor {
       position: fixed;
       top: 0;
@@ -33,6 +36,7 @@
       transform: translate(-50%, -50%);
       transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
       z-index: 10000;
+      mix-blend-mode:difference;
     }
     .cursor.active {
       width: 40px;
