@@ -150,7 +150,7 @@
 
         .theme-toggle:hover {
             background: var(--accent-orange);
-            color: white;
+            color: rgb(7, 2, 32);
             transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
         }
@@ -168,7 +168,7 @@
         .welcome-section {
             text-align: center;
             margin-bottom: 3rem;
-            color: white;
+            color: var(--white);
         }
 
         .welcome-section h2 {
@@ -184,6 +184,15 @@
             max-width: 700px;
             margin: 0 auto;
             font-weight: 400;
+        }
+
+        html.theme-light .welcome-section {
+            color: var(--gray-800);
+        }
+
+        html.theme-light .welcome-section h2,
+        html.theme-light .welcome-section p {
+            text-shadow: none;
         }
 
         /* Service Grid */
@@ -515,7 +524,7 @@
                 <h1>MooVit</h1>
             </div>
             <nav class="header-nav" aria-label="Main navigation">
-                <a href="index.html">
+                <a href="index.html" data-i18n="nav_home">
                     <i class="fas fa-home" aria-hidden="true"></i>
                     Home
                 </a>
@@ -523,7 +532,11 @@
                     <i class="fas fa-moon" aria-hidden="true"></i>
                     <span class="visually-hidden">Toggle theme</span>
                 </button>
-                <a href="login.html">
+                <button id="language-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle language" title="Toggle language">
+                    <i class="fas fa-language" aria-hidden="true"></i>
+                    <span class="language-label">தமிழ்</span>
+                </button>
+                <a href="login.html" data-i18n="nav_logout">
                     <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                     Logout
                 </a>
@@ -535,8 +548,8 @@
     <main class="main-container">
         <!-- Welcome Section -->
         <section class="welcome-section">
-            <h2>Welcome to MooVit</h2>
-            <p>Your comprehensive transportation management platform - streamlining logistics, enhancing safety, and connecting communities through innovative mobility solutions.</p>
+            <h2 data-i18n="welcome_title">Welcome to MooVit</h2>
+            <p data-i18n="welcome_text">Your comprehensive transportation management platform - streamlining logistics, enhancing safety, and connecting communities through innovative mobility solutions.</p>
         </section>
 
         <!-- Services Grid -->
@@ -548,15 +561,18 @@
                         <div class="card-icon">
                             <i class="fas fa-boxes"></i>
                         </div>
-                        <h2 class="card-title">Shipments</h2>
+                        <h2 class="card-title" data-i18n="shipments_title">Shipments</h2>
                     </div>
-                    <p class="card-description">Monitor status categories—Pending, In Route, Delivered, Delayed—with transit time metrics and volume trends to optimize delivery workflow and logistics operations.</p>
+                    <p class="card-description" data-i18n="shipments_desc">Monitor status categories—Pending, In Route, Delivered, Delayed—with transit time metrics and volume trends to optimize delivery workflow and logistics operations.</p>
                     <div class="card-stats">
                         <span class="card-stat">152 Today</span>
                         <span class="card-stat">94% On Time</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Manage Shipments <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="shipments_action">Manage Shipments</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -567,15 +583,18 @@
                         <div class="card-icon">
                             <i class="fas fa-truck-moving"></i>
                         </div>
-                        <h2 class="card-title">Fleet Management</h2>
+                        <h2 class="card-title" data-i18n="fleet_title">Fleet Management</h2>
                     </div>
-                    <p class="card-description">Track driver behavior, maintenance schedules, real-time location, fuel usage and utilization metrics for comprehensive data-driven fleet optimization and control.</p>
+                    <p class="card-description" data-i18n="fleet_desc">Track driver behavior, maintenance schedules, real-time location, fuel usage and utilization metrics for comprehensive data-driven fleet optimization and control.</p>
                     <div class="card-stats">
                         <span class="card-stat">32 Active</span>
                         <span class="card-stat">87% Utilization</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">View Fleet <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="fleet_action">View Fleet</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -586,15 +605,18 @@
                         <div class="card-icon">
                             <i class="fas fa-map-marked-alt"></i>
                         </div>
-                        <h2 class="card-title">Route Optimization</h2>
+                        <h2 class="card-title" data-i18n="routes_title">Route Optimization</h2>
                     </div>
-                    <p class="card-description">Analyze route origins, destinations, distances and performance metrics to optimize travel times, reduce fuel consumption and operational costs effectively.</p>
+                    <p class="card-description" data-i18n="routes_desc">Analyze route origins, destinations, distances and performance metrics to optimize travel times, reduce fuel consumption and operational costs effectively.</p>
                     <div class="card-stats">
                         <span class="card-stat">12 Active</span>
                         <span class="card-stat">15% Fuel Savings</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Optimize Routes <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="routes_action">Optimize Routes</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -605,15 +627,18 @@
                         <div class="card-icon">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
-                        <h2 class="card-title">Smart Scheduling</h2>
+                        <h2 class="card-title" data-i18n="schedule_title">Smart Scheduling</h2>
                     </div>
-                    <p class="card-description">Intelligent dispatch scheduling system to reduce idle time, ensure timely pickups and deliveries while maximizing operational efficiency and resource utilization.</p>
+                    <p class="card-description" data-i18n="schedule_desc">Intelligent dispatch scheduling system to reduce idle time, ensure timely pickups and deliveries while maximizing operational efficiency and resource utilization.</p>
                     <div class="card-stats">
                         <span class="card-stat">25 Trips Today</span>
                         <span class="card-stat">92% On Time</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">View Schedule <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="schedule_action">View Schedule</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -625,15 +650,18 @@
                         <div class="card-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h2 class="card-title">Road Safety Awareness</h2>
+                        <h2 class="card-title" data-i18n="safety_title">Road Safety Awareness</h2>
                     </div>
-                    <p class="card-description">Critical safety initiative addressing India's helmet and seatbelt non-compliance. Poor usage alone caused ~30% of two-wheeler fatalities and up to 14% of car-related deaths in 2019.</p>
+                    <p class="card-description" data-i18n="safety_desc">Critical safety initiative addressing India's helmet and seatbelt non-compliance. Poor usage alone caused ~30% of two-wheeler fatalities and up to 14% of car-related deaths in 2019.</p>
                     <div class="card-stats">
                         <span class="card-stat">High Priority</span>
                         <span class="card-stat">Lives Matter</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Safety Center <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="safety_action">Safety Center</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -645,15 +673,18 @@
                         <div class="card-icon">
                             <i class="fas fa-search"></i>
                         </div>
-                        <h2 class="card-title">Sharp Object Detection</h2>
+                        <h2 class="card-title" data-i18n="detection_title">Sharp Object Detection</h2>
                     </div>
-                    <p class="card-description">AI-powered real-time alerts for nearby sharp or hazardous objects using advanced camera input technology — prioritizing vehicle and rider safety on roads.</p>
+                    <p class="card-description" data-i18n="detection_desc">AI-powered real-time alerts for nearby sharp or hazardous objects using advanced camera input technology — prioritizing vehicle and rider safety on roads.</p>
                     <div class="card-stats">
                         <span class="card-stat">AI Powered</span>
                         <span class="card-stat">Real-time Alerts</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Enable Detection <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="detection_action">Enable Detection</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -665,15 +696,18 @@
                         <div class="card-icon">
                             <i class="fas fa-bus"></i>
                         </div>
-                        <h2 class="card-title">Public Transit Hub</h2>
+                        <h2 class="card-title" data-i18n="transit_title">Public Transit Hub</h2>
                     </div>
-                    <p class="card-description">Track real-time bus and train locations, view accurate schedules, and monitor service alerts to plan your travel efficiently and stay informed about transit options.</p>
+                    <p class="card-description" data-i18n="transit_desc">Track real-time bus and train locations, view accurate schedules, and monitor service alerts to plan your travel efficiently and stay informed about transit options.</p>
                     <div class="card-stats">
                         <span class="card-stat">23 Departures</span>
                         <span class="card-stat">Live Updates</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Check Transit <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="transit_action">Check Transit</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -684,15 +718,18 @@
                         <div class="card-icon">
                             <i class="fas fa-car"></i>
                         </div>
-                        <h2 class="card-title">Cab Sharing Network</h2>
+                        <h2 class="card-title" data-i18n="sharing_title">Cab Sharing Network</h2>
                     </div>
-                    <p class="card-description">Offer or join rides with verified users. Save costs, reduce traffic congestion, and share the journey via MooVit's trusted and secure Cab Sharing platform.</p>
+                    <p class="card-description" data-i18n="sharing_desc">Offer or join rides with verified users. Save costs, reduce traffic congestion, and share the journey via MooVit's trusted and secure Cab Sharing platform.</p>
                     <div class="card-stats">
                         <span class="card-stat">Save 60%</span>
                         <span class="card-stat">Eco-Friendly</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Find Rides <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="sharing_action">Find Rides</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -704,15 +741,18 @@
                         <div class="card-icon">
                             <i class="fas fa-concierge-bell"></i>
                         </div>
-                        <h2 class="card-title">Hotel & Food Services</h2>
+                        <h2 class="card-title" data-i18n="hotel_title">Hotel & Food Services</h2>
                     </div>
-                    <p class="card-description">Comprehensive hospitality management - monitor hotel reservations and food service operations from a unified dashboard to optimize guest experiences and service quality.</p>
+                    <p class="card-description" data-i18n="hotel_desc">Comprehensive hospitality management - monitor hotel reservations and food service operations from a unified dashboard to optimize guest experiences and service quality.</p>
                     <div class="card-stats">
                         <span class="card-stat">58 Rooms Booked</span>
                         <span class="card-stat">214 Orders Today</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Manage Services <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="hotel_action">Manage Services</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -724,15 +764,18 @@
                         <div class="card-icon">
                             <i class="fas fa-eye"></i>
                         </div>
-                        <h2 class="card-title">Live Object Detection</h2>
+                        <h2 class="card-title" data-i18n="live_title">Live Object Detection</h2>
                     </div>
-                    <p class="card-description">Assistive navigation technology for visually impaired users, detecting road obstacles, pedestrians, and traffic signals in real-time for safer and more accessible mobility.</p>
+                    <p class="card-description" data-i18n="live_desc">Assistive navigation technology for visually impaired users, detecting road obstacles, pedestrians, and traffic signals in real-time for safer and more accessible mobility.</p>
                     <div class="card-stats">
                         <span class="card-stat">Accessibility First</span>
                         <span class="card-stat">Inclusive Design</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Enable Assistant <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="live_action">Enable Assistant</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -743,15 +786,18 @@
                         <div class="card-icon">
                             <i class="fas fa-robot"></i>
                         </div>
-                        <h2 class="card-title">AI Assistant</h2>
+                        <h2 class="card-title" data-i18n="chatbot_title">AI Assistant</h2>
                     </div>
-                    <p class="card-description">Need help? Our intelligent AI-powered assistant is available 24/7 to guide you through the platform, answer queries and provide comprehensive support.</p>
+                    <p class="card-description" data-i18n="chatbot_desc">Need help? Our intelligent AI-powered assistant is available 24/7 to guide you through the platform, answer queries and provide comprehensive support.</p>
                     <div class="card-stats">
                         <span class="card-stat">24/7 Available</span>
                         <span class="card-stat">Instant Help</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Chat Now <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="chatbot_action">Chat Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -762,15 +808,18 @@
                         <div class="card-icon">
                             <i class="fas fa-comments"></i>
                         </div>
-                        <h2 class="card-title">Feedback & Support</h2>
+                        <h2 class="card-title" data-i18n="feedback_title">Feedback & Support</h2>
                     </div>
-                    <p class="card-description">Share your experience, report issues, or suggest improvements. Help us enhance MooVit's services and accessibility features for all users in our community.</p>
+                    <p class="card-description" data-i18n="feedback_desc">Share your experience, report issues, or suggest improvements. Help us enhance MooVit's services and accessibility features for all users in our community.</p>
                     <div class="card-stats">
                         <span class="card-stat">Your Voice</span>
                         <span class="card-stat">Matters Most</span>
                     </div>
                     <div class="card-action">
-                        <span class="card-link">Give Feedback <i class="fas fa-arrow-right"></i></span>
+                        <span class="card-link">
+                            <span data-i18n="feedback_action">Give Feedback</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </a>
@@ -837,43 +886,169 @@
     </footer>
 
     <script>
-    (function(){
-        const toggle = document.getElementById('theme-toggle');
-        const storageKey = 'moovit-theme';
-        const lightClass = 'theme-light';
+        
+(function(){
+    const toggle = document.getElementById('theme-toggle');
+    const languageToggle = document.getElementById('language-toggle');
+    const storageKey = 'moovit-theme';
+    const languageKey = 'moovit-language';
+    const lightClass = 'theme-light';
 
-        function setToggleContent(isLight){
-            if(!toggle) return;
-            const icon = isLight ? '<i class="fas fa-sun" aria-hidden="true"></i>' : '<i class="fas fa-moon" aria-hidden="true"></i>';
-            toggle.innerHTML = icon + '<span class="visually-hidden">Toggle theme</span>';
-            toggle.setAttribute('aria-pressed', String(isLight));
+    const translations = {
+        en: {
+            nav_home: 'Home',
+            nav_logout: 'Logout',
+            welcome_title: 'Welcome to MooVit',
+            welcome_text: 'Your comprehensive transportation management platform - streamlining logistics, enhancing safety, and connecting communities through innovative mobility solutions.',
+            shipments_title: 'Shipments',
+            shipments_desc: 'Monitor status categories—Pending, In Route, Delivered, Delayed—with transit time metrics and volume trends to optimize delivery workflow and logistics operations.',
+            shipments_action: 'Manage Shipments',
+            fleet_title: 'Fleet Management',
+            fleet_desc: 'Track driver behavior, maintenance schedules, real-time location, fuel usage and utilization metrics for comprehensive data-driven fleet optimization and control.',
+            fleet_action: 'View Fleet',
+            routes_title: 'Route Optimization',
+            routes_desc: 'Analyze route origins, destinations, distances and performance metrics to optimize travel times, reduce fuel consumption and operational costs effectively.',
+            routes_action: 'Optimize Routes',
+            schedule_title: 'Smart Scheduling',
+            schedule_desc: 'Intelligent dispatch scheduling system to reduce idle time, ensure timely pickups and deliveries while maximizing operational efficiency and resource utilization.',
+            schedule_action: 'View Schedule',
+            safety_title: 'Road Safety Awareness',
+            safety_desc: 'Critical safety initiative addressing India’s helmet and seatbelt non-compliance. Poor usage alone caused ~30% of two-wheeler fatalities and up to 14% of car-related deaths in 2019.',
+            safety_action: 'Safety Center',
+            detection_title: 'Sharp Object Detection',
+            detection_desc: 'AI-powered real-time alerts for nearby sharp or hazardous objects using advanced camera input technology — prioritizing vehicle and rider safety on roads.',
+            detection_action: 'Enable Detection',
+            transit_title: 'Public Transit Hub',
+            transit_desc: 'Track real-time bus and train locations, view accurate schedules, and monitor service alerts to plan your travel efficiently and stay informed about transit options.',
+            transit_action: 'Check Transit',
+            sharing_title: 'Cab Sharing Network',
+            sharing_desc: 'Offer or join rides with verified users. Save costs, reduce traffic congestion, and share the journey via MooVits trusted and secure Cab Sharing platform.',
+            sharing_action: 'Find Rides',
+            hotel_title: 'Hotel & Food Services',
+            hotel_desc: 'Comprehensive hospitality management - monitor hotel reservations and food service operations from a unified dashboard to optimize guest experiences and service quality.',
+            hotel_action: 'Manage Services',
+            live_title: 'Live Object Detection',
+            live_desc: 'Assistive navigation technology for visually impaired users, detecting road obstacles, pedestrians, and traffic signals in real-time for safer and more accessible mobility.',
+            live_action: 'Enable Assistant',
+            chatbot_title: 'AI Assistant',
+            chatbot_desc: 'Need help? Our intelligent AI-powered assistant is available 24/7 to guide you through the platform, answer queries and provide comprehensive support.',
+            chatbot_action: 'Chat Now',
+            feedback_title: 'Feedback & Support',
+            feedback_desc: 'Share your experience, report issues, or suggest improvements. Help us enhance MooVits services and accessibility features for all users in our community.',
+            feedback_action: 'Give Feedback'
+        },
+        ta: {
+            nav_home: 'முகப்பு',
+            nav_logout: 'வெளியேறு',
+            welcome_title: 'MooVit-க்கு வரவேற்கிறோம்',
+            welcome_text: 'உங்கள் முழுமையான போக்குவரத்து மேலாண்மை தளம் - லாஜிஸ்டிக்ஸ், பாதுகாப்பு மற்றும் சமூக இணைப்புகளை நவீன இயக்கமுறைத் தீர்வுகள் மூலம் எளிமைப்படுத்துகிறது.',
+            shipments_title: 'சரக்குகள்',
+            shipments_desc: 'செலுத்தப்பட்ட, வழியில், வழங்கப்பட்டது, தாமதம் ஆகிய நிலைகளின் நிலைகளை கண்காணித்து, பரிமாற்ற நேர அளவுகோல்கள் மற்றும் அளவைகள் மேலாண்மையை திறம்பட செய்வதற்காக நெறிமுறை போக்குவரத்தை மேம்படுத்துகிறது.',
+            shipments_action: 'சரக்குகளை நிர்வகிக்கவும்',
+            fleet_title: 'இடைநிலைக் கோப்பகம்',
+            fleet_desc: 'ஓட்டுநர் நடத்தை, பராமரிப்பு அட்டவணைகள், நேரடி இடம், எரிபொருள் பயன்பாடு மற்றும் பயன்படுத்தல் அளவுகோல்களை கண்காணித்து முழுமையான தரவு சார்ந்த பீட் மேம்பாட்டை வழங்குகிறது.',
+            fleet_action: 'கோப்பகத்தை காண்க',
+            routes_title: 'வழி மேம்பாடு',
+            routes_desc: 'வழி ஆரம்பங்கள், இலக்குகள், தூரங்கள் மற்றும் செயல்திறன் அளவுகோல்களை பகுப்பாய்வு செய்து பயண நேரங்களை கட்டுப்படுத்த, எரிபொருள் ஈடுபாட்டை குறைக்க மற்றும் செயல்பாட்டு செயல்திறன் மற்றும் வள பயன்பாட்டை அதிகப்படுத்தும் புத்திசாலி பணிவழிச் திட்டமிடல்.',
+            routes_action: 'வழிகளை மேம்படுத்து',
+            schedule_title: 'திறன்மிக்க அட்டவணை',
+            schedule_desc: 'தணிக்கை காலத்தை குறைத்து, நேரத்திற்குள் எடுத்துக்கொள்வுகள் மற்றும் விநியோகங்களை உறுதி செய்யும் மற்றும் செயல்பாட்டு செயல்திறன் மற்றும் வள பயன்பாட்டை அதிகப்படுத்தும் புத்திசாலி பணிவழிச் திட்டமிடல்.',
+            schedule_action: 'அட்டவணையை காண்க',
+            safety_title: 'சாலை பாதுகாப்பு விழிப்புணர்வு',
+            safety_desc: 'இந்தியாவின் ஹெல்மெட் மற்றும் சீட் பேல்ட் பின்பற்றாமையை எதிர்கொள்ளும் முக்கிய பாதுகாப்பு முயற்சி. 2019 இல் இருசக்கர வாகன சாவுகளில் ~30% மற்றும் வாகனங்களில் 14% வரை இது காரணமாக இருந்தது.',
+            safety_action: 'பாதுகாப்பு மையம்',
+            detection_title: 'குட்டையான பொருள் கண்டறிதல்',
+            detection_desc: 'முன்னணி கேமரா உள்ளீட்டு தொழில்நுட்பத்தைப் பயன்படுத்தி அருகிலுள்ள தீண்டிய அல்லது மாசுபட்ட பொருட்களுக்கு AI பயிற்சி செய்யப்பட்ட நேரடி அறிவிப்புகளை வழங்குகிறது — வாகனம் மற்றும் ஓட்டுநர் பாதுகாப்பை முன்னுரிமை செய்கிறது.',
+            detection_action: 'கண்காணிப்பை இயக்கு',
+            transit_title: 'பொது போக்குவரத்து மையம்',
+            transit_desc: 'நேரடி பேருந்து மற்றும் ரயில் இடங்களை கண்காணித்து, துல்லிய அட்டவணைகளை பார்வையிட்டு, சேவை அறிவிப்புகளை பின்தொடர்ந்து பயணத்திற்குப் திட்டமிட உதவுகிறது.',
+            transit_action: 'போக்குவரத்தைக் காண்க',
+            sharing_title: 'கேப் பகிர்வு வலையமைப்பு',
+            sharing_desc: 'உறுதிசெய்யப்பட்ட பயனர்களுடன் பயணத்தை பகிர அல்லது சேர்ந்துகொள். செலவுகளை சேமித்து, போக்குவரத்து நெரிசலை குறைத்து, MooVit இன் நம்பகமான பகிர்வு போக்குவரத்தைப் பயன்படுத்து.',
+            sharing_action: 'பயணங்களை காண்க',
+            hotel_title: 'ஹோட்டல் & உணவு சேவைகள்',
+            hotel_desc: 'ஒன்றிணைந்த டாஷ்போர்டில் ஹோட்டல் முன்பதிவு மற்றும் உணவு சேவை செயல்பாட்டை கண்காணித்து விருந்தாரர்களின் அனுபவத்தையும் சேவை தரத்தையும் மேம்படுத்துகிறது.',
+            hotel_action: 'சேவைகளை நிர்வகிக்கவும்',
+            live_title: 'நேரடி பொருள் கண்டறிதல்',
+            live_desc: 'கண் சீரியல் பயனர்களுக்கு வழிகாட்டும் உதவித் திறன் தொழில்நுட்பம், சாலை தடைகள், பரிசோதனைக்குடிகள் மற்றும் போக்குவரத்து சின்னங்களை நேரடி முறையில் கண்டறிந்து பாதுகாப்பாகச் சொல்லுகிறது.',
+            live_action: 'உதவியை இயக்கு',
+            chatbot_title: 'AI உதவியாளர்',
+            chatbot_desc: 'உதவி வேண்டுமா? எங்கள் நுண்ணறிவு ஆற்றலூட்டிய AI உதவியாளர் 24/7 கிடைக்கிறது, தளத்தை வழிநடத்த உதவுகிறது, கேள்விகளுக்கு பதிலளிக்கிறது மற்றும் முழுமையான ஆதரவை வழங்குகிறது.',
+            chatbot_action: 'உடனே உரையாடு',
+            feedback_title: 'கருத்து & ஆதரவு',
+            feedback_desc: 'உங்கள் அனுபவத்தை பகிரவும், பிழைகளை அறிவிக்கவும் அல்லது பரிந்துரைகளை முன்வைக்கவும். MooVit இன் சேவைகள் மற்றும் அணுகுமுறை வசதிகளை அனைத்து பயனர்களுக்கும் மேம்படுத்த உதவுங்கள்.',
+            feedback_action: 'கருத்து கொடு'
         }
+    };
 
-        function applyTheme(theme){
-            if(theme === 'light') document.documentElement.classList.add(lightClass);
-            else document.documentElement.classList.remove(lightClass);
-            setToggleContent(theme === 'light');
-        }
+    function setToggleContent(isLight){
+        if(!toggle) return;
+        const icon = isLight ? '<i class="fas fa-sun" aria-hidden="true"></i>' : '<i class="fas fa-moon" aria-hidden="true"></i>';
+        toggle.innerHTML = icon + '<span class="visually-hidden">Toggle theme</span>';
+        toggle.setAttribute('aria-pressed', String(isLight));
+    }
 
-        function init(){
-            let theme = localStorage.getItem(storageKey);
-            if(!theme){
-                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    function applyTheme(theme){
+        if(theme === 'light') document.documentElement.classList.add(lightClass);
+        else document.documentElement.classList.remove(lightClass);
+        setToggleContent(theme === 'light');
+    }
+
+    function translatePage(lang){
+        document.documentElement.lang = lang;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.dataset.i18n;
+            if(translations[lang] && translations[lang][key]){
+                el.textContent = translations[lang][key];
             }
-            applyTheme(theme);
-            if(toggle){
-                toggle.addEventListener('click', function(){
-                    const next = document.documentElement.classList.contains(lightClass) ? 'dark' : 'light';
-                    localStorage.setItem(storageKey, next);
-                    applyTheme(next);
-                });
-            }
+        });
+    }
+
+    function updateLanguageButton(lang){
+        if(!languageToggle) return;
+        const label = lang === 'ta' ? 'English' : 'தமிழ்';
+        const labelSpan = languageToggle.querySelector('.language-label');
+        if(labelSpan) labelSpan.textContent = label;
+        languageToggle.setAttribute('aria-pressed', String(lang === 'ta'));
+    }
+
+    function init(){
+        let theme = localStorage.getItem(storageKey);
+        if(!theme){
+            theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        applyTheme(theme);
+
+        let lang = localStorage.getItem(languageKey) || 'en';
+        translatePage(lang);
+        updateLanguageButton(lang);
+
+        if(toggle){
+            toggle.addEventListener('click', function(){
+                const next = document.documentElement.classList.contains(lightClass) ? 'dark' : 'light';
+                localStorage.setItem(storageKey, next);
+                applyTheme(next);
+            });
         }
 
-        if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-        else init();
-    })();
-    </script>
+        if(languageToggle){
+            languageToggle.addEventListener('click', function(){
+                const current = localStorage.getItem(languageKey) || 'en';
+                const nextLang = current === 'ta' ? 'en' : 'ta';
+                localStorage.setItem(languageKey, nextLang);
+                translatePage(nextLang);
+                updateLanguageButton(nextLang);
+            });
+        }
+    }
+
+    if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
 </body>
 
 </html>
