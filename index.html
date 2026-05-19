@@ -65,7 +65,6 @@
         </div>
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
           <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
-          <span class="theme-toggle-label">Dark Mode</span>
         </button>
         <div class="auth-divider"></div>
         <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
@@ -79,7 +78,6 @@
         href="contact.html">Contact</a>
       <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
         <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
-        <span class="theme-toggle-label">Dark Mode</span>
       </button>
       <div class="mobile-auth"><a href="#" onclick="openLoginPopup()">Login</a><a href="#"
           onclick="openSignupPopup()">Sign Up</a></div>
@@ -437,12 +435,10 @@
 
       themeButtons.forEach(button => {
         const icon = button.querySelector('.theme-toggle-icon');
-        const label = button.querySelector('.theme-toggle-label');
         const darkMode = theme === 'dark';
 
         button.setAttribute('aria-pressed', String(darkMode));
         if (icon) icon.textContent = darkMode ? '☀️' : '🌙';
-        if (label) label.textContent = darkMode ? 'Light Mode' : 'Dark Mode';
       });
     }
 
