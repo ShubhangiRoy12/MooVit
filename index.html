@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="transport.css?v=2">
+  <link rel="stylesheet" href="transport.css">
   <script>
     (() => {
       const savedTheme = localStorage.getItem('moovit-theme') || 'light';
@@ -448,7 +449,7 @@
             aria-label="LeetCode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="currentColor">
               <path
-                d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1'374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z" />
+                d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1.374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z" />
             </svg></a>
           <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/" target="_blank" rel="noopener noreferrer"
             aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -496,6 +497,7 @@
     </div>
   </footer>
 
+  <button id="scrollToTopBtn" title="Scroll to Top">&#8679;</button>
   <script>
     const root = document.documentElement;
     const body = document.body;
@@ -537,22 +539,23 @@
     });
 
     // --- Cursor & Particles ---
-    const cursor = document.getElementById('cursor');
+{
+    const customCursor = document.querySelector('.cursor');
     let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
     document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
     function updateCursor() {
       const dx = mouseX - cursorX; const dy = mouseY - cursorY;
       cursorX += dx * 0.2; cursorY += dy * 0.2;
-      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+      customCursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
       requestAnimationFrame(updateCursor);
     }
     if (window.innerWidth > 768) updateCursor();
 
     document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      el.addEventListener('mouseenter', () => customCursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => customCursor.classList.remove('hover'));
     });
-
+  }
     // Particles
     const particles = document.getElementById('particles');
     for (let i = 0; i < 40; i++) {
@@ -687,6 +690,18 @@
         setTimeout(() => el.classList.add('loaded'), i * 200);
       });
     });
+    window.onscroll = function () {
+      const btn = document.getElementById("scrollToTopBtn");
+      if (window.scrollY > 300) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+
+    document.getElementById("scrollToTopBtn").onclick = function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
   </script>
 </body>
 

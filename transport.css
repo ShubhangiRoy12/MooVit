@@ -1174,3 +1174,26 @@
       text-decoration: underline;
       margin-left: 4px;
     }
+
+     #scrollToTopBtn{
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            background-color: var(--button-primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: var(--button-primary-hover);
+        }
+
