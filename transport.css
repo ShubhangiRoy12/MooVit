@@ -689,170 +689,298 @@
     }
 
     /* --- Modals --- */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--overlay-bg);
-      backdrop-filter: blur(8px);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-    }
 
-    .overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 
-    .service-alert,
-    .login-container,
-    .signup-container,
-    .admin-container-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.9);
-      background: var(--modal-bg);
-      border: 1px solid var(--panel-border);
-      padding: 2.5rem;
-      border-radius: 20px;
-      z-index: 1001;
-      width: 90%;
-      max-width: 450px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-    }
+  background: var(--overlay-bg);
+  backdrop-filter: blur(8px);
 
-    .service-alert.active,
-    .login-modal.active .login-container,
-    .signup-modal.active .signup-container,
-    .admin-modal.active .admin-container-popup {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      visibility: visible;
-    }
+  z-index: 999;
 
-    .service-alert h3 {
-      color: var(--text-primary);
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 
-    .service-alert p {
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
 
-    .alert-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
-    .alert-btn {
-      padding: 0.8rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      color: white;
-      border: none;
-    }
+/* =========================================
+   MODAL WRAPPER
+========================================= */
 
-    .alert-btn.primary {
-      background: var(--button-primary);
-    }
+.login-modal,
+.signup-modal,
+.admin-modal {
+  position: fixed;
+  inset: 0;
 
-    .alert-btn.secondary {
-      background: #059669;
-    }
+  width: 100%;
+  height: 100%;
 
-    .alert-btn.close {
-      background: var(--search-bg);
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    /* Forms */
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
+  z-index: 1001;
 
-    .form-group label {
-      color: var(--text-secondary);
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 
-    .form-group input {
-      width: 100%;
-      padding: 0.8rem;
-      border-radius: 10px;
-      border: 1px solid var(--input-border);
-      background: var(--input-bg);
-      color: var(--input-text);
-      outline: none;
-    }
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
 
-    .form-group input:focus {
-      border-color: #2563eb;
-      background: color-mix(in srgb, var(--input-bg) 85%, transparent);
-    }
+/* ACTIVE MODAL */
 
-    .login-submit-btn,
-    .signup-submit-btn,
-    .admin-submit-btn {
-      width: 100%;
-      padding: 1rem;
-      border-radius: 10px;
-      border: none;
-      background: var(--button-primary);
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.login-modal.active,
+.signup-modal.active,
+.admin-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
-    .login-submit-btn:hover,
-    .signup-submit-btn:hover {
-      background: var(--button-primary-hover);
-    }
+/* =========================================
+   MODAL CONTAINERS
+========================================= */
 
-    .close-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-      float: right;
-    }
+.service-alert,
+.login-container,
+.signup-container,
+.admin-container-popup {
+  position: fixed;
 
-    .login-modal,
-    .signup-modal,
-    .admin-modal {
-      position: fixed;
-      z-index: 1001;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      pointer-events: none;
-    }
+  top: 50%;
+  left: 50%;
 
-    .login-modal.active,
-    .signup-modal.active,
-    .admin-modal.active {
-      pointer-events: auto;
-    }
+  transform: translate(-50%, -50%) scale(0.9);
+
+  width: min(80%, 350px);
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  padding: 2rem;
+
+  border-radius: 20px;
+
+  background: var(--modal-bg);
+
+  border: 1px solid var(--panel-border);
+
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+  z-index: 1002;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease;
+}
+/* =========================================
+   ACTIVE POPUP ANIMATION
+========================================= */
+
+.service-alert.active,
+.login-modal.active .login-container,
+.signup-modal.active .signup-container,
+.admin-modal.active .admin-container-popup {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* =========================================
+   FORM STYLING
+========================================= */
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 0.5rem;
+
+  color: var(--text-secondary);
+
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+
+  padding: 0.8rem;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--input-border);
+
+  background: var(--input-bg);
+
+  color: var(--input-text);
+
+  outline: none;
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #2563eb;
+
+  background:
+    color-mix(in srgb, var(--input-bg) 85%, transparent);
+}
+
+/* =========================================
+   SUBMIT BUTTONS
+========================================= */
+
+.login-submit-btn,
+.signup-submit-btn,
+.admin-submit-btn {
+  width: 100%;
+
+  padding: 1rem;
+
+  border: none;
+  border-radius: 10px;
+
+  background: var(--button-primary);
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+
+.login-submit-btn:hover,
+.signup-submit-btn:hover,
+.admin-submit-btn:hover {
+  background: var(--button-primary-hover);
+
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.close-btn {
+  position: absolute;
+
+  top: 15px;
+  right: 18px;
+
+  background: none;
+  border: none;
+
+  color: var(--text-muted);
+
+  font-size: 1.5rem;
+
+  cursor: pointer;
+
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: var(--text-primary);
+}
+
+/* =========================================
+   ALERT BUTTONS
+========================================= */
+
+.alert-buttons {
+  display: flex;
+
+  gap: 1rem;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+}
+
+.alert-btn {
+  padding: 0.8rem 2rem;
+
+  border: none;
+  border-radius: 50px;
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.3s ease;
+}
+
+.alert-btn:hover {
+  transform: translateY(-2px);
+}
+
+.alert-btn.primary {
+  background: var(--button-primary);
+}
+
+.alert-btn.secondary {
+  background: #059669;
+}
+
+.alert-btn.close {
+  background: var(--search-bg);
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.service-alert h3 {
+  color: var(--text-primary);
+
+  font-size: 1.8rem;
+
+  margin-bottom: 1rem;
+}
+
+.service-alert p {
+  color: var(--text-muted);
+
+  margin-bottom: 2rem;
+}
 
     /* Error Messages */
     .error-message {
