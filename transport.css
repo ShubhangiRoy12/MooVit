@@ -1249,4 +1249,24 @@
         #scrollToTopBtn:hover {
             background-color: var(--button-primary-hover);
         }
+.cursor-tail {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+}
 
+.circle {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(202, 138, 4, 0.4);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+  .cursor-tail { display: none; }
+}
