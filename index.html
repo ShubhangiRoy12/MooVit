@@ -604,6 +604,9 @@
     }
 
     // Admin Validation
+    // ⚠️ SECURITY NOTE: Admin credentials must never be hardcoded in frontend code.
+    // Authentication should be handled server-side via a secure backend API.
+    // This form currently sends credentials to a backend endpoint for verification.
     const adminForm = document.getElementById('admin-form-popup');
     if (adminForm) {
       adminForm.addEventListener('submit', function (e) {
@@ -612,14 +615,15 @@
         const password = document.getElementById('admin-password').value;
         const errorMsg = document.getElementById('admin-error-msg');
 
-        if (adminId === 'admin' && password === 'transport2024') {
-          const submitBtn = this.querySelector('.admin-submit-btn');
-          submitBtn.textContent = 'Accessing...';
-          submitBtn.disabled = true;
-          setTimeout(() => { alert('Access Granted'); closeAllModals(); }, 1000);
-        } else {
-          errorMsg.textContent = 'Invalid Admin credentials.';
+        if (!adminId || !password) {
+          errorMsg.textContent = 'Please enter both username and password.';
+          return;
         }
+
+        // TODO: Replace with a secure backend API call for authentication
+        // Example: POST /api/admin/login with { adminId, password }
+        errorMsg.style.color = '#f59e0b';
+        errorMsg.textContent = 'Admin authentication requires a secure backend. Please contact the system administrator.';
       });
     }
 
