@@ -79,7 +79,7 @@ MooVit/
 │   │   └── safety.py
 │   ├── models/                    # ML / Detection models
 │   │   └── detection_model.py
-│   ├── utils/                     # Helper functio
+│   ├── utils/                     # Helper function
 ```
 
 
