@@ -14,7 +14,7 @@
 </head>
 
 <body>
-   <div class="cursor"></div>
+   <div class="cursor" id="cursor"></div>
 
   <div class="cursor-tail">
     <div class="circle"></div>
@@ -362,7 +362,7 @@
             aria-label="LeetCode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="currentColor">
               <path
-                d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1'374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z" />
+              d="M13.483 0a1.374 1.374 0 0 0-1.374 1.374v10.852h-2.826v-2.826a1.374 1.374 0 0 0-2.748 0v2.826H4.009v-5.54a1.374 1.374 0 0 0-2.748 0v5.54a1.374 1.374 0 0 0 1.374 1.374h2.826v2.826a1.374 1.374 0 0 0 2.748 0v-2.826h2.526v2.719a1.374 1.374 0 0 0 2.748 0v-2.719h2.826a1.374 1.374 0 0 0 1.374-1.374V1.374A1.374 1.374 0 0 0 13.483 0zm-2.826 14.944H8.13v-2.826h2.527v2.826zm0-4.2h-2.527v-2.826h2.527v2.826z" />
             </svg></a>
           <a href="https://www.linkedin.com/in/shubhangi-roy-762a3427a/" target="_blank" rel="noopener noreferrer"
             aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -411,6 +411,43 @@
   </footer>
 
   <script>
+    // --- Modal Logic ---
+    function closeAllModals() {
+      document.getElementById('overlay').classList.remove('active');
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
+      document.body.style.overflow = 'auto';
+    }
+    function handleServiceClick() {
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('serviceAlert').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeServiceAlert() { closeAllModals(); }
+
+    function openLoginPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('loginModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLoginPopup() { closeAllModals(); }
+
+    function openSignupPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('signupModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openAdminPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('adminModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+
     // --- Mouse Spotlight Logic ---
     document.querySelectorAll('.card').forEach(card => {
       card.onmousemove = e => {
@@ -466,40 +503,6 @@
       document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
     });
 
-    // --- Modal Logic ---
-    function closeAllModals() {
-      document.getElementById('overlay').classList.remove('active');
-      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
-      document.body.style.overflow = 'auto';
-    }
-    function handleServiceClick() {
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('serviceAlert').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeServiceAlert() { closeAllModals(); }
-
-    function openLoginPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('loginModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLoginPopup() { closeAllModals(); }
-
-    function openSignupPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('signupModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function openAdminPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('adminModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
 
     // --- Backend Form Handling ---
 
@@ -586,6 +589,7 @@
       document.querySelectorAll('.loading').forEach((el, i) => {
         setTimeout(() => el.classList.add('loaded'), i * 200);
       });
+    });
     });
   </script>
 </body>

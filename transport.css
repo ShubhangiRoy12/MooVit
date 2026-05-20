@@ -740,7 +740,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
       pointer-events: none;
@@ -749,7 +749,8 @@
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
-      pointer-events: auto;
+      /* pointer-events: auto; */
+      display: flex;
     }
 
     /* Error Messages */
