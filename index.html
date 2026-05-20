@@ -51,7 +51,7 @@
           <li><a href="index.html" class="nav-link active">Home</a></li>
           <li><a href="services.html" class="nav-link">Services</a></li>
           <li><a href="#" class="nav-link">Tracking</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="contact.html" class="nav-link">Contact</a></li>
         </ul>
       </nav>
@@ -70,11 +70,11 @@
         <div class="auth-divider"></div>
         <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
         <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
-        <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
-            class="bar"></span></button>
+        <button class="mobile-toggle" aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="bar"></span><span class="bar"></span><span
+          class="bar"></span></button>
       </div>
     </div>
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobileMenu">
       <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
         href="contact.html">Contact</a>
       <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
@@ -153,6 +153,39 @@
           <h2>Express Delivery</h2>
           <p>Same-day and next-day delivery services with live tracking and money-back guarantee for time-critical
             shipments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SUMMARY (embedded for smoother homepage flow) -->
+  <section id="about" class="about-section">
+    <div class="about-container">
+      <h2 class="section-title">About TransportCo</h2>
+      <p class="section-subtitle">We move goods with precision and care — combining modern logistics technology with human-first service to keep your business moving.</p>
+
+      <div class="about-grid">
+        <div class="mission-card">
+          <h3>Our Mission</h3>
+          <p>Delivering fast, reliable, and secure logistics solutions globally, with real-time visibility and exceptional customer support.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🚚</div>
+            <h3>Ground Transport</h3>
+            <p>Temperature-controlled, GPS-tracked trucking tailored to your needs.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">✈️</div>
+            <h3>Air Freight</h3>
+            <p>Priority handling for urgent international shipments.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🚢</div>
+            <h3>Ocean Freight</h3>
+            <p>Cost-effective sea transport for large-volume consignments.</p>
+          </div>
         </div>
       </div>
     </div>
