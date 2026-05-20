@@ -51,7 +51,7 @@
           <li><a href="index.html" class="nav-link active">Home</a></li>
           <li><a href="services.html" class="nav-link">Services</a></li>
           <li><a href="#" class="nav-link">Tracking</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="contact.html" class="nav-link">Contact</a></li>
         </ul>
       </nav>
@@ -70,11 +70,11 @@
         <div class="auth-divider"></div>
         <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
         <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
-        <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
-            class="bar"></span></button>
+        <button class="mobile-toggle" aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="bar"></span><span class="bar"></span><span
+          class="bar"></span></button>
       </div>
     </div>
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobileMenu">
       <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
         href="contact.html">Contact</a>
       <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
@@ -158,6 +158,39 @@
     </div>
   </section>
 
+  <!-- ABOUT SUMMARY (embedded for smoother homepage flow) -->
+  <section id="about" class="about-section">
+    <div class="about-container">
+      <h2 class="section-title">About TransportCo</h2>
+      <p class="section-subtitle">We move goods with precision and care — combining modern logistics technology with human-first service to keep your business moving.</p>
+
+      <div class="about-grid">
+        <div class="mission-card">
+          <h3>Our Mission</h3>
+          <p>Delivering fast, reliable, and secure logistics solutions globally, with real-time visibility and exceptional customer support.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🚚</div>
+            <h3>Ground Transport</h3>
+            <p>Temperature-controlled, GPS-tracked trucking tailored to your needs.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">✈️</div>
+            <h3>Air Freight</h3>
+            <p>Priority handling for urgent international shipments.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🚢</div>
+            <h3>Ocean Freight</h3>
+            <p>Cost-effective sea transport for large-volume consignments.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
   <div class="service-alert" id="serviceAlert">
@@ -209,7 +242,7 @@
           <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          New here? <a href="#" onclick="openSignupPopup(); closeLoginPopup();"
+          New here? <a href="#" onclick="openSignupPopup();"
             style="color:#2563eb; font-weight:600;">Create Account</a>
         </p>
         <p style="text-align:center; margin-top:0.5rem;">
@@ -284,7 +317,7 @@
           <button type="submit" class="signup-submit-btn" style="margin-top:1rem;">Create Account</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          Already have an account? <a href="#" onclick="openLoginPopup(); closeSignupPopup();"
+          Already have an account? <a href="#" onclick="openLoginPopup();"
             style="color:#2563eb; font-weight:600;">Login</a>
         </p>
       </div>
@@ -510,41 +543,6 @@
       document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
     });
 
-    // --- Modal Logic ---
-    function closeAllModals() {
-      document.getElementById('overlay').classList.remove('active');
-      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
-      document.body.style.overflow = 'auto';
-    }
-    function handleServiceClick() {
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('serviceAlert').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeServiceAlert() { closeAllModals(); }
-
-    function openLoginPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('loginModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLoginPopup() { closeAllModals(); }
-
-    function openSignupPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('signupModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function openAdminPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('adminModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
     // --- Backend Form Handling ---
 
     // Login Validation
@@ -642,6 +640,78 @@
 
     document.getElementById("scrollToTopBtn").onclick = function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  </script>
+
+  <script>
+    window.closeAllModals = function () {
+      const overlay = document.getElementById('overlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+      }
+
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach((el) => {
+        el.classList.remove('active');
+      });
+
+      document.body.style.overflow = 'auto';
+    };
+
+    window.openModal = function (modalId) {
+      window.closeAllModals();
+
+      const overlay = document.getElementById('overlay');
+      const modal = document.getElementById(modalId);
+
+      if (overlay) {
+        overlay.classList.add('active');
+      }
+
+      if (modal) {
+        modal.classList.add('active');
+      }
+
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.handleServiceClick = function () {
+      window.closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const serviceAlert = document.getElementById('serviceAlert');
+
+      if (overlay) {
+        overlay.classList.add('active');
+      }
+
+      if (serviceAlert) {
+        serviceAlert.classList.add('active');
+      }
+
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeServiceAlert = function () {
+      window.closeAllModals();
+    };
+
+    window.openLoginPopup = function () {
+      window.openModal('loginModal');
+    };
+
+    window.closeLoginPopup = function () {
+      window.closeAllModals();
+    };
+
+    window.closeSignupPopup = function () {
+      window.closeAllModals();
+    };
+
+    window.openSignupPopup = function () {
+      window.openModal('signupModal');
+    };
+
+    window.openAdminPopup = function () {
+      window.openModal('adminModal');
     };
   </script>
 </body>
