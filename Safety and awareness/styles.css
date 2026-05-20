@@ -415,7 +415,7 @@ nav ul li a:hover {
 }
 
 /* Floating Action Button */
-.fab {
+.scroll-top-btn {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -435,7 +435,7 @@ nav ul li a:hover {
     animation: pulse 2s infinite;
 }
 
-.fab:hover {
+.scroll-top-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 30px rgba(0, 102, 204, 0.4);
 }
@@ -594,7 +594,7 @@ footer {
         grid-template-columns: 1fr;
     }
     
-    .fab {
+    .scroll-top-btn {
         bottom: 20px;
         right: 20px;
         width: 50px;
