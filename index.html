@@ -19,7 +19,9 @@
       document.documentElement.setAttribute('data-theme', savedTheme);
     })();
   </script>
+
 </head>
+
 
 <body data-theme="light">
    <div class="cursor"></div>
@@ -31,8 +33,6 @@
     <div class="circle"></div>
     <div class="circle"></div>
   </div>
-
-  <script src="cursor.js"></script>
 
   <div class="particles" id="particles"></div>
 
@@ -68,13 +68,14 @@
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
           <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
         </button>
-        <div class="auth-divider"></div>
+        <div class="auth-divider"></div>sed -i 's/\r$//' index.html
         <a href="#" onclick="openLoginPopup(event)" class="btn-text">Login</a>
         <a href="#" onclick="openSignupPopup(event)" class="btn-header-cta">Sign Up</a>
         <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
             class="bar"></span></button>
       </div>
     </div>
+
     <div class="mobile-menu" id="mobileMenu">
       <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
         href="contact.html">Contact</a>
@@ -242,11 +243,10 @@
           <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          New here? <a href="#" onclick="openSignupPopup(event); closeLoginPopup();"
-            style="color:#2563eb; font-weight:600;">Create Account</a>
+          New here? <a href="#" onclick="openSignupPopup(event);" style="color:#2563eb; font-weight:600;">Create Account</a>
         </p>
         <p style="text-align:center; margin-top:0.5rem;">
-          <a href="#" onclick="closeLoginPopup(); openAdminPopup();"
+          <a href="#" onclick="openAdminPopup()"
             style="color:#64748b; font-size:0.85rem; text-decoration:none;">Admin Access</a>
         </p>
       </div>
@@ -317,6 +317,7 @@
           <button type="submit" class="signup-submit-btn" style="margin-top:1rem;">Create Account</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
+
           Already have an account? <a href="#" onclick="openLoginPopup();"
             style="color:#2563eb; font-weight:600;">Login</a>
         </p>
@@ -456,8 +457,10 @@
     </div>
   </footer>
 
+
   <button id="scrollToTopBtn" title="Scroll to Top">&#8679;</button>
-  <script>
+
+<script>
     const root = document.documentElement;
     const body = document.body;
     const themeButtons = document.querySelectorAll('.theme-toggle');
@@ -496,22 +499,44 @@
     });
 
     // --- Cursor & Particles ---
-    //deleted
+
+    const cursor = document.querySelector('.cursor');
+    let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
+    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+    function updateCursor() {
+      if (!cursor) return; // Fix: check if cursor exists before using it
+      const dx = mouseX - cursorX; const dy = mouseY - cursorY;
+      cursorX += dx * 0.2; cursorY += dy * 0.2;
+      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+      requestAnimationFrame(updateCursor);
+    }
+    if (window.innerWidth > 768) updateCursor();
+
+    if (cursor) {
+      document.querySelectorAll('a, button, .card').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+    }
+
     // Particles
     const particles = document.getElementById('particles');
-    for (let i = 0; i < 40; i++) {
-      let p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.top = Math.random() * 100 + '%';
-      p.style.animationDelay = Math.random() * 5 + 's';
-      p.style.animationDuration = (Math.random() * 10 + 10) + 's';
-      particles.appendChild(p);
+    if (particles) {
+      for (let i = 0; i < 40; i++) {
+        let p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 5 + 's';
+        p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        particles.appendChild(p);
+      }
     }
 
     // Header Scroll
     window.addEventListener('scroll', () => {
       const header = document.getElementById('main-header');
+      if (!header) return;
       if (window.scrollY > 50) header.classList.add('scrolled');
       else header.classList.remove('scrolled');
     });
@@ -519,10 +544,78 @@
     // Mobile Menu
     const toggle = document.querySelector('.mobile-toggle');
     const menu = document.querySelector('.mobile-menu');
-    toggle.addEventListener('click', () => {
-      menu.classList.toggle('active');
-      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
-    });
+    if (toggle && menu) {
+      toggle.addEventListener('click', () => {
+        menu.classList.toggle('active');
+        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+      });
+    }
+
+    // Tracking button
+    const trackingWrapper = document.querySelector('.tracking-wrapper');
+    const trackingButton = trackingWrapper ? trackingWrapper.querySelector('button') : null;
+    if (trackingButton) {
+      trackingButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'Shipments/shipments.html';
+      });
+    }
+
+    // --- Modal State Management ---
+    // --- Simple Modal Functions (no complex state management) ---
+    function closeAllModals() {
+      const overlay = document.getElementById('overlay');
+      if (overlay) overlay.classList.remove('active');
+      ['serviceAlert', 'loginModal', 'signupModal', 'adminModal'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+      });
+      document.body.style.overflow = 'auto';
+    }
+
+    function openLoginPopup() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const loginModal = document.getElementById('loginModal');
+      if (overlay) overlay.classList.add('active');
+      if (loginModal) loginModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openSignupPopup() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const signupModal = document.getElementById('signupModal');
+      if (overlay) overlay.classList.add('active');
+      if (signupModal) signupModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openAdminPopup() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const adminModal = document.getElementById('adminModal');
+      if (overlay) overlay.classList.add('active');
+      if (adminModal) adminModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function handleServiceClick() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const serviceAlert = document.getElementById('serviceAlert');
+      if (overlay) overlay.classList.add('active');
+      if (serviceAlert) serviceAlert.classList.add('active');
+    }
+
+    function closeServiceAlert() {
+      closeAllModals();
+    }
+
+    // Close on Escape and overlay click
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllModals(); });
+    const overlayEl = document.getElementById('overlay');
+    if (overlayEl) overlayEl.addEventListener('click', closeAllModals);
 
     // --- Modal Logic ---
     function closeAllModals() {
@@ -577,21 +670,25 @@
     if (loginForm) {
       loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        const email = document.getElementById('popup-email').value.trim();
-        const password = document.getElementById('popup-password').value;
+        const emailInput = document.getElementById('popup-email');
+        const passwordInput = document.getElementById('popup-password');
         const errorMsg = document.getElementById('popup-error-msg');
-        errorMsg.textContent = '';
+        const email = emailInput ? emailInput.value.trim() : '';
+        const password = passwordInput ? passwordInput.value : '';
+        if (errorMsg) errorMsg.textContent = '';
 
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailPattern.test(email)) {
-          errorMsg.textContent = 'Please enter a valid email address.';
+          if (errorMsg) errorMsg.textContent = 'Please enter a valid email address.';
           return;
         }
 
         // Simulating submission
         const submitBtn = this.querySelector('.login-submit-btn');
-        submitBtn.textContent = 'Logging in...';
-        submitBtn.disabled = true;
+        if (submitBtn) {
+          submitBtn.textContent = 'Logging in...';
+          submitBtn.disabled = true;
+        }
         setTimeout(() => { window.location.href = '#'; }, 1000);
       });
     }
@@ -601,31 +698,41 @@
     if (signupForm) {
       signupForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        const name = document.getElementById('signup-name').value.trim();
-        const email = document.getElementById('signup-email').value.trim();
-        const password = document.getElementById('signup-password').value;
-        const confirmPassword = document.getElementById('signup-confirm-password').value;
-        const agreeTerms = document.getElementById('terms-checkbox').checked;
+        const nameInput = document.getElementById('signup-name');
+        const emailInput = document.getElementById('signup-email');
+        const passwordInput = document.getElementById('signup-password');
+        const confirmPasswordInput = document.getElementById('signup-confirm-password');
+        const termsCheckbox = document.getElementById('terms-checkbox');
         const errorMsg = document.getElementById('signup-error-msg');
-        errorMsg.textContent = '';
+        const name = nameInput ? nameInput.value.trim() : '';
+        const email = emailInput ? emailInput.value.trim() : '';
+        const password = passwordInput ? passwordInput.value : '';
+        const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
+        const agreeTerms = termsCheckbox ? termsCheckbox.checked : false;
+        if (errorMsg) errorMsg.textContent = '';
 
         if (!agreeTerms) {
-          errorMsg.textContent = 'Please agree to the Terms.';
+          if (errorMsg) errorMsg.textContent = 'Please agree to the Terms.';
           return;
         }
         if (password !== confirmPassword) {
-          errorMsg.textContent = 'Passwords do not match.';
+          if (errorMsg) errorMsg.textContent = 'Passwords do not match.';
           return;
         }
 
         const submitBtn = this.querySelector('.signup-submit-btn');
-        submitBtn.textContent = 'Creating Account...';
-        submitBtn.disabled = true;
+        if (submitBtn) {
+          submitBtn.textContent = 'Creating Account...';
+          submitBtn.disabled = true;
+        }
         setTimeout(() => {
           closeAllModals();
           openLoginPopup();
-          document.getElementById('popup-error-msg').style.color = '#10b981';
-          document.getElementById('popup-error-msg').textContent = 'Account created!';
+          const loginErrorMsg = document.getElementById('popup-error-msg');
+          if (loginErrorMsg) {
+            loginErrorMsg.style.color = '#10b981';
+            loginErrorMsg.textContent = 'Account created!';
+          }
         }, 1500);
       });
     }
@@ -635,17 +742,21 @@
     if (adminForm) {
       adminForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        const adminId = document.getElementById('admin-id').value.trim();
-        const password = document.getElementById('admin-password').value;
+        const adminIdInput = document.getElementById('admin-id');
+        const adminPasswordInput = document.getElementById('admin-password');
+        const adminId = adminIdInput ? adminIdInput.value.trim() : '';
+        const password = adminPasswordInput ? adminPasswordInput.value : '';
         const errorMsg = document.getElementById('admin-error-msg');
 
         if (adminId === 'admin' && password === 'transport2024') {
           const submitBtn = this.querySelector('.admin-submit-btn');
-          submitBtn.textContent = 'Accessing...';
-          submitBtn.disabled = true;
+          if (submitBtn) {
+            submitBtn.textContent = 'Accessing...';
+            submitBtn.disabled = true;
+          }
           setTimeout(() => { alert('Access Granted'); closeAllModals(); }, 1000);
         } else {
-          errorMsg.textContent = 'Invalid Admin credentials.';
+          if (errorMsg) errorMsg.textContent = 'Invalid Admin credentials.';
         }
       });
     }

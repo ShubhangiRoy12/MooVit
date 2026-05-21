@@ -110,7 +110,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: transform 0.05s ease; /*fix*/ 
+      transition: transform 0.05s ease; /*fix*/
       transform: translate(-50%, -50%);
     }
 
@@ -735,7 +735,7 @@ a, button, input, .card {
       }
     }
 
-    /* --- Modals --- */
+    /* --- Modals (consolidated) --- */
     .overlay {
       position: fixed;
       top: 0;
@@ -744,279 +744,343 @@ a, button, input, .card {
       height: 100%;
       background: var(--overlay-bg);
       backdrop-filter: blur(8px);
-      z-index: 999;
+      z-index: 999; /* overlay below modals */
       opacity: 0;
       visibility: hidden;
-      transition: 0.3s;
+      pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      overflow: hidden;
     }
 
     .overlay.active {
       opacity: 1;
       visibility: visible;
+      pointer-events: auto;
     }
 
-    /* ---------- FIXED MODAL SYSTEM ---------- */
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100vh;
-
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-
-  z-index: 9998;
-
-  opacity: 0;
-  visibility: hidden;
-
-  transition: all 0.3s ease;
-}
-
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Modal Wrapper */
-.login-modal,
-.signup-modal,
-.admin-modal {
-  position: fixed;
-  inset: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 9999;
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-
-  transition: all 0.3s ease;
-}
-
-/* Active Modal */
-.login-modal.active,
-.signup-modal.active,
-.admin-modal.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-/* Main Modal Box */
-.modal-wrapper,
-.admin-container-popup,
-.service-alert {
-  position: relative;
-
-  width: 90%;
-  max-width: 950px;
-
-  background: var(--modal-bg);
-
-  border-radius: 24px;
-  overflow: hidden;
-
-  border: 1px solid var(--panel-border);
-
-  box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-
-  transform: scale(0.9);
-  transition: all 0.3s ease;
-}
-
-/* Login + Signup Layout */
-.modal-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-/* Active Animation */
-.login-modal.active .modal-wrapper,
-.signup-modal.active .modal-wrapper,
-.admin-modal.active .admin-container-popup {
-  transform: scale(1);
-}
-
-/* Left Side */
-.modal-left {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-
-  color: white;
-
-  padding: 3rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-brand {
-  text-align: center;
-}
-
-.modal-brand h3 {
-  font-size: 2rem;
-  margin: 1rem 0;
-}
-
-.modal-brand p {
-  opacity: 0.9;
-}
-
-/* Right Side */
-.modal-right {
-  position: relative;
-
-  padding: 3rem;
-
-  background: var(--modal-bg);
-}
-
-/* Close Button */
-.close-btn {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-
-  width: 40px;
-  height: 40px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: rgba(0,0,0,0.08);
-
-  color: var(--text-primary);
-
-  font-size: 1.5rem;
-
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 20;
-
-  transition: 0.2s ease;
-}
-
-.close-btn:hover {
-  background: rgba(0,0,0,0.15);
-  transform: rotate(90deg);
-}
-
-/* Inputs */
-.input-group {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 14px 16px 14px 48px;
-
-  border-radius: 12px;
-  border: 1px solid var(--input-border);
-
-  background: var(--input-bg);
-  color: var(--input-text);
-
-  outline: none;
-
-  font-size: 1rem;
-}
-
-.input-group input:focus {
-  border-color: #2563eb;
-}
-
-.input-icon {
-  position: absolute;
-  top: 50%;
-  left: 15px;
-
-  transform: translateY(-50%);
-
-  color: var(--text-muted);
-}
-
-/* Buttons */
-.login-submit-btn,
-.signup-submit-btn,
-.admin-submit-btn {
-  width: 100%;
-
-  padding: 14px;
-
-  border: none;
-  border-radius: 12px;
-
-  background: var(--button-primary);
-
-  color: white;
-
-  font-size: 1rem;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: 0.3s ease;
-}
-
-.login-submit-btn:hover,
-.signup-submit-btn:hover,
-.admin-submit-btn:hover {
-  background: var(--button-primary-hover);
-}
-
-/* Admin Popup */
-.admin-container-popup {
-  max-width: 500px;
-  padding: 3rem;
-}
-
-/* Service Alert */
-.service-alert {
-  max-width: 500px;
-  padding: 2.5rem;
-  text-align: center;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-
-  .modal-wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-left {
-    display: none;
-  }
-
-  .modal-right {
-    padding: 2rem;
-  }
-
-  .modal-wrapper,
-  .admin-container-popup,
-  .service-alert {
-    width: 95%;
-  }
-}
-
-
+    /* Parent modal containers (full-screen) */
+    .login-modal,
+    .signup-modal,
+    .admin-modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      z-index: 2000;
+    }
+
+    /* Active parent containers */
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
+      opacity: 1;
+      visibility: visible;
       pointer-events: auto;
-    }*/
+    }
+
+    /* Core modal wrapper (shared) */
+    .modal-wrapper {
+      width: min(960px, 100%);
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) minmax(340px, 1.15fr);
+      overflow: hidden;
+      border-radius: 24px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      transform: scale(0.97);
+      transition: transform 0.22s ease, opacity 0.22s ease;
+      z-index: 2001;
+    }
+
+    .modal-left,
+    .modal-right {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem;
+    }
+
+    .modal-left {
+      display: flex;
+      align-items: flex-end;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(8, 47, 73, 0.98));
+    }
+
+    .signup-modal .modal-left,
+    .modal-left.signup-bg {
+      background: linear-gradient(135deg, rgba(8, 145, 178, 0.95), rgba(15, 23, 42, 0.98));
+    }
+
+    .modal-right {
+      background: rgba(15, 23, 42, 0.98);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      overflow-y: auto;
+    }
+
+    .modal-brand h3 {
+      color: white;
+      font-size: 2rem;
+      margin: 0.75rem 0 0.5rem;
+    }
+
+    .modal-brand p {
+      margin: 0;
+      color: rgba(226, 232, 240, 0.9);
+      line-height: 1.6;
+      max-width: 22rem;
+    }
+
+    .modal-right h2 {
+      color: white;
+      margin: 0;
+      padding-right: 2rem;
+    }
+
+    .admin-container-popup {
+      position: relative;
+      width: min(480px, 100%);
+      max-height: calc(100vh - 3rem);
+      overflow-y: auto;
+      padding: 2.5rem;
+      border-radius: 20px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Active modal content animation */
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper,
+    .admin-modal.active .admin-container-popup,
+    .service-alert.active {
+      transform: scale(1);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-left {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--panel-border);
+      }
+
+      .modal-right {
+        padding: 1.75rem 1.5rem;
+      }
+
+      .modal-wrapper,
+      .admin-container-popup,
+      .service-alert {
+        width: 95%;
+        max-width: 95vw;
+      }
+    }
+
+    .alert-btn.primary {
+      background: var(--button-primary);
+    }
+
+    .alert-btn.secondary {
+      background: #059669;
+    }
+
+    .alert-btn.close {
+      background: var(--search-bg);
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--input-text);
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: #2563eb;
+      background: color-mix(in srgb, var(--input-bg) 85%, transparent);
+    }
+
+    .login-submit-btn,
+    .signup-submit-btn,
+    .admin-submit-btn {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 10px;
+      border: none;
+      background: var(--button-primary);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-submit-btn:hover,
+    .signup-submit-btn:hover {
+      background: var(--button-primary-hover);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    /* Duplicate modal container removed — authoritative definition is above */
+
+    .modal-left,
+    .modal-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem;
+    }
+
+    .modal-left {
+      flex: 1;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(59, 130, 246, 0.04));
+      border-right: 1px solid var(--panel-border);
+    }
+
+    .modal-right {
+      flex: 1;
+      position: relative;
+    }
+
+    .modal-brand {
+      text-align: center;
+    }
+
+    .modal-brand svg {
+      color: var(--accent-strong);
+      margin-bottom: 1rem;
+    }
+
+    .modal-brand h3 {
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-brand p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Signup specific background */
+    .signup-bg {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.04));
+    }
+
+    /* Admin container in modal (consistent with modal-wrapper) */
+    .admin-container-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.97);
+      width: 90%;
+      max-width: 450px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--modal-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      z-index: 2001;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: transform 0.22s ease, opacity 0.22s ease, visibility 0.22s ease;
+    }
+
+    .admin-modal.active .admin-container-popup {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 2001;
+    }
+
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        flex-direction: column;
+      }
+
+      .modal-left {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--panel-border);
+      }
+
+      .modal-right {
+        padding: 1.75rem 1.5rem;
+      }
+
+      .admin-container-popup {
+        padding: 1.5rem !important;
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .modal-wrapper {
+        max-height: 85vh;
+      }
+
+      .modal-right {
+        padding: 1.5rem 1.25rem;
+      }
+
+      .admin-container-popup {
+        padding: 1.25rem 1rem !important;
+        max-height: 85vh;
+      }
+      .admin-modal .close-btn {
+        top: 1.25rem;
+        right: 1.25rem;
+      }
+    }
 
     /* Error Messages */
     .error-message {
@@ -1025,7 +1089,7 @@ a, button, input, .card {
       margin-bottom: 1rem;
       font-size: 0.9rem;
       min-height: 20px;
-    } 
+    }
 
     @media (max-width: 900px) {
       .modal-wrapper {
@@ -1234,14 +1298,15 @@ a, button, input, .card {
     }
 
     .loading {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: 0.8s;
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .loading.loaded {
+      /* keep subtle entrance if desired; default is visible so no permanent hiding */
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
 
     /* Checkbox Styles for Signup */
@@ -1267,6 +1332,240 @@ a, button, input, .card {
       color: var(--accent-strong);
       text-decoration: underline;
       margin-left: 4px;
+    }
+
+
+    @media (max-width: 768px) {
+
+      .modern-header {
+        padding: 1rem 1.5rem;
+      }
+
+      .modern-header.scrolled {
+        padding: 0.7rem 1.5rem;
+      }
+
+      .header-content {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .brand-logo {
+        gap: 6px;
+      }
+
+      .logo-text {
+        font-size: 1.2rem;
+      }
+
+      /* --- Modal Responsiveness --- */
+      .service-alert,
+      .login-modal .modal-wrapper,
+      .signup-modal .modal-wrapper,
+      .admin-container-popup {
+        width: 90%;
+        max-width: 95vw;
+        padding: 1.75rem 1.5rem;
+        border-radius: 16px;
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+
+      .login-modal .modal-wrapper,
+      .signup-modal .modal-wrapper,
+      .admin-container-popup {
+        max-height: 90vh;
+      }
+
+      /* --- Form Elements Mobile --- */
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+
+      .form-group label {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .form-group input {
+        padding: 0.75rem;
+        font-size: 16px;
+        border-radius: 8px;
+      }
+
+      .login-submit-btn,
+      .signup-submit-btn,
+      .admin-submit-btn {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+        border-radius: 8px;
+      }
+
+      /* --- Modal Close Button --- */
+      .close-btn {
+        font-size: 1.3rem;
+        padding: 0.5rem;
+      }
+
+      /* --- Service Alert Styling --- */
+      .service-alert h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .service-alert p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .alert-buttons {
+        gap: 0.75rem;
+        flex-direction: column;
+      }
+
+      .alert-btn {
+        padding: 0.7rem 1.5rem;
+        width: 100%;
+        font-size: 0.9rem;
+      }
+
+      /* --- Admin Badge --- */
+      .admin-badge {
+        font-size: 0.65rem;
+        padding: 3px 10px;
+      }
+
+      /* --- Security Note --- */
+      .security-note {
+        padding: 0.7rem;
+        font-size: 0.8rem;
+        margin-top: 0.75rem;
+      }
+
+      /* --- Error Message --- */
+      .error-message {
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+      }
+
+      /* --- Checkbox Group Mobile --- */
+      .checkbox-group {
+        margin: 1rem 0;
+      }
+
+      .checkbox-label {
+        font-size: 0.85rem;
+        line-height: 1.3;
+      }
+    }
+
+    /*
+       EXTRA SMALL DEVICES: max-width 480px
+    */
+
+    @media (max-width: 480px) {
+      /* --- Header Spacing --- */
+      .modern-header {
+        padding: 0.9rem 1rem;
+      }
+
+      .modern-header.scrolled {
+        padding: 0.6rem 1rem;
+      }
+
+      .logo-text {
+        font-size: 1rem;
+      }
+
+      /* --- Modal Extreme Compression --- */
+      .service-alert,
+      .login-modal .modal-wrapper,
+      .signup-modal .modal-wrapper,
+      .admin-container-popup {
+        width: 88%;
+        max-width: 95vw;
+        padding: 1.5rem 1.25rem;
+        border-radius: 14px;
+        max-height: 90vh;
+      }
+
+      /* --- Form Group Tight Spacing --- */
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-group label {
+        font-size: 0.8rem;
+        margin-bottom: 0.35rem;
+      }
+
+      .form-group input {
+        padding: 0.65rem 0.75rem;
+        font-size: 16px;
+        border-radius: 6px;
+      }
+
+      /* --- Buttons Responsive --- */
+      .login-submit-btn,
+      .signup-submit-btn,
+      .admin-submit-btn {
+        padding: 0.8rem 0.75rem;
+        font-size: 0.9rem;
+      }
+
+      .alert-btn {
+        padding: 0.65rem 1.25rem;
+        font-size: 0.85rem;
+      }
+
+      /* --- Modal Heading Sizing --- */
+      .service-alert h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .service-alert p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      /* --- Reduce Close Button Size --- */
+      .close-btn {
+        font-size: 1.2rem;
+      }
+    }
+
+    /*
+       IPHONE SE & SMALL: max-width 375px
+     */
+
+    @media (max-width: 375px) {
+      /* --- Modal Ultra-Compact --- */
+      .service-alert,
+      .login-modal .modal-wrapper,
+      .signup-modal .modal-wrapper,
+      .admin-container-popup {
+        padding: 1.25rem 1rem;
+        border-radius: 12px;
+        width: 85%;
+        max-width: 95vw;
+      }
+
+      .form-group {
+        margin-bottom: 0.9rem;
+      }
+
+      .form-group input {
+        padding: 0.6rem 0.7rem;
+        font-size: 16px;
+      }
+
+      .login-submit-btn,
+      .signup-submit-btn,
+      .admin-submit-btn {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+      }
     }
 
      #scrollToTopBtn{
@@ -1311,3 +1610,5 @@ a, button, input, .card {
 @media (max-width: 768px) {
   .cursor-tail { display: none; }
 }
+
+    }
