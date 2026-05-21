@@ -595,6 +595,28 @@
     </style>
 </head>
 <body>
+    <!-- =====================================================
+       ARIA LIVE REGIONS — Accessibility for screen readers
+       These are visually hidden but announced by NVDA/JAWS
+       ===================================================== -->
+
+  <!-- For CRITICAL alerts: screen reader interrupts immediately -->
+  <div
+    id="aria-alert-critical"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    class="visually-hidden"
+  ></div>
+
+  <!-- For general status updates: screen reader waits its turn -->
+  <div
+    id="aria-alert-status"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    class="visually-hidden"
+  ></div>
     <!-- Header -->
     <header>
         <div class="header-content">
@@ -620,7 +642,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main-container">
+    <main class="main-container" aria-label="MooVit Dashboard">
         <!-- Welcome Section -->
         <section class="welcome-section">
             <h2>Welcome to MooVit</h2>
@@ -628,7 +650,7 @@
         </section>
 
         <!-- Services Grid -->
-        <section class="services-grid">
+        <section class="services-grid" aria-label="Available services">
             <!-- Core Transport Services -->
             <a href="Shipments/shipments.html" class="service-card shipments">
                 <div class="card-content">
@@ -982,6 +1004,27 @@
         if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
         else init();
     })();
+    // ── ARIA Live Region Helper ──────────────────────────────────────
+// Announces dynamic messages to screen readers (NVDA, JAWS, VoiceOver)
+// Usage: announceToScreenReader("Vehicle detected!", "assertive")
+function announceToScreenReader(message, priority = 'polite') {
+  const regionId = priority === 'assertive'
+    ? 'aria-alert-critical'
+    : 'aria-alert-status';
+  const region = document.getElementById(regionId);
+  if (!region) return;
+
+  // Clear first so repeated messages still trigger an announcement
+  region.textContent = '';
+  requestAnimationFrame(() => {
+    region.textContent = message;
+  });
+}
+
+// Announce the dashboard is ready when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  announceToScreenReader('MooVit Dashboard loaded. 12 services available.');
+});
     </script>
 </body>
 

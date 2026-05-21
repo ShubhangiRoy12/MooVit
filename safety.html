@@ -265,6 +265,22 @@
   </style>
 </head>
 <body>
+  <!-- ARIA Live Regions for screen reader accessibility -->
+   <div
+    id="aria-alert-critical"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;"
+  ></div>
+
+  <div
+    id="aria-alert-status"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;"
+  ></div>
   <!-- Custom Cursor -->
   <div class="cursor" id="cursor"></div>
 
@@ -296,30 +312,30 @@
   </section>
 
   <!-- Features Section -->
-  <section class="features">
-    <h2>Safety Guidelines</h2>
-    <div class="feature-grid">
-      <div class="feature">
+  <section class="features" aria-labelledby="safety-guidelines-heading">
+  <h2 id="safety-guidelines-heading">Safety Guidelines</h2>
+  <div class="feature-grid" role="list">
+      <div class="feature" role="listitem">
         <h3>Workplace Safety</h3>
         <p>Safe working conditions, regular drills, and employee training prevent accidents and ensure readiness in emergencies.</p>
       </div>
-      <div class="feature">
+      <div class="feature" role="listitem">
         <h3>Data & Cybersecurity</h3>
         <p>Advanced cybersecurity measures, encrypted storage, and strict access controls protect sensitive data.</p>
       </div>
-      <div class="feature">
+      <div class="feature" role="listitem">
         <h3>Community Safety</h3>
         <p>Guidelines and resources for safe behavior in public, events, and travel encourage vigilance and responsibility.</p>
       </div>
-      <div class="feature">
+      <div class="feature" role="listitem">
         <h3>Health & Hygiene</h3>
         <p>Maintaining cleanliness, regular health checks, and promoting personal hygiene are key components.</p>
       </div>
-      <div class="feature">
+      <div class="feature" role="listitem">
         <h3>Emergency Protocols</h3>
         <p>Clear procedures, evacuation plans, and first-aid training ensure preparedness for any situation.</p>
       </div>
-      <div class="feature">
+      <div class="feature" role="listitem">
         <h3>Online Safety</h3>
         <p>Users are educated about safe online practices, phishing awareness, and secure password management.</p>
       </div>
@@ -327,8 +343,8 @@
   </section>
 
   <!-- FAQ Section -->
-  <section class="faq">
-    <h2>Frequently Asked Questions</h2>
+  <section class="faq" aria-labelledby="faq-heading">
+  <h2 id="faq-heading">Frequently Asked Questions</h2>
     <div class="faq-item">
       <h3>How is workplace safety ensured?</h3>
       <p>Regular training, audits, and drills help maintain a secure environment for employees.</p>
@@ -365,5 +381,20 @@
       el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
     });
   </script>
+  <script>
+  function announceToScreenReader(message, priority = 'polite') {
+    const regionId = priority === 'assertive'
+      ? 'aria-alert-critical'
+      : 'aria-alert-status';
+    const region = document.getElementById(regionId);
+    if (!region) return;
+    region.textContent = '';
+    requestAnimationFrame(() => { region.textContent = message; });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    announceToScreenReader('Safety page loaded. MooVit safety guidelines and FAQs available.');
+  });
+</script>
 </body>
 </html>
