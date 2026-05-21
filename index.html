@@ -21,7 +21,7 @@
   </script>
 </head>
 
-<body data-theme="light">
+<body>
    <div class="cursor"></div>
 
   <div class="cursor-tail">
@@ -458,32 +458,7 @@
 
   <button id="scrollToTopBtn" title="Scroll to Top">&#8679;</button>
   <script>
-    const root = document.documentElement;
-    const body = document.body;
-    const themeButtons = document.querySelectorAll('.theme-toggle');
-
-    function applyTheme(theme) {
-      root.setAttribute('data-theme', theme);
-      body.setAttribute('data-theme', theme);
-      localStorage.setItem('moovit-theme', theme);
-
-      themeButtons.forEach(button => {
-        const icon = button.querySelector('.theme-toggle-icon');
-        const darkMode = theme === 'dark';
-
-        button.setAttribute('aria-pressed', String(darkMode));
-        if (icon) icon.textContent = darkMode ? '☀️' : '🌙';
-      });
-    }
-
-    applyTheme(root.getAttribute('data-theme') || 'light');
-    themeButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const nextTheme = (root.getAttribute('data-theme') || 'light') === 'light' ? 'dark' : 'light';
-        applyTheme(nextTheme);
-      });
-    });
-
+    
     // --- Mouse Spotlight Logic ---
     document.querySelectorAll('.card').forEach(card => {
       card.onmousemove = e => {
@@ -537,28 +512,22 @@
     }
     function closeServiceAlert() { closeAllModals(); }
 
-    function openLoginPopup(event) {
-      if (event) event.preventDefault();
-
-  closeAllModals();
-
-  document.getElementById('overlay').classList.add('active');
-  document.getElementById('loginModal').classList.add('active');
-
-  document.body.style.overflow = 'hidden';
+    function openLoginPopup() {
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('loginModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
     function closeLoginPopup() { closeAllModals(); }
 
-    function openSignupPopup(event) {
-      if (event) event.preventDefault();
+    function openSignupPopup() {
       closeAllModals();
       document.getElementById('overlay').classList.add('active');
       document.getElementById('signupModal').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
-    function openAdminPopup(event) {
-      if (event) event.preventDefault();
+    function openAdminPopup() {
       closeAllModals();
       document.getElementById('overlay').classList.add('active');
       document.getElementById('adminModal').classList.add('active');

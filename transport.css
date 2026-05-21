@@ -775,7 +775,7 @@ a, button, input, .card {
 }
 
 .overlay.active {
-  opacity: 1;
+  opacity: 0;
   visibility: visible;
 }
 
@@ -970,53 +970,40 @@ a, button, input, .card {
   transition: 0.3s ease;
 }
 
-.login-submit-btn:hover,
-.signup-submit-btn:hover,
-.admin-submit-btn:hover {
-  background: var(--button-primary-hover);
-}
+    .login-submit-btn:hover,
+    .signup-submit-btn:hover {
+      background: #1d4ed8;
+    }
 
-/* Admin Popup */
-.admin-container-popup {
-  max-width: 500px;
-  padding: 3rem;
-}
+    .close-btn {
+      background: none;
+      border: none;
+      color: #cbd5e1;
+      font-size: 1.5rem;
+      cursor: pointer;
+      float: right;
+    }
 
-/* Service Alert */
-.service-alert {
-  max-width: 500px;
-  padding: 2.5rem;
-  text-align: center;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-
-  .modal-wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-left {
-    display: none;
-  }
-
-  .modal-right {
-    padding: 2rem;
-  }
-
-  .modal-wrapper,
-  .admin-container-popup,
-  .service-alert {
-    width: 95%;
-  }
-}
-
+    .login-modal,
+    .signup-modal,
+    .admin-modal {
+      position: fixed;
+      z-index: 1001;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
 
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
       pointer-events: auto;
-    }*/
+    }
 
     /* Error Messages */
     .error-message {
