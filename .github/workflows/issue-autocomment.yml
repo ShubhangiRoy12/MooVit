@@ -1,0 +1,47 @@
+name: Auto Comment on New Issues
+
+on:
+  issues:
+    types:
+      - opened
+
+permissions:
+  issues: write
+
+jobs:
+  welcome-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post issue guidance comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = context.payload.issue.number;
+            const author = context.payload.issue.user.login;
+            const repoOwner = context.repo.owner;
+            const repoName = context.repo.repo;
+
+            const body = [
+              `Thanks for opening this issue, @${author}.`,
+              ``,
+              `A maintainer will review it when available. In the meantime, please make sure the report includes enough detail to reproduce or evaluate the request.`,
+              ``,
+              `Helpful references:`,
+              `- [Contributing Guide](https://github.com/${repoOwner}/${repoName}/blob/main/CONTRIBUTING.md)`,
+              `- [Code of Conduct](https://github.com/${repoOwner}/${repoName}/blob/main/CODE_OF_CONDUCT.md)`,
+              `- [Issue Templates](https://github.com/${repoOwner}/${repoName}/tree/main/.github/ISSUE_TEMPLATE)`,
+              ``,
+              `If you want to work on this issue:`,
+              `- Comment that you would like to take it up`,
+              `- Wait for maintainer confirmation before starting major work`,
+              `- Open a PR that links the issue using \`Closes #${issueNumber}\` when applicable`,
+              ``,
+              `Thanks for contributing to MooVit.`
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: repoOwner,
+              repo: repoName,
+              issue_number: issueNumber,
+              body
+            });
