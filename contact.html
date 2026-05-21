@@ -528,51 +528,129 @@
       border-radius: 16px;
     }
 
-    /* Social Links */
-    .social-section {
-      text-align: center;
-      margin-top: 1.5rem;
-    }
+ 
+/* ================= FOOTER ================= */
 
-    .follow-label {
-      color: var(--text-muted);
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
-      display: block;
-      opacity: 1;
-    }
+.footer {
+  margin-top: 5rem;
+  padding: 4rem 1.5rem 1.5rem;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
 
-    .social-links {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+}
 
-    .social-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-white);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
+}
 
-    .social-links a:hover {
-      transform: translateY(-4px);
-      background: linear-gradient(135deg, var(--primary), var(--primary-700));
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
-    }
+.footer-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    .social-links a svg {
-      width: 22px;
-      height: 22px;
-      fill: currentColor;
-    }
+.footer-text {
+  color: var(--text-soft);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+.footer-col h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-white);
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 0.8rem;
+  color: var(--text-soft);
+}
+
+.footer-col ul li a {
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: var(--accent);
+  padding-left: 4px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.footer-socials a {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-socials a:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, var(--primary), var(--primary-700));
+}
+
+.footer-socials svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.footer-bottom {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-bottom p {
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    padding: 3rem 1rem 1rem;
+  }
+}
+
 
     /* Responsive Design */
     @media (max-width: 968px) {
@@ -784,23 +862,96 @@
         </div>
       </div>
 
-      <div class="social-section">
-        <span class="follow-label">Connect With Us</span>
-        <div class="social-links">
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.2v-2.9h2.2V9.4c0-2.2 1.3-3.4 3.2-3.4.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2v1.5h2.2l-.4 2.9h-1.8v7A10 10 0 0 0 22 12z"/></svg>
+
+<!-- ================= FOOTER START ================= -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div class="footer-col">
+        <h2 class="footer-logo">Transport Co.</h2>
+
+        <p class="footer-text">
+          Reliable logistics and transport solutions delivering speed,
+          safety and trust across India with modern supply chain services.
+        </p>
+
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.2v-2.9h2.2V9.4c0-2.2 1.3-3.4 3.2-3.4.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2v1.5h2.2l-.4 2.9h-1.8v7A10 10 0 0 0 22 12z"/>
+            </svg>
           </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 5.9c-.6.3-1.2.5-1.9.6.7-.4 1.2-1 1.5-1.7-.7.4-1.5.7-2.3.9-.7-.7-1.7-1.1-2.8-1.1-2.1 0-3.8 1.7-3.8 3.8 0 .3 0 .5.1.8-3.2-.2-6-1.7-7.9-4-.3.6-.4 1.2-.4 1.9 0 1.3.7 2.5 1.7 3.2-.6 0-1.2-.2-1.7-.5v.1c0 1.9 1.4 3.4 3.2 3.7-.3.1-.6.2-.9.2-.2 0-.4 0-.6-.1.4 1.2 1.6 2.1 3.1 2.2-1.1.9-2.6 1.4-4.1 1.4h-.8c1.5 1 3.4 1.6 5.3 1.6 6.3 0 9.8-5.2 9.8-9.8v-.4c.7-.5 1.2-1.1 1.6-1.8-.6.2-1.2.3-1.8.3z"/></svg>
+
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 5.9c-.6.3-1.2.5-1.9.6.7-.4 1.2-1 1.5-1.7-.7.4-1.5.7-2.3.9-.7-.7-1.7-1.1-2.8-1.1-2.1 0-3.8 1.7-3.8 3.8 0 .3 0 .5.1.8-3.2-.2-6-1.7-7.9-4-.3.6-.4 1.2-.4 1.9 0 1.3.7 2.5 1.7 3.2-.6 0-1.2-.2-1.7-.5v.1c0 1.9 1.4 3.4 3.2 3.7-.3.1-.6.2-.9.2-.2 0-.4 0-.6-.1.4 1.2 1.6 2.1 3.1 2.2-1.1.9-2.6 1.4-4.1 1.4h-.8c1.5 1 3.4 1.6 5.3 1.6 6.3 0 9.8-5.2 9.8-9.8v-.4c.7-.5 1.2-1.1 1.6-1.8-.6.2-1.2.3-1.8.3z"/>
+            </svg>
           </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0H12v2.2h.1c.6-1.1 2-2.2 4.2-2.2C21.7 8 24 10.2 24 14.4V24h-5v-8.9c0-2.1 0-4.8-3-4.8-3 0-3.4 2.3-3.4 4.6V24h-5V8z"/></svg>
+
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24">
+              <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0H12v2.2h.1c.6-1.1 2-2.2 4.2-2.2C21.7 8 24 10.2 24 14.4V24h-5v-8.9c0-2.1 0-4.8-3-4.8-3 0-3.4 2.3-3.4 4.6V24h-5V8z"/>
+            </svg>
           </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 2 .2 2.5.4.6.2 1.1.5 1.5 1 .5.4.8.9 1 1.5.2.5.3 1.3.4 2.5.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 2-.4 2.5-.2.6-.5 1.1-1 1.5-.4.5-.9.8-1.5 1-.5.2-1.3.3-2.5.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-2-.2-2.5-.4-.6-.2-1.1-.5-1.5-1-.5-.4-.8-.9-1-1.5-.2-.5-.3-1.3-.4-2.5-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-2 .4-2.5.2-.6.5-1.1 1-1.5.4-.5.9-.8 1.5-1 .5-.2 1.3-.3 2.5-.4 1.2-.1 1.6-.1 4.8-.1M12 0C8.7 0 8.3 0 7.1.1 5.8.2 4.9.4 4.1.7c-.8.3-1.5.7-2.2 1.4C1.2 2.8.8 3.5.5 4.3.2 5.1 0 6 0 7.3 0 8.5 0 8.9 0 12.2s0 3.7.1 4.9c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.7.5 3 .6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.7.6-3 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.4-2.2-.7-.7-1.4-1.1-2.2-1.4-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.8a1.4 1.4 0 1 0 0-2.8 1.4 1.4 0 0 0 0 2.8z"/></svg>
+
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 2 .2 2.5.4.6.2 1.1.5 1.5 1 .5.4.8.9 1 1.5.2.5.3 1.3.4 2.5.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 2-.4 2.5-.2.6-.5 1.1-1 1.5-.4.5-.9.8-1.5 1-.5.2-1.3.3-2.5.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-2-.2-2.5-.4-.6-.2-1.1-.5-1.5-1-.5-.4-.8-.9-1-1.5-.2-.5-.3-1.3-.4-2.5-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-2 .4-2.5.2-.6.5-1.1 1-1.5.4-.5.9-.8 1.5-1 .5-.2 1.3-.3 2.5-.4 1.2-.1 1.6-.1 4.8-.1z"/>
+            </svg>
           </a>
         </div>
       </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-col">
+        <h3>Services</h3>
+
+        <ul>
+          <li><a href="#">Freight Transport</a></li>
+          <li><a href="#">Warehousing</a></li>
+          <li><a href="#">Express Delivery</a></li>
+          <li><a href="#">Supply Chain</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col">
+        <h3>Contact</h3>
+
+        <ul>
+          <li>📍 VIT Bhopal, India</li>
+          <li>📞 +91 98765 XXXXX</li>
+          <li>✉ support@transportco.com</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Transport Co. All Rights Reserved.</p>
+    </div>
+
+  </div>
+</footer>
+<!-- ================= FOOTER END ================= -->
+  
+
+
     </div>
   </div>
 
