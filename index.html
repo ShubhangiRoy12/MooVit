@@ -67,13 +67,12 @@
         </div>
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
           <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
-          <span class="theme-toggle-label">Dark Mode</span>
         </button>
         <div class="auth-divider"></div>
-        <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
-        <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
-        <button class="mobile-toggle" aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="bar"></span><span class="bar"></span><span
-          class="bar"></span></button>
+        <a href="#" onclick="openLoginPopup(event)" class="btn-text">Login</a>
+        <a href="#" onclick="openSignupPopup(event)" class="btn-header-cta">Sign Up</a>
+        <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
+            class="bar"></span></button>
       </div>
     </div>
     <div class="mobile-menu" id="mobileMenu">
@@ -81,10 +80,9 @@
         href="contact.html">Contact</a>
       <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
         <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
-        <span class="theme-toggle-label">Dark Mode</span>
       </button>
-      <div class="mobile-auth"><a href="#" onclick="openLoginPopup()">Login</a><a href="#"
-          onclick="openSignupPopup()">Sign Up</a></div>
+      <div class="mobile-auth"><a href="#" onclick="openLoginPopup(event)">Login</a><a href="#"
+          onclick="openSignupPopup(event)">Sign Up</a></div>
     </div>
   </header>
 
@@ -93,7 +91,7 @@
     <p>Seamless and reliable global shipping solutions, tailored for your business. Fast, secure, and always on time.
     </p>
     <div class="hero-actions">
-      <a href="#" class="btn-hero" onclick="openSignupPopup()">Get Started Today</a>
+      <a href="#" class="btn-hero" onclick="openSignupPopup(event)">Get Started Today</a>
       <div class="tracking-wrapper">
         <input type="text" placeholder="Enter Tracking ID...">
         <button>Track Parcel</button>
@@ -199,7 +197,7 @@
     <h3>🔒 Premium Access</h3>
     <p>Please login to access detailed service information and pricing.</p>
     <div class="alert-buttons">
-      <a href="#" onclick="closeServiceAlert(); setTimeout(() => openLoginPopup(), 300);" class="alert-btn primary">Login Now</a>
+      <a href="#" onclick="openLoginPopup(event); closeServiceAlert();" class="alert-btn primary">Login Now</a>
       <button class="alert-btn close" onclick="closeServiceAlert()">Close</button>
     </div>
   </div>
@@ -244,7 +242,7 @@
           <button type="submit" class="login-submit-btn" style="margin-top:1.5rem;">Login</button>
         </form>
         <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-top: 1rem;">
-          New here? <a href="#" onclick="openSignupPopup();"
+          New here? <a href="#" onclick="openSignupPopup(event); closeLoginPopup();"
             style="color:#2563eb; font-weight:600;">Create Account</a>
         </p>
         <p style="text-align:center; margin-top:0.5rem;">
@@ -377,7 +375,6 @@
           <li><a href="about.html">About Us</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="careers.html">Careers</a></li>
           <li><a href="feedback.html">Feedback</a></li>
         </ul>
       </div>
@@ -529,12 +526,10 @@
 
       themeButtons.forEach(button => {
         const icon = button.querySelector('.theme-toggle-icon');
-        const label = button.querySelector('.theme-toggle-label');
         const darkMode = theme === 'dark';
 
         button.setAttribute('aria-pressed', String(darkMode));
         if (icon) icon.textContent = darkMode ? '☀️' : '🌙';
-        if (label) label.textContent = darkMode ? 'Light Mode' : 'Dark Mode';
       });
     }
 
@@ -586,7 +581,53 @@
       document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
     });
 
+    // --- Modal Logic ---
+    function closeAllModals() {
+      document.getElementById('overlay').classList.remove('active');
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
+      document.body.style.overflow = 'auto';
+    }
+    function handleServiceClick() {
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('serviceAlert').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeServiceAlert() { closeAllModals(); }
+
+    function openLoginPopup(event) {
+      if (event) event.preventDefault();
+
+  closeAllModals();
+
+  document.getElementById('overlay').classList.add('active');
+  document.getElementById('loginModal').classList.add('active');
+
+  document.body.style.overflow = 'hidden';
+    }
+    function closeLoginPopup() { closeAllModals(); }
+
+    function openSignupPopup(event) {
+      if (event) event.preventDefault();
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('signupModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openAdminPopup(event) {
+      if (event) event.preventDefault();
+      closeAllModals();
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById('adminModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
     // --- Backend Form Handling ---
+    document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeAllModals();
+  }
+});
 
     // Login Validation
     const loginForm = document.getElementById('login-form-popup');
