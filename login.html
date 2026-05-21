@@ -147,17 +147,16 @@
         line-height: 1.5;
       }
     }
+    .remember-label {
+  display: flex !important;
+  align-items: center;
+  margin-top: 10px;
+}
 
-    @media (max-width: 480px) {
-      .auth-container {
-        padding: 30px 25px;
-      }
-
-      .auth-container p {
-        font-size: 14px;
-        line-height: 1.5;
-      }
-    }
+.remember-checkbox {
+  margin-right: 6px;
+  width: auto !important;
+}
   </style>
 </head>
 
@@ -171,8 +170,9 @@
       <label>Password
         <input type="password" name="password" id="password" required>
       </label>
-      <label style="display:flex; align-items:center; margin-top:10px;">
-        <input type="checkbox" id="remember" style="margin-right:6px;"> Remember me
+      <label class="remember-label">
+        <input type="checkbox" id="remember" class="remember-checkbox">
+        Remember me
       </label>
       <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
       <button type="submit">Login</button>
