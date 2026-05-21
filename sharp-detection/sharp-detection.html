@@ -3,110 +3,591 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="../favicon.png">
   <title>Sharp Object Detection - MooVit</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
+    :root {
+      --primary-blue: #0f172a;
+      --secondary-blue: #1e40af;
+      --accent-orange: #f97316;
+      --accent-red: #dc2626;
+      --light-bg: #f8fafc;
+      --white: #ffffff;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --shadow-light: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-large: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+
+    * {
       margin: 0;
       padding: 0;
-      text-align: center;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+      color: var(--gray-800);
+    }
+
+    html.theme-light body {
+      background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
     }
 
     header {
-      background-color: #004080;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      width: 100%;
+    }
+
+    
+
+    .home-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gray-600);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      background: var(--white);
+      border: 2px solid transparent;
+    }
+
+    .home-btn:hover {
+      background: var(--accent-orange);
       color: white;
-      padding: 1rem 2rem;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-title i {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-title h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-medium);
+      border: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-large);
+    }
+
+    .info-card .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-card .card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .info-card .card-icon.warning {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+    }
+
+    .info-card .card-icon.ai {
+      background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    }
+
+    .info-card .card-icon.live {
+      background: linear-gradient(135deg, #059669, #047857);
+    }
+
+    .info-card h3 {
+      font-size: 1rem;
+      color: var(--primary-blue);
+      font-weight: 600;
+    }
+
+    .info-card p {
+      color: var(--gray-600);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .detection-section {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: var(--shadow-large);
+      border: 1px solid var(--gray-200);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.25rem;
+      color: var(--primary-blue);
+      font-weight: 700;
+    }
+
+    .detection-controls {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .control-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .control-btn.primary {
+      background: linear-gradient(135deg, var(--accent-red), #b91c1c);
+      color: white;
+    }
+
+    .control-btn.secondary {
+      background: var(--gray-100);
+      color: var(--gray-600);
+    }
+
+    .control-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--gray-800);
+    }
+
+    #video, #canvas {
+      width: 100%;
+      display: block;
+    }
+
+    #video {
+      transform: scaleX(-1);
+    }
+
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      transform: scaleX(-1);
+    }
+
+    .video-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    header a {
-      background-color: #ffffff;
-      color: #004080;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
+    .detected-objects {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
-    main {
-      padding: 2rem;
+    .object-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(220, 38, 38, 0.9);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
     }
 
-    #wrapper {
-      position: relative;
-      display: inline-block;
-      margin-top: 1rem;
+    .object-tag i {
+      font-size: 0.7rem;
     }
 
-    video,
-    canvas {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 10px;
-      border: 2px solid #004080;
+    .video-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 500;
     }
 
-    canvas {
+    .loading-overlay {
       position: absolute;
       top: 0;
       left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.95);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top-color: var(--accent-orange);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-overlay p {
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .permission-prompt {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.95);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .permission-prompt.show {
+      display: flex;
+    }
+
+    .permission-prompt i {
+      font-size: 4rem;
+      color: var(--accent-orange);
+      margin-bottom: 1.5rem;
+    }
+
+    .permission-prompt h3 {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .permission-prompt p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 1.5rem;
+      max-width: 400px;
+    }
+
+    .permission-prompt button {
+      padding: 1rem 2rem;
+      background: var(--accent-orange);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .permission-prompt button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .instructions {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--gray-100);
+      border-radius: 16px;
+      border-left: 4px solid var(--accent-orange);
+    }
+
+    .instructions h3 {
+      color: var(--primary-blue);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .instructions ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .instructions li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+
+    .instructions li i {
+      color: var(--accent-green);
     }
 
     footer {
       text-align: center;
-      padding: 1rem;
-      background-color: #e0e0e0;
-      margin-top: 3rem;
+      padding: 2rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
     }
 
-    .description {
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      color: #333;
+    @media (max-width: 768px) {
+      .info-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+
+      main {
+        padding: 1rem;
+      }
+
+      .detection-section {
+        padding: 1rem;
+      }
+
+      .section-header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .video-overlay {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
     }
   </style>
 </head>
 
 <body>
   <header>
-    <h1>Sharp Object Detection</h1>
-    <a href="C:\\Users\\Konda Reddy\\OneDrive\\Desktop\\MooVit\\main.html" class="btn btn-light">← Home</a>
+    <div class="header-content">
+      <div class="header-title">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h1>Sharp Object Detection</h1>
+      </div>
+      <a href="../main.html" class="home-btn">
+        Home
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
   </header>
 
   <main>
-    <p class="description">
-      Show a sharp object like a knife or scissors in front of the webcam. This tool will identify and announce it
-      aloud.
-    </p>
-    <div id="wrapper">
-      <video id="video" autoplay muted></video>
-      <canvas id="canvas"></canvas>
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="card-header">
+          <div class="card-icon warning">
+            <i class="fas fa-radiation"></i>
+          </div>
+          <h3>Sharp Objects</h3>
+        </div>
+        <p>Detects knives, scissors, forks, and other sharp/hazardous objects in real-time using AI vision.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-header">
+          <div class="card-icon ai">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>AI Powered</h3>
+        </div>
+        <p>Powered by TensorFlow.js and COCO-SSD model for accurate object detection and classification.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-header">
+          <div class="card-icon live">
+            <i class="fas fa-bullhorn"></i>
+          </div>
+          <h3>Voice Alerts</h3>
+        </div>
+        <p>Automatically announces detected sharp objects aloud for enhanced safety awareness.</p>
+      </div>
     </div>
-    <p><small>Powered by TensorFlow.js and COCO-SSD. Works best in good lighting.</small></p>
+
+    <div class="detection-section">
+      <div class="section-header">
+        <h2><i class="fas fa-camera"></i> Live Camera Feed</h2>
+        <div class="detection-controls">
+          <button class="control-btn primary" id="startBtn" onclick="startDetection()">
+            <i class="fas fa-play"></i> Start Detection
+          </button>
+          <button class="control-btn secondary" id="stopBtn" onclick="stopDetection()" style="display: none;">
+            <i class="fas fa-stop"></i> Stop
+          </button>
+        </div>
+      </div>
+
+      <div class="video-container">
+        <video id="video" autoplay muted playsinline></video>
+        <canvas id="canvas"></canvas>
+
+        
+
+        <div class="permission-prompt" id="permissionPrompt">
+          <i class="fas fa-camera"></i>
+          <h3>Camera Access Required</h3>
+          <p>Please allow camera access to enable sharp object detection powered by AI.</p>
+          <button onclick="requestCamera()">Enable Camera</button>
+        </div>
+
+        <div class="video-overlay">
+          <div class="detected-objects" id="detectedObjects">
+          </div>
+          <div class="video-status">
+            <i class="fas fa-circle" id="cameraIndicator" style="color: var(--gray-400);"></i>
+            <span id="cameraStatus">Camera Inactive</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <h3><i class="fas fa-info-circle"></i> Detection Instructions</h3>
+        <ul>
+          <li><i class="fas fa-check"></i> Ensure good lighting for accurate detection</li>
+          <li><i class="fas fa-check"></i> Show sharp objects clearly to the camera</li>
+          <li><i class="fas fa-check"></i> Keep camera steady for better results</li>
+          <li><i class="fas fa-check"></i> Detects: knife, scissors, fork, spoon</li>
+        </ul>
+      </div>
+    </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 MooVit.</p>
+    <p>&copy; 2025 MooVit Transport Solutions | AI-Powered Safety Detection</p>
   </footer>
 
   <script>
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
+    const permissionPrompt = document.getElementById('permissionPrompt');
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const detectedObjectsDiv = document.getElementById('detectedObjects');
+    const cameraIndicator = document.getElementById('cameraIndicator');
+    const cameraStatus = document.getElementById('cameraStatus');
+
     let model;
     let lastSpoken = {};
+    let detectionActive = false;
+    let animationId;
     const speakDelay = 4000;
 
-    // Speak detected label
+    const sharpObjects = ['knife', 'scissors', 'fork', 'spoon'];
+
     function speak(label) {
-      const msg = new SpeechSynthesisUtterance(`This is a ${label}`);
+      const msg = new SpeechSynthesisUtterance(`Sharp object detected: ${label}`);
       msg.lang = 'en-US';
       msg.rate = 1;
       window.speechSynthesis.speak(msg);
@@ -118,7 +599,7 @@
         const label = pred.class;
         const last = lastSpoken[label] || 0;
         if (now - last > speakDelay) {
-          if (['knife', 'scissors', 'fork', 'spoon'].includes(label)) {
+          if (sharpObjects.includes(label)) {
             speak(label);
             lastSpoken[label] = now;
           }
@@ -126,46 +607,114 @@
       });
     }
 
+    function updateDetectedObjects(predictions) {
+      const sharpDetected = predictions.filter(p => sharpObjects.includes(p.class));
+      detectedObjectsDiv.innerHTML = sharpDetected.map(p => 
+        `<span class="object-tag"><i class="fas fa-exclamation-triangle"></i> ${p.class} (${Math.round(p.score * 100)}%)</span>`
+      ).join('');
+    }
+
     function drawBoxes(predictions) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       predictions.forEach(pred => {
-        ctx.beginPath();
-        ctx.rect(...pred.bbox);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = 'red';
-        ctx.font = '16px Arial';
-        ctx.fillStyle = 'red';
-        ctx.stroke();
-        ctx.fillText(
-          `${pred.class} (${Math.round(pred.score * 100)}%)`,
-          pred.bbox[0],
-          pred.bbox[1] > 10 ? pred.bbox[1] - 5 : 10
-        );
+        if (sharpObjects.includes(pred.class)) {
+          ctx.beginPath();
+          ctx.rect(...pred.bbox);
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = '#dc2626';
+          ctx.font = 'bold 16px Inter, sans-serif';
+          ctx.fillStyle = '#dc2626';
+          ctx.stroke();
+          ctx.fillText(
+            `${pred.class.toUpperCase()} (${Math.round(pred.score * 100)}%)`,
+            pred.bbox[0],
+            pred.bbox[1] > 15 ? pred.bbox[1] - 5 : 15
+          );
+        }
       });
     }
 
     async function detectFrame() {
-      const predictions = await model.detect(video);
-      drawBoxes(predictions);
-      speakLabels(predictions);
-      requestAnimationFrame(detectFrame);
+      if (!detectionActive) return;
+      try {
+        const predictions = await model.detect(video);
+        drawBoxes(predictions);
+        updateDetectedObjects(predictions);
+        speakLabels(predictions);
+        animationId = requestAnimationFrame(detectFrame);
+      } catch (err) {
+        console.error('Detection error:', err);
+        animationId = requestAnimationFrame(detectFrame);
+      }
     }
 
-    async function init() {
-      model = await cocoSsd.load();
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = stream;
+    async function initModel() {
+      try {
+        model = await cocoSsd.load();
+        permissionPrompt.classList.add('show');
+      } catch (err) {
+        console.error('Model load error:', err);
+      }
+    }
 
-      video.onloadedmetadata = () => {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+    async function requestCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { 
+            facingMode: 'user',
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          } 
+        });
+        video.srcObject = stream;
+        video.onloadedmetadata = () => {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          permissionPrompt.classList.remove('show');
+          cameraIndicator.style.color = '#059669';
+          cameraStatus.textContent = 'Camera Active';
+          startBtn.style.display = 'inline-flex';
+          stopBtn.style.display = 'none';
+        };
+      } catch (err) {
+        alert('Camera access denied: ' + err.message);
+      }
+    }
+
+    function startDetection() {
+      if (!model) {
+        initModel().then(() => {
+          if (video.srcObject) {
+            detectionActive = true;
+            startBtn.style.display = 'none';
+            stopBtn.style.display = 'inline-flex';
+            detectFrame();
+          } else {
+            requestCamera();
+          }
+        });
+      } else if (video.srcObject) {
+        detectionActive = true;
+        startBtn.style.display = 'none';
+        stopBtn.style.display = 'inline-flex';
         detectFrame();
-      };
+      } else {
+        requestCamera();
+      }
     }
 
-    init().catch(err => {
-      alert('Error initializing detection: ' + err.message);
-    });
+    function stopDetection() {
+      detectionActive = false;
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      detectedObjectsDiv.innerHTML = '';
+      startBtn.style.display = 'inline-flex';
+      stopBtn.style.display = 'none';
+    }
+
+    initModel();
   </script>
 </body>
 
