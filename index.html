@@ -458,6 +458,63 @@
 
   <button id="scrollToTopBtn" title="Scroll to Top">&#8679;</button>
   <script>
+    // === MODAL FUNCTIONS - DEFINED FIRST FOR EARLY AVAILABILITY ===
+    function closeAllModals() {
+      const overlay = document.getElementById('overlay');
+      if (overlay) overlay.classList.remove('active');
+      const modals = document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal');
+      modals.forEach(el => {
+        if (el) el.classList.remove('active');
+      });
+      document.body.style.overflow = 'auto';
+    }
+
+    function handleServiceClick() {
+      const overlay = document.getElementById('overlay');
+      const serviceAlert = document.getElementById('serviceAlert');
+      if (overlay) overlay.classList.add('active');
+      if (serviceAlert) serviceAlert.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeServiceAlert() { 
+      closeAllModals(); 
+    }
+
+    function openLoginPopup() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const loginModal = document.getElementById('loginModal');
+      if (overlay) overlay.classList.add('active');
+      if (loginModal) loginModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLoginPopup() { 
+      closeAllModals(); 
+    }
+
+    function openSignupPopup() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const signupModal = document.getElementById('signupModal');
+      if (overlay) overlay.classList.add('active');
+      if (signupModal) signupModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSignupPopup() {
+      closeAllModals();
+    }
+
+    function openAdminPopup() {
+      closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const adminModal = document.getElementById('adminModal');
+      if (overlay) overlay.classList.add('active');
+      if (adminModal) adminModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
     const root = document.documentElement;
     const body = document.body;
     const themeButtons = document.querySelectorAll('.theme-toggle');
@@ -740,6 +797,85 @@
     window.openAdminPopup = function () {
       window.openModal('adminModal');
     };
+  </script>
+
+  <!-- BACKUP MODAL FUNCTIONS - Ensures functions are available even if main script fails -->
+  <script>
+    // Fallback function definitions - only applied when the main script did not define the function
+    if (typeof window.openLoginPopup !== 'function') {
+      window.openLoginPopup = function() {
+        const overlay = document.getElementById('overlay');
+        const loginModal = document.getElementById('loginModal');
+        if (document.querySelectorAll('[class*="modal"]')) {
+          document.querySelectorAll('[class*="modal"]').forEach(m => m.classList.remove('active'));
+        }
+        if (document.getElementById('overlay')) document.getElementById('overlay').classList.remove('active');
+        if (overlay) overlay.classList.add('active');
+        if (loginModal) loginModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+    }
+
+    if (typeof window.openSignupPopup !== 'function') {
+      window.openSignupPopup = function() {
+        const overlay = document.getElementById('overlay');
+        const signupModal = document.getElementById('signupModal');
+        if (document.querySelectorAll('[class*="modal"]')) {
+          document.querySelectorAll('[class*="modal"]').forEach(m => m.classList.remove('active'));
+        }
+        if (document.getElementById('overlay')) document.getElementById('overlay').classList.remove('active');
+        if (overlay) overlay.classList.add('active');
+        if (signupModal) signupModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+    }
+
+    if (typeof window.closeAllModals !== 'function') {
+      window.closeAllModals = function() {
+        const overlay = document.getElementById('overlay');
+        if (overlay) overlay.classList.remove('active');
+        document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => {
+          if (el) el.classList.remove('active');
+        });
+        document.body.style.overflow = 'auto';
+      };
+    }
+
+    if (typeof window.openAdminPopup !== 'function') {
+      window.openAdminPopup = function() {
+        const overlay = document.getElementById('overlay');
+        const adminModal = document.getElementById('adminModal');
+        if (document.querySelectorAll('[class*="modal"]')) {
+          document.querySelectorAll('[class*="modal"]').forEach(m => m.classList.remove('active'));
+        }
+        if (document.getElementById('overlay')) document.getElementById('overlay').classList.remove('active');
+        if (overlay) overlay.classList.add('active');
+        if (adminModal) adminModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+    }
+
+    if (typeof window.handleServiceClick !== 'function') {
+      window.handleServiceClick = function() {
+        const overlay = document.getElementById('overlay');
+        const serviceAlert = document.getElementById('serviceAlert');
+        if (overlay) overlay.classList.add('active');
+        if (serviceAlert) serviceAlert.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+    }
+
+    if (typeof window.closeServiceAlert !== 'function') {
+      window.closeServiceAlert = function() { window.closeAllModals(); };
+    }
+
+    if (typeof window.closeLoginPopup !== 'function') {
+      window.closeLoginPopup = function() { window.closeAllModals(); };
+    }
+
+    if (typeof window.closeSignupPopup !== 'function') {
+      window.closeSignupPopup = function() { window.closeAllModals(); };
+    }
   </script>
 </body>
 
