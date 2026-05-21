@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.png">
     <title>Dashboard − MooVit</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="MooVit is a smart real-time safety assistant and transportation platform helping visually impaired users navigate safely with voice alerts, live object detection, route optimization, and logistics management.">
+    <meta name="keywords" content="MooVit, visually impaired assistant, real-time object detection, voice alerts, road safety, transportation management, route optimization, logistics, accessibility, AI safety">
+    <meta name="author" content="ShubhangiRoy12">
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -25,6 +31,12 @@
             --gray-200: #e2e8f0;
             --gray-600: #475569;
             --gray-800: #1e293b;
+            --surface-1: rgba(255, 255, 255, 0.22);
+            --surface-2: rgba(255, 255, 255, 0.92);
+            --surface-border: rgba(255, 255, 255, 0.35);
+            --hero-title: #ffffff;
+            --hero-subtitle: rgba(255, 255, 255, 0.92);
+            --hero-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             --shadow-light: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
             --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             --shadow-large: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
@@ -46,12 +58,21 @@
             --accent-orange: #f97316;
             --accent-green: #059669;
             --accent-purple: #6d28d9;
-            --light-bg: #ffffff;
+            --light-bg: #f8fafc;
             --white: #ffffff;
-            --gray-100: #f3f4f6;
-            --gray-200: #e6eef8;
+            --gray-100: #eef2ff;
+            --gray-200: #dbe7fb;
             --gray-600: #334155;
             --gray-800: #0f172a;
+            --surface-1: rgba(255, 255, 255, 0.86);
+            --surface-2: #ffffff;
+            --surface-border: rgba(15, 23, 42, 0.12);
+            --hero-title: #0f172a;
+            --hero-subtitle: #334155;
+            --hero-shadow: none;
+            --shadow-light: 0 1px 2px 0 rgb(15 23 42 / 0.06), 0 1px 1px -1px rgb(15 23 42 / 0.08);
+            --shadow-medium: 0 10px 18px -8px rgb(30 64 175 / 0.18), 0 6px 10px -8px rgb(15 23 42 / 0.14);
+            --shadow-large: 0 28px 40px -20px rgb(30 64 175 / 0.26), 0 10px 18px -12px rgb(15 23 42 / 0.16);
         }
 
         html.theme-light body {
@@ -59,17 +80,23 @@
             color: var(--gray-800);
         }
 
+        html.theme-light .welcome-section h2,
+        html.theme-light .welcome-section p {
+            color: var(--gray-800);
+            text-shadow: none;
+        }
+
         /* Header */
          header {
-        background: rgba(255, 255, 255, 0.4); 
+        background: var(--surface-1);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px); /* For Safari Support */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid var(--surface-border);
         padding: 1.5rem 0;
         position: sticky;
         top: 0;
         z-index: 100;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-light);
         }
 
         .header-content {
@@ -120,8 +147,8 @@
             padding: 0.75rem 1.5rem;
             border-radius: 12px;
             transition: all 0.3s ease;
-            background: var(--white);
-            border: 2px solid transparent;
+            background: var(--surface-2);
+            border: 1px solid var(--surface-border);
         }
 
         .header-nav a:hover {
@@ -138,8 +165,8 @@
             gap: 0.6rem;
             padding: 0.6rem 0.9rem;
             border-radius: 12px;
-            border: 2px solid transparent;
-            background: var(--white);
+            border: 1px solid var(--surface-border);
+            background: var(--surface-2);
             color: var(--gray-600);
             font-weight: 500;
             cursor: pointer;
@@ -168,19 +195,19 @@
         .welcome-section {
             text-align: center;
             margin-bottom: 3rem;
-            color: white;
+            color: var(--hero-title);
         }
 
         .welcome-section h2 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-shadow: var(--hero-shadow);
         }
 
         .welcome-section p {
             font-size: 1.25rem;
-            opacity: 0.95;
+            color: var(--hero-subtitle);
             max-width: 700px;
             margin: 0 auto;
             font-weight: 400;
@@ -194,14 +221,14 @@
         }
 
         .service-card {
-            background: var(--white);
+            background: var(--surface-2);
             border-radius: 24px;
             text-decoration: none;
             color: inherit;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-medium);
-            border: 1px solid var(--gray-200);
+            border: 1px solid var(--surface-border);
             position: relative;
         }
 
@@ -297,6 +324,7 @@
             font-weight: 600;
             color: var(--secondary-blue);
             white-space: nowrap;
+            border: 1px solid var(--surface-border);
         }
 
         .card-action {
@@ -330,7 +358,7 @@
 
         /* Special Card Styles */
         .featured-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #be123c, #9f1239);
             color: white;
             border: none;
         }
@@ -369,11 +397,24 @@
             color: white;
         }
 
+        .tracking .card-icon { 
+            background: linear-gradient(135deg, #be123c, #9f1239); 
+        }
         /* Footer */
         footer {
             background: var(--primary-blue);
             color: white;
             margin-top: 4rem;
+            transition: background 240ms ease;
+        }
+
+        html.theme-light .featured-card,
+        html.theme-light .urgent-card {
+            box-shadow: var(--shadow-medium);
+        }
+
+        html.theme-light .footer-section a {
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .footer-content {
@@ -463,12 +504,27 @@
                 text-align: center;
             }
 
+            .header-nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .header-nav a,
+            .theme-toggle {
+                min-height: 44px;
+            }
+
             .services-grid {
                 grid-template-columns: 1fr;
             }
 
             .welcome-section h2 {
                 font-size: 2.5rem;
+            }
+
+            .welcome-section p {
+                font-size: 1.05rem;
             }
 
             .main-container {
@@ -503,6 +559,27 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -774,6 +851,26 @@
                     </div>
                 </div>
             </a>
+
+            <a href="tracking-dashboard.html" class="service-card tracking">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h2 class="card-title">Live Shipment Tracking</h2>
+                    </div>
+                    <p class="card-description">Real-time GPS tracking with interactive maps, ETA predictions, and route visualization for all your shipments across India.</p>
+                    <div class="card-stats">
+                        <span class="card-stat">Live Updates</span>
+                        <span class="card-stat">Interactive Map</span>
+                        <span class="card-stat">ETA Calculator</span>
+                    </div>
+                    <div class="card-action">
+                        <span class="card-link">Track Shipments <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+</a>
         </section>
     </main>
 
@@ -853,6 +950,7 @@
             if(theme === 'light') document.documentElement.classList.add(lightClass);
             else document.documentElement.classList.remove(lightClass);
             setToggleContent(theme === 'light');
+            document.documentElement.setAttribute('data-theme', theme);
         }
 
         function init(){
