@@ -755,226 +755,268 @@ a, button, input, .card {
       visibility: visible;
     }
 
-    .service-alert {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.9);
-      background: var(--modal-bg);
-      border: 1px solid var(--panel-border);
-      padding: 2.5rem;
-      border-radius: 20px;
-      z-index: 1001;
-      width: 90%;
-      max-width: 450px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.3s;
-    }
+    /* ---------- FIXED MODAL SYSTEM ---------- */
 
-    .service-alert.active {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      visibility: visible;
-    }
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
 
-    .login-modal,
-    .signup-modal,
-    .admin-modal {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1.5rem;
-      z-index: 1001;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+
+  z-index: 9998;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: all 0.3s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal Wrapper */
+.login-modal,
+.signup-modal,
+.admin-modal {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: all 0.3s ease;
+}
+
+/* Active Modal */
+.login-modal.active,
+.signup-modal.active,
+.admin-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Main Modal Box */
+.modal-wrapper,
+.admin-container-popup,
+.service-alert {
+  position: relative;
+
+  width: 90%;
+  max-width: 950px;
+
+  background: var(--modal-bg);
+
+  border-radius: 24px;
+  overflow: hidden;
+
+  border: 1px solid var(--panel-border);
+
+  box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+}
+
+/* Login + Signup Layout */
+.modal-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Active Animation */
+.login-modal.active .modal-wrapper,
+.signup-modal.active .modal-wrapper,
+.admin-modal.active .admin-container-popup {
+  transform: scale(1);
+}
+
+/* Left Side */
+.modal-left {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+  color: white;
+
+  padding: 3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-brand {
+  text-align: center;
+}
+
+.modal-brand h3 {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+.modal-brand p {
+  opacity: 0.9;
+}
+
+/* Right Side */
+.modal-right {
+  position: relative;
+
+  padding: 3rem;
+
+  background: var(--modal-bg);
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0,0,0,0.08);
+
+  color: var(--text-primary);
+
+  font-size: 1.5rem;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 20;
+
+  transition: 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(0,0,0,0.15);
+  transform: rotate(90deg);
+}
+
+/* Inputs */
+.input-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+
+  border-radius: 12px;
+  border: 1px solid var(--input-border);
+
+  background: var(--input-bg);
+  color: var(--input-text);
+
+  outline: none;
+
+  font-size: 1rem;
+}
+
+.input-group input:focus {
+  border-color: #2563eb;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+
+  transform: translateY(-50%);
+
+  color: var(--text-muted);
+}
+
+/* Buttons */
+.login-submit-btn,
+.signup-submit-btn,
+.admin-submit-btn {
+  width: 100%;
+
+  padding: 14px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: var(--button-primary);
+
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.login-submit-btn:hover,
+.signup-submit-btn:hover,
+.admin-submit-btn:hover {
+  background: var(--button-primary-hover);
+}
+
+/* Admin Popup */
+.admin-container-popup {
+  max-width: 500px;
+  padding: 3rem;
+}
+
+/* Service Alert */
+.service-alert {
+  max-width: 500px;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+
+  .modal-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-left {
+    display: none;
+  }
+
+  .modal-right {
+    padding: 2rem;
+  }
+
+  .modal-wrapper,
+  .admin-container-popup,
+  .service-alert {
+    width: 95%;
+  }
+}
+
 
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
-      opacity: 1;
-      visibility: visible;
       pointer-events: auto;
-    }
-
-    .modal-wrapper {
-      width: min(960px, 100%);
-      min-height: 560px;
-      display: grid;
-      grid-template-columns: minmax(280px, 1fr) minmax(340px, 1.15fr);
-      overflow: hidden;
-      border-radius: 24px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-    }
-
-    .modal-left,
-    .modal-right {
-      position: relative;
-    }
-
-    .modal-left {
-      padding: 2.5rem;
-      display: flex;
-      align-items: flex-end;
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(8, 47, 73, 0.98));
-    }
-
-    .signup-modal .modal-left,
-    .modal-left.signup-bg {
-      background: linear-gradient(135deg, rgba(8, 145, 178, 0.95), rgba(15, 23, 42, 0.98));
-    }
-
-    .modal-right {
-      padding: 2.5rem;
-      background: rgba(15, 23, 42, 0.98);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 1rem;
-      overflow-y: auto;
-    }
-
-    .modal-brand h3 {
-      color: white;
-      font-size: 2rem;
-      margin: 0.75rem 0 0.5rem;
-    }
-
-    .modal-brand p {
-      margin: 0;
-      color: rgba(226, 232, 240, 0.9);
-      line-height: 1.6;
-      max-width: 22rem;
-    }
-
-    .modal-right h2 {
-      color: white;
-      margin: 0;
-      padding-right: 2rem;
-    }
-
-    .admin-container-popup {
-      position: relative;
-      width: min(480px, 100%);
-      max-height: calc(100vh - 3rem);
-      overflow-y: auto;
-      padding: 2.5rem;
-      border-radius: 20px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-    }
-
-    .service-alert h3 {
-      color: var(--text-primary);
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .service-alert p {
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
-
-    .alert-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .alert-btn {
-      padding: 0.8rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      color: white;
-      border: none;
-    }
-
-    .alert-btn.primary {
-      background: var(--button-primary);
-    }
-
-    .alert-btn.secondary {
-      background: #059669;
-    }
-
-    .alert-btn.close {
-      background: var(--search-bg);
-    }
-
-    /* Forms */
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group label {
-      color: var(--text-secondary);
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 0.8rem;
-      border-radius: 10px;
-      border: 1px solid var(--input-border);
-      background: var(--input-bg);
-      color: var(--input-text);
-      outline: none;
-    }
-
-    .form-group input:focus {
-      border-color: #2563eb;
-      background: color-mix(in srgb, var(--input-bg) 85%, transparent);
-    }
-
-    .login-submit-btn,
-    .signup-submit-btn,
-    .admin-submit-btn {
-      width: 100%;
-      padding: 1rem;
-      border-radius: 10px;
-      border: none;
-      background: var(--button-primary);
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .login-submit-btn:hover,
-    .signup-submit-btn:hover {
-      background: var(--button-primary-hover);
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-      z-index: 2;
-    }
-
-    .admin-modal .close-btn {
-      top: 1.25rem;
-      right: 1.25rem;
-    }
+    }*/
 
     /* Error Messages */
     .error-message {
@@ -983,7 +1025,7 @@ a, button, input, .card {
       margin-bottom: 1rem;
       font-size: 0.9rem;
       min-height: 20px;
-    }
+    } 
 
     @media (max-width: 900px) {
       .modal-wrapper {
