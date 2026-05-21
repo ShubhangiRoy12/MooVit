@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Transport Co. offers seamless and reliable global shipping solutions.">
+  <meta name="keywords" content="Transport, Shipping, Logistics, Cargo, Delivery, Freight">
   <link rel="icon" href="../favicon.png">
   <title>Transport Co. - Your Cargo, Our Priority</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,7 +53,7 @@
           <li><a href="index.html" class="nav-link active">Home</a></li>
           <li><a href="services.html" class="nav-link">Services</a></li>
           <li><a href="#" class="nav-link">Tracking</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="contact.html" class="nav-link">Contact</a></li>
         </ul>
       </nav>
@@ -68,21 +70,21 @@
           <span class="theme-toggle-label">Dark Mode</span>
         </button>
         <div class="auth-divider"></div>
-        <a href="#" onclick="openLoginPopup()" class="btn-text">Login</a>
-        <a href="#" onclick="openSignupPopup()" class="btn-header-cta">Sign Up</a>
+        <a href="#" onclick="openLoginPopup(event)" class="btn-text">Login</a>
+        <a href="#" onclick="openSignupPopup(event)" class="btn-header-cta">Sign Up</a>
         <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
             class="bar"></span></button>
       </div>
     </div>
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobileMenu">
       <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
         href="contact.html">Contact</a>
       <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
         <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
         <span class="theme-toggle-label">Dark Mode</span>
       </button>
-      <div class="mobile-auth"><a href="#" onclick="openLoginPopup()">Login</a><a href="#"
-          onclick="openSignupPopup()">Sign Up</a></div>
+      <div class="mobile-auth"><a href="#" onclick="openLoginPopup(event)">Login</a><a href="#"
+          onclick="openSignupPopup(event)">Sign Up</a></div>
     </div>
   </header>
 
@@ -91,7 +93,7 @@
     <p>Seamless and reliable global shipping solutions, tailored for your business. Fast, secure, and always on time.
     </p>
     <div class="hero-actions">
-      <a href="#" class="btn-hero" onclick="openSignupPopup()">Get Started Today</a>
+      <a href="#" class="btn-hero" onclick="openSignupPopup(event)">Get Started Today</a>
       <div class="tracking-wrapper">
         <input type="text" placeholder="Enter Tracking ID...">
         <button>Track Parcel</button>
@@ -158,13 +160,46 @@
     </div>
   </section>
 
+  <!-- ABOUT SUMMARY (embedded for smoother homepage flow) -->
+  <section id="about" class="about-section">
+    <div class="about-container">
+      <h2 class="section-title">About TransportCo</h2>
+      <p class="section-subtitle">We move goods with precision and care — combining modern logistics technology with human-first service to keep your business moving.</p>
+
+      <div class="about-grid">
+        <div class="mission-card">
+          <h3>Our Mission</h3>
+          <p>Delivering fast, reliable, and secure logistics solutions globally, with real-time visibility and exceptional customer support.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🚚</div>
+            <h3>Ground Transport</h3>
+            <p>Temperature-controlled, GPS-tracked trucking tailored to your needs.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">✈️</div>
+            <h3>Air Freight</h3>
+            <p>Priority handling for urgent international shipments.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🚢</div>
+            <h3>Ocean Freight</h3>
+            <p>Cost-effective sea transport for large-volume consignments.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
   <div class="service-alert" id="serviceAlert">
     <h3>🔒 Premium Access</h3>
     <p>Please login to access detailed service information and pricing.</p>
     <div class="alert-buttons">
-      <a href="#" onclick="openLoginPopup(); closeServiceAlert();" class="alert-btn primary">Login Now</a>
+      <a href="#" onclick="openLoginPopup(event); closeServiceAlert();" class="alert-btn primary">Login Now</a>
       <button class="alert-btn close" onclick="closeServiceAlert()">Close</button>
     </div>
   </div>
@@ -209,8 +244,8 @@
           <button type="submit" class="login-submit-btn">Login</button>
         </form>
         <div class="modal-footer">
-          New here? <a href="#" onclick="openSignupPopup()" class="modal-link">Create Account</a>
-          <a href="#" onclick="openAdminPopup()" class="admin-link">Admin Access</a>
+          New here? <a href="#" onclick="openSignupPopup(event)" class="modal-link">Create Account</a>
+          <a href="#" onclick="openAdminPopup(event)" class="admin-link">Admin Access</a>
         </div>
       </div>
     </div>
@@ -280,7 +315,7 @@
           <button type="submit" class="signup-submit-btn">Create Account</button>
         </form>
         <div class="modal-footer">
-          Already have an account? <a href="#" onclick="openLoginPopup()" class="modal-link">Login</a>
+          Already have an account? <a href="#" onclick="openLoginPopup(event)" class="modal-link">Login</a>
         </div>
       </div>
     </div>
@@ -337,7 +372,6 @@
           <li><a href="about.html">About Us</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="careers.html">Careers</a></li>
           <li><a href="feedback.html">Feedback</a></li>
         </ul>
       </div>
@@ -393,8 +427,7 @@
               d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
           </svg>Newsletter</h4>
         <p>Join our mailing list to get exclusive updates, special offers, and insights into the logistics world
-          delivered
-          straight to your inbox.</p>
+          delivered straight to your inbox.</p>
         <form class="newsletter-form">
           <input type="email" placeholder="Enter your email" required>
           <button type="submit">Subscribe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -418,6 +451,8 @@
       <p>&copy; 2025 Transport Co. | All Rights Reserved. | Designed with ❤️ for Excellence</p>
     </div>
   </footer>
+
+  <button id="scrollToTopBtn" title="Scroll to Top">&#8679;</button>
 
   <script>
     const root = document.documentElement;
@@ -476,21 +511,25 @@
 
     // Particles
     const particles = document.getElementById('particles');
-    for (let i = 0; i < 40; i++) {
-      let p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.top = Math.random() * 100 + '%';
-      p.style.animationDelay = Math.random() * 5 + 's';
-      p.style.animationDuration = (Math.random() * 10 + 10) + 's';
-      particles.appendChild(p);
+    if (particles) {
+      for (let i = 0; i < 40; i++) {
+        let p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 5 + 's';
+        p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        particles.appendChild(p);
+      }
     }
 
     // Header Scroll
     window.addEventListener('scroll', () => {
       const header = document.getElementById('main-header');
-      if (window.scrollY > 50) header.classList.add('scrolled');
-      else header.classList.remove('scrolled');
+      if (header) {
+        if (window.scrollY > 50) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      }
     });
 
     // Mobile Menu
@@ -504,39 +543,63 @@
     }
 
     // --- Modal Logic ---
-    function closeAllModals() {
-      document.getElementById('overlay').classList.remove('active');
-      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
+    window.closeAllModals = function () {
+      const overlay = document.getElementById('overlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+      }
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => {
+        el.classList.remove('active');
+      });
       document.body.style.overflow = 'auto';
-    }
-    function handleServiceClick() {
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('serviceAlert').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeServiceAlert() { closeAllModals(); }
+    };
 
-    function openLoginPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('loginModal').classList.add('active');
+    window.openModal = function (modalId) {
+      window.closeAllModals();
+      const overlay = document.getElementById('overlay');
+      const modal = document.getElementById(modalId);
+      if (overlay) overlay.classList.add('active');
+      if (modal) modal.classList.add('active');
       document.body.style.overflow = 'hidden';
-    }
-    function closeLoginPopup() { closeAllModals(); }
+    };
 
-    function openSignupPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('signupModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+    window.handleServiceClick = function () {
+      window.openModal('serviceAlert');
+    };
 
-    function openAdminPopup() {
-      closeAllModals();
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('adminModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+    window.closeServiceAlert = function () {
+      window.closeAllModals();
+    };
+
+    window.openLoginPopup = function (event) {
+      if (event) event.preventDefault();
+      window.openModal('loginModal');
+    };
+
+    window.closeLoginPopup = function () {
+      window.closeAllModals();
+    };
+
+    window.openSignupPopup = function (event) {
+      if (event) event.preventDefault();
+      window.openModal('signupModal');
+    };
+
+    window.closeSignupPopup = function () {
+      window.closeAllModals();
+    };
+
+    window.openAdminPopup = function (event) {
+      if (event) event.preventDefault();
+      window.openModal('adminModal');
+    };
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        window.closeAllModals();
+      }
+    });
 
     // --- Backend Form Handling ---
 
@@ -556,7 +619,7 @@
           return;
         }
 
-        // Simulating submission
+        // Simulating submission and redirection to dashboard main.html
         const submitBtn = this.querySelector('.login-submit-btn');
         submitBtn.textContent = 'Logging in...';
         submitBtn.disabled = true;
@@ -590,10 +653,13 @@
         submitBtn.textContent = 'Creating Account...';
         submitBtn.disabled = true;
         setTimeout(() => {
-          closeAllModals();
-          openLoginPopup();
-          document.getElementById('popup-error-msg').style.color = '#10b981';
-          document.getElementById('popup-error-msg').textContent = 'Account created!';
+          window.closeAllModals();
+          window.openLoginPopup();
+          const popupError = document.getElementById('popup-error-msg');
+          if (popupError) {
+            popupError.style.color = '#10b981';
+            popupError.textContent = 'Account created!';
+          }
         }, 1500);
       });
     }
@@ -611,7 +677,7 @@
           const submitBtn = this.querySelector('.admin-submit-btn');
           submitBtn.textContent = 'Accessing...';
           submitBtn.disabled = true;
-          setTimeout(() => { alert('Access Granted'); closeAllModals(); }, 1000);
+          setTimeout(() => { alert('Access Granted'); window.closeAllModals(); }, 1000);
         } else {
           errorMsg.textContent = 'Invalid Admin credentials.';
         }
@@ -661,12 +727,31 @@
       });
     }
 
-    // Loading
+    // Loading Animation
     window.addEventListener('load', () => {
       document.querySelectorAll('.loading').forEach((el, i) => {
         setTimeout(() => el.classList.add('loaded'), i * 200);
       });
     });
+
+    // Scroll to Top Button
+    window.onscroll = function () {
+      const btn = document.getElementById("scrollToTopBtn");
+      if (btn) {
+        if (window.scrollY > 300) {
+          btn.style.display = "block";
+        } else {
+          btn.style.display = "none";
+        }
+      }
+    };
+
+    const scrollBtn = document.getElementById("scrollToTopBtn");
+    if (scrollBtn) {
+      scrollBtn.onclick = function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+    }
   </script>
 </body>
 

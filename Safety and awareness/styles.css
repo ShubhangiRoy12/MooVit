@@ -211,10 +211,10 @@ nav ul li a:hover {
 .importance-card {
     background: white;
     padding: 40px 30px;
-    border-radius: 20px;
+    border-radius: 15px;
     box-shadow: var(--shadow);
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     cursor: pointer;
     border: 2px solid transparent;
 }
@@ -415,7 +415,7 @@ nav ul li a:hover {
 }
 
 /* Floating Action Button */
-.fab {
+.scroll-top-btn {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -435,7 +435,7 @@ nav ul li a:hover {
     animation: pulse 2s infinite;
 }
 
-.fab:hover {
+.scroll-top-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 30px rgba(0, 102, 204, 0.4);
 }
@@ -540,6 +540,8 @@ footer {
 .social-links {
     display: flex;
     gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 .social-links a {
@@ -592,7 +594,7 @@ footer {
         grid-template-columns: 1fr;
     }
     
-    .fab {
+    .scroll-top-btn {
         bottom: 20px;
         right: 20px;
         width: 50px;
