@@ -192,7 +192,7 @@
       }
     });
 
-    document.getElementById('login-form').addEventListener('submit', function (e) {
+    document.getElementById('login-form').addEventListener('submit', async function (e) {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
@@ -207,7 +207,6 @@
         return;
       }
 
-
       // Password strength validation
       // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
       const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
@@ -216,14 +215,32 @@
         return;
       }
 
-      // handle remember me
-      if (remember) {
-        localStorage.setItem('rememberedEmail', email);
-      } else {
-        localStorage.removeItem('rememberedEmail');
+      // Call the API
+      try {
+        const response = await fetch('http://localhost:8000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        if (response.ok) {
+          // handle remember me
+          if (remember) {
+            localStorage.setItem('rememberedEmail', email);
+          } else {
+            localStorage.removeItem('rememberedEmail');
+          }
+          // Redirect on success
+          window.location.href = 'main.html';
+        } else {
+          const data = await response.json();
+          errorMsg.textContent = data.detail || 'Login failed';
+        }
+      } catch (error) {
+        errorMsg.textContent = 'Network error. Please try again.';
       }
-      // If all validations pass, redirect
-      window.location.href = 'main.html';
     });
 
     // simple placeholder for forgot password
