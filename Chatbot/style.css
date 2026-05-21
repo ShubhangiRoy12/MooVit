@@ -238,3 +238,24 @@ textarea:focus-visible {
 @media (prefers-color-scheme: dark) {
     /* Keep light theme as requested */
 }
+.chat-container {
+  max-width: 900px;
+  margin: 20px auto;
+  border-radius: 20px;
+}
+
+.messages-container {
+  padding: 20px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sidebar {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
