@@ -110,7 +110,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: transform 0.1s ease;
+      transition: transform 0.05s ease; /*fix*/
       transform: translate(-50%, -50%);
     }
 
@@ -126,19 +126,18 @@
       transform: translate(-50%, -50%);
     }
 
-    @media (min-width: 769px) and (pointer: fine) {
-      .cursor {
-        display: block;
-      }
+    /*fix*/
+@media (min-width: 769px) and (pointer: fine) {
+  .cursor {
+    display: block;
+  }
 
-      body,
-      a,
-      button,
-      input,
-      .card {
-        cursor: none !important;
-      }
-    }
+body {
+  cursor: none !important;
+}
+a, button, input, .card {
+  cursor: pointer !important;
+}
 
     .cursor.hover {
       transform: translate(-50%, -50%) scale(1.8);
@@ -758,7 +757,7 @@
       visibility: visible;
       pointer-events: auto;
     }
-    
+
 
     /* Parent modal containers (full-screen) */
     .login-modal,
@@ -776,6 +775,7 @@
       z-index: 2000;
     }
 
+    /* Active parent containers */
     .login-modal.active,
     .signup-modal.active,
     .admin-modal.active {
@@ -784,102 +784,7 @@
       pointer-events: auto;
     }
 
-    /* Core modal content wrapper (shared) */
-    .modal-wrapper {
-      position: fixed; /* ensure independent centering */
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.97);
-      width: 90%;
-      max-width: 900px;
-      max-height: 90vh;
-      overflow-y: auto;
-      display: flex;
-      border-radius: 20px;
-      background: var(--modal-bg);
-      border: 1px solid var(--panel-border);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: transform 0.22s ease, opacity 0.22s ease, visibility 0.22s ease;
-      z-index: 2001; /* content above parent container */
-    }
-
-    /* Service alert uses the same system but narrower */
-    .service-alert {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.97);
-      width: 90%;
-      max-width: 450px;
-      max-height: 85vh;
-      overflow-y: auto;
-      z-index: 2001;
-      opacity: 0;
-      visibility: hidden;
-      transition: transform 0.22s ease, opacity 0.22s ease, visibility 0.22s ease;
-    }
-
-    /* Admin inline container uses consistent positioning */
-    .admin-container-popup {
-
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.97);
-      width: 90%;
-      max-width: 450px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: var(--modal-bg);
-      border: 1px solid var(--panel-border);
-      border-radius: 20px;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-      z-index: 2001;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: transform 0.22s ease, opacity 0.22s ease, visibility 0.22s ease;
-    }
-
-    /* Active states: visible, centered, clickable */
-    .service-alert.active,
-    .login-modal.active .modal-wrapper,
-    .signup-modal.active .modal-wrapper,
-    .admin-modal.active .admin-container-popup {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      z-index: 2001;
-    }
-
-    .login-modal,
-    .signup-modal,
-    .admin-modal {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1.5rem;
-      z-index: 1001;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .login-modal.active,
-    .signup-modal.active,
-    .admin-modal.active {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
+    /* Core modal wrapper (shared) */
     .modal-wrapper {
       width: min(960px, 100%);
       min-height: 560px;
@@ -890,15 +795,21 @@
       background: rgba(15, 23, 42, 0.98);
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      transform: scale(0.97);
+      transition: transform 0.22s ease, opacity 0.22s ease;
+      z-index: 2001;
     }
 
     .modal-left,
     .modal-right {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem;
     }
 
     .modal-left {
-      padding: 2.5rem;
       display: flex;
       align-items: flex-end;
       background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(8, 47, 73, 0.98));
@@ -910,7 +821,6 @@
     }
 
     .modal-right {
-      padding: 2.5rem;
       background: rgba(15, 23, 42, 0.98);
       display: flex;
       flex-direction: column;
@@ -950,32 +860,39 @@
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
     }
 
-    .service-alert h3 {
-      color: var(--text-primary);
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
+    /* Active modal content animation */
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper,
+    .admin-modal.active .admin-container-popup,
+    .service-alert.active {
+      transform: scale(1);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
 
-    .service-alert p {
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .modal-wrapper {
+        grid-template-columns: 1fr;
+      }
 
-    .alert-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+      .modal-left {
+        display: none;
+        border-right: none;
+        border-bottom: 1px solid var(--panel-border);
+      }
 
-    .alert-btn {
-      padding: 0.8rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      color: white;
-      border: none;
+      .modal-right {
+        padding: 1.75rem 1.5rem;
+      }
+
+      .modal-wrapper,
+      .admin-container-popup,
+      .service-alert {
+        width: 95%;
+        max-width: 95vw;
+      }
     }
 
     .alert-btn.primary {
@@ -1159,9 +1076,10 @@
         padding: 1.25rem 1rem !important;
         max-height: 85vh;
       }
-    .admin-modal .close-btn {
-      top: 1.25rem;
-      right: 1.25rem;
+      .admin-modal .close-btn {
+        top: 1.25rem;
+        right: 1.25rem;
+      }
     }
 
     /* Error Messages */
@@ -1541,7 +1459,7 @@
       }
     }
 
-    /* 
+    /*
        EXTRA SMALL DEVICES: max-width 480px
     */
 
@@ -1617,7 +1535,7 @@
       }
     }
 
-    /* 
+    /*
        IPHONE SE & SMALL: max-width 375px
      */
 
