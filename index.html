@@ -459,7 +459,7 @@
     </div>
   </footer>
 
-  <button id="scrollToTopBtn" title="Scroll to Top">&#8679;</button>
+
   <script>
     const root = document.documentElement;
     const body = document.body;
@@ -615,20 +615,31 @@
         setTimeout(() => el.classList.add('loaded'), i * 200);
       });
     });
-    window.onscroll = function () {
-      const btn = document.getElementById("scrollToTopBtn");
+    // --- Scroll to Top Logic ---
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    
+    window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
-        btn.style.display = "block";
+        scrollToTopBtn.classList.add('show-btn');
       } else {
-        btn.style.display = "none";
+        scrollToTopBtn.classList.remove('show-btn');
       }
-    };
+    });
 
-    document.getElementById("scrollToTopBtn").onclick = function () {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    };
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   </script>
 
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" class="scroll-to-top" aria-label="Scroll to top" title="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
   <script>
     window.closeAllModals = function () {
       const overlay = document.getElementById('overlay');
