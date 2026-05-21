@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Shipment Tracking | MooVit</title>
+    <link rel="icon" href="favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Tracking Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-title {
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .stat-unit {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Two Column Layout */
+        .tracking-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+        }
+
+        /* Map Container */
+        .map-container {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #trackingMap {
+            height: 500px;
+            width: 100%;
+        }
+
+        /* Shipment Details */
+        .shipment-details {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .shipment-header {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .shipment-id {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .status-in-transit { background: #dbeafe; color: #1e40af; }
+        .status-delivered { background: #d1fae5; color: #065f46; }
+        .status-pending { background: #fed7aa; color: #92400e; }
+        .status-delayed { background: #fee2e2; color: #991b1b; }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .info-value {
+            color: var(--dark);
+        }
+
+        .eta-timer {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .eta-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .eta-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        /* Route Timeline */
+        .route-timeline {
+            margin-top: 1.5rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 40px;
+            bottom: -10px;
+            width: 2px;
+            background: #e2e8f0;
+        }
+
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--primary);
+            z-index: 1;
+        }
+
+        .timeline-dot.completed {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-location {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .timeline-time {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Update Button */
+        .refresh-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-btn {
+            padding: 0.75rem 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @media (max-width: 968px) {
+            .tracking-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="main.html" class="logo">
+                <i class="fas fa-truck-moving"></i> MooVit
+            </a>
+            <a href="main.html" class="back-btn">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Search Section -->
+        <div class="search-section">
+            <h3 style="margin-bottom: 1rem;">🔍 Track Your Shipment</h3>
+            <div class="search-box">
+                <select id="trackingInput" class="search-input" style="cursor:pointer;">
+                    <option value="SHIP-12345">SHIP-12345 — Mumbai → Delhi (In Transit)</option>
+                    <option value="SHIP-67890">SHIP-67890 — Chennai → Bangalore (Delivered)</option>
+                </select>
+                <button class="search-btn" onclick="trackShipment()">Track Now</button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid" id="statsGrid">
+            <!-- Will be populated by JS -->
+        </div>
+
+        <!-- Main Tracking Grid -->
+        <div class="tracking-grid">
+            <div class="map-container">
+                <div id="trackingMap"></div>
+            </div>
+            <div class="shipment-details" id="shipmentDetails">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample shipment database
+        const shipments = {
+            'SHIP-12345': {
+                id: 'SHIP-12345',
+                status: 'in-transit',
+                origin: 'Mumbai, MH',
+                destination: 'Delhi, DL',
+                customer: 'Acme Corp',
+                weight: '245 kg',
+                type: 'Electronics',
+                eta: '2 hours 15 mins',
+                driver: 'Rajesh Kumar',
+                vehicle: 'MH-04-AB-1234',
+                currentLocation: { lat: 23.0225, lng: 72.5714 }, // Ahmedabad area
+                route: [
+                    { location: 'Mumbai, MH', time: '2025-05-11 08:00 AM', status: 'completed' },
+                    { location: 'Vapi, GJ', time: '2025-05-11 11:30 AM', status: 'completed' },
+                    { location: 'Vadodara, GJ', time: '2025-05-11 02:45 PM', status: 'completed' },
+                    { location: 'Ahmedabad, GJ', time: '2025-05-11 05:00 PM', status: 'current' },
+                    { location: 'Udaipur, RJ', time: 'ETA: 08:00 PM', status: 'pending' },
+                    { location: 'Jaipur, RJ', time: 'ETA: 02:00 AM', status: 'pending' },
+                    { location: 'Delhi, DL', time: 'ETA: 08:00 AM', status: 'pending' }
+                ],
+                coordinates: [
+                    { lat: 19.0760, lng: 72.8777, name: 'Mumbai' },
+                    { lat: 20.3710, lng: 72.9110, name: 'Vapi' },
+                    { lat: 22.3072, lng: 73.1812, name: 'Vadodara' },
+                    { lat: 23.0225, lng: 72.5714, name: 'Ahmedabad' },
+                    { lat: 24.5854, lng: 73.7125, name: 'Udaipur' },
+                    { lat: 26.9124, lng: 75.7873, name: 'Jaipur' },
+                    { lat: 28.7041, lng: 77.1025, name: 'Delhi' }
+                ]
+            },
+            'SHIP-67890': {
+                id: 'SHIP-67890',
+                status: 'delivered',
+                origin: 'Chennai, TN',
+                destination: 'Bangalore, KA',
+                customer: 'Tech Solutions',
+                weight: '120 kg',
+                type: 'IT Equipment',
+                eta: 'Delivered',
+                driver: 'Priya Singh',
+                vehicle: 'TN-07-CD-5678',
+                currentLocation: { lat: 12.9716, lng: 77.5946 },
+                route: [
+                    { location: 'Chennai, TN', time: '2025-05-10 09:00 AM', status: 'completed' },
+                    { location: 'Vellore, TN', time: '2025-05-10 12:30 PM', status: 'completed' },
+                    { location: 'Bangalore, KA', time: '2025-05-10 04:00 PM', status: 'completed' }
+                ],
+                coordinates: [
+                    { lat: 13.0827, lng: 80.2707, name: 'Chennai' },
+                    { lat: 12.9165, lng: 79.1325, name: 'Vellore' },
+                    { lat: 12.9716, lng: 77.5946, name: 'Bangalore' }
+                ]
+            }
+        };
+
+        let map;
+        let currentMarker;
+        let currentPolyline;
+        let currentShipment = null;
+        let animationInterval;
+
+        // Initialize Map
+        function initMap() {
+            map = L.map('trackingMap').setView([23.0225, 72.5714], 7);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; CartoDB',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+        }
+
+        // Update Stats Grid
+        function updateStats(shipment) {
+            const statsHtml = `
+                <div class="stat-card">
+                    <div class="stat-title">Total Distance</div>
+                    <div class="stat-value">1,247 <span class="stat-unit">km</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Current Speed</div>
+                    <div class="stat-value">85 <span class="stat-unit">km/h</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Fuel Efficiency</div>
+                    <div class="stat-value">8.2 <span class="stat-unit">km/l</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Driver Status</div>
+                    <div class="stat-value">🟢 Active</div>
+                </div>
+            `;
+            document.getElementById('statsGrid').innerHTML = statsHtml;
+        }
+
+        // Update Shipment Details Panel
+        function updateShipmentDetails(shipment) {
+            const statusClass = `status-${shipment.status === 'in-transit' ? 'in-transit' : shipment.status}`;
+            const statusText = shipment.status === 'in-transit' ? 'In Transit' : 
+                              shipment.status === 'delivered' ? 'Delivered' : 'Pending';
+            
+            const detailsHtml = `
+                <div class="shipment-header">
+                    <div class="shipment-id">📦 Tracking ID: ${shipment.id}</div>
+                    <span class="status-badge ${statusClass}">${statusText}</span>
+                </div>
+                
+                <div class="info-row">
+                    <span class="info-label">From:</span>
+                    <span class="info-value">${shipment.origin}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">To:</span>
+                    <span class="info-value">${shipment.destination}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Customer:</span>
+                    <span class="info-value">${shipment.customer}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Cargo Type:</span>
+                    <span class="info-value">${shipment.type}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Weight:</span>
+                    <span class="info-value">${shipment.weight}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Vehicle No:</span>
+                    <span class="info-value">${shipment.vehicle}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Driver:</span>
+                    <span class="info-value">${shipment.driver} ⭐ 4.8</span>
+                </div>
+                
+                ${shipment.status !== 'delivered' ? `
+                <div class="eta-timer">
+                    <div class="eta-label">Estimated Arrival</div>
+                    <div class="eta-value">${shipment.eta}</div>
+                    <div class="eta-label" style="margin-top: 0.5rem;">Last Updated: Just now</div>
+                </div>
+                ` : ''}
+                
+                <div class="route-timeline">
+                    <h4 style="margin-bottom: 1rem;">📍 Route Progress</h4>
+                    ${shipment.route.map(stop => `
+                        <div class="timeline-item">
+                            <div class="timeline-dot ${stop.status === 'completed' ? 'completed' : ''}"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-location">${stop.location}</div>
+                                <div class="timeline-time">${stop.time}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <button class="refresh-btn" onclick="refreshLocation()">
+                    🔄 Refresh Location
+                </button>
+            `;
+            document.getElementById('shipmentDetails').innerHTML = detailsHtml;
+        }
+
+        // Draw Route on Map
+        function drawRoute(coordinates) {
+            if (currentPolyline) {
+                map.removeLayer(currentPolyline);
+            }
+            
+            const latlngs = coordinates.map(coord => [coord.lat, coord.lng]);
+            currentPolyline = L.polyline(latlngs, { color: '#2563eb', weight: 4, opacity: 0.7 }).addTo(map);
+            map.fitBounds(currentPolyline.getBounds());
+        }
+
+        // Add Marker at Current Location
+        function updateMarker(lat, lng, shipmentId) {
+            if (currentMarker) {
+                map.removeLayer(currentMarker);
+            }
+            
+            const customIcon = L.divIcon({
+                html: `<div style="background: #2563eb; width: 16px; height: 16px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 10px rgba(37,99,235,0.5);"></div>`,
+                iconSize: [20, 20],
+                className: 'custom-marker'
+            });
+            
+            currentMarker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+            currentMarker.bindPopup(`
+                <b>Shipment: ${shipmentId}</b><br>
+                Status: In Transit<br>
+                <a href="#" onclick="centerMap()">Center Map</a>
+            `).openPopup();
+        }
+
+        // Simulate Vehicle Movement (for demo)
+        function startMovementSimulation(shipment) {
+            if (animationInterval) clearInterval(animationInterval);
+            
+            let stepIndex = 0;
+            const coords = shipment.coordinates;
+            
+            animationInterval = setInterval(() => {
+                if (stepIndex < coords.length) {
+                    const coord = coords[stepIndex];
+                    updateMarker(coord.lat, coord.lng, shipment.id);
+                    map.panTo([coord.lat, coord.lng]);
+                    stepIndex++;
+                } else {
+                    clearInterval(animationInterval);
+                }
+            }, 2000);
+        }
+
+        // Center map on current location
+        function centerMap() {
+            if (currentMarker) {
+                map.panTo(currentMarker.getLatLng());
+            }
+        }
+
+        // Refresh Location (simulate update)
+        function refreshLocation() {
+            if (currentShipment) {
+                const alertDiv = document.createElement('div');
+                alertDiv.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 1rem; border-radius: 8px; z-index: 9999; animation: fadeOut 3s forwards;';
+                alertDiv.innerHTML = '✅ Location updated successfully!';
+                document.body.appendChild(alertDiv);
+                setTimeout(() => alertDiv.remove(), 3000);
+            }
+        }
+
+        // Main tracking function
+        function trackShipment() {
+            const trackingId = document.getElementById('trackingInput').value.trim().toUpperCase();
+            
+            if (!shipments[trackingId]) {
+                alert(`❌ Shipment ${trackingId} not found. Available IDs: SHIP-12345, SHIP-67890`);
+                return;
+            }
+            
+            currentShipment = shipments[trackingId];
+            
+            // Update UI
+            updateStats(currentShipment);
+            updateShipmentDetails(currentShipment);
+            drawRoute(currentShipment.coordinates);
+            updateMarker(currentShipment.currentLocation.lat, currentShipment.currentLocation.lng, currentShipment.id);
+            map.setView([currentShipment.currentLocation.lat, currentShipment.currentLocation.lng], 8);
+            
+            // Start simulation for in-transit shipments
+            if (currentShipment.status === 'in-transit') {
+                if (animationInterval) clearInterval(animationInterval);
+            }
+        }
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                0% { opacity: 1; transform: translateX(0); }
+                70% { opacity: 1; transform: translateX(0); }
+                100% { opacity: 0; transform: translateX(20px); display: none; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            initMap();
+            trackShipment(); // Auto-load default shipment
+        });
+    </script>
+</body>
+</html>
