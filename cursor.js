@@ -1,35 +1,60 @@
-const cursor = document.querySelector(".cursor");
-const circles = document.querySelectorAll(".circle");
+// ==============================
+// CUSTOM CURSOR - BUG FREE
+// ==============================
 
-let mouseX = 0;
-let mouseY = 0;
+document.addEventListener("DOMContentLoaded", () => {
 
-const positions = Array.from(circles).map(() => ({ x: 0, y: 0 }));
+  const cursor = document.querySelector(".cursor");
+  const circles = document.querySelectorAll(".circle");
 
-window.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+  // Stop execution if elements not found
+  if (!cursor || circles.length === 0) {
+    console.warn("Cursor elements not found.");
+    return;
+  }
 
-  cursor.style.left = mouseX + "px";
-  cursor.style.top = mouseY + "px";
-});
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
 
-function animate() {
-  let x = mouseX;
-  let y = mouseY;
+  // Store positions for smooth trail
+  const positions = Array.from(circles).map(() => ({
+    x: mouseX,
+    y: mouseY
+  }));
 
-  positions.forEach((pos, i) => {
-    pos.x += (x - pos.x) * 0.3;
-    pos.y += (y - pos.y) * 0.3;
+  // Mouse move tracking
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
 
-    circles[i].style.left = pos.x + "px";
-    circles[i].style.top = pos.y + "px";
-
-    x = pos.x;
-    y = pos.y;
+    // Main cursor position
+    cursor.style.transform =
+      `translate(${mouseX}px, ${mouseY}px)`;
   });
 
-  requestAnimationFrame(animate);
-}
+  // Smooth animation loop
+  function animate() {
+    let x = mouseX;
+    let y = mouseY;
 
-animate();
+    positions.forEach((pos, index) => {
+
+      // Smooth follow effect
+      pos.x += (x - pos.x) * 0.3;
+      pos.y += (y - pos.y) * 0.3;
+
+      // Apply movement
+      circles[index].style.transform =
+        `translate(${pos.x}px, ${pos.y}px)`;
+
+      // Next circle follows previous
+      x = pos.x;
+      y = pos.y;
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+});
