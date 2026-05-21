@@ -194,11 +194,13 @@
   <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
   <div class="service-alert" id="serviceAlert">
-    <h3>🔒 Premium Access</h3>
-    <p>Please login to access detailed service information and pricing.</p>
-    <div class="alert-buttons">
-      <a href="#" onclick="openLoginPopup(event); closeServiceAlert();" class="alert-btn primary">Login Now</a>
-      <button class="alert-btn close" onclick="closeServiceAlert()">Close</button>
+    <div class="service-alert-box">
+      <h3>🔒 Premium Access</h3>
+      <p>Please login to access detailed service information and pricing.</p>
+      <div class="alert-buttons">
+        <a href="#" onclick="openLoginPopup(event); closeServiceAlert();" class="alert-btn primary">Login Now</a>
+        <button class="alert-btn close" onclick="closeServiceAlert()">Close</button>
+      </div>
     </div>
   </div>
 
@@ -520,8 +522,9 @@
     const toggle = document.querySelector('.mobile-toggle');
     const menu = document.querySelector('.mobile-menu');
     toggle.addEventListener('click', () => {
-      menu.classList.toggle('active');
-      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+      const isOpen = menu.classList.toggle('active');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : 'auto';
     });
 
     // --- Modal Logic ---
