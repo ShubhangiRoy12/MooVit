@@ -2,8 +2,6 @@ const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const wrapper = document.getElementById('wrapper');
-let lastSpoken = {};
-const speakDelay = 4000; // Delay between speaking the same label (ms)
 
 // Cache the model so retries don't re-download it.
 let cachedModel = null;
