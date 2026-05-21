@@ -536,6 +536,29 @@ header .badge {
   border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
 }
 
+/* Route Time Calculator input contrast */
+#calcDistance,
+#calcSpeed,
+#customSpeed,
+#trafficFactor,
+#calcStops {
+  color: #212529;
+  background-color: #ffffff;
+  border-color: #ced4da;
+}
+
+#calcDistance::placeholder,
+#customSpeed::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+#calcSpeed option,
+#trafficFactor option {
+  color: #212529;
+  background-color: #ffffff;
+}
+
 /* Calculator Section */
 #calculatorResult {
   background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
@@ -945,5 +968,26 @@ footer small {
   .form-control:focus, .form-select:focus {
     background: #6c757d;
     border-color: var(--primary-color);
+  }
+
+  #calcDistance,
+  #calcSpeed,
+  #customSpeed,
+  #trafficFactor,
+  #calcStops {
+    color: #f8f9fa;
+    background-color: #495057;
+    border-color: #6c757d;
+  }
+
+  #calcDistance::placeholder,
+  #customSpeed::placeholder {
+    color: #ced4da;
+  }
+
+  #calcSpeed option,
+  #trafficFactor option {
+    color: #f8f9fa;
+    background-color: #495057;
   }
 }
