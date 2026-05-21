@@ -110,7 +110,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: transform 0.1s ease;
+      transition: transform 0.05s ease; /*fix*/ 
       transform: translate(-50%, -50%);
     }
 
@@ -126,19 +126,18 @@
       transform: translate(-50%, -50%);
     }
 
-    @media (min-width: 769px) and (pointer: fine) {
-      .cursor {
-        display: block;
-      }
+    /*fix*/
+@media (min-width: 769px) and (pointer: fine) {
+  .cursor {
+    display: block;
+  }
 
-      body,
-      a,
-      button,
-      input,
-      .card {
-        cursor: none !important;
-      }
-    }
+body {
+  cursor: none !important;
+}
+a, button, input, .card {
+  cursor: pointer !important;
+}
 
     .cursor.hover {
       transform: translate(-50%, -50%) scale(1.8);
