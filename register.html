@@ -143,7 +143,7 @@
       <label>Confirm Password
         <input id="cpwd" type="password" placeholder="Confirm password" required>
       </label>
-      <div id="error-msg" style="color: #ffb3b3; text-align:center; margin-top:10px;"></div>
+      <div id="error-msg" style="color: #dc2626; font-weight: 600; text-align:center; margin-top:10px;"></div>
       <button type="submit">Register</button>
       <p>Already have an account? <a href="login.html">Login</a></p>
     </form>
@@ -157,7 +157,6 @@
       const confirmPassword = document.getElementById('cpwd').value;
       const errorMsg = document.getElementById('error-msg');
       errorMsg.textContent = '';
-
 
       // Check for empty fields
       if (!name || !email || !password || !confirmPassword) {
@@ -180,10 +179,9 @@
       }
 
       // Password strength validation
-      // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
       const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
       if (!strongPasswordPattern.test(password)) {
-        errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
+        errorMsg.textContent = 'Password must be at least 8 chars and include an uppercase, lowercase, number, and special character.';
         return;
       }
 
@@ -193,7 +191,13 @@
         return;
       }
 
-      // If all validations pass, redirect
+      // If all validations pass, save to localStorage to "Create" the account
+      localStorage.setItem('moovit_user_name', name);
+      localStorage.setItem('moovit_user_email', email);
+      localStorage.setItem('moovit_user_password', password);
+      
+      // Notify the user and redirect
+      alert("Account created successfully! Please log in.");
       window.location.href = 'login.html';
     });
   </script>
