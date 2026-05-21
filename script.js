@@ -440,3 +440,78 @@ window.MooVit = {
     debounce,
     isInViewport
 };
+
+// Mobile menu toggle + AI assistant widget
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    function closeMobileMenu() {
+        if (mobileMenu) mobileMenu.classList.remove('active');
+        if (mobileToggle) mobileToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    if (mobileToggle && mobileMenu) {
+        mobileToggle.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', String(!expanded));
+            mobileMenu.classList.toggle('active');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) closeMobileMenu();
+        });
+    }
+
+    if (overlay) {
+        overlay.addEventListener('click', closeMobileMenu);
+    }
+
+    // Lightweight frontend-only AI assistant UI (no backend calls)
+    const aiWrapper = document.createElement('div');
+    aiWrapper.className = 'ai-assistant';
+    aiWrapper.innerHTML = `
+        <button class="ai-toggle" aria-expanded="false" aria-label="Open assistant">🤖</button>
+        <div class="ai-panel" aria-hidden="true">
+            <div class="ai-header"><strong>Assistant</strong><button class="ai-close" aria-label="Close assistant">&times;</button></div>
+            <div class="ai-body"><div class="ai-messages" role="log" aria-live="polite"></div>
+            <form class="ai-form" aria-label="Assistant chat form"><input type="text" placeholder="Ask about tracking, services or FAQs" aria-label="Ask assistant" required><button type="submit">Send</button></form></div>
+        </div>`;
+    document.body.appendChild(aiWrapper);
+
+    const aiToggle = document.querySelector('.ai-toggle');
+    const aiPanel = document.querySelector('.ai-panel');
+    const aiClose = document.querySelector('.ai-close');
+    const aiForm = document.querySelector('.ai-form');
+    const aiMessages = document.querySelector('.ai-messages');
+
+    function toggleAI(open) {
+        if (!aiWrapper) return;
+        const isOpen = aiWrapper.classList.toggle('open', open);
+        if (aiToggle) aiToggle.setAttribute('aria-expanded', String(isOpen));
+        if (aiPanel) aiPanel.setAttribute('aria-hidden', String(!isOpen));
+        if (isOpen && aiForm) aiForm.querySelector('input').focus();
+    }
+
+    if (aiToggle) aiToggle.addEventListener('click', () => toggleAI());
+    if (aiClose) aiClose.addEventListener('click', () => toggleAI(false));
+
+    if (aiForm) {
+        aiForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = this.querySelector('input');
+            const text = input.value.trim();
+            if (!text) return;
+            const userMsg = document.createElement('div'); userMsg.className = 'ai-msg user'; userMsg.textContent = text;
+            aiMessages.appendChild(userMsg);
+            input.value = '';
+
+            // Simulate a quick helpful reply (frontend-only)
+            const botMsg = document.createElement('div'); botMsg.className = 'ai-msg bot'; botMsg.textContent = 'Thanks — for tracking, paste your Tracking ID. For services, try "air freight" or "warehousing".';
+            setTimeout(() => aiMessages.appendChild(botMsg), 500);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+        });
+    }
+});
