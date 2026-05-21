@@ -34,6 +34,7 @@
     min-height: 100vh;
     margin: 0;
     line-height: 1.6;
+    overflow-x: hidden;
   }
   
   /* Navigation */
@@ -256,7 +257,7 @@
     padding: 1.5rem;
     border-bottom: 1px solid #e9ecef;
     display: flex;
-    justify-content: between;
+    justify-content: space-between;
     align-items: center;
     gap: 1rem;
   }

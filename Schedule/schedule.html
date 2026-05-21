@@ -99,11 +99,12 @@
 <!--Add new trip-->
     <section aria-label="Add new trip form">
       <div class="card mb-4 shadow-sm">
-        <header class="card-header bg-light">
-          <h2 class="mb-0 h4">Add New Trip</h2>
+        <header class="card-header bg-light d-flex justify-content-between align-items-center">
+          <h2 class="mb-0 h4">Manage Trips</h2>
+          <button class="btn btn-outline-danger btn-sm" onclick="clearHistory()">Clear All History</button>
         </header>
         <div class="card-body">
-          <form id="addTripForm" class="row g-3" novalidate>
+          <form id="addTripForm" class="row g-3 mb-4" novalidate>
             <div class="col-md-2"><input type="text" class="form-control" id="newId" placeholder="Trip ID" required
                 aria-required="true" /></div>
             <div class="col-md-2"><input type="text" class="form-control" id="newVehicle" placeholder="Vehicle ID"
@@ -117,11 +118,21 @@
             <div class="col-md-1"><input type="time" class="form-control" id="newEta" required aria-required="true" />
             </div>
             <div class="col-md-1"><input type="number" class="form-control" id="newVacantSeats"
-                placeholder="Vacant Seats" required aria-required="true" min="0" /></div>
-            <div class="col-md-1 d-grid"><button type="submit" class="btn btn-primary"
-                aria-label="Add new trip">Add</button></div>
+                placeholder="Seats" required aria-required="true" min="0" /></div>
+            <div class="col-md-1 d-grid"><button type="submit" class="btn btn-primary">Add</button></div>
             <div id="formErrors" class="alert alert-danger d-none" role="alert" aria-live="assertive"></div>
           </form>
+
+          <hr>
+
+          <div class="mt-4">
+            <h3 class="h5 mb-3">Bulk Upload (CSV)</h3>
+            <div class="input-group">
+              <input type="file" class="form-control" id="csvFileInput" accept=".csv">
+              <button class="btn btn-secondary" type="button" onclick="handleBulkUpload()">Upload CSV</button>
+            </div>
+            <small class="text-muted">Format: TripID, Vehicle, Driver, Route, Departure, ETA, VacantSeats</small>
+          </div>
         </div>
       </div>
     </section>
@@ -151,7 +162,26 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const trips = [];
+    // Persistence Logic
+    const STORAGE_KEY = 'moovit_trips';
+    let trips = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [
+      { id: "T1", vehicle: "Cab-001", driver: "Alice", route: "Delhi → Mumbai", departure: "09:00", eta: "18:00", status: "Completed", vacantSeats: 0 },
+      { id: "T2", vehicle: "Cab-002", driver: "Bob", route: "Bangalore → Chennai", departure: "10:00", eta: "15:00", status: "Pending", vacantSeats: 3 }
+    ];
+
+    function saveTrips() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(trips));
+      updateStats();
+      updateBookingsChart();
+    }
+
+    function clearHistory() {
+      if (confirm('Are you sure you want to clear all trip history?')) {
+        trips = [];
+        saveTrips();
+        renderTable();
+      }
+    }
 
     const tableBody = document.querySelector("#scheduleTable tbody");
     const totalTripsElem = document.getElementById("totalTrips");
@@ -168,11 +198,12 @@
 
     undoBtn.addEventListener("click", () => {
       if (lastDeletedTrip !== null && lastDeletedIndex !== null) {
-       trips.splice(lastDeletedIndex, 0, lastDeletedTrip);
-       lastDeletedTrip = null;
-       lastDeletedIndex = null;
-       renderTable();
-     }
+        trips.splice(lastDeletedIndex, 0, lastDeletedTrip);
+        lastDeletedTrip = null;
+        lastDeletedIndex = null;
+        saveTrips();
+        renderTable();
+      }
       undoBanner.classList.add("d-none");
     });
 
@@ -199,8 +230,7 @@
 
       select.addEventListener("change", (e) => {
         trips[tripIndex].status = e.target.value;
-        updateStats();
-        updateBookingsChart();
+        saveTrips();
       });
 
       return select;
@@ -219,10 +249,9 @@
           <td>${trip.eta}</td>
           <td></td>
           <td class="vacant-seats">${trip.vacantSeats}</td>
-          <td><button class="btn btn-sm btn-danger" aria-label="Delete trip ${trip.id}" data-index="${index}">Delete</button></td>
+          <td><button class="btn btn-sm btn-danger" data-index="${index}">Delete</button></td>
         `;
 
-        // Insert status dropdown
         const statusCell = tr.children[6];
         const statusSelect = createStatusSelect(trip.status, index);
         statusCell.appendChild(statusSelect);
@@ -238,12 +267,10 @@
       tableBody.querySelectorAll("button.btn-danger").forEach(btn => {
         btn.addEventListener("click", e => {
           const index = Number(e.target.getAttribute("data-index"));
-
           if (!confirm("Are you sure you want to delete this trip?")) return;
-
           lastDeletedTrip = trips.splice(index, 1)[0];
           lastDeletedIndex = index;
-
+          saveTrips();
           renderTable();
           undoBanner.classList.remove("d-none");
         });
@@ -252,7 +279,6 @@
 
     document.getElementById("addTripForm").addEventListener("submit", function (event) {
       event.preventDefault();
-
       const newId = document.getElementById("newId").value.trim();
       const newVehicle = document.getElementById("newVehicle").value.trim();
       const newDriver = document.getElementById("newDriver").value.trim();
@@ -261,39 +287,59 @@
       const newEta = document.getElementById("newEta").value;
       const newVacantSeatsStr = document.getElementById("newVacantSeats").value.trim();
 
-      const errorBox = document.getElementById("formErrors");
-      errorBox.textContent = "";
-
       if (!newId || !newVehicle || !newDriver || !newRoute || !newDep || !newEta || !newVacantSeatsStr) {
-        errorBox.textContent = "Please fill out all required fields.";
+        alert("Please fill out all required fields.");
         return;
       }
-
-      const newVacantSeats = parseInt(newVacantSeatsStr, 10);
-      if (isNaN(newVacantSeats) || newVacantSeats < 0) {
-        errorBox.textContent = "Vacant seats must be a non-negative number.";
-        return;
-      }
-
 
       trips.push({
-        id: newId,
-        vehicle: newVehicle,
-        driver: newDriver,
-        route: newRoute,
-        departure: newDep,
-        eta: newEta,
-        status: "Pending",
-        vacantSeats: newVacantSeats,
+        id: newId, vehicle: newVehicle, driver: newDriver, route: newRoute,
+        departure: newDep, eta: newEta, status: "Pending", vacantSeats: parseInt(newVacantSeatsStr)
       });
 
+      saveTrips();
       renderTable();
       this.reset();
     });
 
-    // Chart.js bookings bar chart instance
-    let bookingsChartInstance;
+    // Bulk Upload Handler
+    function handleBulkUpload() {
+      const fileInput = document.getElementById('csvFileInput');
+      const file = fileInput.files[0];
+      if (!file) { alert('Please select a CSV file.'); return; }
 
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split('\n');
+        let addedCount = 0;
+
+        lines.forEach((line, index) => {
+          if (index === 0 && line.toLowerCase().includes('tripid')) return; // Skip header
+          const cols = line.split(',').map(c => c.trim());
+          if (cols.length >= 7) {
+            trips.push({
+              id: cols[0], vehicle: cols[1], driver: cols[2], route: cols[3],
+              departure: cols[4], eta: cols[5], status: "Pending", vacantSeats: parseInt(cols[6]) || 0
+            });
+            addedCount++;
+          }
+        });
+
+        if (addedCount > 0) {
+          saveTrips();
+          renderTable();
+          alert(`Successfully uploaded ${addedCount} trips.`);
+          fileInput.value = '';
+        } else {
+          alert('No valid trip data found in the CSV.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Chart.js initialization
+    let bookingsChartInstance;
     function initializeBookingsChart() {
       const ctx = document.getElementById("bookingsChart").getContext("2d");
       bookingsChartInstance = new Chart(ctx, {
@@ -303,81 +349,40 @@
           datasets: [{
             label: 'Number of Trips',
             data: [0, 0, 0],
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.7)', // Completed - Blue
-              'rgba(255, 206, 86, 0.7)', // Pending - Yellow
-              'rgba(255, 99, 132, 0.7)'  // Cancelled - Red
-            ],
-            borderColor: [
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
+            backgroundColor: ['#3b82f6', '#f59e0b', '#ef4444'],
+            borderWidth: 0,
+            borderRadius: 8
           }]
         },
         options: {
           responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-              stepSize: 1
-            }
-          },
-          plugins: {
-            legend: {
-              display: false
-            },
-            title: {
-              display: true,
-              text: 'Bookings by Trip Status'
-            }
-          }
+          plugins: { legend: { display: false }, title: { display: true, text: 'Trip Status Distribution' } },
+          scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
         }
       });
+      updateBookingsChart();
     }
 
     function updateBookingsChart() {
       if (!bookingsChartInstance) return;
-      const counts = {
-        Completed: 0,
-        Pending: 0,
-        Cancelled: 0
-      };
-      trips.forEach(trip => {
-        if (counts[trip.status] !== undefined) counts[trip.status]++;
-      });
-      bookingsChartInstance.data.datasets[0].data = [
-        counts.Completed,
-        counts.Pending,
-        counts.Cancelled
-      ];
+      const counts = { Completed: 0, Pending: 0, Cancelled: 0 };
+      trips.forEach(t => { if (counts[t.status] !== undefined) counts[t.status]++; });
+      bookingsChartInstance.data.datasets[0].data = [counts.Completed, counts.Pending, counts.Cancelled];
       bookingsChartInstance.update();
     }
 
-    // Google Maps init
-    let map;
-    function initMap() {
-      const india = { lat: 20.5937, lng: 78.9629 };
-      map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 5,
-        center: india
-      });
-      new google.maps.Marker({
-        position: india,
-        map: map,
-        title: "India"
-      });
+    window.onload = () => {
+      initializeBookingsChart();
+      renderTable();
+    };
+
+    function showRouteOnMap(routeString) {
+      const [start, end] = routeString.split('→').map(s => s.trim());
+      if (!start || !end) return;
+      const url = `https://maps.google.com/maps?q=from+${encodeURIComponent(start)}+to+${encodeURIComponent(end)}&output=embed`;
+      document.getElementById('mapFrame').src = url;
     }
-
-    // Initialize sample trips & UI
-    trips.push(
-      { id: "T1", vehicle: "Cab-001", driver: "Alice", route: "Delhi → Mumbai", departure: "09:00", eta: "18:00", status: "Completed", vacantSeats: 0 },
-      { id: "T2", vehicle: "Cab-002", driver: "Bob", route: "Bangalore → Chennai", departure: "10:00", eta: "15:00", status: "Pending", vacantSeats: 3 }
-    );
-
-    initializeBookingsChart();
-    renderTable();
+  </script>
     function showRouteOnMap(routeString) {
       const [start, end] = routeString.split('→').map(s => s.trim());
       if (!start || !end) return;
