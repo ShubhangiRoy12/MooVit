@@ -1,2 +1,36 @@
 "fastapi[standard]
 uvicorn"
+# MooVit Backend Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core Web Framework
+Flask==2.3.3
+Flask-CORS==4.0.0
+
+# For future database integration (optional)
+# Flask-SQLAlchemy==3.1.1
+# Flask-Migrate==4.0.5
+
+# For authentication (optional)
+# Flask-Login==0.6.2
+# Flask-Bcrypt==1.0.1
+
+# For API documentation (optional)
+# flask-restx==1.2.0
+
+# For real-time WebSocket (future enhancement)
+# flask-socketio==5.3.4
+# python-engineio==4.5.1
+# python-socketio==5.9.0
+
+# For data validation (optional)
+# marshmallow==3.20.1
+
+# For environment variables (optional)
+# python-dotenv==1.0.0
+
+# For request handling (already included with Flask)
+# requests==2.31.0
+
+# For date/time handling (built-in, but pinning version)
+# pytz==2023.3
