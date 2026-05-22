@@ -552,6 +552,120 @@ a, button, input, .card {
       cursor: pointer;
     }
 
+    .tracking-panel {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      animation: slideUp 0.8s ease-out 0.6s both;
+    }
+
+    .tracking-card {
+      width: min(100%, 760px);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(37, 99, 235, 0.12);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+      border-radius: 28px;
+      padding: 2rem;
+      text-align: left;
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+    }
+
+    .tracking-header h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+      color: var(--text-primary);
+    }
+
+    .tracking-header p {
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.75;
+    }
+
+    .tracking-result-card {
+      margin-top: 1.5rem;
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 24px;
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      padding: 1.75rem;
+    }
+
+    .tracking-status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .tracking-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1rem;
+      background: rgba(37, 99, 235, 0.12);
+      color: var(--button-primary);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .tracking-meta {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .tracking-detail {
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .tracking-detail strong {
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .tracking-stage-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .tracking-stage {
+      display: grid;
+      gap: 0.35rem;
+      padding: 1rem 1.15rem;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(37, 99, 235, 0.08);
+      border-radius: 20px;
+    }
+
+    .tracking-stage strong {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .tracking-stage span {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .tracking-empty {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-top: 0.8rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
     .hero-brands {
       margin-top: 4rem;
       border-top: 1px solid var(--panel-border);
