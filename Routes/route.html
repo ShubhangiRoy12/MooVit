@@ -197,12 +197,13 @@
           <table class="table table-striped table-hover align-middle" id="routesTable">
             <thead class="table-dark">
               <tr>
-                <th><i class="bi bi-hash"></i> Route ID</th>
+                <th class="sortable user-select-none" data-sort="id" style="cursor:pointer" title="Sort by Route ID"><i class="bi bi-hash"></i> Route ID <i class="bi bi-arrow-down-up ms-1 text-muted sort-icon"></i></th>
                 <th><i class="bi bi-geo-alt"></i> Origin</th>
                 <th><i class="bi bi-pin-map"></i> Destination</th>
                 <th><i class="bi bi-activity"></i> Status</th>
-                <th><i class="bi bi-rulers"></i> Distance</th>
-                <th><i class="bi bi-clock"></i> Est. Time</th>
+                <th class="sortable user-select-none" data-sort="priority" style="cursor:pointer" title="Sort by Priority"><i class="bi bi-flag"></i> Priority <i class="bi bi-arrow-down-up ms-1 text-muted sort-icon"></i></th>
+                <th class="sortable user-select-none" data-sort="distance" style="cursor:pointer" title="Sort by Distance"><i class="bi bi-rulers"></i> Distance <i class="bi bi-arrow-down-up ms-1 text-muted sort-icon"></i></th>
+                <th class="sortable user-select-none" data-sort="estimatedTime" style="cursor:pointer" title="Sort by Est. Time"><i class="bi bi-clock"></i> Est. Time <i class="bi bi-arrow-down-up ms-1 text-muted sort-icon"></i></th>
                 <th><i class="bi bi-fuel-pump"></i> Fuel Cost</th>
                 <th><i class="bi bi-calendar"></i> Start Time</th>
                 <th><i class="bi bi-gear"></i> Actions</th>
