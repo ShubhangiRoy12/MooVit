@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <link rel="icon" href="favicon.png">
   <title>Admin Portal - Transport Co.</title>
+  <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* Admin styles */
     body {
@@ -324,6 +326,30 @@
         -webkit-appearance: none;
         border-radius: 6px;
       }
+      .password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-size: 16px;
+}
+
+.toggle-password:hover {
+  color: #000;
+}
 
       .back-link a:hover {
         color: #7f8c8d;
@@ -332,7 +358,22 @@
     }
   </style>
 </head>
+<script>
+function togglePassword() {
+  const passwordInput = document.getElementById('admin-password');
+  const icon = document.querySelector('.toggle-password i');
 
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+  } else {
+    passwordInput.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
+  }
+}
+</script>
 <body>
   <div class="admin-container">
     <div class="admin-header">
@@ -348,9 +389,22 @@
       </div>
 
       <div class="form-group">
-        <label>Admin Password</label>
-        <input type="password" name="admin-password" placeholder="Enter secure password" required>
-      </div>
+  <label>Admin Password</label>
+
+  <div class="password-wrapper">
+    <input type="password"
+           id="admin-password"
+           name="admin-password"
+           placeholder="Enter secure password"
+           required>
+
+    <button type="button"
+            class="toggle-password"
+            onclick="togglePassword()">
+      <i class="fa-solid fa-eye"></i>
+    </button>
+  </div>
+</div>
 
       <button type="submit">Access Dashboard</button>
 
