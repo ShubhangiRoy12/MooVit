@@ -813,10 +813,8 @@ a, button, input, .card {
 .admin-container-popup,
 .service-alert {
   position: relative;
-
   width: 90%;
   max-width: 950px;
-
   background: var(--modal-bg);
 
   border-radius: 24px;
