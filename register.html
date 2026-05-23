@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png">
   <title>Register - Transport Co.</title>
+  <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -124,6 +126,36 @@
     .auth-container a:hover {
       text-decoration: underline;
     }
+    .password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding: 12px 45px 12px 12px;
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555;
+  font-size: 18px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  padding: 0;
+  margin: 0;
+  box-shadow: none !important;
+}
   </style>
 </head>
 
@@ -138,11 +170,24 @@
         <input type="email" name="email" id="email" placeholder="you@example.com" required>
       </label>
       <label>Password
-        <input id="pwd" type="password" placeholder="Create password" required>
-      </label>
-      <label>Confirm Password
-        <input id="cpwd" type="password" placeholder="Confirm password" required>
-      </label>
+  <div class="password-wrapper">
+    <input id="pwd" type="password" placeholder="Create password" required>
+
+    <span class="toggle-password" onclick="togglePassword('pwd', this)">
+      <i class="fa-solid fa-eye"></i>
+    </span>
+  </div>
+</label>
+
+<label>Confirm Password
+  <div class="password-wrapper">
+    <input id="cpwd" type="password" placeholder="Confirm password" required>
+
+    <span class="toggle-password" onclick="togglePassword('cpwd', this)">
+      <i class="fa-solid fa-eye"></i>
+    </span>
+  </div>
+</label>
       <div id="error-msg" style="color: #ffb3b3; text-align:center; margin-top:10px;"></div>
       <button type="submit">Register</button>
       <p>Already have an account? <a href="login.html">Login</a></p>
@@ -196,6 +241,20 @@
       // If all validations pass, redirect
       window.location.href = 'login.html';
     });
+    function togglePassword(inputId, element) {
+  const passwordInput = document.getElementById(inputId);
+  const icon = element.querySelector('i');
+
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+  } else {
+    passwordInput.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
+  }
+}
   </script>
 </body>
 
