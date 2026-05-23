@@ -59,8 +59,8 @@
       </nav>
       <div class="header-actions">
         <div class="search-bar-mini">
-          <input type="text" placeholder="Track ID...">
-          <button><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <input type="text" placeholder="Track ID..." aria-label="Enter tracking ID" />
+          <button type="button" aria-label="Search tracking ID"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg></button>
@@ -69,13 +69,13 @@
           <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
         </button>
         <div class="auth-divider"></div>
-        <a href="#" onclick="openLoginPopup(event)" class="btn-text">Login</a>
-        <a href="#" onclick="openSignupPopup(event)" class="btn-header-cta">Sign Up</a>
-        <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
+        <a href="#" onclick="openLoginPopup(event)" class="btn-text" aria-label="Open login modal">Login</a>
+        <a href="#" onclick="openSignupPopup(event)" class="btn-header-cta" aria-label="Open signup modal">Sign Up</a>
+        <button class="mobile-toggle" type="button" aria-label="Open mobile menu" aria-controls="mobileMenu" aria-expanded="false"><span class="bar"></span><span class="bar"></span><span
             class="bar"></span></button>
       </div>
     </div>
-    <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation menu">
       <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
         href="contact.html">Contact</a>
       <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
