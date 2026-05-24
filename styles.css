@@ -271,7 +271,10 @@ footer {
         justify-content: center;
         gap: 10px;
     }
-
+nav a {
+    margin: 5px;
+    font-size: 0.95rem;
+}
     .hero h1 {
         font-size: 2.2rem;
     }
