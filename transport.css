@@ -138,6 +138,7 @@ body {
 a, button, input, .card {
   cursor: pointer !important;
 }
+}
 
     .cursor.hover {
       transform: translate(-50%, -50%) scale(1.8);
