@@ -989,6 +989,66 @@ a, button, input, .card {
   text-align: center;
 }
 
+.alert-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 1.75rem;
+}
+
+.alert-btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert-btn.primary {
+  background: var(--button-primary);
+  color: white;
+}
+
+.alert-btn.primary:hover {
+  background: var(--button-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--button-shadow);
+}
+
+.alert-btn.close {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-primary);
+  border: 1px solid var(--panel-border);
+}
+
+body[data-theme="dark"] .alert-btn.close {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.alert-btn.close:hover {
+  background: rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+body[data-theme="dark"] .alert-btn.close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 480px) {
+  .alert-buttons {
+    flex-direction: column;
+  }
+  .alert-btn {
+    width: 100%;
+  }
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
 
