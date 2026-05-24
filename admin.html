@@ -3,366 +3,505 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png">
   <title>Admin Portal - Transport Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="transport.css">
+  <script>
+    // Set theme immediately to avoid styling flash
+    (() => {
+      const savedTheme = localStorage.getItem('moovit-theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
   <style>
-    /* Admin styles */
+    :root {
+      --floating-label-bg: #ffffff;
+      --admin-red: #ef4444;
+      --admin-red-hover: #dc2626;
+      --admin-red-shadow: rgba(239, 68, 68, 0.25);
+    }
+    :root[data-theme="dark"],
+    body[data-theme="dark"] {
+      --floating-label-bg: #0d1527;
+      --admin-red: #f87171;
+      --admin-red-hover: #ef4444;
+      --admin-red-shadow: rgba(248, 113, 113, 0.4);
+    }
+
     body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #2c3e50, #34495e);
-      height: 100vh;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Decorative Glow spheres in Background - specialized red/dark theme */
+    .glow-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .glow-sphere {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      transition: background 0.3s ease;
+    }
+    
+    .sphere-1 {
+      top: -10%;
+      left: -10%;
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, var(--admin-red) 0%, transparent 70%);
+      animation: float-glow 20s infinite alternate;
+    }
+    
+    .sphere-2 {
+      bottom: -10%;
+      right: -10%;
+      width: 45vw;
+      height: 45vw;
+      background: radial-gradient(circle, #2d5a87 0%, transparent 70%);
+      animation: float-glow 25s infinite alternate-reverse;
+    }
+    
+    @keyframes float-glow {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        transform: translate(5vw, 5vh) scale(1.1);
+      }
+      100% {
+        transform: translate(-2vw, -3vh) scale(0.9);
+      }
+    }
+
+    /* Custom Header brand adjustments */
+    .modern-header.scrolled {
+      backdrop-filter: blur(16px);
+      background: var(--header-bg-scrolled);
+      border-bottom: 1px solid var(--header-border);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Auth Wrapper & Glassmorphism Card with Crimson Highlight */
+    .auth-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 100px 20px 40px;
+      box-sizing: border-box;
     }
 
-    .admin-container {
-      background-color: rgba(255, 255, 255, 0.95);
-      padding: 40px 35px;
-      border-radius: 12px;
-      width: 350px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      border-top: 4px solid #e74c3c;
+    .auth-card {
+      background: var(--panel-strong);
+      border: 1px solid var(--panel-border);
+      border-top: 4px solid var(--admin-red);
+      backdrop-filter: blur(25px);
+      padding: 40px;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
     }
 
-    .admin-header {
+    .auth-card:hover {
+      box-shadow: 0 30px 60px rgba(239, 68, 68, 0.1);
+    }
+
+    .auth-card-header {
       text-align: center;
       margin-bottom: 30px;
     }
 
     .admin-badge {
       display: inline-block;
-      background-color: #e74c3c;
+      background-color: var(--admin-red);
       color: white;
       padding: 5px 15px;
       border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
-    .admin-container h2 {
-      margin: 10px 0 0 0;
-      color: #2c3e50;
-      font-size: 24px;
+    .auth-card-header h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
 
-    .admin-subtitle {
-      color: #7f8c8d;
+    .auth-card-header p {
       font-size: 14px;
-      margin-top: 5px;
+      color: var(--text-muted);
     }
 
-    .form-group {
+    /* Floating Labels Form Group */
+    .form-group-floating {
+      position: relative;
+      width: 100%;
       margin-bottom: 20px;
     }
 
-    .admin-container label {
-      display: block;
-      margin-bottom: 8px;
-      color: #34495e;
-      font-weight: bold;
-      font-size: 14px;
+    .input-icon-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
     }
 
-    .admin-container input {
+    .input-icon-wrapper input {
       width: 100%;
-      padding: 12px;
-      border: 2px solid #ecf0f1;
-      border-radius: 6px;
-      box-sizing: border-box;
-      font-size: 14px;
-      transition: border-color 0.3s ease;
-    }
-
-    .admin-container input:focus {
-      outline: none;
-      border-color: #e74c3c;
-    }
-
-    .admin-container button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 20px;
-      background: linear-gradient(135deg, #e74c3c, #c0392b);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
+      padding: 14px 14px 14px 44px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--input-text);
+      border-radius: 12px;
+      font-size: 15px;
       transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      outline: none;
     }
 
-    .admin-container button:hover {
-      background: linear-gradient(135deg, #c0392b, #a93226);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+    .input-icon-wrapper input:focus {
+      border-color: var(--admin-red);
+      background: var(--panel-strong);
+      box-shadow: 0 0 0 4px var(--admin-red-shadow);
     }
 
-    .security-note {
-      background-color: #fff5f5;
-      border: 1px solid #fecaca;
-      border-radius: 6px;
-      padding: 12px;
-      margin-top: 20px;
-      font-size: 12px;
-      color: #991b1b;
+    .input-icon-wrapper label {
+      position: absolute;
+      left: 44px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-soft);
+      font-size: 15px;
+      font-weight: 500;
+      pointer-events: none;
+      transition: all 0.3s ease;
     }
 
-    .security-icon {
-      display: inline-block;
-      margin-right: 5px;
+    /* Label floats up when input focused or has text */
+    .input-icon-wrapper input:focus ~ label,
+    .input-icon-wrapper input:not(:placeholder-shown) ~ label {
+      top: 0;
+      left: 12px;
+      font-size: 11px;
+      padding: 2px 6px;
+      background: var(--floating-label-bg);
+      color: var(--admin-red);
+      font-weight: 700;
+      border-radius: 4px;
     }
 
-    .back-link {
-      text-align: center;
-      margin-top: 25px;
-    }
-
-    .back-link a {
-      color: #7f8c8d;
-      text-decoration: none;
-      font-size: 14px;
+    .field-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-soft);
+      pointer-events: none;
       transition: color 0.3s ease;
     }
 
-    .back-link a:hover {
-      color: #34495e;
+    .input-icon-wrapper input:focus ~ .field-icon {
+      color: var(--admin-red);
+    }
+
+    /* Password Toggle Button */
+    .password-toggle {
+      position: absolute;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--text-soft);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease;
+      z-index: 10;
+    }
+
+    .password-toggle:hover {
+      color: var(--text-primary);
+    }
+
+    /* Submit Button with Loading State */
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--admin-red) 0%, var(--admin-red-hover) 100%);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px var(--admin-red-shadow);
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px var(--admin-red-shadow);
+    }
+    
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+    
+    .submit-btn:disabled {
+      background: var(--input-border);
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+      opacity: 0.8;
+    }
+    
+    .btn-spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Security Notice Box */
+    .security-note-box {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .security-note-box strong {
+      color: var(--admin-red);
+    }
+
+    /* Error Alert Banner */
+    .error-banner {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--admin-red);
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      animation: slide-down 0.3s ease-out;
+    }
+    
+    @keyframes slide-down {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .error-banner-icon {
+      flex-shrink: 0;
+    }
+
+    /* Footer styling inside card */
+    .auth-card-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    
+    .auth-card-footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    
+    .auth-card-footer a:hover {
+      color: var(--text-primary);
       text-decoration: underline;
     }
 
+    /* Version tag */
     .version-info {
       position: absolute;
       bottom: 20px;
       right: 20px;
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
+    /* Shake card animation on error */
     @keyframes shake {
-
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-
-      25% {
-        transform: translateX(-5px);
-      }
-
-      75% {
-        transform: translateX(5px);
-      }
+      0%, 100% { transform: translateX(0); }
+      15%, 45%, 75% { transform: translateX(-8px); }
+      30%, 60%, 90% { transform: translateX(8px); }
     }
-
-    .error-shake {
-      animation: shake 0.5s ease-in-out;
-    }
-
-    /* Mobile Responsive Design */
-    @media (max-width: 768px) {
-      body {
-        padding: 20px;
-        background: linear-gradient(135deg, #2c3e50, #34495e);
-        min-height: 100vh;
-        height: auto;
-      }
-
-      .admin-container {
-        width: 100%;
-        max-width: 400px;
-        padding: 30px 25px;
-        margin: 0 auto;
-        box-sizing: border-box;
-      }
-
-      .admin-header h2 {
-        font-size: 22px;
-      }
-
-      .admin-subtitle {
-        font-size: 13px;
-      }
-
-      .admin-badge {
-        padding: 4px 12px;
-        font-size: 11px;
-      }
-
-      .admin-container input {
-        padding: 14px 12px;
-        font-size: 16px;
-        /* Prevents zoom on iOS */
-      }
-
-      .admin-container button {
-        padding: 16px;
-        font-size: 16px;
-        margin-top: 25px;
-      }
-
-      .security-note {
-        padding: 15px;
-        font-size: 13px;
-        margin-top: 25px;
-      }
-
-      .version-info {
-        position: static;
-        text-align: center;
-        margin-top: 30px;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 13px;
-      }
-
-      .back-link {
-        margin-top: 30px;
-      }
-
-      .back-link a {
-        font-size: 15px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 15px;
-      }
-
-      .admin-container {
-        padding: 25px 20px;
-        border-radius: 8px;
-      }
-
-      .admin-header h2 {
-        font-size: 20px;
-      }
-
-      .admin-subtitle {
-        font-size: 12px;
-      }
-
-      .admin-container input {
-        padding: 15px 12px;
-      }
-
-      .admin-container button {
-        padding: 18px;
-        font-size: 15px;
-      }
-
-      .form-group {
-        margin-bottom: 18px;
-      }
-
-      .security-note {
-        padding: 12px;
-        font-size: 12px;
-      }
-    }
-
-    @media (max-width: 320px) {
-      .admin-container {
-        padding: 20px 15px;
-      }
-
-      .admin-header h2 {
-        font-size: 18px;
-      }
-
-      .admin-badge {
-        padding: 3px 10px;
-        font-size: 10px;
-      }
-
-      .admin-container input {
-        padding: 12px 10px;
-        font-size: 15px;
-      }
-
-      .admin-container button {
-        padding: 16px;
-        font-size: 14px;
-      }
-    }
-
-    /* Landscape mobile orientation */
-    @media (max-width: 768px) and (orientation: landscape) {
-      body {
-        padding: 10px;
-        align-items: flex-start;
-        justify-content: center;
-        padding-top: 20px;
-      }
-
-      .admin-container {
-        margin: 0 auto;
-        max-width: 550px;
-      }
-
-      .version-info {
-        margin-top: 20px;
-      }
-    }
-
-    /* Touch device optimizations */
-    @media (hover: none) and (pointer: coarse) {
-      .admin-container button:hover {
-        background: linear-gradient(135deg, #e74c3c, #c0392b);
-        transform: none;
-        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
-      }
-
-      .admin-container input {
-        -webkit-appearance: none;
-        border-radius: 6px;
-      }
-
-      .back-link a:hover {
-        color: #7f8c8d;
-        text-decoration: none;
-      }
+    
+    .auth-card.shake {
+      animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
     }
   </style>
 </head>
 
 <body>
-  <div class="admin-container">
-    <div class="admin-header">
-      <div class="admin-badge">Admin Access</div>
-      <h2>Control Panel</h2>
-      <div class="admin-subtitle">Transport Management System</div>
+  <!-- Background Light Glows -->
+  <div class="glow-bg">
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+  </div>
+
+  <!-- Custom mouse cursor elements -->
+  <div class="cursor"></div>
+  <div class="cursor-tail">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <!-- Brand Navigation Header -->
+  <header id="main-header" class="modern-header scrolled">
+    <div class="header-content">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+        </span>
+        <span class="logo-text">Transport<span class="highlight">Co.</span></span>
+      </a>
+      <div class="header-actions">
+        <a href="index.html" class="btn-text">Home</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
+          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+          <span class="theme-toggle-label">Dark Mode</span>
+        </button>
+      </div>
     </div>
+  </header>
 
-    <form id="admin-login-form">
-      <div class="form-group">
-        <label>Administrator ID</label>
-        <input type="text" name="admin-id" placeholder="Enter admin username" required>
+  <!-- Admin Login Card Wrapper -->
+  <div class="auth-wrapper">
+    <div class="auth-card" id="auth-card">
+      <div class="auth-card-header">
+        <div class="admin-badge">Admin Access</div>
+        <h2>Control Panel</h2>
+        <p>Transport Management System</p>
       </div>
 
-      <div class="form-group">
-        <label>Admin Password</label>
-        <input type="password" name="admin-password" placeholder="Enter secure password" required>
+      <!-- Custom Alert Banner for validations -->
+      <div class="error-banner" id="error-banner">
+        <svg class="error-banner-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span id="error-banner-text"></span>
       </div>
 
-      <button type="submit">Access Dashboard</button>
+      <form id="admin-login-form">
+        <!-- Floating label Username field -->
+        <div class="form-group-floating">
+          <div class="input-icon-wrapper">
+            <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input type="text" name="admin-id" id="admin-id-input" required placeholder=" ">
+            <label for="admin-id-input">Administrator ID</label>
+          </div>
+        </div>
 
-      <div class="security-note">
-        <span class="security-icon">🔒</span>
-        <strong>Security Notice:</strong> Admin access is logged and monitored. Unauthorized access attempts will be
-        reported.
-      </div>
-    </form>
+        <!-- Floating label Password field -->
+        <div class="form-group-floating">
+          <div class="input-icon-wrapper">
+            <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" name="admin-password" id="admin-password-input" required placeholder=" ">
+            <label for="admin-password-input">Admin Password</label>
+            <button type="button" class="password-toggle" id="password-toggle" aria-label="Toggle password visibility">
+              <svg class="eye-icon-show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <svg class="eye-icon-hide" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
 
-    <div class="back-link">
-      <a href="index.html">← Back to User Login</a>
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn" id="submit-btn">
+          <span id="submit-btn-text">Access Dashboard</span>
+          <span class="btn-spinner" id="btn-spinner"></span>
+        </button>
+
+        <!-- Security Notice Box -->
+        <div class="security-note-box">
+          <span>🔒</span>
+          <strong>Security Notice:</strong> Admin access is logged and monitored. Unauthorized access attempts will be reported.
+        </div>
+
+        <!-- Links footer -->
+        <div class="auth-card-footer">
+          <a href="login.html">← Back to User Login</a>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -370,15 +509,61 @@
     v2.1.0 | Admin Portal
   </div>
 
+  <script src="cursor.js"></script>
   <script>
+    const root = document.documentElement;
+    const body = document.body;
+    const themeButton = document.querySelector('.theme-toggle');
+
+    // Theme Management
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      body.setAttribute('data-theme', theme);
+      localStorage.setItem('moovit-theme', theme);
+
+      const icon = themeButton.querySelector('.theme-toggle-icon');
+      const label = themeButton.querySelector('.theme-toggle-label');
+      const darkMode = theme === 'dark';
+
+      themeButton.setAttribute('aria-pressed', String(darkMode));
+      if (icon) icon.textContent = darkMode ? '☀️' : '🌙';
+      if (label) label.textContent = darkMode ? 'Light Mode' : 'Dark Mode';
+    }
+
+    const savedTheme = localStorage.getItem('moovit-theme') || 'light';
+    applyTheme(savedTheme);
+
+    themeButton.addEventListener('click', () => {
+      const currentTheme = root.getAttribute('data-theme') || 'light';
+      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+      applyTheme(nextTheme);
+    });
+
+    // Password visibility toggle
+    const passwordInput = document.getElementById('admin-password-input');
+    const passwordToggle = document.getElementById('password-toggle');
+    const eyeShow = passwordToggle.querySelector('.eye-icon-show');
+    const eyeHide = passwordToggle.querySelector('.eye-icon-hide');
+
+    passwordToggle.addEventListener('click', () => {
+      const isPassword = passwordInput.getAttribute('type') === 'password';
+      passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+      if (isPassword) {
+        eyeShow.style.display = 'none';
+        eyeHide.style.display = 'block';
+      } else {
+        eyeShow.style.display = 'block';
+        eyeHide.style.display = 'none';
+      }
+    });
+
+    // Admin Credentials Secure Validation
     let loginAttempts = 0;
     const maxAttempts = 3;
 
-    // Security improvement: Using SHA-256 hashes instead of hardcoded strings
-    // Hash for 'admin': 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-    // Hash for 'transport2024': 8e658e476149419b16e159a22f38c356b4618e7d23d917387cc838612f0e0b3c
-    const ADMIN_ID_HASH = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918';
-    const ADMIN_PW_HASH = '8e658e476149419b16e159a22f38c356b4618e7d23d917387cc838612f0e0b3c';
+    // SHA-256 Hashes
+    const ADMIN_ID_HASH = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'; // hash for 'admin'
+    const ADMIN_PW_HASH = '8e658e476149419b16e159a22f38c356b4618e7d23d917387cc838612f0e0b3c'; // hash for 'transport2024'
 
     async function sha256(message) {
       const msgBuffer = new TextEncoder().encode(message);
@@ -388,51 +573,85 @@
       return hashHex;
     }
 
-    document.getElementById('admin-login-form').addEventListener('submit', async function (e) {
+    const authCard = document.getElementById('auth-card');
+    const errorBanner = document.getElementById('error-banner');
+    const errorBannerText = document.getElementById('error-banner-text');
+    const adminLoginForm = document.getElementById('admin-login-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitBtnText = document.getElementById('submit-btn-text');
+    const btnSpinner = document.getElementById('btn-spinner');
+
+    function showError(msg) {
+      errorBannerText.textContent = msg;
+      errorBanner.style.display = 'flex';
+      
+      // Shake card
+      authCard.classList.remove('shake');
+      void authCard.offsetWidth; // Trigger reflow to restart animation
+      authCard.classList.add('shake');
+    }
+
+    function clearError() {
+      errorBanner.style.display = 'none';
+      errorBannerText.textContent = '';
+    }
+
+    adminLoginForm.addEventListener('submit', async function (e) {
       e.preventDefault();
+      clearError();
 
-      const adminId = document.querySelector('input[name="admin-id"]').value;
-      const adminPassword = document.querySelector('input[name="admin-password"]').value;
+      const adminId = document.getElementById('admin-id-input').value;
+      const adminPassword = passwordInput.value;
 
+      // Show spinner on submit button
+      submitBtn.disabled = true;
+      submitBtnText.textContent = 'Verifying security signature...';
+      btnSpinner.style.display = 'inline-block';
+
+      // Perform secure hash matching
       const userIdHash = await sha256(adminId);
       const passwordHash = await sha256(adminPassword);
 
       if (userIdHash === ADMIN_ID_HASH && passwordHash === ADMIN_PW_HASH) {
         // Success - store session and redirect
         localStorage.setItem('admin_session', 'active_' + Date.now());
-        alert('Login successful! Redirecting to admin dashboard...');
-        window.location.href = 'admin-dashboard.html';
+        submitBtnText.textContent = 'Access Granted. Redirecting...';
+        
+        setTimeout(() => {
+          window.location.href = 'admin-dashboard.html';
+        }, 1200);
       } else {
         loginAttempts++;
+        
+        // Reset submit button state
+        submitBtn.disabled = false;
+        submitBtnText.textContent = 'Access Dashboard';
+        btnSpinner.style.display = 'none';
+        passwordInput.value = '';
 
         if (loginAttempts >= maxAttempts) {
-          alert('Maximum login attempts exceeded. Access temporarily blocked.');
-          document.getElementById('admin-login-form').style.pointerEvents = 'none';
-          document.querySelector('button').textContent = 'Access Blocked';
-          document.querySelector('button').style.background = '#95a5a6';
+          showError('Maximum access attempts exceeded. Portal blocked.');
+          adminLoginForm.style.pointerEvents = 'none';
+          submitBtn.textContent = 'Access Blocked';
+          submitBtn.disabled = true;
+          submitBtn.style.background = '#95a5a6';
           return;
         }
 
-        // Shake animation for failed login
-        const container = document.querySelector('.admin-container');
-        container.classList.add('error-shake');
-        setTimeout(() => container.classList.remove('error-shake'), 500);
-
-        alert(`Invalid credentials. Attempt ${loginAttempts}/${maxAttempts}`);
-
-        // Clear password field
-        document.querySelector('input[name="admin-password"]').value = '';
+        showError(`Invalid credentials. Attempt ${loginAttempts} of ${maxAttempts}`);
       }
     });
 
-    // Add some keyboard shortcuts for admin convenience
+    // Keyboard shortcut to reset attempts (Ctrl + Alt + R)
     document.addEventListener('keydown', function (e) {
-      if (e.ctrlKey && e.altKey && e.key === 'r') {
+      if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'r') {
         loginAttempts = 0;
-        document.getElementById('admin-login-form').style.pointerEvents = 'auto';
-        document.querySelector('button').textContent = 'Access Dashboard';
-        document.querySelector('button').style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
-        console.log('Admin attempts reset');
+        adminLoginForm.style.pointerEvents = 'auto';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Access Dashboard';
+        submitBtn.style.background = '';
+        clearError();
+        console.log('Admin attempts reset via keyboard shortcut.');
       }
     });
   </script>
