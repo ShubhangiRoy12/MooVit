@@ -448,7 +448,10 @@ header .badge {
   overflow: hidden;
   backdrop-filter: var(--backdrop-blur);
 }
-
+.active{
+   border-bottom: 2px solid white;
+   color: white !important;
+}
 .modal-header {
   border-radius: 15px 15px 0 0;
   border: none;
