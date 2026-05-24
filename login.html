@@ -1,768 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="favicon.png">
-  <title>Login - Transport Co.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="transport.css">
-  <script>
-    // Set theme immediately to avoid styling flash
-    (() => {
-      const savedTheme = localStorage.getItem('moovit-theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    })();
-  </script>
-  <style>
-    :root {
-      --floating-label-bg: #ffffff;
-    }
-    :root[data-theme="dark"],
-    body[data-theme="dark"] {
-      --floating-label-bg: #0d1527;
-    }
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .page { display: flex; min-height: 600px; border-radius: var(--border-radius-lg); overflow: hidden; border: 0.5px solid var(--color-border-tertiary); }
+  .left-panel { width: 42%; background: #0f172a; display: flex; flex-direction: column; justify-content: space-between; padding: 40px 36px; position: relative; overflow: hidden; }
+  .left-panel::before { content: ''; position: absolute; top: -80px; left: -80px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%); border-radius: 50%; }
+  .left-panel::after { content: ''; position: absolute; bottom: -60px; right: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(20,184,166,0.2) 0%, transparent 70%); border-radius: 50%; }
+  .brand { display: flex; align-items: center; gap: 10px; z-index: 1; position: relative; }
+  .brand-icon { width: 36px; height: 36px; background: rgba(99,102,241,0.3); border: 1px solid rgba(99,102,241,0.5); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .brand-name { font-size: 18px; font-weight: 500; color: #fff; }
+  .brand-name span { color: #818cf8; }
+  .left-content { z-index: 1; position: relative; }
+  .left-content h1 { font-size: 26px; font-weight: 500; color: #fff; line-height: 1.35; margin-bottom: 14px; }
+  .left-content h1 em { font-style: normal; color: #818cf8; }
+  .left-content p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+  .features { z-index: 1; position: relative; display: flex; flex-direction: column; gap: 12px; }
+  .feat { display: flex; align-items: center; gap: 10px; }
+  .feat-dot { width: 7px; height: 7px; border-radius: 50%; background: #818cf8; flex-shrink: 0; }
+  .feat span { font-size: 13px; color: rgba(255,255,255,0.55); }
+  .right-panel { flex: 1; background: var(--color-background-primary); padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; }
+  .form-header { margin-bottom: 32px; }
+  .form-header h2 { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
+  .form-header p { font-size: 14px; color: var(--color-text-secondary); }
+  .field-group { margin-bottom: 18px; }
+  .field-label { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; display: block; }
+  .field-row { position: relative; display: flex; align-items: center; }
+  .field-row i { position: absolute; left: 13px; font-size: 16px; color: var(--color-text-secondary); pointer-events: none; }
+  .field-row input { width: 100%; padding: 11px 14px 11px 40px; font-size: 14px; color: var(--color-text-primary); background: var(--color-background-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); outline: none; transition: border-color 0.2s, background 0.2s; }
+  .field-row input:focus { border-color: #818cf8; background: var(--color-background-primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+  .field-row input::placeholder { color: var(--color-text-secondary); opacity: 0.6; }
+  .eye-btn { position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: var(--color-text-secondary); display: flex; align-items: center; padding: 2px; }
+  .eye-btn:hover { color: var(--color-text-primary); }
+  .form-meta { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 24px; }
+  .check-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--color-text-secondary); }
+  .check-label input { accent-color: #6366f1; width: 14px; height: 14px; }
+  .forgot { font-size: 13px; color: #6366f1; text-decoration: none; }
+  .forgot:hover { text-decoration: underline; }
+  .submit-btn { width: 100%; padding: 12px; background: #4f46e5; color: #fff; font-size: 14px; font-weight: 500; border: none; border-radius: var(--border-radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s, transform 0.1s; }
+  .submit-btn:hover { background: #4338ca; }
+  .submit-btn:active { transform: scale(0.99); }
+  .divider { display: flex; align-items: center; gap: 12px; margin: 22px 0; }
+  .divider hr { flex: 1; border: none; border-top: 0.5px solid var(--color-border-tertiary); }
+  .divider span { font-size: 12px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+  .socials { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+  .social-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: var(--color-background-secondary); color: var(--color-text-primary); font-size: 13px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+  .social-btn:hover { background: var(--color-background-tertiary); border-color: var(--color-border-primary); }
+  .footer-links { text-align: center; font-size: 13px; color: var(--color-text-secondary); display: flex; flex-direction: column; gap: 6px; }
+  .footer-links a { color: #6366f1; text-decoration: none; }
+  .footer-links a:hover { text-decoration: underline; }
+  .footer-links a.red { color: #e24b4a; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(99,102,241,0.12); color: #818cf8; font-size: 11px; padding: 4px 10px; border-radius: 999px; margin-bottom: 12px; border: 0.5px solid rgba(99,102,241,0.3); }
+</style>
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
+<h2 class="sr-only" style="position:absolute;left:-9999px">Transport Co. login page redesign preview</h2>
 
-    /* Decorative Glow spheres in Background */
-    .glow-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      z-index: -1;
-      pointer-events: none;
-    }
-    
-    .glow-sphere {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.15;
-      transition: background 0.3s ease;
-    }
-    
-    .sphere-1 {
-      top: -10%;
-      left: -10%;
-      width: 40vw;
-      height: 40vw;
-      background: radial-gradient(circle, var(--button-primary) 0%, transparent 70%);
-      animation: float-glow 20s infinite alternate;
-    }
-    
-    .sphere-2 {
-      bottom: -10%;
-      right: -10%;
-      width: 45vw;
-      height: 45vw;
-      background: radial-gradient(circle, var(--accent-strong) 0%, transparent 70%);
-      animation: float-glow 25s infinite alternate-reverse;
-    }
-    
-    @keyframes float-glow {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-      50% {
-        transform: translate(5vw, 5vh) scale(1.1);
-      }
-      100% {
-        transform: translate(-2vw, -3vh) scale(0.9);
-      }
-    }
-
-    /* Custom Header brand adjustments for Login */
-    .modern-header.scrolled {
-      backdrop-filter: blur(16px);
-      background: var(--header-bg-scrolled);
-      border-bottom: 1px solid var(--header-border);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Auth Wrapper & Glassmorphism Card */
-    .auth-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      min-height: 100vh;
-      padding: 100px 20px 40px;
-      box-sizing: border-box;
-    }
-
-    .auth-card {
-      background: var(--panel-strong);
-      border: 1px solid var(--panel-border);
-      backdrop-filter: blur(25px);
-      padding: 40px;
-      border-radius: 24px;
-      width: 100%;
-      max-width: 450px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-      position: relative;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-    }
-
-    .auth-card:hover {
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
-    }
-
-    .auth-card-header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .auth-card-header h2 {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-      letter-spacing: -0.5px;
-    }
-
-    .auth-card-header p {
-      font-size: 15px;
-      color: var(--text-muted);
-    }
-
-    /* Floating Labels Form Group */
-    .form-group-floating {
-      position: relative;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    .input-icon-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .input-icon-wrapper input {
-      width: 100%;
-      padding: 14px 14px 14px 44px;
-      border: 1px solid var(--input-border);
-      background: var(--input-bg);
-      color: var(--input-text);
-      border-radius: 12px;
-      font-size: 15px;
-      transition: all 0.3s ease;
-      outline: none;
-    }
-
-    .input-icon-wrapper input:focus {
-      border-color: var(--button-primary);
-      background: var(--panel-strong);
-      box-shadow: 0 0 0 4px var(--button-shadow);
-    }
-
-    .input-icon-wrapper label {
-      position: absolute;
-      left: 44px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-soft);
-      font-size: 15px;
-      font-weight: 500;
-      pointer-events: none;
-      transition: all 0.3s ease;
-    }
-
-    /* Label floats up when input focused or has text */
-    .input-icon-wrapper input:focus ~ label,
-    .input-icon-wrapper input:not(:placeholder-shown) ~ label {
-      top: 0;
-      left: 12px;
-      font-size: 11px;
-      padding: 2px 6px;
-      background: var(--floating-label-bg);
-      color: var(--button-primary);
-      font-weight: 700;
-      border-radius: 4px;
-    }
-
-    .field-icon {
-      position: absolute;
-      left: 14px;
-      color: var(--text-soft);
-      pointer-events: none;
-      transition: color 0.3s ease;
-    }
-
-    .input-icon-wrapper input:focus ~ .field-icon {
-      color: var(--button-primary);
-    }
-
-    /* Password Toggle Button */
-    .password-toggle {
-      position: absolute;
-      right: 14px;
-      background: none;
-      border: none;
-      color: var(--text-soft);
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.2s ease;
-      z-index: 10;
-    }
-
-    .password-toggle:hover {
-      color: var(--text-primary);
-    }
-
-    /* Form options (checkbox & forgot password) */
-    .form-options {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-      margin-bottom: 24px;
-      font-size: 14px;
-    }
-    
-    .remember-me {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      color: var(--text-secondary);
-      font-weight: 500;
-      user-select: none;
-    }
-    
-    .remember-me input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      height: 0;
-      width: 0;
-    }
-    
-    .checkmark {
-      width: 18px;
-      height: 18px;
-      background-color: var(--input-bg);
-      border: 1px solid var(--input-border);
-      border-radius: 4px;
-      display: inline-block;
-      position: relative;
-      transition: all 0.2s ease;
-    }
-    
-    .remember-me:hover input ~ .checkmark {
-      border-color: var(--button-primary);
-    }
-    
-    .remember-me input:checked ~ .checkmark {
-      background-color: var(--button-primary);
-      border-color: var(--button-primary);
-    }
-    
-    .checkmark:after {
-      content: "";
-      position: absolute;
-      display: none;
-    }
-    
-    .remember-me input:checked ~ .checkmark:after {
-      display: block;
-    }
-    
-    .remember-me .checkmark:after {
-      left: 5px;
-      top: 2px;
-      width: 4px;
-      height: 8px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
-    
-    .forgot-pwd {
-      color: var(--button-primary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s ease;
-    }
-    
-    .forgot-pwd:hover {
-      color: var(--button-primary-hover);
-      text-decoration: underline;
-    }
-
-    /* Submit Button with Loading State */
-    .submit-btn {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--button-primary) 0%, var(--button-primary-hover) 100%);
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 15px var(--button-shadow);
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
-    }
-    
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-    
-    .submit-btn:disabled {
-      background: var(--input-border);
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-      opacity: 0.8;
-    }
-    
-    .btn-spinner {
-      display: none;
-      width: 18px;
-      height: 18px;
-      border: 2.5px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: white;
-      animation: spin 0.8s linear infinite;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Auth Divider */
-    .auth-divider-text {
-      text-align: center;
-      margin: 24px 0;
-      position: relative;
-    }
-    
-    .auth-divider-text::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: var(--panel-border);
-      z-index: 1;
-    }
-    
-    .auth-divider-text span {
-      background: var(--floating-label-bg);
-      padding: 0 12px;
-      color: var(--text-soft);
-      font-size: 13px;
-      font-weight: 600;
-      position: relative;
-      z-index: 2;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* Social logins */
-    .social-login-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    
-    .social-btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      padding: 11px;
-      border-radius: 12px;
-      border: 1px solid var(--input-border);
-      background: var(--input-bg);
-      color: var(--text-primary);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    
-    .social-btn:hover {
-      background: var(--panel-border);
-      border-color: var(--text-soft);
-    }
-
-    /* Error Alert Banner */
-    .error-banner {
-      display: none;
-      align-items: center;
-      gap: 10px;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #ef4444;
-      padding: 12px 16px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      font-size: 14px;
-      font-weight: 500;
-      animation: slide-down 0.3s ease-out;
-    }
-    
-    @keyframes slide-down {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .error-banner-icon {
-      flex-shrink: 0;
-    }
-
-    /* Footer styling inside card */
-    .auth-card-footer {
-      text-align: center;
-      margin-top: 24px;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-    
-    .auth-card-footer a {
-      color: var(--button-primary);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    
-    .auth-card-footer a:hover {
-      text-decoration: underline;
-    }
-    
-    .admin-portal-link {
-      margin-top: 10px;
-    }
-
-    .admin-link-inline {
-      color: #ef4444 !important;
-    }
-    .admin-link-inline:hover {
-      color: #dc2626 !important;
-    }
-
-    /* Shake card animation on error */
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      15%, 45%, 75% { transform: translateX(-8px); }
-      30%, 60%, 90% { transform: translateX(8px); }
-    }
-    
-    .auth-card.shake {
-      animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
-    }
-
-    /* Theme override for inputs in dark mode */
-    body[data-theme="dark"] .social-btn img {
-      filter: brightness(0.9);
-    }
-  </style>
-</head>
-
-<body>
-  <!-- Background Light Glows -->
-  <div class="glow-bg">
-    <div class="glow-sphere sphere-1"></div>
-    <div class="glow-sphere sphere-2"></div>
-  </div>
-
-  <!-- Custom mouse cursor elements -->
-  <div class="cursor"></div>
-  <div class="cursor-tail">
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-  </div>
-
-  <!-- Brand Navigation Header -->
-  <header id="main-header" class="modern-header scrolled">
-    <div class="header-content">
-      <a href="index.html" class="brand-logo">
-        <span class="logo-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="3" width="15" height="13"></rect>
-            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-            <circle cx="5.5" cy="18.5" r="2.5"></circle>
-            <circle cx="18.5" cy="18.5" r="2.5"></circle>
-          </svg>
-        </span>
-        <span class="logo-text">Transport<span class="highlight">Co.</span></span>
-      </a>
-      <div class="header-actions">
-        <a href="index.html" class="btn-text">Home</a>
-        <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
-          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
-          <span class="theme-toggle-label">Dark Mode</span>
-        </button>
+<div class="page">
+  <div class="left-panel">
+    <div class="brand">
+      <div class="brand-icon">
+        <i class="ti ti-truck" style="font-size:18px;color:#818cf8" aria-hidden="true"></i>
       </div>
+      <div class="brand-name">Transport<span>Co.</span></div>
     </div>
-  </header>
 
-  <!-- Login Card Form Wrapper -->
-  <div class="auth-wrapper">
-    <div class="auth-card" id="auth-card">
-      <div class="auth-card-header">
-        <h2>Login to MooVit</h2>
-        <p>Access your dashboard and shipments</p>
+    <div class="left-content">
+      <div class="badge">
+        <i class="ti ti-shield-check" style="font-size:12px" aria-hidden="true"></i>
+        Trusted logistics platform
       </div>
+      <h1>Manage your shipments with <em>confidence</em></h1>
+      <p>Access real-time tracking, analytics, and fleet management from your unified dashboard.</p>
+    </div>
 
-      <!-- Custom Alert Banner for validations -->
-      <div class="error-banner" id="error-banner">
-        <svg class="error-banner-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-        <span id="error-banner-text"></span>
-      </div>
-
-      <form id="login-form">
-        <!-- Floating label Email field -->
-        <div class="form-group-floating">
-          <div class="input-icon-wrapper">
-            <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            <input type="email" name="email" id="email" required placeholder=" ">
-            <label for="email">Email Address</label>
-          </div>
-        </div>
-
-        <!-- Floating label Password field -->
-        <div class="form-group-floating">
-          <div class="input-icon-wrapper">
-            <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-            </svg>
-            <input type="password" name="password" id="password" required placeholder=" ">
-            <label for="password">Password</label>
-            <button type="button" class="password-toggle" id="password-toggle" aria-label="Toggle password visibility">
-              <svg class="eye-icon-show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              <svg class="eye-icon-hide" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                <line x1="1" y1="1" x2="23" y2="23"></line>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Remember Me and Forgot Password links -->
-        <div class="form-options">
-          <label class="remember-me">
-            <input type="checkbox" id="remember">
-            <span class="checkmark"></span>
-            <span>Remember me</span>
-          </label>
-          <a href="#" id="forgot-link" class="forgot-pwd">Forgot password?</a>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="submit-btn" id="submit-btn">
-          <span id="submit-btn-text">Sign In</span>
-          <span class="btn-spinner" id="btn-spinner"></span>
-        </button>
-
-        <!-- Mock Social Login Area -->
-        <div class="auth-divider-text">
-          <span>or continue with</span>
-        </div>
-
-        <div class="social-login-grid">
-          <button type="button" class="social-btn" onclick="mockSocialLogin('Google')">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" width="18" height="18">
-            <span>Google</span>
-          </button>
-          <button type="button" class="social-btn" onclick="mockSocialLogin('GitHub')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path>
-            </svg>
-            <span>GitHub</span>
-          </button>
-        </div>
-
-        <!-- Links footer -->
-        <div class="auth-card-footer">
-          <p>New to MooVit? <a href="register.html">Register here</a></p>
-          <p class="admin-portal-link"><a href="admin.html" class="admin-link-inline">🔐 Admin Portal Access</a></p>
-        </div>
-      </form>
+    <div class="features">
+      <div class="feat"><div class="feat-dot"></div><span>Live shipment tracking & alerts</span></div>
+      <div class="feat"><div class="feat-dot"></div><span>Fleet analytics & reporting</span></div>
+      <div class="feat"><div class="feat-dot"></div><span>Secure role-based access</span></div>
     </div>
   </div>
 
-  <script src="cursor.js"></script>
-  <script>
-    const root = document.documentElement;
-    const body = document.body;
-    const themeButton = document.querySelector('.theme-toggle');
+  <div class="right-panel">
+    <div class="form-header">
+      <h2>Sign in to MooVit</h2>
+      <p>Enter your credentials to access your dashboard</p>
+    </div>
 
-    // Theme Management
-    function applyTheme(theme) {
-      root.setAttribute('data-theme', theme);
-      body.setAttribute('data-theme', theme);
-      localStorage.setItem('moovit-theme', theme);
+    <div class="field-group">
+      <label class="field-label">Email address</label>
+      <div class="field-row">
+        <i class="ti ti-mail" aria-hidden="true"></i>
+        <input type="email" placeholder="you@company.com" value="">
+      </div>
+    </div>
 
-      const icon = themeButton.querySelector('.theme-toggle-icon');
-      const label = themeButton.querySelector('.theme-toggle-label');
-      const darkMode = theme === 'dark';
+    <div class="field-group">
+      <label class="field-label">Password</label>
+      <div class="field-row">
+        <i class="ti ti-lock" aria-hidden="true"></i>
+        <input type="password" placeholder="••••••••">
+        <button class="eye-btn" aria-label="Show password">
+          <i class="ti ti-eye" style="font-size:16px" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
 
-      themeButton.setAttribute('aria-pressed', String(darkMode));
-      if (icon) icon.textContent = darkMode ? '☀️' : '🌙';
-      if (label) label.textContent = darkMode ? 'Light Mode' : 'Dark Mode';
-    }
+    <div class="form-meta">
+      <label class="check-label">
+        <input type="checkbox"> Remember me
+      </label>
+      <a href="#" class="forgot">Forgot password?</a>
+    </div>
 
-    const savedTheme = localStorage.getItem('moovit-theme') || 'light';
-    applyTheme(savedTheme);
+    <button class="submit-btn">
+      <i class="ti ti-arrow-right" style="font-size:16px" aria-hidden="true"></i>
+      Sign in
+    </button>
 
-    themeButton.addEventListener('click', () => {
-      const currentTheme = root.getAttribute('data-theme') || 'light';
-      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
-      applyTheme(nextTheme);
-    });
+    <div class="divider">
+      <hr><span>or continue with</span><hr>
+    </div>
 
-    // Populate email if remembered
-    window.addEventListener('load', function () {
-      const saved = localStorage.getItem('rememberedEmail');
-      if (saved) {
-        document.getElementById('email').value = saved;
-        document.getElementById('remember').checked = true;
-      }
-    });
+    <div class="socials">
+      <button class="social-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Google
+      </button>
+      <button class="social-btn">
+        <i class="ti ti-brand-github" style="font-size:17px" aria-hidden="true"></i>
+        GitHub
+      </button>
+    </div>
 
-    // Password visibility toggle
-    const passwordInput = document.getElementById('password');
-    const passwordToggle = document.getElementById('password-toggle');
-    const eyeShow = passwordToggle.querySelector('.eye-icon-show');
-    const eyeHide = passwordToggle.querySelector('.eye-icon-hide');
-
-    passwordToggle.addEventListener('click', () => {
-      const isPassword = passwordInput.getAttribute('type') === 'password';
-      passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
-      if (isPassword) {
-        eyeShow.style.display = 'none';
-        eyeHide.style.display = 'block';
-      } else {
-        eyeShow.style.display = 'block';
-        eyeHide.style.display = 'none';
-      }
-    });
-
-    // Form Submission & Validation
-    const authCard = document.getElementById('auth-card');
-    const errorBanner = document.getElementById('error-banner');
-    const errorBannerText = document.getElementById('error-banner-text');
-    const loginForm = document.getElementById('login-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const submitBtnText = document.getElementById('submit-btn-text');
-    const btnSpinner = document.getElementById('btn-spinner');
-
-    function showError(msg) {
-      errorBannerText.textContent = msg;
-      errorBanner.style.display = 'flex';
-      
-      // Shake card
-      authCard.classList.remove('shake');
-      void authCard.offsetWidth; // Trigger reflow to restart animation
-      authCard.classList.add('shake');
-    }
-
-    function clearError() {
-      errorBanner.style.display = 'none';
-      errorBannerText.textContent = '';
-    }
-
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      clearError();
-
-      const email = document.getElementById('email').value.trim();
-      const password = passwordInput.value;
-      const remember = document.getElementById('remember').checked;
-
-      // Email validation
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        showError('Please enter a valid email address.');
-        return;
-      }
-
-      // Password strength validation
-      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-      if (!strongPasswordPattern.test(password)) {
-        showError('Password must be at least 8 characters and include uppercase, lowercase, number, and special character.');
-        return;
-      }
-
-      // Remember me handling
-      if (remember) {
-        localStorage.setItem('rememberedEmail', email);
-      } else {
-        localStorage.removeItem('rememberedEmail');
-      }
-
-      // Show Loading State on submit button
-      submitBtn.disabled = true;
-      submitBtnText.textContent = 'Verifying credentials...';
-      btnSpinner.style.display = 'inline-block';
-
-      // Mock processing delay before redirect
-      setTimeout(() => {
-        window.location.href = 'main.html';
-      }, 1200);
-    });
-
-    // Mock alert for forgot password
-    document.getElementById('forgot-link').addEventListener('click', function (e) {
-      e.preventDefault();
-      alert('Forgot password functionality is not available in this demo. Please contact support.');
-    });
-
-    // Mock alert for social logins
-    function mockSocialLogin(provider) {
-      alert(`Social login with ${provider} is not configured in this demo.`);
-    }
-  </script>
-</body>
-
-</html>
+    <div class="footer-links">
+      <span>New to MooVit? <a href="#">Create an account</a></span>
+      <span><a href="#" class="red"><i class="ti ti-lock" style="font-size:12px;vertical-align:-1px" aria-hidden="true"></i> Admin portal</a></span>
+    </div>
+  </div>
+</div>
