@@ -432,6 +432,7 @@ footer {
 
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
+
     .main-container {
         width: 95%;
         padding: 1.5rem;
@@ -443,15 +444,19 @@ footer {
     }
 
     nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
+        display: none;
+    }
+
+    .header-actions {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: none;
     }
 
     .hero h1 {
         font-size: 2.2rem;
-        /* Smaller text for mobile */
     }
 
     .tracking-container {
@@ -461,5 +466,9 @@ footer {
 
     .tracking-container input {
         width: 100%;
+    }
+
+    body {
+        overflow-x: hidden;
     }
 }
