@@ -453,6 +453,8 @@ footer {
 
     .mobile-menu {
         display: none;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .hero h1 {
