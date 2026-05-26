@@ -261,6 +261,41 @@
       .hero-text p {
         font-size: 1rem;
       }
+      /* Dark mode button */
+.dark-toggle-btn{
+    border:none;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:white;
+    padding:10px 14px;
+    border-radius:50%;
+    cursor:pointer;
+    margin-left:15px;
+    font-size:18px;
+    transition:0.3s;
+}
+
+.dark-toggle-btn:hover{
+    transform:scale(1.1);
+}
+
+/* Class that will be added to body */
+.dark-theme-active{
+    background:#121212 !important;
+    color:#ffffff !important;
+}
+
+/* Optional extra styling for elements during dark mode */
+.dark-theme-active header{
+    background:#1f1f1f !important;
+}
+
+.dark-theme-active a{
+    color:white !important;
+}
+
+.dark-theme-active .header-content{
+    background:#1a1a1a;
+}
     }
   </style>
 </head>
@@ -269,14 +304,31 @@
   <div class="cursor" id="cursor"></div>
 
   <!-- Navbar -->
-  <header class="navbar">
-    <div class="back-btn"><a href="main.html"><i class="fas fa-arrow-left"></i> Back</a></div>
-    <div class="logo">
-      <i class="fas fa-truck-moving"></i>
-      <h1>MooVit</h1>
+  <header>
+    <div class="header-content">
+        <div class="logo">
+            <i class="fas fa-truck-moving"></i>
+            <h1>MooVit</h1>
+        </div>
+
+        <nav class="header-nav">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+
+            <a href="index.html">
+                <i class="fas fa-sign-out-alt"></i>
+                Go Back
+            </a>
+
+            <!-- Dark mode button -->
+            <button id="darkToggle" class="dark-toggle-btn">
+    <i class="fas fa-moon"></i>
+</button>
+        </nav>
     </div>
-    <div></div> <!-- Empty div for spacing -->
-  </header>
+</header>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -366,4 +418,23 @@
     });
   </script>
 </body>
+<script >const darkBtn = document.getElementById("darkToggle");
+
+darkBtn.addEventListener("click", function(){
+
+    document.body.classList.toggle("dark-theme-active");
+
+    const icon = darkBtn.querySelector("i");
+
+    if(document.body.classList.contains("dark-theme-active")){
+        icon.classList.remove("fa-moon");
+        icon.classList.add("fa-sun");
+    }
+    else{
+        icon.classList.remove("fa-sun");
+        icon.classList.add("fa-moon");
+    }
+
+});
+</script>
 </html>
