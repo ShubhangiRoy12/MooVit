@@ -88,6 +88,12 @@ function addSchedule(event) {
   const dep = document.getElementById("newDep").value;
   const eta = document.getElementById("newEta").value;
 
+    // Prevent duplicate Trip IDs
+  if (scheduleData.some(trip => trip.id === id)) {
+    alert(`Trip ID "${id}" already exists. Please use a unique ID.`);
+    return;
+  }
+
   if (!id || !vehicle || !driver || !route || !dep || !eta) return alert("Please fill all fields");
 
   scheduleData.push({ id, vehicle, driver, route, departure: dep, eta, status: "Pending" });
