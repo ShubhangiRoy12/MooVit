@@ -261,36 +261,36 @@
     </style>
 </head>
 <body id="admin-body" style="display:none;">
-    <aside class="sidebar">
+    <aside class="sidebar" role="complementary" aria-label="Admin Sidebar">
         <div class="sidebar-header">
-            <i class="fas fa-truck-moving"></i>
+            <i class="fas fa-truck-moving" aria-hidden="true"></i>
             <h1>MooVit Admin</h1>
         </div>
-        <nav class="sidebar-nav">
-            <a href="#" class="nav-item active">
-                <i class="fas fa-chart-line"></i>
+        <nav class="sidebar-nav" aria-label="Main Admin Navigation">
+            <a href="#" class="nav-item active" aria-current="page">
+                <i class="fas fa-chart-line" aria-hidden="true"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-users"></i>
+            <a href="#" class="nav-item" aria-label="Manage Users">
+                <i class="fas fa-users" aria-hidden="true"></i>
                 <span>Users</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-truck"></i>
+            <a href="#" class="nav-item" aria-label="Manage Fleet">
+                <i class="fas fa-truck" aria-hidden="true"></i>
                 <span>Fleet</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-route"></i>
+            <a href="#" class="nav-item" aria-label="Manage Routes">
+                <i class="fas fa-route" aria-hidden="true"></i>
                 <span>Routes</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-cog"></i>
+            <a href="#" class="nav-item" aria-label="Portal Settings">
+                <i class="fas fa-cog" aria-hidden="true"></i>
                 <span>Settings</span>
             </a>
         </nav>
         <div class="sidebar-footer">
-            <button class="logout-btn" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i>
+            <button class="logout-btn" onclick="logout()" aria-label="Logout of Admin session">
+                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                 <span>Logout</span>
             </button>
         </div>
@@ -347,16 +347,16 @@
         <div class="dashboard-section">
             <div class="section-header">
                 <h2>Recent Activity</h2>
-                <a href="#" class="btn-link">View All</a>
+                <a href="#" class="btn-link" aria-label="View all recent activities">View All</a>
             </div>
-            <table>
+            <table aria-label="Recent Admin and User Activities">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Type</th>
-                        <th>Date</th>
-                        <th>Status</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -365,21 +365,21 @@
                         <td>John Doe</td>
                         <td>Shipment Created</td>
                         <td>Feb 22, 2025</td>
-                        <td><span class="status-badge status-active">Completed</span></td>
+                        <td><span class="status-badge status-active" aria-label="Status: Completed">Completed</span></td>
                     </tr>
                     <tr>
                         <td>#VH-8821</td>
                         <td>Fleet AI</td>
                         <td>Engine Alert</td>
                         <td>Feb 22, 2025</td>
-                        <td><span class="status-badge status-alert">Critical</span></td>
+                        <td><span class="status-badge status-alert" aria-label="Status: Critical Alert">Critical</span></td>
                     </tr>
                     <tr>
                         <td>#RT-5520</td>
                         <td>Jane Smith</td>
                         <td>Route Optimized</td>
                         <td>Feb 21, 2025</td>
-                        <td><span class="status-badge status-pending">In Progress</span></td>
+                        <td><span class="status-badge status-pending" aria-label="Status: In Progress">In Progress</span></td>
                     </tr>
                 </tbody>
             </table>
