@@ -59,27 +59,27 @@
       </nav>
       <div class="header-actions">
         <div class="search-bar-mini">
-          <input type="text" placeholder="Track ID...">
-          <button><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <input type="text" placeholder="Track ID..." aria-label="Enter tracking ID" />
+          <button type="button" aria-label="Search tracking ID"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg></button>
         </div>
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
-          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+          <span class="theme-toggle-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg-moon" style="width:18px; height:18px; display:inline-block; vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
         </button>
         <div class="auth-divider"></div>
-        <a href="#" onclick="openLoginPopup(event)" class="btn-text">Login</a>
-        <a href="#" onclick="openSignupPopup(event)" class="btn-header-cta">Sign Up</a>
-        <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
+        <a href="#" onclick="openLoginPopup(event)" class="btn-text" aria-label="Open login modal">Login</a>
+        <a href="#" onclick="openSignupPopup(event)" class="btn-header-cta" aria-label="Open signup modal">Sign Up</a>
+        <button class="mobile-toggle" type="button" aria-label="Open mobile menu" aria-controls="mobileMenu" aria-expanded="false"><span class="bar"></span><span class="bar"></span><span
             class="bar"></span></button>
       </div>
     </div>
-    <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation menu">
       <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
         href="contact.html">Contact</a>
       <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
-        <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+        <span class="theme-toggle-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg-moon" style="width:18px; height:18px; display:inline-block; vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
       </button>
       <div class="mobile-auth"><a href="#" onclick="openLoginPopup(event)">Login</a><a href="#"
           onclick="openSignupPopup(event)">Sign Up</a></div>
@@ -110,7 +110,7 @@
     <div class="grid-container">
       <div class="card" onclick="handleServiceClick()">
         <div class="card-content">
-          <div class="icon">🚛</div>
+          <div class="icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></div>
           <h2>Ground Transport</h2>
           <p>Reliable trucking services with real-time GPS tracking, temperature-controlled options, and 24/7
             monitoring.</p>
@@ -118,7 +118,7 @@
       </div>
       <div class="card" onclick="handleServiceClick()">
         <div class="card-content">
-          <div class="icon">✈️</div>
+          <div class="icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5L5.3 6.7c-.9-.2-1.7.3-1.9 1.2c-.2.9.3 1.7 1.2 1.9l7.7 2.6l-3.5 3.5l-3-.5c-.4-.1-.8.1-1.1.4l-.9.9c-.3.3-.2.8.2.9l3.4 1.7L9 21.1c.1.4.6.5.9.2l.9-.9c.3-.3.5-.7.4-1.1l-.5-3l3.5-3.5l2.6 7.7c.2.9 1 1.4 1.9 1.2c.9-.2 1.4-1 1.2-1.9z"></path></svg></div>
           <h2>Air Freight</h2>
           <p>Lightning-fast international shipping with priority handling and expedited customs clearance for urgent
             deliveries.</p>
@@ -126,7 +126,7 @@
       </div>
       <div class="card" onclick="handleServiceClick()">
         <div class="card-content">
-          <div class="icon">🚢</div>
+          <div class="icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><path d="M2 17l2-2h16l2 2v2H2v-2z"></path><path d="M12 3v12"></path><path d="M12 3l7 4H12"></path></svg></div>
           <h2>Ocean Freight</h2>
           <p>Cost-effective sea transport for large shipments with comprehensive insurance and port-to-port excellence.
           </p>
@@ -134,7 +134,7 @@
       </div>
       <div class="card" onclick="handleServiceClick()">
         <div class="card-content">
-          <div class="icon">📦</div>
+          <div class="icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><polygon points="12 22.08 12 12 3 6.92 3 17.08 12 22.08"></polygon><polygon points="12 22.08 12 12 21 6.92 21 17.08 12 22.08"></polygon><polygon points="12 12 3 6.92 12 1.84 21 6.92 12 12"></polygon><line x1="12" y1="5.14" x2="12" y2="12"></line></svg></div>
           <h2>Warehousing</h2>
           <p>State-of-the-art storage facilities with advanced inventory management and automated distribution systems.
           </p>
@@ -142,14 +142,14 @@
       </div>
       <div class="card" onclick="handleServiceClick()">
         <div class="card-content">
-          <div class="icon">🛡️</div>
+          <div class="icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
           <h2>Secure Logistics</h2>
           <p>High-security transport for valuable goods with GPS monitoring and specialized handling protocols.</p>
         </div>
       </div>
       <div class="card" onclick="handleServiceClick()">
         <div class="card-content">
-          <div class="icon">⚡</div>
+          <div class="icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
           <h2>Express Delivery</h2>
           <p>Same-day and next-day delivery services with live tracking and money-back guarantee for time-critical
             shipments.</p>
@@ -172,17 +172,17 @@
 
         <div class="features-grid">
           <div class="feature-card">
-            <div class="feature-icon">🚚</div>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></div>
             <h3>Ground Transport</h3>
             <p>Temperature-controlled, GPS-tracked trucking tailored to your needs.</p>
           </div>
           <div class="feature-card">
-            <div class="feature-icon">✈️</div>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5L5.3 6.7c-.9-.2-1.7.3-1.9 1.2c-.2.9.3 1.7 1.2 1.9l7.7 2.6l-3.5 3.5l-3-.5c-.4-.1-.8.1-1.1.4l-.9.9c-.3.3-.2.8.2.9l3.4 1.7L9 21.1c.1.4.6.5.9.2l.9-.9c.3-.3.5-.7.4-1.1l-.5-3l3.5-3.5l2.6 7.7c.2.9 1 1.4 1.9 1.2c.9-.2 1.4-1 1.2-1.9z"></path></svg></div>
             <h3>Air Freight</h3>
             <p>Priority handling for urgent international shipments.</p>
           </div>
           <div class="feature-card">
-            <div class="feature-icon">🚢</div>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><path d="M2 17l2-2h16l2 2v2H2v-2z"></path><path d="M12 3v12"></path><path d="M12 3l7 4H12"></path></svg></div>
             <h3>Ocean Freight</h3>
             <p>Cost-effective sea transport for large-volume consignments.</p>
           </div>
@@ -194,7 +194,7 @@
   <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
   <div class="service-alert" id="serviceAlert">
-    <h3>🔒 Premium Access</h3>
+    <h3><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg" style="display:inline-block; vertical-align:middle; margin-right:6px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Premium Access</h3>
     <p>Please login to access detailed service information and pricing.</p>
     <div class="alert-buttons">
       <a href="#" onclick="openLoginPopup(event); closeServiceAlert();" class="alert-btn primary">Login Now</a>
@@ -350,7 +350,7 @@
         <div id="admin-error-msg" class="error-message"></div>
         <button type="submit" class="admin-submit-btn" style="margin-top:1.5rem;">Access Dashboard</button>
         <div class="security-note">
-          <span>🔒</span> <strong>Security Notice:</strong> Admin access is logged and monitored.
+          <span><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span> <strong>Security Notice:</strong> Admin access is logged and monitored.
         </div>
       </form>
     </div>
@@ -452,7 +452,7 @@
       <a href="cookie.html">Cookie</a>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 Transport Co. | All Rights Reserved. | Designed with ❤️ for Excellence</p>
+      <p>&copy; 2025 Transport Co. | All Rights Reserved. | Designed with <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="red" stroke-linecap="round" stroke-linejoin="round" class="icon-svg-heart" style="display:inline-block; vertical-align:middle; width:16px; height:16px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> for Excellence</p>
     </div>
   </footer>
 
@@ -472,7 +472,11 @@
         const darkMode = theme === 'dark';
 
         button.setAttribute('aria-pressed', String(darkMode));
-        if (icon) icon.textContent = darkMode ? '☀️' : '🌙';
+        if (icon) {
+          icon.innerHTML = darkMode 
+            ? `<svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg-sun" style="width:18px; height:18px; display:inline-block; vertical-align:middle;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>` 
+            : `<svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-svg-moon" style="width:18px; height:18px; display:inline-block; vertical-align:middle;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+        }
       });
     }
 
