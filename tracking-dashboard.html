@@ -333,23 +333,24 @@
 <body>
     <header class="header">
         <div class="header-content">
-            <a href="main.html" class="logo">
-                <i class="fas fa-truck-moving"></i> MooVit
+            <a href="main.html" class="logo" aria-label="MooVit Logo Home">
+                <i class="fas fa-truck-moving" aria-hidden="true"></i> MooVit
             </a>
-            <a href="main.html" class="back-btn">← Back to Dashboard</a>
+            <a href="main.html" class="back-btn" aria-label="Go back to Dashboard">← Back to Dashboard</a>
         </div>
     </header>
 
     <div class="container">
         <!-- Search Section -->
-        <div class="search-section">
+        <div class="search-section" role="search" aria-label="Shipment Search">
             <h3 style="margin-bottom: 1rem;">🔍 Track Your Shipment</h3>
             <div class="search-box">
-                <select id="trackingInput" class="search-input" style="cursor:pointer;">
+                <label for="trackingInput" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Select Shipment ID</label>
+                <select id="trackingInput" class="search-input" style="cursor:pointer;" aria-label="Select shipment ID to track">
                     <option value="SHIP-12345">SHIP-12345 — Mumbai → Delhi (In Transit)</option>
                     <option value="SHIP-67890">SHIP-67890 — Chennai → Bangalore (Delivered)</option>
                 </select>
-                <button class="search-btn" onclick="trackShipment()">Track Now</button>
+                <button class="search-btn" onclick="trackShipment()" aria-label="Track Selected Shipment">Track Now</button>
             </div>
         </div>
 
@@ -361,9 +362,9 @@
         <!-- Main Tracking Grid -->
         <div class="tracking-grid">
             <div class="map-container">
-                <div id="trackingMap"></div>
+                <div id="trackingMap" role="region" aria-label="Interactive map showing shipment progress and route path"></div>
             </div>
-            <div class="shipment-details" id="shipmentDetails">
+            <div class="shipment-details" id="shipmentDetails" aria-live="polite" aria-label="Shipment Details and Route Updates">
                 <!-- Will be populated by JS -->
             </div>
         </div>
