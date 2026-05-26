@@ -512,6 +512,9 @@
 </head>
 
 <body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link" style="position: absolute; top: -100px; left: 10px; background: var(--accent-orange); color: white; padding: 10px 20px; border-radius: 8px; z-index: 1000; transition: top 0.3s;" onfocus="this.style.top='10px'" onblur="this.style.top='-100px'">Skip to main content</a>
+
     <!-- Header -->
     <header>
         <div class="header-content">
@@ -533,7 +536,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main-container">
+    <main class="main-container" id="main-content">
         <!-- Welcome Section -->
         <section class="welcome-section">
             <h2>Our Premium Services</h2>
@@ -544,7 +547,7 @@
         <!-- Services Grid -->
         <section class="services-grid">
             <!-- Core Transport Services -->
-            <a href="Shipments/shipments.html" class="service-card shipments">
+            <a href="Shipments/shipments.html" class="service-card shipments" aria-label="Manage Shipments: Monitor pending, in-route, delivered, and delayed status categories with transit metrics.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -565,7 +568,7 @@
                 </div>
             </a>
 
-            <a href="Vehicles/vechicle.html" class="service-card vehicles">
+            <a href="Vehicles/vechicle.html" class="service-card vehicles" aria-label="Fleet Management: Track driver behavior, maintenance schedules, real-time location, fuel usage, and utilization metrics.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -585,7 +588,7 @@
                 </div>
             </a>
 
-            <a href="Routes/route.html" class="service-card routes">
+            <a href="Routes/route.html" class="service-card routes" aria-label="Route Optimization: Analyze route origins, destinations, distances, and performance metrics to optimize travel times.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -605,7 +608,7 @@
                 </div>
             </a>
 
-            <a href="Schedule/schedule.html" class="service-card schedule">
+            <a href="Schedule/schedule.html" class="service-card schedule" aria-label="Smart Scheduling: Intelligent dispatch scheduling system to reduce idle time and maximize resource utilization.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -627,7 +630,7 @@
             </a>
 
             <!-- Safety & Awareness (Urgent) -->
-            <a href="Safety and awareness/index.html" class="service-card safety">
+            <a href="Safety and awareness/index.html" class="service-card safety" aria-label="Road Safety Awareness: Critical safety initiative addressing India's helmet and seatbelt compliance to protect lives.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -649,7 +652,7 @@
             </a>
 
             <!-- AI Detection (Featured) -->
-            <a href="sharp-detection/sharp-detection.html" class="service-card detection">
+            <a href="sharp-detection/sharp-detection.html" class="service-card detection" aria-label="Sharp Object Detection: AI-powered real-time alerts for nearby sharp or hazardous objects using camera inputs.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -670,7 +673,7 @@
             </a>
 
             <!-- Public Services -->
-            <a href="Public transportation/index.html" class="service-card transit">
+            <a href="Public transportation/index.html" class="service-card transit" aria-label="Public Transit Hub: Track real-time bus and train locations, schedules, and service alerts to plan travel.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -691,7 +694,7 @@
                 </div>
             </a>
 
-            <a href="sharingcab/sharingcab.html" class="service-card sharing">
+            <a href="sharingcab/sharingcab.html" class="service-card sharing" aria-label="Cab Sharing Network: Offer or join rides with verified users to save costs and reduce traffic congestion.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -712,7 +715,7 @@
             </a>
 
             <!-- Hospitality Services -->
-            <a href="FoodStall_and_hotels/index.html" class="service-card hotel">
+            <a href="FoodStall_and_hotels/index.html" class="service-card hotel" aria-label="Hotel and Food Services: Comprehensive hospitality management to monitor reservations and food service operations.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -734,7 +737,7 @@
             </a>
 
             <!-- Accessibility & Support -->
-            <a href="live-detection/live-detection.html" class="service-card live">
+            <a href="live-detection/live-detection.html" class="service-card live" aria-label="Live Object Detection: Assistive navigation technology for visually impaired users to detect road obstacles in real-time.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -755,7 +758,7 @@
                 </div>
             </a>
 
-            <a href="Chatbot/index.html" class="service-card chatbot">
+            <a href="Chatbot/index.html" class="service-card chatbot" aria-label="AI Assistant: 24/7 intelligent conversational bot to guide you through Moovit platform and answer queries.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
@@ -775,7 +778,7 @@
                 </div>
             </a>
 
-            <a href="feedback/feedback.html" class="service-card feedback">
+            <a href="feedback/feedback.html" class="service-card feedback" aria-label="Feedback and Support: Share your experience, report issues, or suggest improvements to help enhance MooVit.">
                 <div class="card-content">
                     <div class="card-header">
                         <div class="card-icon">
