@@ -71,11 +71,11 @@
         <div class="auth-divider"></div>
         <a href="#" onclick="openLoginPopup(event)" class="btn-text">Login</a>
         <a href="#" onclick="openSignupPopup(event)" class="btn-header-cta">Sign Up</a>
-        <button class="mobile-toggle"><span class="bar"></span><span class="bar"></span><span
+     <button class="mobile-toggle" aria-label="Open mobile menu"><span class="bar"></span><span class="bar"></span><span
             class="bar"></span></button>
       </div>
     </div>
-    <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu" style="display: none;"></div>
       <a href="index.html">Home</a><a href="services.html">Services</a><a href="#">Tracking</a><a
         href="contact.html">Contact</a>
       <button class="theme-toggle mobile-theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
@@ -519,10 +519,19 @@
     // Mobile Menu
     const toggle = document.querySelector('.mobile-toggle');
     const menu = document.querySelector('.mobile-menu');
-    toggle.addEventListener('click', () => {
-      menu.classList.toggle('active');
-      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
-    });
+   toggle.addEventListener('click', () => {
+
+  menu.classList.toggle('active');
+
+  if(menu.classList.contains('active')){
+    menu.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  } else {
+    menu.style.display = "none";
+    document.body.style.overflow = "auto";
+  }
+
+});
 
     // --- Modal Logic ---
     function closeAllModals() {
