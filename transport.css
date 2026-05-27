@@ -341,23 +341,26 @@ a, button, input, .card {
       top: 0;
       left: 0;
       width: 100%;
-      height: 0;
+
       background: color-mix(in srgb, var(--header-bg-scrolled) 92%, transparent);
       backdrop-filter: blur(20px);
+
       z-index: 1001;
       overflow: hidden;
-      display: flex;
+
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 2rem;
-      transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      opacity: 0;
-    }
+
+      transition: 0.3s ease;
+}
 
     .mobile-menu.active {
-      height: 100vh;
-      opacity: 1;
+    display: flex;
+    min-height: 100vh;
+}
     }
 
     .mobile-menu a {
@@ -709,7 +712,36 @@ a, button, input, .card {
       .hero {
         padding: 3rem 1.5rem;
       }
+ /* Hide desktop navbar */
+    .desktop-nav {
+        display: none !important;
+    }
 
+    /* Hide desktop actions */
+    .header-actions .search-bar-mini,
+    .header-actions .btn-text,
+    .header-actions .btn-header-cta,
+    .header-actions .auth-divider {
+        display: none !important;
+    }
+
+    /* Show hamburger */
+    .mobile-toggle {
+        display: flex !important;
+    }
+
+    /* Hide mobile menu initially */
+    .mobile-menu {
+        display: none !important;
+    }
+
+    /* Show when active */
+    .mobile-menu.active {
+        display: flex !important;
+        min-height: 100vh;
+    }
+
+}
       .hero h2 {
         font-size: 2.5rem;
       }
@@ -1310,4 +1342,63 @@ a, button, input, .card {
 
 @media (max-width: 768px) {
   .cursor-tail { display: none; }
+}
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  header,
+  nav {
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* Hero Section */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  /* Buttons */
+  button,
+  .btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Containers */
+  .container,
+  .hero-content,
+  .services-section {
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
 }
