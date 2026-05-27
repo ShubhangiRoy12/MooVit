@@ -349,7 +349,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: center;f
       justify-content: center;
       gap: 2rem;
       transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -709,30 +709,26 @@
     }
 
     .service-alert,
-    .login-container,
-    .signup-container,
-    .admin-container-popup {
+    .modal-wrapper {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0.9);
       background: var(--modal-bg);
       border: 1px solid var(--panel-border);
-      padding: 2.5rem;
       border-radius: 20px;
       z-index: 1001;
       width: 90%;
-      max-width: 450px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      max-width: 850px;
       opacity: 0;
       visibility: hidden;
       transition: 0.3s;
     }
 
     .service-alert.active,
-    .login-modal.active .login-container,
-    .signup-modal.active .signup-container,
-    .admin-modal.active .admin-container-popup {
+    .login-modal.active .modal-wrapper,
+    .signup-modal.active .modal-wrapper,
+    .admin-modal.active .modal-wrapper {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
       visibility: visible;
@@ -837,15 +833,17 @@
     .signup-modal,
     .admin-modal {
       position: fixed;
+      inset: 0;
       z-index: 1001;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
+      display: none; /* hidden initially */
       justify-content: center;
       align-items: center;
-      pointer-events: none;
+    }
+
+    .login-modal.active,
+    .signup-modal.active,
+    .admin-modal.active {
+      display: flex;
     }
 
     .login-modal.active,
@@ -853,6 +851,7 @@
     .admin-modal.active {
       pointer-events: auto;
     }
+    
 
     /* Error Messages */
     .error-message {

@@ -30,7 +30,7 @@
     <div class="circle"></div>
   </div>
 
-  <script src="cursor.js"></script>
+  <!-- <script src="cursor.js"></script> -->
 
   <div class="particles" id="particles"></div>
 
@@ -85,6 +85,8 @@
           onclick="openSignupPopup()">Sign Up</a></div>
     </div>
   </header>
+
+
 
   <main class="hero loading">
     <h2>Your Cargo, Our Priority</h2>
@@ -169,7 +171,7 @@
     </div>
   </div>
 
-  <!-- LOGIN MODAL -->
+   <!-- LOGIN MODAL -->
   <div class="login-modal" id="loginModal">
     <div class="modal-wrapper">
       <div class="modal-left">
@@ -184,7 +186,7 @@
           <h3>Welcome Back!</h3>
           <p>Access your dashboard and manage your shipments with ease.</p>
         </div>
-      </div>
+      </div>  -->
       <div class="modal-right">
         <button class="close-btn" onclick="closeAllModals()">&times;</button>
         <h2>Login</h2>
@@ -221,7 +223,7 @@
   </div>
 
   <!-- SIGNUP MODAL -->
-  <div class="signup-modal" id="signupModal">
+   <div class="signup-modal" id="signupModal">
     <div class="modal-wrapper">
       <div class="modal-left signup-bg">
         <div class="modal-brand">
@@ -289,7 +291,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </div>  -->
 
   <!-- ADMIN MODAL -->
   <div class="admin-modal" id="adminModal">
@@ -512,8 +514,12 @@
 
     // --- Modal Logic ---
     function closeAllModals() {
-      document.getElementById('overlay').classList.remove('active');
-      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal').forEach(el => el.classList.remove('active'));
+      const overlay = document.getElementById('overlay');
+      if (overlay) overlay.classList.remove('active');
+
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal')
+        .forEach(el => el.classList.remove('active'));
+
       document.body.style.overflow = 'auto';
     }
     function handleServiceClick() {
@@ -524,15 +530,26 @@
     function closeServiceAlert() { closeAllModals(); }
 
     function openLoginPopup() {
+      // Always hard-reset modal state before opening a modal
       closeAllModals();
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal')
+        .forEach(el => el.classList.remove('active'));
+
       document.getElementById('overlay').classList.add('active');
       document.getElementById('loginModal').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
-    function closeLoginPopup() { closeAllModals(); }
+    function closeLoginPopup() {
+      // Ensure login modal is also explicitly deactivated (defensive)
+      document.getElementById('loginModal')?.classList.remove('active');
+      closeAllModals();
+    }
 
     function openSignupPopup() {
       closeAllModals();
+      document.querySelectorAll('.service-alert, .login-modal, .signup-modal, .admin-modal')
+        .forEach(el => el.classList.remove('active'));
+
       document.getElementById('overlay').classList.add('active');
       document.getElementById('signupModal').classList.add('active');
       document.body.style.overflow = 'hidden';
