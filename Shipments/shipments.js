@@ -113,16 +113,56 @@ class ShipmentManager {
       this.showAlert('Please fill in all required fields', 'danger');
       return;
     }
-    
-    // Check for duplicate ID
-    if (this.shipments.some(ship => ship.id === shipmentData.id)) {
-      this.showAlert('Shipment ID already exists', 'danger');
-      return;
+    if(this.isEditMode){
+      const index = this.shipments.findIndex(
+        s => s.id === this.editingShipmentId
+      );
+  
+      if (index !== -1) {
+        shipmentData.createdAt = this.shipments[index].createdAt;
+        this.shipments[index] = shipmentData;
+        this.refreshTable();
+        this.showAlert('Shipment updated successfully', 'success');
+      }
+  
+      this.isEditMode = false;
+      this.editingShipmentId = null;
+    }
+    else{
+      const existingShipment = this.shipments.find(
+        s => s.id === shipmentData.id
+      );
+  
+      if (existingShipment) {
+        this.showAlert("Shipment already exists","danger");
+        return;
+      }
+      this.addShipment(shipmentData);
+      this.showAlert('Shipment added successfully', 'success');
+  
+      // this.shipments.push(shipmentData);
     }
     
-    this.addShipment(shipmentData);
+    // Check for duplicate ID
+    // if (this.shipments.some(ship => ship.id === shipmentData.id)) {
+    //   this.showAlert('Shipment ID already exists', 'danger');
+    //   return;
+    // }
+    
+    // this.addShipment(shipmentData);
     this.modal.hide();
-    this.showAlert('Shipment added successfully', 'success');
+    // this.showAlert('Shipment added successfully', 'success');
+  }
+
+  refreshTable() {
+    this.tbody.innerHTML = '';
+  
+    this.shipments.forEach(shipment => {
+      this.renderShipment(shipment);
+    });
+  
+    this.updateStats();
+    this.updateCharts();
   }
   
   addShipment(shipmentData) {
@@ -201,6 +241,8 @@ class ShipmentManager {
   editShipment(shipmentId) {
     const shipment = this.shipments.find(s => s.id === shipmentId);
     if (shipment) {
+      this.isEditMode = true;
+      this.editingShipmentId = shipmentId;
       // Populate form with existing data
       document.getElementById('shipId').value = shipment.id;
       document.getElementById('shipStatus').value = shipment.status;
