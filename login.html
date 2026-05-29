@@ -180,6 +180,39 @@
         <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
       </form>
     </div>
+    .remember-label {
+  display: flex !important;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.remember-checkbox {
+  margin-right: 6px;
+  width: auto !important;
+}
+  </style>
+</head>
+
+<body>
+  <div class="auth-container">
+    <form id="login-form">
+      <h2>Login to MooVit.</h2>
+      <label>Email
+        <input type="email" name="email" id="email" required>
+      </label>
+      <label>Password
+        <input type="password" name="password" id="password" required>
+      </label>
+      <label class="remember-label">
+        <input type="checkbox" id="remember" class="remember-checkbox">
+        Remember me
+      </label>
+      <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
+      <button type="submit">Login</button>
+      <p style="margin-top:12px;"><a href="#" id="forgot-link">Forgot password?</a></p>
+      <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
+    </form>
+  </div>
   
   <script>
   

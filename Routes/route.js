@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   let routes = [];
   let editIndex = -1;
+  // State object to track the current active sort column and direction
+  let currentSort = { field: null, direction: 'asc' };
   
   // Fuel price per km (can be adjusted)
   const FUEL_PRICE_PER_KM = 8.5; // ₹8.5 per km average
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     setupCharts();
     loadSampleData();
+    setupSorting();
     update();
   }
   
@@ -263,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     modal.hide();
+    if (currentSort.field) sortRoutes();
     renderRoutes();
     update();
   }
@@ -297,6 +301,11 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="badge bg-${statusColor} statusBadge">${route.status}</span>
         </td>
         <td>
+          <span class="badge bg-light text-dark priority-${route.priority.toLowerCase()}">
+            <i class="bi bi-flag-fill"></i> ${route.priority}
+          </span>
+        </td>
+        <td>
           <i class="bi bi-rulers"></i> ${route.distance} km
         </td>
         <td>
@@ -321,11 +330,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <button class="btn btn-danger" onclick="deleteRoute(${index})">
               <i class="bi bi-trash"></i>
             </button>
-          </div>
-          <div class="mt-1">
-            <span class="badge bg-light text-dark priority-${route.priority.toLowerCase()}">
-              <i class="bi bi-flag-fill"></i> ${route.priority}
-            </span>
           </div>
         </td>
       `;
@@ -352,6 +356,74 @@ document.addEventListener('DOMContentLoaded', () => {
       'Critical': 'danger'
     };
     return colors[priority] || 'secondary';
+  }
+  
+  /**
+   * Initializes event listeners for all sortable table headers.
+   * Enables toggling sort direction on click and dynamically updates header icons.
+   */
+  function setupSorting() {
+    document.querySelectorAll('th.sortable').forEach(th => {
+      th.addEventListener('click', () => {
+        const field = th.dataset.sort;
+        
+        // Toggle sort direction if clicking the same column, otherwise default to ascending
+        if (currentSort.field === field) {
+          currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        } else {
+          currentSort.field = field;
+          currentSort.direction = 'asc';
+        }
+        
+        // Reset all header icons to the default inactive state
+        document.querySelectorAll('th.sortable .sort-icon').forEach(icon => {
+          icon.className = 'bi bi-arrow-down-up ms-1 text-muted sort-icon';
+        });
+        
+        // Apply the active directional icon (up/down arrow) to the currently sorted column
+        const icon = th.querySelector('.sort-icon');
+        if (currentSort.direction === 'asc') {
+          icon.className = 'bi bi-arrow-up ms-1 sort-icon';
+        } else {
+          icon.className = 'bi bi-arrow-down ms-1 sort-icon';
+        }
+        
+        // Re-sort the underlying data array and re-render the table
+        sortRoutes();
+        renderRoutes();
+      });
+    });
+  }
+
+  /**
+   * Sorts the global `routes` array in place based on `currentSort` state.
+   * Handles numeric sorting, alphanumeric ID sorting, and custom Priority mapping.
+   */
+  function sortRoutes() {
+    if (!currentSort.field) return;
+
+    // Define a severity mapping so that priority can be sorted logically instead of alphabetically
+    const priorityOrder = { 'Low': 1, 'Medium': 2, 'High': 3, 'Critical': 4 };
+
+    routes.sort((a, b) => {
+      let valA = a[currentSort.field];
+      let valB = b[currentSort.field];
+
+      // Normalize specific fields to ensure accurate comparison
+      if (currentSort.field === 'priority') {
+        valA = priorityOrder[valA] || 0;
+        valB = priorityOrder[valB] || 0;
+      } else if (currentSort.field === 'id') {
+        // Case-insensitive alphanumeric sort for string IDs
+        valA = valA.toString().toLowerCase();
+        valB = valB.toString().toLowerCase();
+      }
+      
+      // Perform the comparison taking into account the chosen sort direction
+      if (valA < valB) return currentSort.direction === 'asc' ? -1 : 1;
+      if (valA > valB) return currentSort.direction === 'asc' ? 1 : -1;
+      return 0; // Return 0 to maintain stable sorting relative order
+    });
   }
   
   function update() {
