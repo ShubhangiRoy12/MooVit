@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png">
@@ -31,7 +31,7 @@
       --btn-shadow: rgba(29, 78, 216, 0.4);
       --border-color: rgba(0, 0, 0, 0.1);
     }
-
+  
     body {
       margin: 0;
       padding: 0;
@@ -46,7 +46,7 @@
       align-items: center;
       color: var(--text-color);
     }
-
+  
     .auth-container {
       background: var(--bg-overlay);
       backdrop-filter: blur(10px);
@@ -56,20 +56,20 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       border: 1px solid var(--glass-border);
     }
-
+  
     .auth-container h2 {
       text-align: center;
       margin-bottom: 25px;
       color: var(--text-color);
     }
-
+  
     .auth-container label {
       display: block;
       margin-bottom: 15px;
       color: var(--text-color);
       font-weight: 600;
     }
-
+  
     .auth-container input {
       width: 100%;
       padding: 10px;
@@ -80,7 +80,7 @@
       background: rgba(255,255,255,0.7);
       color: #000;
     }
-
+  
     .auth-container button {
       width: 100%;
       padding: 12px;
@@ -94,59 +94,92 @@
       transition: filter 0.3s ease;
       box-shadow: 0 4px 15px var(--btn-shadow);
     }
-
+  
     .auth-container button:hover {
       filter: brightness(0.9);
     }
-
+  
     .auth-container p {
       text-align: center;
       margin-top: 20px;
       color: var(--text-color);
     }
-
+  
     .auth-container a {
       color: var(--primary);
       text-decoration: none;
     }
-
+  
     .auth-container a:hover {
       text-decoration: underline;
     }
-
+  
     /* Admin link styling */
     .admin-link-inline {
       color: #e74c3c !important;
       font-weight: 500;
     }
-
+  
     .admin-link-inline:hover {
       color: #c0392b !important;
       text-decoration: underline !important;
     }
-
+  
     /* Mobile responsiveness */
     @media (max-width: 768px) {
       body {
         padding: 20px;
       }
-
+  
       .auth-container {
         width: 100%;
         max-width: 350px;
       }
     }
-
+  
     @media (max-width: 480px) {
       .auth-container {
         padding: 30px 25px;
       }
-
+  
       .auth-container p {
         font-size: 14px;
         line-height: 1.5;
       }
     }
+  
+    @media (max-width: 480px) {
+      .auth-container {
+        padding: 30px 25px;
+      }
+  
+      .auth-container p {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    }
+  </style>
+  </head>
+  
+  <body>
+    <div class="auth-container">
+      <form id="login-form">
+        <h2>Login to MooVit.</h2>
+        <label>Email
+          <input type="email" name="email" id="email" required>
+        </label>
+        <label>Password
+          <input type="password" name="password" id="password" required>
+        </label>
+        <label style="display:flex; align-items:center; margin-top:10px;">
+          <input type="checkbox" id="remember" style="margin-right:6px;"> Remember me
+        </label>
+        <div id="error-msg" style="color: red; text-align:center; margin-top:10px;"></div>
+        <button type="submit">Login</button>
+        <p style="margin-top:12px;"><a href="#" id="forgot-link">Forgot password?</a></p>
+        <p>New? <a href="register.html">Register here</a> | <a href="admin.html" class="admin-link-inline">🔐 Admin Portal</a></p>
+      </form>
+    </div>
     .remember-label {
   display: flex !important;
   align-items: center;
@@ -182,7 +215,7 @@
   </div>
   
   <script>
-
+  
     // populate email if remembered
     window.addEventListener('load', function () {
       const saved = localStorage.getItem('rememberedEmail');
@@ -191,7 +224,7 @@
         document.getElementById('remember').checked = true;
       }
     });
-
+  
     document.getElementById('login-form').addEventListener('submit', function (e) {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
@@ -199,15 +232,15 @@
       const remember = document.getElementById('remember').checked;
       const errorMsg = document.getElementById('error-msg');
       errorMsg.textContent = '';
-
+  
       // Email validation
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
         errorMsg.textContent = 'Please enter a valid email address.';
         return;
       }
-
-
+  
+  
       // Password strength validation
       // Minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character
       const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
@@ -215,7 +248,7 @@
         errorMsg.textContent = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.';
         return;
       }
-
+  
       // handle remember me
       if (remember) {
         localStorage.setItem('rememberedEmail', email);
@@ -225,13 +258,13 @@
       // If all validations pass, redirect
       window.location.href = 'main.html';
     });
-
+  
     // simple placeholder for forgot password
     document.getElementById('forgot-link').addEventListener('click', function (e) {
       e.preventDefault();
       alert('Forgot password functionality is not available in this demo.');
     });
   </script>
-</body>
+  </body>
 
 </html>
