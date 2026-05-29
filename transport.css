@@ -144,6 +144,7 @@ a, button, input, .card {
       background: rgba(202, 138, 4, 0.1);
       border-color: var(--accent-strong);
     }
+}
 
     /* --- Header --- */
     .modern-header {
@@ -797,6 +798,8 @@ a, button, input, .card {
   pointer-events: none;
 
   transition: all 0.3s ease;
+  overflow-y: auto;
+  padding: 2rem 1rem;
 }
 
 /* Active Modal */
@@ -828,6 +831,7 @@ a, button, input, .card {
 
   transform: scale(0.9);
   transition: all 0.3s ease;
+  margin: auto;
 }
 
 /* Login + Signup Layout */
@@ -1310,4 +1314,14 @@ a, button, input, .card {
 
 @media (max-width: 768px) {
   .cursor-tail { display: none; }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1.5rem 1.25rem;
+  }
+  .card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
 }
