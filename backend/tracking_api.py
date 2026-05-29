@@ -402,6 +402,12 @@ def internal_error(error):
 # ============================================
 
 if __name__ == '__main__':
+    import sys
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except AttributeError:
+        pass
+
     print("\n" + "="*50)
     print("🚚 MooVit Real-Time Tracking API")
     print("="*50)
