@@ -144,6 +144,7 @@ a, button, input, .card {
       background: rgba(202, 138, 4, 0.1);
       border-color: var(--accent-strong);
     }
+}
 
     /* --- Header --- */
     .modern-header {
