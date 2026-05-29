@@ -457,6 +457,7 @@
   </footer>
 
   <button id="scrollToTopBtn" title="Scroll to Top">&#8679;</button>
+  <script src="auth-session.js"></script>
   <script>
     const root = document.documentElement;
     const body = document.body;
@@ -640,10 +641,20 @@
         const errorMsg = document.getElementById('admin-error-msg');
 
         if (adminId === 'admin' && password === 'transport2024') {
-          const submitBtn = this.querySelector('.admin-submit-btn');
-          submitBtn.textContent = 'Accessing...';
-          submitBtn.disabled = true;
-          setTimeout(() => { alert('Access Granted'); closeAllModals(); }, 1000);
+          // Create structured session using AdminSession utility
+          const session = AdminSession.createSession();
+          if (session) {
+            const submitBtn = this.querySelector('.admin-submit-btn');
+            submitBtn.textContent = 'Accessing...';
+            submitBtn.disabled = true;
+            setTimeout(() => { 
+              alert('Access Granted'); 
+              closeAllModals();
+              window.location.href = 'admin-dashboard.html';
+            }, 1000);
+          } else {
+            errorMsg.textContent = 'Failed to create session. Please try again.';
+          }
         } else {
           errorMsg.textContent = 'Invalid Admin credentials.';
         }
