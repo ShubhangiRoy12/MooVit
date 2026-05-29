@@ -246,6 +246,13 @@
             transform: scale(1.05);
         }
 
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 1rem;
+        }
+
         @media (max-width: 1024px) {
             .sidebar { width: 80px; }
             .sidebar h1, .nav-item span { display: none; }
@@ -349,40 +356,42 @@
                 <h2>Recent Activity</h2>
                 <a href="#" class="btn-link">View All</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Type</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#SH-1234</td>
-                        <td>John Doe</td>
-                        <td>Shipment Created</td>
-                        <td>Feb 22, 2025</td>
-                        <td><span class="status-badge status-active">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>#VH-8821</td>
-                        <td>Fleet AI</td>
-                        <td>Engine Alert</td>
-                        <td>Feb 22, 2025</td>
-                        <td><span class="status-badge status-alert">Critical</span></td>
-                    </tr>
-                    <tr>
-                        <td>#RT-5520</td>
-                        <td>Jane Smith</td>
-                        <td>Route Optimized</td>
-                        <td>Feb 21, 2025</td>
-                        <td><span class="status-badge status-pending">In Progress</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#SH-1234</td>
+                            <td>John Doe</td>
+                            <td>Shipment Created</td>
+                            <td>Feb 22, 2025</td>
+                            <td><span class="status-badge status-active">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>#VH-8821</td>
+                            <td>Fleet AI</td>
+                            <td>Engine Alert</td>
+                            <td>Feb 22, 2025</td>
+                            <td><span class="status-badge status-alert">Critical</span></td>
+                        </tr>
+                        <tr>
+                            <td>#RT-5520</td>
+                            <td>Jane Smith</td>
+                            <td>Route Optimized</td>
+                            <td>Feb 21, 2025</td>
+                            <td><span class="status-badge status-pending">In Progress</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 

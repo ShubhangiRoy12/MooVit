@@ -520,8 +520,16 @@
     const toggle = document.querySelector('.mobile-toggle');
     const menu = document.querySelector('.mobile-menu');
     toggle.addEventListener('click', () => {
-      menu.classList.toggle('active');
-      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+      const active = menu.classList.toggle('active');
+      toggle.setAttribute('aria-expanded', String(active));
+      document.body.style.overflow = active ? 'hidden' : 'auto';
+    });
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        menu.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = 'auto';
+      });
     });
 
     // --- Modal Logic ---

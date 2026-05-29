@@ -200,6 +200,21 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @media (max-width: 768px) {
+      .feedback-section {
+        margin: 6rem 1rem 3rem;
+        padding: 1.75rem 1.25rem;
+      }
+      .feedback-section h2 {
+        font-size: 1.8rem;
+      }
+      .popup-content {
+        padding: 1.5rem;
+        width: 90%;
+        margin: auto;
+      }
+    }
+
   </style>
 </head>
 
@@ -411,8 +426,16 @@
   const menuToggle = document.querySelector(".mobile-toggle");
   const mobileMenu = document.querySelector(".mobile-menu");
   menuToggle.addEventListener("click", () => {
-    mobileMenu.classList.toggle("active");
-    document.body.style.overflow = mobileMenu.classList.contains("active") ? "hidden" : "auto";
+    const active = mobileMenu.classList.toggle("active");
+    menuToggle.setAttribute("aria-expanded", String(active));
+    document.body.style.overflow = active ? "hidden" : "auto";
+  });
+  mobileMenu.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => {
+      mobileMenu.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "auto";
+    });
   });
 
   const form = document.getElementById("feedbackForm");
