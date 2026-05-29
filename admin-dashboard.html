@@ -386,19 +386,29 @@
         </div>
     </main>
 
+    <script src="auth-session.js"></script>
     <script>
-        // Simple session check
+        // Enhanced session check with structured validation
         function checkSession() {
-            const session = localStorage.getItem('admin_session');
-            if (!session) {
+            // Use AdminSession utility for structured validation
+            if (!AdminSession.isAuthenticated()) {
+                console.warn('Invalid or expired admin session detected. Redirecting to login.');
+                // Clear any malformed session data
+                AdminSession.clearSession();
                 window.location.href = 'admin.html';
             } else {
+                // Valid session exists, display dashboard
                 document.getElementById('admin-body').style.display = 'flex';
+                
+                // Optional: Log session info for debugging
+                console.log('Admin session validated successfully');
             }
         }
 
         function logout() {
-            localStorage.removeItem('admin_session');
+            // Use AdminSession utility to clear session
+            AdminSession.clearSession();
+            console.log('Admin logged out');
             window.location.href = 'admin.html';
         }
 

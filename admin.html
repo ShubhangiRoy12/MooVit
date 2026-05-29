@@ -370,6 +370,7 @@
     v2.1.0 | Admin Portal
   </div>
 
+  <script src="auth-session.js"></script>
   <script>
     let loginAttempts = 0;
     const maxAttempts = 3;
@@ -398,10 +399,14 @@
       const passwordHash = await sha256(adminPassword);
 
       if (userIdHash === ADMIN_ID_HASH && passwordHash === ADMIN_PW_HASH) {
-        // Success - store session and redirect
-        localStorage.setItem('admin_session', 'active_' + Date.now());
-        alert('Login successful! Redirecting to admin dashboard...');
-        window.location.href = 'admin-dashboard.html';
+        // Success - store structured session using AdminSession utility
+        const session = AdminSession.createSession();
+        if (session) {
+          alert('Login successful! Redirecting to admin dashboard...');
+          window.location.href = 'admin-dashboard.html';
+        } else {
+          alert('Failed to create session. Please try again.');
+        }
       } else {
         loginAttempts++;
 
